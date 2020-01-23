@@ -1,8 +1,8 @@
 <html>
-    <?php include('_includes/head.php'); ?>
+    <?php include('includes/head.php'); ?>
 
     <body>
-        <?php include('_includes/header.php'); ?>
+        <?php include('includes/header.php'); ?>
 
         <main role="main" class="container">
             <div class="jumbotron">
@@ -12,7 +12,7 @@
             </div>
         </main>
 
-        <?php include('_includes/footer.php'); ?>
+        <?php include('includes/footer.php'); ?>
 
     </body>
 
