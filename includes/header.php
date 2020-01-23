@@ -17,8 +17,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Help forum</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Account</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Account
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">View account</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Sign up</a>
+                        </div>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
