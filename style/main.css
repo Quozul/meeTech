@@ -1,0 +1,30 @@
+body {
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.footer {
+    padding: 1em;
+}
+
+.foreground-color {
+    background-color: #4682B4;
+}
+
+.background-color {
+    background-color: #87CEEB;
+}
+
+.color-square {
+    display: block;
+    border-radius: 5px;
+    width: 50px;
+    height: 25px;
+}
+
+.navbar {
+    margin-bottom: 32px;
+}

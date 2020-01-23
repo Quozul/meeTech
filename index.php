@@ -1,24 +1,19 @@
 <html>
+    <?php include('_includes/head.php'); ?>
 
-<head>
-    <title>meeTech - Hardware website</title>
-    <meta charset="utf-8">
-</head>
+    <body>
+        <?php include('_includes/header.php'); ?>
 
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a>Accueil</a></li>
-            </ul>
-        </nav>
-    </header>
+        <main role="main" class="container">
+            <div class="jumbotron">
+                <h1>Work in progress</h1>
+                <p class="lead">This website is currently work in progress, you can have more informations about it on our <a href="about.php">about page</a>.</p>
+                <a class="btn btn-lg btn-primary" href="about.php" role="button">View the about page &raquo;</a>
+            </div>
+        </main>
 
-    <main>
-        <h1>WORK IN PROGRESS</h1>
-    </main>
+        <?php include('_includes/footer.php'); ?>
 
-    <footer>Copyright</footer>
-</body>
+    </body>
 
 </html>
