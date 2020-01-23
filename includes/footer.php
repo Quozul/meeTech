@@ -1,6 +1,6 @@
 <footer class="bg-light footer">
     <div class="container">
-        <span class="text-muted"><a href="../index.php">About</a></span>
+        <span class="text-muted"><a href="../about.php">About</a></span>
     </div>
 </footer>
 
