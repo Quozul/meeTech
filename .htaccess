@@ -1,0 +1,8 @@
+RewriteEngine On
+
+RewriteCond %{THE_REQUEST} ^GET\ /[^?\s]+\.php
+RewriteRule (.*)\.php$ /$1/ [L,R=301]
+RewriteRule (.*)/$ $1.php [L]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule .*[^/]$ $0/ [L,R=301]
