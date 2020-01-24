@@ -42,7 +42,7 @@
             <div class="jumbotron">
                 <h1>Logo</h1>
                 <p class="lead"><i>Need to draw a logo.</i> Current sketch of our logo:</p>
-                <img src="assets/logo_sketch.png">
+                <img src="assets/logov1.png">
             </div>
 
             <div class="jumbotron">
