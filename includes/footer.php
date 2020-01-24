@@ -1,6 +1,24 @@
 <footer class="bg-light footer">
-    <div class="container">
-        <span class="text-muted"><a href="../about/">About</a></span>
+    <div class="container d-flex">
+
+        <div class="p-2 flex-fill">
+            <h5>meeTech</h3>
+                <p class="text-muted"><i>Description</i></p>
+        </div>
+
+        <div class="p-2 flex-fill">
+            <h5>Links</h5>
+            <ul class="text-muted list-group">
+                <li><a href="/about/">About</a></li>
+                <li><a href="/branding/">Branding</a></li>
+            </ul>
+        </div>
+
+        <div class="p-2 flex-fill">
+            <h5>Contact</h3>
+                <p class="text-muted" <i>Contact</i></p>
+        </div>
+
     </div>
 </footer>
 

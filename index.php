@@ -8,7 +8,7 @@
         <div class="jumbotron">
             <h1>Work in progress</h1>
             <p class="lead">This website is currently work in progress, you can have more informations about it on our <a href="about.php">about page</a>.</p>
-            <a class="btn btn-lg btn-primary" href="./about/" role="button">View the about page &raquo;</a>
+            <a class="btn btn-lg btn-primary" href="/about/" role="button">View the about page &raquo;</a>
         </div>
     </main>
 
