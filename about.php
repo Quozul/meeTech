@@ -25,11 +25,6 @@
                     <li><b>Database:</b> MariaDB</li>
                 </ul>
             </div>
-            
-            <div class="jumbotron">
-                <h1>Logo</h1>
-                <img src="assets/logov2.svg" alt="Project logo">
-            </div>
         </main>
 
         <?php include('includes/footer.php'); ?>
