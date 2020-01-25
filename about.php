@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <?php include('includes/head.php'); ?>
 
@@ -15,10 +16,13 @@
                 <h1>Tools used</h1>
                 <p class="lead">Here is a list of all softwares used to develop this website.</p>
                 <ul>
-                    <li>GitHub</li>
-                    <li>Trello</li>
-                    <li>Adobe Illustrator (logo)</li>
-                    <li>Visual Studio Code, Atom, Sublime Text</li>
+                    <li><b>Code syncing:</b> GitHub</li>
+                    <li><b>Task organization:</b> Trello</li>
+                    <li><b>Logo:</b> Adobe Illustrator</li>
+                    <li><b>Design:</b> Figma</li>
+                    <li><b>Development:</b> Visual Studio Code, Atom, Sublime Text</li>
+                    <li><b>Hosting:</b> Apache2, PHP, MAMP <i class="text-muted">(local testings)</i></li>
+                    <li><b>Database:</b> MariaDB</li>
                 </ul>
             </div>
         </main>
