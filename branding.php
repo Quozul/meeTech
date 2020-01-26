@@ -40,7 +40,7 @@
             <div class="jumbotron">
                 <h1>Logo</h1>
                 <p class="lead"><i>Need to draw a logo.</i> Current sketch of our logo:</p>
-                <img src="assets/logov2.svg" alt="Second version of the logo" class="img-fluid rounded">
+                <img src="/images/logov2.svg" alt="Second version of the logo" class="img-fluid rounded">
             </div>
 
             <div class="jumbotron">
