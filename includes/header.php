@@ -8,16 +8,16 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/') echo active; ?>">
+                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/') echo 'active'; ?>">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/builder/') echo active; ?>">
+                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/builder/') echo 'active'; ?>">
                         <a class="nav-link" href="#">Comparator</a>
                     </li>
-                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/blog/') echo active; ?>">
+                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/blog/') echo 'active'; ?>">
                         <a class="nav-link" href="#">Blog</a>
                     </li>
-                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/forum/') echo active; ?>">
+                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/forum/') echo 'active'; ?>">
                         <a class="nav-link" href="#">Forum</a>
                     </li>
                     <li class="nav-item dropdown">
