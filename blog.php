@@ -2,10 +2,10 @@
 <html>
 <?php
 	$head = "Blog" ;
-	include('/includes/head.php') ;
+	include('includes/head.php') ;
 ?>
 <body>
-	<?php include('/includes/header.php') ; ?>
+	<?php include('includes/header.php') ; ?>
 
 	<main role="main" class="container">
 		<section class="jumbotron">
@@ -29,6 +29,6 @@
 		</section>
 	</main>
 
-	<?php include('/includes/header.php') ; ?>
+	<?php include('includes/header.php') ; ?>
 </body>
 </html>
