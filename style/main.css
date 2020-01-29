@@ -1,8 +1,10 @@
 
-@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap'); */
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Quicksand&display=swap');
 
 *{
-    font-family: 'Quicksand';
+    /* font-family: 'Quicksand'; */
+    font-family: Montserrat ;
 }
 
 body {
