@@ -18,7 +18,7 @@
                         <a class="nav-link" href="#">Comparator</a>
                     </li>
                     <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/blog/') echo 'active'; ?>">
-                        <a class="nav-link" href="/blog.php">Blog</a>
+                        <a class="nav-link" href="blog.php">Blog</a>
                     </li>
                     <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/forum/') echo 'active'; ?>">
                         <a class="nav-link" href="#">Forum</a>
