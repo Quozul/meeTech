@@ -10,27 +10,27 @@ include('includes/head.php');
 
 	<main role="main" class="container">
 		<article class="jumbotron d-flex justify-content-center align-items-stretch flex-row">
-			<span>
+			<span class="d-block w-75">
 				<h1><a href="/message/?id=1">Title of article 1</a></h1>
-				<p>Résumé de l'article, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <a>Continue reading &raquo;</a></p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat voluptatem veritatis iste eligendi illo at quae saepe expedita est consequuntur? Ex, aspernatur. Consequatur maiores nam repellendus praesentium, eligendi optio earum. <a href="#">Continue reading &raquo;</a></p>
 			</span>
-			<aside><img src="/images/logov2.svg" class="rounded w-50" alt="logo du site"></aside>
+			<aside class="d-block w-25"><img src="/images/logov2.svg" class="rounded d-block w-100" alt="logo du site"></aside>
 		</article>
 
 		<article class="jumbotron d-flex justify-content-center align-items-stretch flex-row">
-			<span>
+			<span class="d-block w-75">
 				<h1><a href="/message/?id=1">Title of article 2</a></h1>
-				<p>Résumé de l'article, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <a>Continue reading &raquo;</a></p>
+				<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias soluta eaque voluptates! Qui libero ducimus ipsam. Est quis doloribus et amet dolore maxime suscipit saepe ea dicta, inventore hic corporis. <a href="#">Continue reading &raquo;</a></p>
 			</span>
-			<aside><img src="/images/logov2.svg" class="rounded w-50" alt="logo du site"></aside>
+			<aside class="d-block w-25"><img src="https://via.placeholder.com/150" class="rounded d-block w-100" alt="logo du site"></aside>
 		</article>
 
 		<article class="jumbotron d-flex justify-content-center align-items-stretch flex-row">
-			<span>
+			<span class="d-block w-75">
 				<h1><a href="/message/?id=1">Title of article 2</a></h1>
-				<p>Résumé de l'article, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <a>Continue reading &raquo;</a></p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea eum minima magni sit ipsa totam obcaecati inventore unde, a libero necessitatibus id iusto alias officia! Autem dolorem hic delectus aspernatur? <a href="#">Continue reading &raquo;</a></p>
 			</span>
-			<aside><img src="/images/logov2.svg" class="rounded w-50" alt="logo du site"></aside>
+			<aside class="d-block w-25"><img src="https://via.placeholder.com/250x150" class="rounded d-block w-100" alt="logo du site"></aside>
 		</article>
 	</main>
 
