@@ -12,7 +12,8 @@
         <main role="main" class="container">
             <div class="jumbotron">
                 <h1>Description</h1>
-                <p class="lead"><i>Need to write a description of the website.</i></p>
+                <p class="lead">meeTech is a technology website where you can share and learn new tech-related information.</p>
+                <p class="text-justify">You can configure a fictive computer and see its theoretical performances, compare it to other builds and share it to the community. If your knowledge of computer is limited, the website also has functionality with which you can specify the usage that your next computer will be for and we’ll calculate the perfect build. Also, if you don’t know how to build a computer, you can simply ask other users for help!</p>
                 <p>See the <a href="/brand/">branding here</a>.</p>
             </div>
 

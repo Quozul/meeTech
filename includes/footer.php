@@ -1,22 +1,22 @@
-<footer class="bg-light footer p-1">
+<footer class="d-block bg-light footer p-1">
     <div class="container d-flex">
 
-        <div class="p-2 flex-fill">
-            <h5>meeTech</h3>
-                <p class="text-muted"><i>Description</i></p>
+        <div class="p-2 flex-fill h-50 w-50">
+            <h5>meeTech</h5>
+            <p class="text-muted text-wrap">meeTech is a technology website where you can share and learn new tech-related information.</p>
         </div>
 
         <div class="p-2 flex-fill">
             <h5>Links</h5>
-            <ul class="text-muted list-group">
+            <ul class="text-muted list-group list-unstyled">
                 <li><a href="/about/">About</a></li>
                 <li><a href="/brand/">Branding</a></li>
             </ul>
         </div>
 
         <div class="p-2 flex-fill">
-            <h5>Contact</h3>
-                <p class="text-muted" <i>Contact</i></p>
+            <h5>Contact</h5>
+            <p class="text-muted text-break"><a href="mailto:meeteam@meetech.dev">meeteam@meetech.dev</a></p>
         </div>
 
     </div>

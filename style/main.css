@@ -30,3 +30,7 @@
     width: 50px;
     height: 25px;
 }
+
+.text-indent {
+    text-indent: 2em;
+}
