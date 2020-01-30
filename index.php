@@ -2,7 +2,7 @@
 <html>
     <?php include('includes/head.php'); ?>
 
-    <body>
+    <body class="d-flex vh-100 flex-column justify-content-between">
         <?php include('includes/header.php'); ?>
 
         <main role="main" class="container">

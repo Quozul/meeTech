@@ -4,7 +4,7 @@
     font-family: 'Quicksand';
 }
 
-body {
+/* body {
     box-sizing: border-box;
     min-height: 100vh;
     display: flex;
@@ -12,9 +12,9 @@ body {
     justify-content: space-between;
 }
 
-.footer {
-    padding: 1em;
-}
+.navbar {
+    margin-bottom: 32px;
+} */
 
 .foreground-color {
     background-color: #4682B4;
@@ -29,8 +29,4 @@ body {
     border-radius: 5px;
     width: 50px;
     height: 25px;
-}
-
-.navbar {
-    margin-bottom: 32px;
 }

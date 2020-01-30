@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
-    <?php include('includes/head.php'); ?>
+    <?php
+        $page_name = 'Branding';
+        include('includes/head.php');
+    ?>
 
-    <body>
+    <body class="d-flex vh-100 flex-column justify-content-between">
+
         <?php include('includes/header.php'); ?>
 
         <main role="main" class="container">
@@ -40,12 +44,12 @@
             <div class="jumbotron">
                 <h1>Logo</h1>
                 <p class="lead"><i>Need to draw a logo.</i> Current sketch of our logo:</p>
-                <img src="/images/logov2.svg" alt="Second version of the logo" class="img-fluid rounded">
+                <img src="/images/logov4.svg" alt="Second version of the logo" class="img-fluid rounded">
             </div>
 
             <div class="jumbotron">
                 <h1>Typography</h1>
-                <p class="lead">We haven't chosen a typography yet.</p>
+                <p class="lead">The website uses the <a href="https://fonts.google.com/specimen/Quicksand" target="_blank">Quicksand</a> font from Google.</p>
             </div>
         </main>
 

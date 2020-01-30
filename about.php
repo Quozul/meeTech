@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <?php include('includes/head.php'); ?>
+    <?php
+		$page_name = 'About';
+		include('includes/head.php');
+	?>
 
-    <body>
+    <body class="d-flex vh-100 flex-column justify-content-between">
+
         <?php include('includes/header.php'); ?>
 
         <main role="main" class="container">
             <div class="jumbotron">
                 <h1>Description</h1>
                 <p class="lead"><i>Need to write a description of the website.</i></p>
-                <p>See the <a href="/branding/">branding here</a>.</p>
+                <p>See the <a href="/brand/">branding here</a>.</p>
             </div>
 
             <div class="jumbotron">

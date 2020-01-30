@@ -1,4 +1,4 @@
-<footer class="bg-light footer">
+<footer class="bg-light footer p-1">
     <div class="container d-flex">
 
         <div class="p-2 flex-fill">
@@ -10,7 +10,7 @@
             <h5>Links</h5>
             <ul class="text-muted list-group">
                 <li><a href="/about/">About</a></li>
-                <li><a href="/branding/">Branding</a></li>
+                <li><a href="/brand/">Branding</a></li>
             </ul>
         </div>
 
