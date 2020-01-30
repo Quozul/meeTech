@@ -18,10 +18,10 @@
                         <a class="nav-link" href="#">Comparator</a>
                     </li>
                     <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/blog/') echo 'active'; ?>">
-                        <a class="nav-link" href="blog/">Blog</a>
+                        <a class="nav-link" href="/blog/">Blog</a>
                     </li>
                     <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/forum/') echo 'active'; ?>">
-                        <a class="nav-link" href="#">Forum</a>
+                        <a class="nav-link" href="/forum/">Forum</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
