@@ -16,7 +16,7 @@
 
         <div class="p-2 flex-fill">
             <h5>Contact</h5>
-            <p class="text-muted text-break"><a href="mailto:meeteam@meetech.dev">meeteam@meetech.dev</a></p>
+            <p class="text-muted text-break"><a href="mailto:meeteam@meetech.ovh">meeteam@meetech.ovh</a></p>
         </div>
 
     </div>
