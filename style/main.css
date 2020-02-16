@@ -16,12 +16,34 @@
     margin-bottom: 32px;
 } */
 
-.foreground-color {
+/* Colors */
+
+*, .mt-color-text {
+    color: #373A3C;
+}
+
+.text-muted, .mt-color-secondary-text {
+    color: #777777;
+}
+
+a, .mt-color-link {
+    color: #2F0042;
+}
+
+footer, header, .footer, .header, .mt-color-foreground {
     background-color: #4682B4;
 }
 
-.background-color {
-    background-color: #87CEEB;
+body, .mt-color-background {
+    background-color: #FFE9C7;
+}
+
+.mt-color-search {
+    background-color: #28a745;
+}
+
+.jumbotron, .mt-color-element {
+    background-color: #ffffff;
 }
 
 .color-square {
