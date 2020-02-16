@@ -56,7 +56,8 @@ CREATE TABLE TRANSLATED(
 CREATE TABLE BADGE(
     name VARCHAR(16) PRIMARY KEY,
     description VARCHAR(255),
-    global_permissions INTEGER
+    global_permissions INTEGER,
+    obtention INT
 );
 
 CREATE TABLE BADGED(
@@ -93,81 +94,6 @@ CREATE TABLE RECIPIENT(
     author INTEGER NOT NULL REFERENCES USER(id_user)
 );
 
-
--- components
-
-CREATE TABLE CPU(
-    name VARCHAR(25),
-    brand VARCHAR(25),
-    release_date DATE,
-    chipset CHAR(4),
-    frequency VARCHAR(15),
-    boost_frequency VARCHAR(20),
-    cores INTEGER,
-    threads INTEGER,
-    max_frequency VARCHAR(20),
-    
-    PRIMARY KEY(name, brand)
-);
-
-CREATE TABLE MEMORY(
-    name VARCHAR(25),
-    brand VARCHAR(25),
-    release_date DATE,
-    type VARCHAR(5),
-    capacity INTEGER,
-    frequency VARCHAR(15),
-    
-    PRIMARY KEY(name, brand)
-);
-
-CREATE TABLE HDD(
-    name VARCHAR(25),
-    brand VARCHAR(25),
-    release_date DATE,
-    capacity INTEGER,
-    speed VARCHAR(15),
-    
-    PRIMARY KEY(name, brand)
-);
-
-CREATE TABLE SSD(
-    name VARCHAR(15),
-    brand VARCHAR(15),
-    release_date DATE,
-    capacity INTEGER,
-    write_speed VARCHAR(15),
-    read_speed VARCHAR(15),
-    
-    PRIMARY KEY(name, brand)
-);
-
-CREATE TABLE GPU(
-    name VARCHAR(15),
-    brand VARCHAR(15),
-    release_date DATE,
-    core_frequency VARCHAR(15),
-    core_cores VARCHAR(15),
-    memory_type VARCHAR(10),
-    memory_capacity VARCHAR(10),
-    
-    PRIMARY KEY(name, brand)
-);
-
-CREATE TABLE MOTHERBOARD(
-    name VARCHAR(15) ,
-    brand VARCHAR(15),
-    release_date DATE,
-    chipset CHAR(4),
-    socket CHAR(3),
-    m2_slots INTEGER,
-    sata_slots INTEGER,
-    pcie VARCHAR(10),
-    wifi VARCHAR(10),
-
-    PRIMARY KEY(name, brand)
-);  
-
 -- event
 
 CREATE TABLE EVENT(
@@ -201,4 +127,103 @@ CREATE TABLE ANSWER(
     user INTEGER NOT NULL REFERENCES USER(id_user), 
 
     PRIMARY KEY(poll, user) 
+);
+
+-- components
+
+CREATE TABLE CPU(
+    name VARCHAR(25),
+    brand VARCHAR(25),
+    release_date DATE,
+    validated BOOLEAN DEFAULT FALSE,
+
+    score_single_thread INT,
+    score_multi_thread INT,
+
+    chipset CHAR(4),
+    frequency VARCHAR(15),
+    boost_frequency VARCHAR(20),
+    cores INTEGER,
+    threads INTEGER,
+    max_frequency VARCHAR(20),
+    
+    PRIMARY KEY(name, brand)
+);
+
+CREATE TABLE MEMORY(
+    name VARCHAR(25),
+    brand VARCHAR(25),
+    release_date DATE,
+    validated BOOLEAN DEFAULT FALSE,
+
+    score INT,
+
+    type VARCHAR(5),
+    capacity INTEGER,
+    frequency VARCHAR(15),
+    
+    PRIMARY KEY(name, brand)
+);
+
+CREATE TABLE HDD(
+    name VARCHAR(25),
+    brand VARCHAR(25),
+    release_date DATE,
+    validated BOOLEAN DEFAULT FALSE,
+
+    score INT,
+
+    capacity INTEGER,
+    speed VARCHAR(15),
+    
+    PRIMARY KEY(name, brand)
+);
+
+CREATE TABLE SSD(
+    name VARCHAR(15),
+    brand VARCHAR(15),
+    release_date DATE,
+    validated BOOLEAN DEFAULT FALSE,
+
+    score INT,
+
+    capacity INTEGER,
+    write_speed VARCHAR(15),
+    read_speed VARCHAR(15),
+    
+    PRIMARY KEY(name, brand)
+);
+
+CREATE TABLE GPU(
+    name VARCHAR(15),
+    brand VARCHAR(15),
+    release_date DATE,
+    validated BOOLEAN DEFAULT FALSE,
+
+    score INT,
+
+    core_frequency VARCHAR(15),
+    core_cores VARCHAR(15),
+    memory_type VARCHAR(10),
+    memory_capacity VARCHAR(10),
+    
+    PRIMARY KEY(name, brand)
+);
+
+CREATE TABLE MOTHERBOARD(
+    name VARCHAR(15) ,
+    brand VARCHAR(15),
+    release_date DATE,
+    validated BOOLEAN DEFAULT FALSE,
+
+    score INT,
+
+    chipset CHAR(4),
+    socket CHAR(3),
+    m2_slots INTEGER,
+    sata_slots INTEGER,
+    pcie VARCHAR(10),
+    wifi VARCHAR(10),
+
+    PRIMARY KEY(name, brand)
 );
