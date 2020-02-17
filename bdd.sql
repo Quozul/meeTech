@@ -4,72 +4,80 @@ USE meetech;
 
 -- user
 
-CREATE TABLE LANGUAGE(
+CREATE TABLE language(
     lang VARCHAR(32) PRIMARY KEY
 );
 
-CREATE TABLE USERS(
+CREATE TABLE users(
     id_user INTEGER AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(32),
     password VARCHAR(255),
     avatar VARCHAR(32),
     bio TEXT,
     location VARCHAR(32),
-    prefered_language VARCHAR(32) REFERENCES LANGUAGE(lang),
+    prefered_language VARCHAR(32) REFERENCES language(lang),
     note INT
 );
 
 -- messages
 
-CREATE TABLE CATEGORY(
+CREATE TABLE category(
     name VARCHAR(32) PRIMARY KEY,
     description TEXT
 );
 
-CREATE TABLE TRANSLATION(
+CREATE TABLE translation(
     id_t INTEGER AUTO_INCREMENT PRIMARY KEY,
-    language VARCHAR(32) NOT NULL REFERENCES LANGUAGE(lang),
-    translated_message INTEGER NOT NULL REFERENCES MESSAGE(id_m),
+    language VARCHAR(32) NOT NULL REFERENCES language(lang),
+    translated_message INTEGER NOT NULL REFERENCES message(id_m),
     title VARCHAR(255),
     content TEXT,
     date_edition DATE,
     date_translated DATE
 );
 
-CREATE TABLE MESSAGE(
+CREATE TABLE message(
     id_m INTEGER AUTO_INCREMENT PRIMARY KEY,
-    default_translation INTEGER NOT NULL REFERENCES TRANSLATION(id_t),
-    category VARCHAR(32) NOT NULL REFERENCES CATEGORY(name),
-    parent_message INTEGER REFERENCES MESSAGE(id_m),
+    default_translation INTEGER NOT NULL REFERENCES translation(id_t),
+    category VARCHAR(32) NOT NULL REFERENCES category(name),
+    parent_message INTEGER REFERENCES message(id_m),
     note INTEGER
 );
 
-CREATE TABLE TRANSLATED(
-    user INTEGER NOT NULL REFERENCES USER(id_user),
-    translation INTEGER NOT NULL REFERENCES TRANSLATION(id_t),
+CREATE TABLE translated(
+    user INTEGER NOT NULL REFERENCES user(id_user),
+    translation INTEGER NOT NULL REFERENCES translation(id_t),
 
     PRIMARY KEY(user, translation)
 );
 
+CREATE TABLE file(
+    added_by INTEGER NOT NULL REFERENCES user(id_user),
+    message INTEGER NOT NULL REFERENCES message(id_m),
+    file_name VARCHAR(32),
+
+    PRIMARY KEY(message, file_name)
+);
+
 -- badges
 
-CREATE TABLE BADGE(
+CREATE TABLE badge(
     name VARCHAR(16) PRIMARY KEY,
     description VARCHAR(255),
     global_permissions INTEGER,
     obtention INT
 );
 
-CREATE TABLE BADGED(
-    user INTEGER NOT NULL REFERENCES USER(id_user),
-    badge VARCHAR(16) NOT NULL REFERENCES BADGE(name),
+CREATE TABLE badged(
+    user INTEGER NOT NULL REFERENCES user(id_user),
+    badge VARCHAR(16) NOT NULL REFERENCES badge(name),
 
     PRIMARY KEY(user, badge)
 );
 
-CREATE TABLE CATEGORY_PERMISSIONS(
-    badge VARCHAR(16) REFERENCES BADGE(name),
-    category VARCHAR(32) REFERENCES CATEGORY(name),
+CREATE TABLE category_permission(
+    badge VARCHAR(16) REFERENCES badge(name),
+    category VARCHAR(32) REFERENCES category(name),
     permissions INTEGER,
 
     PRIMARY KEY(badge, category)
@@ -77,66 +85,66 @@ CREATE TABLE CATEGORY_PERMISSIONS(
 
 -- private messages
 
-CREATE TABLE CHANNEL(
+CREATE TABLE channel(
     id_c INTEGER PRIMARY KEY AUTO_INCREMENT,
-    first_message INTEGER REFERENCES MESSAGE(id_m)
+    first_message INTEGER REFERENCES message(id_m)
 );
 
-CREATE TABLE PRIVATE_MESSAGE(
+CREATE TABLE private_message(
     id_pm INTEGER PRIMARY KEY,
-    author INTEGER NOT NULL REFERENCES USER(id_user),
-    channel INTEGER NOT NULL REFERENCES CHANNEL(id_m),
+    author INTEGER NOT NULL REFERENCES user(id_user),
+    channel INTEGER NOT NULL REFERENCES channel(id_m),
     date_published DATE
 );
 
-CREATE TABLE RECIPIENT(
-    channel INTEGER NOT NULL REFERENCES CHANNEL(id_m),
-    author INTEGER NOT NULL REFERENCES USER(id_user)
+CREATE TABLE recipient(
+    channel INTEGER NOT NULL REFERENCES channel(id_m),
+    author INTEGER NOT NULL REFERENCES user(id_user)
 );
 
 -- event
 
-CREATE TABLE EVENT(
+CREATE TABLE event(
     id_e INTEGER PRIMARY KEY,
     name VARCHAR(25),
     description TEXT,
     date DATE
 );
 
-CREATE TABLE PARTICIPANT(
-    user INTEGER NOT NULL REFERENCES USER(id_user),
-    event INTEGER NOT NULL REFERENCES EVENT(id_e),
+CREATE TABLE participant(
+    user INTEGER NOT NULL REFERENCES user(id_user),
+    event INTEGER NOT NULL REFERENCES event(id_e),
 
     PRIMARY KEY(user, event)
 );
 
 -- polls
 
-CREATE TABLE POLL(
-    id INTEGER PRIMARY KEY
+CREATE TABLE poll(
+    id_p INTEGER PRIMARY KEY
 );
 
-CREATE TABLE QUESTION(
-    id INTEGER PRIMARY KEY,
-    poll INTEGER NOT NULL REFERENCES POLL(id),
+CREATE TABLE question(
+    id_q INTEGER PRIMARY KEY,
+    poll INTEGER NOT NULL REFERENCES poll(id_p),
     question VARCHAR(255)
 );
 
-CREATE TABLE ANSWER(
-    poll INTEGER NOT NULL REFERENCES POLL(id),
-    user INTEGER NOT NULL REFERENCES USER(id_user), 
+CREATE TABLE answer(
+    poll INTEGER NOT NULL REFERENCES poll(id_p),
+    user INTEGER NOT NULL REFERENCES user(id_user), 
 
     PRIMARY KEY(poll, user) 
 );
 
 -- components
 
-CREATE TABLE CPU(
+CREATE TABLE cpu(
     name VARCHAR(25),
     brand VARCHAR(25),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
-    added_by INTEGER REFERENCES USER(id_user),
+    added_by INTEGER REFERENCES user(id_user),
 
     score_single_thread INT,
     score_multi_thread INT,
@@ -151,12 +159,12 @@ CREATE TABLE CPU(
     PRIMARY KEY(name, brand)
 );
 
-CREATE TABLE MEMORY(
+CREATE TABLE memory(
     name VARCHAR(25),
     brand VARCHAR(25),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
-    added_by INTEGER REFERENCES USER(id_user),
+    added_by INTEGER REFERENCES user(id_user),
 
     score INT,
 
@@ -167,12 +175,12 @@ CREATE TABLE MEMORY(
     PRIMARY KEY(name, brand)
 );
 
-CREATE TABLE HDD(
+CREATE TABLE hdd(
     name VARCHAR(25),
     brand VARCHAR(25),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
-    added_by INTEGER REFERENCES USER(id_user),
+    added_by INTEGER REFERENCES user(id_user),
 
     score INT,
 
@@ -182,12 +190,12 @@ CREATE TABLE HDD(
     PRIMARY KEY(name, brand)
 );
 
-CREATE TABLE SSD(
+CREATE TABLE ssd(
     name VARCHAR(15),
     brand VARCHAR(15),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
-    added_by INTEGER REFERENCES USER(id_user),
+    added_by INTEGER REFERENCES user(id_user),
 
     score INT,
 
@@ -198,12 +206,12 @@ CREATE TABLE SSD(
     PRIMARY KEY(name, brand)
 );
 
-CREATE TABLE GPU(
+CREATE TABLE gpu(
     name VARCHAR(15),
     brand VARCHAR(15),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
-    added_by INTEGER REFERENCES USER(id_user),
+    added_by INTEGER REFERENCES user(id_user),
 
     score INT,
 
@@ -215,12 +223,12 @@ CREATE TABLE GPU(
     PRIMARY KEY(name, brand)
 );
 
-CREATE TABLE MOTHERBOARD(
+CREATE TABLE motherboard(
     name VARCHAR(15) ,
     brand VARCHAR(15),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
-    added_by INTEGER REFERENCES USER(id_user),
+    added_by INTEGER REFERENCES user(id_user),
 
     score INT,
 
