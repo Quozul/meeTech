@@ -3,12 +3,47 @@
 	<?php
 		$page_name = 'Blog';
 		include('includes/head.php');
+		include('config.php') ;
+		$page_limit = 5 ;
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	?>
 
 	<body class="d-flex vh-100 flex-column justify-content-between">
 		<?php include('includes/header.php'); ?>
 
 		<main role="main" class="container">
+			<nav aria-label="..." class="mt-4">
+				<?php
+				$sth = $pdo->prepare('SELECT COUNT(*) FROM message WHERE parent_message = 0');
+                $sth->execute();
+                $content_count = $sth->fetch()[0];
+                ?>
+	            <ul class="pagination justify-content-center">
+	                <?php
+	                $page_count = $content_count / $page_limit;
+	                ?>
+	                <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
+	                    <a class="page-link" href="<?php echo '?page=' . (intval($page) - 1); ?>" tabindex="-1">Précédent</a>
+	                </li>
+	                <?php
+	                for ($i = 1; $i < $page_count + 1; $i++) {
+	                    if ($i == $page) {
+	                ?>
+	                        <li class="page-item active">
+	                            <a class="page-link" href="<?php echo '?page=' . $i; ?>"><?php echo $i; ?> <span class="sr-only">(current)</span></a>
+	                        </li>
+	                    <?php } else { ?>
+	                        <li class="page-item">
+	                            <a class="page-link" href="<?php echo '?page=' . $i; ?>"><?php echo $i; ?></a>
+	                        </li>
+	                <?php }
+	                } ?>
+	                <li class="page-item <?php if ($page >= $page_count) echo 'disabled'; ?>">
+	                    <a class="page-link" href="<?php echo '?page=' . (intval($page) + 1); ?>">Suivant</a>
+	                </li>
+	            </ul>
+	        </nav>
+
 			<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Publier un nouvel article</button>
 
 			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -54,6 +89,33 @@
 				</span>
 				<aside class="d-block w-25 ml-5"><img src="https://via.placeholder.com/250x150" class="rounded d-block w-100" alt="logo du site"></aside>
 			</article>
+
+			<nav aria-label="..." class="mt-4">
+	            <ul class="pagination justify-content-center">
+	                <?php
+	                $page_count = $content_count / $page_limit;
+	                ?>
+	                <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
+	                    <a class="page-link" href="<?php echo '?page=' . (intval($page) - 1); ?>" tabindex="-1">Précédent</a>
+	                </li>
+	                <?php
+	                for ($i = 1; $i < $page_count + 1; $i++) {
+	                    if ($i == $page) {
+	                ?>
+	                        <li class="page-item active">
+	                            <a class="page-link" href="<?php echo '?page=' . $i; ?>"><?php echo $i; ?> <span class="sr-only">(current)</span></a>
+	                        </li>
+	                    <?php } else { ?>
+	                        <li class="page-item">
+	                            <a class="page-link" href="<?php echo '?page=' . $i; ?>"><?php echo $i; ?></a>
+	                        </li>
+	                <?php }
+	                } ?>
+	                <li class="page-item <?php if ($page >= $page_count) echo 'disabled'; ?>">
+	                    <a class="page-link" href="<?php echo '?page=' . (intval($page) + 1); ?>">Suivant</a>
+	                </li>
+	            </ul>
+	        </nav>
 		</main>
 
 		<?php include('includes/footer.php'); ?>
