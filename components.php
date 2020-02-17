@@ -51,7 +51,6 @@
                     <div class="tab-pane fade show active" id="v-pills-cpu" role="tabpanel" aria-labelledby="v-pills-cpu-tab">
                         <h3>Processeurs</h3>
                         <div class="list-group">
-                            <!-- TODO: Add PHP loop -->
                             <?php
                             $sth = $pdo->prepare('SELECT * FROM cpu WHERE validated = 1');
                             $sth->execute(); // remplace le ? par la valeur
@@ -97,16 +96,6 @@
                     <div class="tab-pane fade" id="v-pills-mb" role="tabpanel" aria-labelledby="v-pills-mb-tab">
                         <h3>Cartes mère</h3>
                         <p>Oops, il semblerait qu'il n'y ait rien ici :(</p>
-                        <!-- <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">List group item heading</h5>
-                                            <small>3 days ago</small>
-                                        </div>
-                                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                        <small>Donec id elit non mi porta.</small>
-                                    </a>
-                                </div> -->
                     </div>
                 </div>
 

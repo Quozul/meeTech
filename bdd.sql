@@ -169,6 +169,7 @@ CREATE TABLE memory(
     score INT,
 
     type VARCHAR(5),
+    modules INTEGER,
     capacity INTEGER,
     frequency VARCHAR(15),
     
@@ -202,12 +203,13 @@ CREATE TABLE ssd(
     capacity INTEGER,
     write_speed VARCHAR(15),
     read_speed VARCHAR(15),
+    type VARCHAR(8),
     
     PRIMARY KEY(name, brand)
 );
 
 CREATE TABLE gpu(
-    name VARCHAR(15),
+    name VARCHAR(255),
     brand VARCHAR(15),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
@@ -219,12 +221,13 @@ CREATE TABLE gpu(
     core_cores VARCHAR(15),
     memory_type VARCHAR(10),
     memory_capacity VARCHAR(10),
+    memory_frequency VARCHAR(10),
     
     PRIMARY KEY(name, brand)
 );
 
 CREATE TABLE motherboard(
-    name VARCHAR(15) ,
+    name VARCHAR(255) ,
     brand VARCHAR(15),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,

@@ -35,6 +35,13 @@
             </div>
 
             <div class="input-group mb-3">
+                <input type="number" step="any" class="form-control" placeholder="Fréquence boost" aria-label="Fréquence boost" aria-describedby="cpu-boost-frequency" name="cpu-boost-frequency">
+                <div class="input-group-append">
+                    <span class="input-group-text">GHz</span>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
                 <input type="number" class="form-control" placeholder="Coeurs physiques" aria-label="Coeurs physiques" aria-describedby="cpu-cores" name="cpu-cores">
             </div>
 
@@ -75,6 +82,10 @@
         </div>
 
         <div class="form-group d-none" id="submit-component-ram">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Type de mémoire" aria-label="Type de mémoire" aria-describedby="ram-type" name="ram-type">
+            </div>
+
             <div class="input-group mb-3">
                 <input type="number" class="form-control" placeholder="Fréquence" aria-label="Fréquence" aria-describedby="ram-frequency" name="ram-frequency">
                 <div class="input-group-append">
