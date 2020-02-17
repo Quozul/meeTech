@@ -1,0 +1,3 @@
+# Prevents the config.php file from being committed to GitHub
+
+config.php

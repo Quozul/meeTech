@@ -13,12 +13,12 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Configurateur
+                            Matériel
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Composants</a>
-                            <a class="dropdown-item" href="#">Configurateur</a>
-                            <a class="dropdown-item" href="#">Comparateur</a>
+                            <a class="dropdown-item" href="/components/">Composants</a>
+                            <a class="dropdown-item" href="/builder/">Configurateur</a>
+                            <a class="dropdown-item" href="/comparator/">Comparateur</a>
                         </div>
                     </li>
                     <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/blog/') echo 'active'; ?>">

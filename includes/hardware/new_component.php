@@ -1,4 +1,4 @@
-<form id="submit-component" method="get" action="/hardware/index/" autocomplete="off">
+<form id="submit-component" method="post" action="/includes/hardware/add_component/" autocomplete="off">
     <div class="form-group">
         <label for="name">Nom/modèle*</label>
         <input type="text" class="form-control" id="name" placeholder="Nom/modèle" name="name">
@@ -28,7 +28,7 @@
 
         <div class="form-group d-none" id="submit-component-cpu">
             <div class="input-group mb-3">
-                <input type="number" class="form-control" placeholder="Fréquence" aria-label="Fréquence" aria-describedby="cpu-frequency" name="cpu-frequency">
+                <input type="number" step="any" class="form-control" placeholder="Fréquence" aria-label="Fréquence" aria-describedby="cpu-frequency" name="cpu-frequency">
                 <div class="input-group-append">
                     <span class="input-group-text">GHz</span>
                 </div>
@@ -45,7 +45,7 @@
 
         <div class="form-group d-none" id="submit-component-gpu">
             <div class="input-group mb-3">
-                <input type="number" class="form-control" placeholder="Fréquence" aria-label="Fréquence" aria-describedby="gpu-frequency" name="gpu-frequency">
+                <input type="number" step="any" class="form-control" placeholder="Fréquence" aria-label="Fréquence" aria-describedby="gpu-frequency" name="gpu-frequency">
                 <div class="input-group-append">
                     <span class="input-group-text">GHz</span>
                 </div>
@@ -146,11 +146,11 @@
 
         <div class="form-group d-none" id="submit-component-mb">
             <div class="input-group mb-3">
-                <input type="number" class="form-control" placeholder="Chipset" aria-label="Chipset" aria-describedby="mb-chipset" name="mb-chipset">
+                <input type="text" class="form-control" placeholder="Chipset" aria-label="Chipset" aria-describedby="mb-chipset" name="mb-chipset">
             </div>
 
             <div class="input-group mb-3">
-                <input type="number" class="form-control" placeholder="Socket" aria-label="Socket" aria-describedby="mb-socket" name="mb-socket">
+                <input type="text" class="form-control" placeholder="Socket" aria-label="Socket" aria-describedby="mb-socket" name="mb-socket">
             </div>
         </div>
     </span>

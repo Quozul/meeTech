@@ -136,6 +136,7 @@ CREATE TABLE CPU(
     brand VARCHAR(25),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
+    added_by INTEGER REFERENCES USER(id_user),
 
     score_single_thread INT,
     score_multi_thread INT,
@@ -155,6 +156,7 @@ CREATE TABLE MEMORY(
     brand VARCHAR(25),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
+    added_by INTEGER REFERENCES USER(id_user),
 
     score INT,
 
@@ -170,6 +172,7 @@ CREATE TABLE HDD(
     brand VARCHAR(25),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
+    added_by INTEGER REFERENCES USER(id_user),
 
     score INT,
 
@@ -184,6 +187,7 @@ CREATE TABLE SSD(
     brand VARCHAR(15),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
+    added_by INTEGER REFERENCES USER(id_user),
 
     score INT,
 
@@ -199,6 +203,7 @@ CREATE TABLE GPU(
     brand VARCHAR(15),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
+    added_by INTEGER REFERENCES USER(id_user),
 
     score INT,
 
@@ -215,6 +220,7 @@ CREATE TABLE MOTHERBOARD(
     brand VARCHAR(15),
     release_date DATE,
     validated BOOLEAN DEFAULT FALSE,
+    added_by INTEGER REFERENCES USER(id_user),
 
     score INT,
 
