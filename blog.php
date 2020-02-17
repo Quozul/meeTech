@@ -9,6 +9,28 @@
 		<?php include('includes/header.php'); ?>
 
 		<main role="main" class="container">
+			<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Publier un nouvel article</button>
+
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Nouvel article</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <?php include('../includes/blog/new_post.php'); ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary" form="submit-component">Publier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 			<article class="jumbotron d-flex justify-content-center align-items-stretch flex-row">
 				<span class="d-block w-75">
 					<h1><a href="/post/?id=1">Title of article 1</a></h1>
