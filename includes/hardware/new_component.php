@@ -4,11 +4,11 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
 ?>
 
 <div class="form-group">
-    <label for="name">Nom/modèle</label>
-    <input type="text" class="form-control" id="name" placeholder="Nom/modèle" name="name">
-
     <label for="brand">Fabricant</label>
     <input type="text" class="form-control" id="brand" placeholder="Fabricant" name="brand">
+
+    <label for="name">Nom/modèle</label>
+    <input type="text" class="form-control" id="name" placeholder="Nom/modèle" name="name">
 </div>
 
 <div class="input-group mb-3">

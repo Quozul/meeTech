@@ -27,7 +27,7 @@
                 <?php include('../includes/hardware/new_component.php'); ?>
             </form>
 
-            <button type="submit" class="btn btn-primary" form="submit-component" name="id" value="<?php echo $_POST['id']; ?>">Proposer le composant</button>
+            <button type="submit" class="btn btn-primary" form="submit-component" name="id" value="<?php echo $_POST['id']; ?>">Proposer la modification</button>
         </div>
 
         <script>

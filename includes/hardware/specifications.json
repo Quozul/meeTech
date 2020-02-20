@@ -20,7 +20,8 @@
         },
         "cpu-ram-max-frequency": {
             "input-type": "number",
-            "name": "Fréquence max. de la mémoire"
+            "name": "Fréquence max. de la mémoire",
+            "unit": "MHz"
         },
         "cpu-socket": {
             "input-type": "text",
