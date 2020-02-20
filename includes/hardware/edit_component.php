@@ -31,3 +31,11 @@ try {
 } catch (Exception $e) {
     echo $e;
 }
+?>
+
+<noscript>JavaScript needs to be enabled to go back automatically</noscript>
+
+<a href="javascript: history.go(-1)">Back</a>
+<script>
+    history.back();
+</script>

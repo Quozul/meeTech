@@ -1,8 +1,6 @@
 <?php
-include('config.php');
-
 // Columns names and description
-$cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
+$cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/hardware/specifications.json'), true);
 ?>
 
 <div class="form-group">

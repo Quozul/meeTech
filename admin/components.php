@@ -76,7 +76,8 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
                                             <th scope="col">Marque</th>
                                             <th scope="col">Nom</th>
                                             <!-- Component specification title -->
-                                            <?php foreach ($GLOBALS['cols'][$table_name] as $key => $value) { ?>
+                                            <?php
+                                            foreach ($GLOBALS['cols'][$table_name] as $key => $value) { ?>
                                                 <th scope="col"><?php echo $value['name']; ?></th>
                                             <?php } ?>
                                             <th scope="col">Actions</th>
