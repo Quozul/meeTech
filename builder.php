@@ -1,10 +1,8 @@
 <?php
 include('config.php');
-$page_limit = 3;
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
 
 // Columns names and description
-$GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
+$cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
 ?>
 
 <!DOCTYPE html>
@@ -18,113 +16,64 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
         <h1>Configurateur</h1>
 
         <div class="jumbotron">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend w-25 d-block">
-                    <span class="input-group-text">Processeur</span>
+            <?php foreach (['cpu' => 'Processeur', 'gpu' => 'Carte graphique', 'ram' => 'Mémoire vive', 'ssd' => 'SSD', 'hdd' => 'Disque dur', 'mb' => 'Carte mère'] as $type => $name) { ?>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend col-2 d-block p-0">
+                        <span class="input-group-text"><?php echo $name; ?></span>
+                    </div>
+                    <select class="form-control selectpicker" id="<?php echo $type; ?>" data-live-search="true">
+                        <option value="">Selectionnez un <?php echo $name; ?>...</option>
+                        <?php
+                        $sth = $pdo->prepare('SELECT * FROM component WHERE type = ?');
+                        $sth->execute([$type]);
+                        $result = $sth->fetchAll();
+
+                        foreach ($result as $key => $value) {
+                            $specs = json_decode($value['specifications'], true);
+                        ?>
+                            <option value="<?php echo $value['id']; ?>" <?php if (!empty($_GET[$type]) && $_GET[$type] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
+                        <?php } ?>
+                    </select>
+                    <div class="input-group-append d-block p-0">
+                        <?php if (!empty($_GET[$type])) { ?>
+
+                            <div class="modal fade" tabindex="-1" role="dialog" id="<?php echo $type; ?>-modal">
+                                <?php
+                                $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
+                                $sth->execute([$_GET[$type]]);
+                                $component = $sth->fetch();
+                                $specs = json_decode($component['specifications'], true);
+                                ?>
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"><?php echo (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName'); ?></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="list-group">
+                                                <?php foreach ($cols[$type] as $key => $value) { ?>
+                                                    <li class="list-group-item">
+                                                        <?php echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>'; ?>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <?php } ?>
+
+                        <button class="btn btn-outline-secondary <?php if (empty($_GET[$type])) echo 'disabled'; ?>" type="button" data-toggle="modal" data-target="#<?php echo $type; ?>-modal">Infos</button>
+                    </div>
                 </div>
-                <select class="form-control selectpicker" id="cpu" data-live-search="true">
-                    <?php
-                    $sth = $pdo->prepare('SELECT * FROM component WHERE type = ?');
-                    $sth->execute(['cpu']);
-                    $result = $sth->fetchAll();
-
-                    foreach ($result as $key => $value) {
-                        $specs = json_decode($value['specifications'], true);
-                    ?>
-                        <option value="<?php echo $value['id']; ?>" <?php if (isset($_GET['cpu']) && $_GET['cpu'] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend w-25 d-block">
-                    <span class="input-group-text">Carte graphique</span>
-                </div>
-                <select class="form-control selectpicker" id="gpu" data-live-search="true">
-                    <?php
-                    $sth = $pdo->prepare('SELECT * FROM component WHERE type = ?');
-                    $sth->execute(['gpu']);
-                    $result = $sth->fetchAll();
-
-                    foreach ($result as $key => $value) {
-                        $specs = json_decode($value['specifications'], true);
-                    ?>
-                        <option value="<?php echo $value['id']; ?>" <?php if (isset($_GET['gpu']) && $_GET['gpu'] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend w-25 d-block">
-                    <span class="input-group-text">Carte graphique</span>
-                </div>
-                <select class="form-control selectpicker" id="ram" data-live-search="true">
-                    <?php
-                    $sth = $pdo->prepare('SELECT * FROM component WHERE type = ?');
-                    $sth->execute(['ram']);
-                    $result = $sth->fetchAll();
-
-                    foreach ($result as $key => $value) {
-                        $specs = json_decode($value['specifications'], true);
-                    ?>
-                        <option value="<?php echo $value['id']; ?>" <?php if (isset($_GET['ram']) && $_GET['ram'] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend w-25 d-block">
-                    <span class="input-group-text">SSD</span>
-                </div>
-                <select class="form-control selectpicker" id="ssd" data-live-search="true">
-                    <?php
-                    $sth = $pdo->prepare('SELECT * FROM component WHERE type = ?');
-                    $sth->execute(['ssd']);
-                    $result = $sth->fetchAll();
-
-                    foreach ($result as $key => $value) {
-                        $specs = json_decode($value['specifications'], true);
-                    ?>
-                        <option value="<?php echo $value['id']; ?>" <?php if (isset($_GET['ssd']) && $_GET['ssd'] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend w-25 d-block">
-                    <span class="input-group-text">Disque dur</span>
-                </div>
-                <select class="form-control selectpicker" id="hdd" data-live-search="true">
-                    <?php
-                    $sth = $pdo->prepare('SELECT * FROM component WHERE type = ?');
-                    $sth->execute(['hdd']);
-                    $result = $sth->fetchAll();
-
-                    foreach ($result as $key => $value) {
-                        $specs = json_decode($value['specifications'], true);
-                    ?>
-                        <option value="<?php echo $value['id']; ?>" <?php if (isset($_GET['hdd']) && $_GET['hdd'] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend w-25 d-block">
-                    <span class="input-group-text">Carte mère</span>
-                </div>
-                <select class="form-control selectpicker" id="mb" data-live-search="true">
-                    <?php
-                    $sth = $pdo->prepare('SELECT * FROM component WHERE type = ?');
-                    $sth->execute(['mb']);
-                    $result = $sth->fetchAll();
-
-                    foreach ($result as $key => $value) {
-                        $specs = json_decode($value['specifications'], true);
-                    ?>
-                        <option value="<?php echo $value['id']; ?>" <?php if (isset($_GET['mb']) && $_GET['mb'] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
+            <?php } ?>
         </div>
     </main>
 

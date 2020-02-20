@@ -36,7 +36,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
 
             <h2>
                 <?php
-                echo $specs['brand'] . ' ' . $specs['name'];
+                echo (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName');
                 ?>
             </h2>
             <p class="text-muted">

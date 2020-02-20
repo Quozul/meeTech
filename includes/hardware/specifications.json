@@ -7,7 +7,7 @@
         },
         "cpu-boost-frequency": {
             "input-type": "number",
-            "name": "Fréquence Boost",
+            "name": "Fréquence boost",
             "unit": "GHz"
         },
         "cpu-cores": {
