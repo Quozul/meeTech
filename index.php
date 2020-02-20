@@ -38,7 +38,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
         <div class="d-flex flex-row justify-content-around">
             <?php
             // Verify is there is at least 1 event
-            $sth = $pdo->prepare('SELECT * FROM component LIMIT 3');
+            $sth = $pdo->prepare('SELECT * FROM component ORDER BY added_date LIMIT 3');
             $sth->execute();
             $result = $sth->fetchAll();
 
