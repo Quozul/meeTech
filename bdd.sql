@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS meetech;
+dCREATE DATABASE IF NOT EXISTS meetech;
 
 USE meetech;
 
@@ -26,30 +26,37 @@ CREATE TABLE category(
     description TEXT
 );
 
-CREATE TABLE translation(
-    id_t INTEGER AUTO_INCREMENT PRIMARY KEY,
-    language VARCHAR(32) NOT NULL REFERENCES language(lang),
-    translated_message INTEGER NOT NULL REFERENCES message(id_m),
+CREATE TABLE message (
+    id_m INTEGER AUTO_INCREMENT PRIMARY KEY,
+    author INTEGER NOT NULL REFERENCES users (id_user),
     title VARCHAR(255),
     content TEXT,
-    date_edition DATE,
-    date_translated DATE
-);
-
-CREATE TABLE message(
-    id_m INTEGER AUTO_INCREMENT PRIMARY KEY,
-    default_translation INTEGER NOT NULL REFERENCES translation(id_t),
-    category VARCHAR(32) NOT NULL REFERENCES category(name),
-    parent_message INTEGER REFERENCES message(id_m),
+    date_published DATE,
+    date_edited DATE,
+    default_langugage VARCHAR(32) NOT NULL REFERENCES language (lang),
+    category VARCHAR(32) NOT NULL REFERENCES category (name),
     note INTEGER
-);
+) ;
 
-CREATE TABLE translated(
-    user INTEGER NOT NULL REFERENCES user(id_user),
-    translation INTEGER NOT NULL REFERENCES translation(id_t),
+CREATE TABLE translation (
+    id_t INTEGER AUTO_INCREMENT PRIMARY KEY,
+    language VARCHAR(32) NOT NULL REFERENCES language (lang),
+    title VARCHAR(255),
+    content TEXT,
+    translator INTEGER NOT NULL REFERENCES users (id_user),
+    original_message INTEGER NOT NULL REFERENCES message (id_m),
+    date_translated DATE
+) ;
 
-    PRIMARY KEY(user, translation)
-);
+CREATE TABLE comment (
+    id_c INTEGER AUTO_INCREMENT PRIMARY KEY,
+    author INTEGER NOT NULL REFERENCES users (id_user),
+    parent_message INTEGER NOT NULL REFERENCES messages (id_m),
+    content TEXT,
+    date_published DATE,
+    date_edited DATE,
+    note INTEGER
+) ;
 
 CREATE TABLE file(
     added_by INTEGER NOT NULL REFERENCES user(id_user),
@@ -254,4 +261,30 @@ CREATE TABLE motherboard(
     wifi VARCHAR(10),
 
     PRIMARY KEY(name, brand)
+);*/
+
+--old message table
+/*CREATE TABLE translation(
+    id_t INTEGER AUTO_INCREMENT PRIMARY KEY,
+    language VARCHAR(32) NOT NULL REFERENCES language(lang),
+    translated_message INTEGER NOT NULL REFERENCES message(id_m),
+    title VARCHAR(255),
+    content TEXT,
+    date_edition DATE,
+    date_translated DATE
+);
+
+CREATE TABLE message(
+    id_m INTEGER AUTO_INCREMENT PRIMARY KEY,
+    default_translation INTEGER NOT NULL REFERENCES translation(id_t),
+    category VARCHAR(32) NOT NULL REFERENCES category(name),
+    parent_message INTEGER REFERENCES message(id_m),
+    note INTEGER
+);
+
+CREATE TABLE translated(
+    user INTEGER NOT NULL REFERENCES user(id_user),
+    translation INTEGER NOT NULL REFERENCES translation(id_t),
+
+    PRIMARY KEY(user, translation)
 );*/
