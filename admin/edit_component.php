@@ -8,7 +8,6 @@
     <?php include('../includes/header.php'); ?>
 
     <main role="main" class="container">
-
         <!-- Get component informations -->
         <?php
         $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');

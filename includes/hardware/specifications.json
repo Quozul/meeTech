@@ -9,12 +9,10 @@
             "unit": "GHz"
         },
         "cpu-cores": {
-            "name": "Coeurs phyiques",
-            "unit": ""
+            "name": "Coeurs physiques"
         },
         "cpu-threads": {
-            "name": "Coeurs logiques",
-            "unit": ""
+            "name": "Coeurs logiques"
         }
     },
     "gpu": {
@@ -23,12 +21,10 @@
             "unit": "GHz"
         },
         "gpu-cores": {
-            "name": "Coeurs phyiques",
-            "unit": ""
+            "name": "Coeurs"
         },
         "gpu-memory-type": {
-            "name": "Type de la mémoire",
-            "unit": ""
+            "name": "Type de la mémoire"
         },
         "gpu-memory-capacity": {
             "name": "Taille de la mémoire",
@@ -41,12 +37,10 @@
     },
     "ram": {
         "ram-type": {
-            "name": "Type",
-            "unit": ""
+            "name": "Type"
         },
         "ram-modules": {
-            "name": "Barrettes mémoire",
-            "unit": ""
+            "name": "Barrettes mémoire"
         },
         "ram-capacity": {
             "name": "Taille de la mémoire",
@@ -70,7 +64,11 @@
     "ssd": {
         "ssd-type": {
             "name": "Type",
-            "unit": ""
+            "values": {
+                "nvme": "M.2 NVMe",
+                "sata": "SATA",
+                "msata": "M.2 SATA"
+            }
         },
         "ssd-capacity": {
             "name": "Capacité",
@@ -87,12 +85,10 @@
     },
     "mb": {
         "mb-chipset": {
-            "name": "Chipset",
-            "unit": ""
+            "name": "Chipset"
         },
         "mb-socket": {
-            "name": "Socket",
-            "unit": ""
+            "name": "Socket"
         }
     }
 }

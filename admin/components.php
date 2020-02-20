@@ -1,6 +1,6 @@
 <?php
 include('../config.php');
-$page_limit = 2;
+$page_limit = 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
 // Columns names and description
@@ -15,7 +15,6 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
     <?php include('../includes/header.php'); ?>
 
     <main role="main" class="container">
-        <!-- <div class="jumbotron"> -->
         <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Proposer un composant</button>
 
         <!-- Add component modal/form -->
