@@ -22,7 +22,9 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <?php include('includes/hardware/new_component.php'); ?>
+                        <form id="submit-component" method="post" action="/includes/hardware/add_component/" autocomplete="off">
+                            <?php include('includes/hardware/new_component.php'); ?>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>

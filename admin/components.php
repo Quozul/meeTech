@@ -29,7 +29,9 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
                         </button>
                     </div>
                     <div class="modal-body">
-                        <?php include('../includes/hardware/new_component.php'); ?>
+                        <form id="submit-component" method="post" action="/includes/hardware/add_component/" autocomplete="off">
+                            <?php include('../includes/hardware/new_component.php'); ?>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -96,9 +98,15 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
 
                                                 <!-- Action buttons -->
                                                 <th scope="col">
-                                                    <button class="btn btn-sm btn-success">Valider</button>
-                                                    <button class="btn btn-sm btn-primary">Modifier</button>
-                                                    <button class="btn btn-sm btn-danger">Supprimer</button>
+                                                    <form action="/includes/hardware/validate_component.php" method="post">
+                                                        <button type="submit" class="btn btn-sm btn-success <?php if ($component['validated'] == 1) echo 'disabled'; ?>" name="id" value="<?php echo $component['id']; ?>">Valider</button>
+                                                    </form>
+                                                    <form action="/admin/edit_component.php" method="post">
+                                                        <button type="submit" class="btn btn-sm btn-primary" name="id" value="<?php echo $component['id']; ?>">Modifier</button>
+                                                    </form>
+                                                    <form action="/includes/hardware/remove_component.php" method="post">
+                                                        <button type="submit" class="btn btn-sm btn-danger" name="id" value="<?php echo $component['id']; ?>">Supprimer</button>
+                                                    </form>
                                                 </th>
                                             </tr>
                                         <?php } ?>

@@ -26,7 +26,6 @@ foreach ($_POST as $key => $value)
 $specs = json_encode($_POST);
 
 try {
-    $date = new DateTime();
     $sth = $pdo->prepare('INSERT INTO component (validated, type, specifications) VALUES (?, ?, ?);');
     $sth->execute([$validated, $type, $specs]);
 } catch (Exception $e) {
