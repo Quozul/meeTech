@@ -7,16 +7,6 @@ $validated = 0;
 $type = $_POST['type'];
 unset($_POST['type']);
 
-// calculate the capacity in GB
-if ($_POST['hdd-capacity'] != "")
-    $_POST['hdd-capacity'] = intval($_POST['hdd-capacity']) * ($_POST['hdd-capacity-unit'] == 'TB' ? 1000 : 1);
-if ($_POST['ssd-capacity'] != "")
-    $_POST['ssd-capacity'] = intval($_POST['ssd-capacity']) * ($_POST['ssd-capacity-unit'] == 'TB' ? 1000 : 1);
-
-// unset capacity unit
-unset($_POST['hdd-capacity-unit']);
-unset($_POST['ssd-capacity-unit']);
-
 // unset all empty values
 foreach ($_POST as $key => $value)
     if ($value === "")

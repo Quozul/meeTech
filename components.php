@@ -40,18 +40,18 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
             </div>
         </div>
 
-        <h2>Composants</h2>
+        <h1>Composants</h1>
         <hr>
 
         <div class="row">
             <div class="col-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'cpu') echo 'active'; ?>" id="v-pills-cpu-tab" data-toggle="pill" onclick="change_tab('cpu')" role="tab" aria-controls="v-pills-cpu" aria-selected="true">Processeurs</a>
-                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'gpu') echo 'active'; ?>" id="v-pills-gpu-tab" data-toggle="pill" onclick="change_tab('gpu')" role="tab" aria-controls="v-pills-gpu" aria-selected="false">Cartes graphiques</a>
-                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'ram') echo 'active'; ?>" id="v-pills-ram-tab" data-toggle="pill" onclick="change_tab('ram')" role="tab" aria-controls="v-pills-ram" aria-selected="false">Mémoire vive</a>
-                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'hdd') echo 'active'; ?>" id="v-pills-hdd-tab" data-toggle="pill" onclick="change_tab('hdd')" role="tab" aria-controls="v-pills-hdd" aria-selected="false">Disques durs</a>
-                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'ssd') echo 'active'; ?>" id="v-pills-ssd-tab" data-toggle="pill" onclick="change_tab('ssd')" role="tab" aria-controls="v-pills-ssd" aria-selected="false">SSDs</a>
-                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'mb') echo 'active'; ?>" id="v-pills-mb-tab" data-toggle="pill" onclick="change_tab('mb')" role="tab" aria-controls="v-pills-mb" aria-selected="false">Cartes mère</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'cpu') echo 'active'; ?>" data-toggle="pill" onclick="change_tab('cpu')" role="tab" aria-selected="true">Processeurs</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'gpu') echo 'active'; ?>" data-toggle="pill" onclick="change_tab('gpu')" role="tab" aria-selected="false">Cartes graphiques</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'ram') echo 'active'; ?>" data-toggle="pill" onclick="change_tab('ram')" role="tab" aria-selected="false">Mémoire vive</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'hdd') echo 'active'; ?>" data-toggle="pill" onclick="change_tab('hdd')" role="tab" aria-selected="false">Disques durs</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'ssd') echo 'active'; ?>" data-toggle="pill" onclick="change_tab('ssd')" role="tab" aria-selected="false">SSDs</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'mb') echo 'active'; ?>" data-toggle="pill" onclick="change_tab('mb')" role="tab" aria-selected="false">Cartes mère</a>
                 </div>
             </div>
 

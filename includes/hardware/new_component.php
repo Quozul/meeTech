@@ -53,7 +53,7 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
                         <input type="<?php echo $spec['input-type']; ?>" step="any" class="form-control" placeholder="<?php echo $spec['name']; ?>" name="<?php echo $spec_name; ?>">
                     <?php } else { ?>
                         <select class="custom-select" name="<?php echo $spec_name; ?>">
-                            <option selected><?php echo $spec['name']; ?></option>
+                            <option value="" selected><?php echo $spec['name']; ?></option>
                             <?php foreach ($spec['values'] as $option_value => $option_name) { ?>
                                 <option value="<?php echo $option_value; ?>"><?php echo $option_name; ?></option>
                             <?php } ?>

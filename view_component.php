@@ -50,7 +50,8 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                     $sth->execute([$component['added_by']]); // remplace le ? par la valeur
                     $result = $sth->fetch();
 
-                    $username = $result['username'];
+                    if ($result)
+                        $username = $result['username'];
                 }
 
                 // TODO: Add link to user's profile
