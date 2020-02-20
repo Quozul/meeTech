@@ -11,8 +11,9 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
 
 <body class="d-flex vh-100 flex-column justify-content-between">
     <?php include('includes/header.php'); ?>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.9/css/bootstrap-select.min.css" />
 
-    <main role="main" class="container h-100">
+    <main role="main" class="container">
         <h1>Configurateur</h1>
 
         <div class="jumbotron">
@@ -21,7 +22,8 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                     <div class="input-group-prepend col-2 d-block p-0">
                         <span class="input-group-text"><?php echo $name; ?></span>
                     </div>
-                    <select class="form-control selectpicker" id="<?php echo $type; ?>" data-live-search="true">
+
+                    <select class="form-control selectpicker" id="<?php echo $type; ?>" data-live-search="true" data-show-subtext="true">
                         <option value="">Selectionnez un <?php echo $name; ?>...</option>
                         <?php
                         $sth = $pdo->prepare('SELECT * FROM component WHERE type = ?');
@@ -31,9 +33,11 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                         foreach ($result as $key => $value) {
                             $specs = json_decode($value['specifications'], true);
                         ?>
-                            <option value="<?php echo $value['id']; ?>" <?php if (!empty($_GET[$type]) && $_GET[$type] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
+                            <option data-tokens="<?php echo $specs['id']; ?>" value="<?php echo $value['id']; ?>" <?php if (!empty($_GET[$type]) && $_GET[$type] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
                         <?php } ?>
                     </select>
+
+                    <!-- Component informations -->
                     <div class="input-group-append d-block p-0">
                         <?php if (!empty($_GET[$type])) { ?>
 
@@ -92,6 +96,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                 }
             }
     </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.9/js/bootstrap-select.min.js"></script>
 
     <?php include('includes/footer.php'); ?>
 </body>
