@@ -139,7 +139,18 @@ CREATE TABLE answer(
 
 -- components
 
-CREATE TABLE cpu(
+CREATE TABLE component(
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    validated BOOLEAN DEFAULT FALSE,
+    added_date TIMESTAMP,
+    added_by INTEGER REFERENCES user(id_user),
+    type VARCHAR(3),
+
+    specifications TEXT
+);
+
+-- old component tables
+/*CREATE TABLE cpu(
     name VARCHAR(25),
     brand VARCHAR(25),
     release_date DATE,
@@ -243,4 +254,4 @@ CREATE TABLE motherboard(
     wifi VARCHAR(10),
 
     PRIMARY KEY(name, brand)
-);
+);*/

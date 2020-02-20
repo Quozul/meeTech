@@ -125,8 +125,8 @@
         <div class="form-group d-none" id="submit-component-ssd">
             <div class="input-group mb-3">
                 <select class="custom-select" name="ssd-type">
-                    <option selected>Type de SSD</option>
-                    <option value="nvme" selected>M.2 NVMe</option>
+                    <option value="" selected>Type de SSD</option>
+                    <option value="nvme">M.2 NVMe</option>
                     <option value="msata">M.2 SATA (6 Go/s)</option>
                     <option value="sata">2"5 SATA (6 Go/s)</option>
                 </select>
@@ -176,6 +176,12 @@
         for (const key in children)
             if (children.hasOwnProperty(key))
                 children[key].classList.add('d-none');
+
+        let inputs = group.getElementsByTagName('input');
+
+        for (const key in inputs)
+            if (inputs.hasOwnProperty(key))
+                inputs[key].value = "";
 
         document.getElementById('submit-component-delimiter').classList.remove('d-none');
 

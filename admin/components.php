@@ -2,6 +2,9 @@
 include('../config.php');
 $page_limit = 2;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+// Columns names and description
+$GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifications.json'), true);
 ?>
 
 <!DOCTYPE html>
@@ -53,174 +56,52 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
             <div class="col-9">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <?php function cpu($component)
-                    { ?>
-                        <tr>
-                            <td><?php echo $component['brand']; ?></td>
-                            <td><?php echo $component['name']; ?></td>
-                            <td><?php echo $component['frequency'] . ' GHz / ' . $component['boost_frequency'] . ' GHz'; ?></td>
-                            <td><?php echo $component['cores'] . 'C / ' . $component['threads'] . 'T'; ?></td>
-                            <td>
-                                <?php if ($component['validated'] == true) { ?>
-                                    <button type="button" class="btn btn-success btn-sm disabled">Validé</button>
-                                <?php } else { ?>
-                                    <button type="button" class="btn btn-primary btn-sm">Valider</button>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                    <?php }
-
-                    function gpu($component)
-                    { ?>
-                        <tr>
-                            <td><?php echo $component['brand']; ?></td>
-                            <td><?php echo $component['name']; ?></td>
-                            <td><?php echo $component['core_frequency'] . ' GHz'; ?></td>
-                            <td><?php echo $component['memory_type']; ?></td>
-                            <td><?php echo $component['memory_capacity'] . ' Go @ ' . $component['memory_frequency'] . ' MHz'; ?></td>
-                            <td>
-                                <?php if ($component['validated'] == true) { ?>
-                                    <button type="button" class="btn btn-success btn-sm disabled">Validé</button>
-                                <?php } else { ?>
-                                    <button type="button" class="btn btn-primary btn-sm">Valider</button>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                    <?php }
-
-                    function ram($component)
-                    { ?>
-                        <tr>
-                            <td><?php echo $component['brand']; ?></td>
-                            <td><?php echo $component['name']; ?></td>
-                            <td><?php echo $component['type']; ?></td>
-                            <td><?php echo $component['modules'] . ' × ' . $component['capacity'] . ' Go'; ?></td>
-                            <td><?php echo $component['frequency'] . ' MHz'; ?></td>
-                            <td>
-                                <?php if ($component['validated'] == true) { ?>
-                                    <button type="button" class="btn btn-success btn-sm disabled">Validé</button>
-                                <?php } else { ?>
-                                    <button type="button" class="btn btn-primary btn-sm">Valider</button>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                    <?php }
-
-                    function hdd($component)
-                    { ?>
-                        <tr>
-                            <td><?php echo $component['brand']; ?></td>
-                            <td><?php echo $component['name']; ?></td>
-                            <td><?php echo $component['capacity'] . ' Go'; ?></td>
-                            <td><?php echo $component['speed'] . ' tr/min'; ?></td>
-                            <td>
-                                <?php if ($component['validated'] == true) { ?>
-                                    <button type="button" class="btn btn-success btn-sm disabled">Validé</button>
-                                <?php } else { ?>
-                                    <button type="button" class="btn btn-primary btn-sm">Valider</button>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                    <?php }
-
-                    function ssd($component)
-                    { ?>
-                        <tr>
-                            <td><?php echo $component['brand']; ?></td>
-                            <td><?php echo $component['name']; ?></td>
-                            <td><?php echo $component['type']; ?></td>
-                            <td><?php echo $component['capacity'] . ' Go'; ?></td>
-                            <td><?php echo $component['read_speed'] . ' Mo/s - ' . $component['write_speed'] . ' Mo/s '; ?></td>
-                            <td>
-                                <?php if ($component['validated'] == true) { ?>
-                                    <button type="button" class="btn btn-success btn-sm disabled">Validé</button>
-                                <?php } else { ?>
-                                    <button type="button" class="btn btn-primary btn-sm">Valider</button>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                    <?php }
-
-                    function mb($component)
-                    { ?>
-                        <tr>
-                            <td><?php echo $component['brand']; ?></td>
-                            <td><?php echo $component['name']; ?></td>
-                            <td><?php echo $component['chipset']; ?></td>
-                            <td><?php echo $component['socket']; ?></td>
-                            <td>
-                                <?php if ($component['validated'] == true) { ?>
-                                    <button type="button" class="btn btn-success btn-sm disabled">Validé</button>
-                                <?php } else { ?>
-                                    <button type="button" class="btn btn-primary btn-sm">Valider</button>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                        <?php }
-
-                    $GLOBALS['tbody'] = array(
-                        'cpu' => 'cpu',
-                        'gpu' => 'gpu',
-                        'memory' => 'ram',
-                        'hdd' => 'hdd',
-                        'ssd' => 'ssd',
-                        'motherboard' => 'mb',
-                    );
-
+                    <?php
                     function component_table($table_name, $pdo, $page_limit, $page)
                     {
-                        $sth = $pdo->prepare('SELECT COUNT(*) FROM ' . $table_name);
-                        $sth->execute();
+                        $sth = $pdo->prepare('SELECT COUNT(*) FROM component WHERE type = ?');
+                        $sth->execute([$table_name]);
                         $content_count = $sth->fetch()[0];
 
                         if ($content_count > 0) {
-                            $sth = $pdo->prepare('SELECT * FROM ' .  $table_name . ' LIMIT ? OFFSET ?');
-                            $sth->execute([$page_limit, ($page - 1) * $page_limit]); // remplace le ? par la valeur
+                            $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? LIMIT ? OFFSET ?');
+                            $sth->execute([$table_name, $page_limit, ($page - 1) * $page_limit]); // remplace le ? par la valeur
                             $result = $sth->fetchAll();
 
-                            if (count($result) > 0) {
-                        ?>
-                                <table class="table">
+                            if (count($result) > 0) { ?>
+                                <table class="table mt-color-element rounded">
                                     <thead>
                                         <tr>
                                             <th scope="col">Marque</th>
                                             <th scope="col">Nom</th>
-                                            <?php switch ($table_name) {
-                                                case 'cpu': ?>
-                                                    <th scope="col">Fréquence base/boost (GHz)</th>
-                                                    <th scope="col">Coeurs physiques/logiques</th>
-                                                <?php break;
-                                                case 'gpu': ?>
-                                                    <th scope="col">Fréquence</th>
-                                                    <th scope="col">Type de la mémoire</th>
-                                                    <th scope="col">Capacité/fréquence de la mémoire</th>
-                                                <?php break;
-                                                case 'memory': ?>
-                                                    <th scope="col">Type</th>
-                                                    <th scope="col">Capacité</th>
-                                                    <th scope="col">Fréquence</th>
-                                                <?php break;
-                                                case 'hdd': ?>
-                                                    <th scope="col">Capacité</th>
-                                                    <th scope="col">Vitesse</th>
-                                                <?php break;
-                                                case 'ssd': ?>
-                                                    <th scope="col">Type</th>
-                                                    <th scope="col">Capacité</th>
-                                                    <th scope="col">Vitesse lecture/écriture</th>
-                                                <?php break;
-                                                case 'motherboard': ?>
-                                                    <th scope="col">Chipset</th>
-                                                    <th scope="col">Socket</th>
-                                            <?php break;
-                                            } ?>
+                                            <!-- Component specification title -->
+                                            <?php foreach ($GLOBALS['cols'][$table_name] as $key => $value) { ?>
+                                                <th scope="col"><?php echo $value['name']; ?></th>
+                                            <?php } ?>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($result as $key => $component) {
-                                            $GLOBALS['tbody'][$table_name]($component);
-                                        } ?>
+                                        <!-- Display component table -->
+                                        <?php foreach ($result as $k => $component) {
+                                            $specs = json_decode($component['specifications'], true);
+                                        ?>
+                                            <tr>
+                                                <th scope="col"><?php echo $specs['brand']; ?></th>
+                                                <th scope="col"><?php echo $specs['name']; ?></th>
+
+                                                <?php foreach ($GLOBALS['cols'][$table_name] as $key => $value) { ?>
+                                                    <th scope="col"><?php echo isset($specs[$key]) ? $specs[$key] : "Inconnu"; ?></th>
+                                                <?php } ?>
+
+                                                <!-- Action buttons -->
+                                                <th scope="col">
+                                                    <button class="btn btn-sm btn-success">Valider</button>
+                                                    <button class="btn btn-sm btn-primary">Modifier</button>
+                                                    <button class="btn btn-sm btn-danger">Supprimer</button>
+                                                </th>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
 
@@ -228,6 +109,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
                                 <p>Oops, il semblerait qu'il n'y ait rien ici :(</p>
                             <?php } ?>
 
+                            <!-- Table pagination -->
                             <nav aria-label="..." class="mt-4">
                                 <ul class="pagination justify-content-center">
                                     <?php
@@ -257,8 +139,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
                         <?php } else { ?>
                             <p>Oops, il semblerait qu'il n'y ait rien ici :(</p>
                     <?php }
-                    }
-                    ?>
+                    } ?>
                     <div class="tab-pane fade show active" id="v-pills-cpu" role="tabpanel" aria-labelledby="v-pills-cpu-tab">
                         <h3>Processeurs</h3>
 
@@ -279,7 +160,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
                         <h3>Mémoire vive</h3>
 
                         <?php
-                        component_table('memory', $pdo, $page_limit, $page);
+                        component_table('ram', $pdo, $page_limit, $page);
                         ?>
                     </div>
 
@@ -303,7 +184,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
                         <h3>Cartes mère</h3>
 
                         <?php
-                        component_table('motherboard', $pdo, $page_limit, $page);
+                        component_table('mb', $pdo, $page_limit, $page);
                         ?>
                     </div>
                 </div>

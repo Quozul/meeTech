@@ -1,0 +1,98 @@
+{
+    "cpu": {
+        "cpu-frequency": {
+            "name": "Fréquence",
+            "unit": "GHz"
+        },
+        "cpu-boost-frequency": {
+            "name": "Fréquence Boost",
+            "unit": "GHz"
+        },
+        "cpu-cores": {
+            "name": "Coeurs phyiques",
+            "unit": ""
+        },
+        "cpu-threads": {
+            "name": "Coeurs logiques",
+            "unit": ""
+        }
+    },
+    "gpu": {
+        "gpu-frequency": {
+            "name": "Fréquence",
+            "unit": "GHz"
+        },
+        "gpu-cores": {
+            "name": "Coeurs phyiques",
+            "unit": ""
+        },
+        "gpu-memory-type": {
+            "name": "Type de la mémoire",
+            "unit": ""
+        },
+        "gpu-memory-capacity": {
+            "name": "Taille de la mémoire",
+            "unit": "Go"
+        },
+        "gpu-memory-frequency": {
+            "name": "Fréquence de la mémoire",
+            "unit": "MHz"
+        }
+    },
+    "ram": {
+        "ram-type": {
+            "name": "Type",
+            "unit": ""
+        },
+        "ram-modules": {
+            "name": "Barrettes mémoire",
+            "unit": ""
+        },
+        "ram-capacity": {
+            "name": "Taille de la mémoire",
+            "unit": "Go"
+        },
+        "ram-frequency": {
+            "name": "Fréquence de la mémoire",
+            "unit": "MHz"
+        }
+    },
+    "hdd": {
+        "hdd-speed": {
+            "name": "Vitesse de rotation",
+            "unit": "tr/min"
+        },
+        "hdd-capacity": {
+            "name": "Capacité",
+            "unit": "Go"
+        }
+    },
+    "ssd": {
+        "ssd-type": {
+            "name": "Type",
+            "unit": ""
+        },
+        "ssd-capacity": {
+            "name": "Capacité",
+            "unit": "Go"
+        },
+        "ssd-write-speed": {
+            "name": "Vitesse d'écriture",
+            "unit": "Mo/s"
+        },
+        "ssd-read-speed": {
+            "name": "Vitesse de lecture",
+            "unit": "Mo/s"
+        }
+    },
+    "mb": {
+        "mb-chipset": {
+            "name": "Chipset",
+            "unit": ""
+        },
+        "mb-socket": {
+            "name": "Socket",
+            "unit": ""
+        }
+    }
+}

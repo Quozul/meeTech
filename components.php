@@ -53,7 +53,7 @@
                         <div class="list-group">
                             <?php
                             $sth = $pdo->prepare('SELECT * FROM cpu WHERE validated = 1');
-                            $sth->execute(); // remplace le ? par la valeur
+                            $sth->execute();
                             $result = $sth->fetchAll();
 
                             var_dump($result);
