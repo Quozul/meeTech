@@ -99,7 +99,12 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
                                                 <!-- Action buttons -->
                                                 <th scope="col">
                                                     <form action="/includes/hardware/validate_component.php" method="post">
-                                                        <button type="submit" class="btn btn-sm btn-success <?php if ($component['validated'] == 1) echo 'disabled'; ?>" name="id" value="<?php echo $component['id']; ?>">Valider</button>
+                                                        <button type="submit" class="btn btn-sm btn-success <?php if ($component['validated'] == 1) echo 'disabled'; ?>" name="id" value="<?php echo $component['id']; ?>">
+                                                            <?php
+                                                            if ($component['validated'] == 1) echo 'Validé';
+                                                            else echo 'Valider';
+                                                            ?>
+                                                        </button>
                                                     </form>
                                                     <form action="/admin/edit_component.php" method="post">
                                                         <button type="submit" class="btn btn-sm btn-primary" name="id" value="<?php echo $component['id']; ?>">Modifier</button>

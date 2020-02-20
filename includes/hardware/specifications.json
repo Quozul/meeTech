@@ -28,7 +28,8 @@
         },
         "cpu-cmos": {
             "input-type": "number",
-            "name": "Finesse de gravure"
+            "name": "Finesse de gravure",
+            "unit": "nm"
         }
     },
     "gpu": {
@@ -41,10 +42,6 @@
             "input-type": "number",
             "name": "Fréquence boost",
             "unit": "GHz"
-        },
-        "gpu-cores": {
-            "input-type": "number",
-            "name": "Coeurs"
         },
         "gpu-memory-type": {
             "input-type": "text",
@@ -66,7 +63,8 @@
         },
         "gpu-cmos": {
             "input-type": "number",
-            "name": "Finesse de gravure"
+            "name": "Finesse de gravure",
+            "unit": "nm"
         }
     },
     "ram": {

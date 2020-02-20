@@ -23,9 +23,46 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
         $specs = json_decode($component['specifications'], true);
         ?>
 
-        <h1>Composant</h1>
+        <h1>
+            <a class="btn btn-primary" role="button" href="javascript: history.go(-1)">« Retour</a>
+            Composant
+        </h1>
         <div class="jumbotron">
-            <h2><?php echo $specs['brand'] . ' ' . $specs['name'] ?></h2>
+            <?php if ($component['validated'] == 0) { ?>
+                <form action="/admin/edit_component.php" method="post">
+                    <button type="submit" class="btn btn btn-primary float-right" name="id" value="<?php echo $component['id']; ?>">Proposer une modification</button>
+                </form>
+            <?php } ?>
+
+            <h2>
+                <?php
+                echo $specs['brand'] . ' ' . $specs['name'];
+                ?>
+            </h2>
+            <p class="text-muted">
+                <?php
+                $d = new DateTime($component['added_date']);
+
+                $username = 'Anonyme';
+
+                if (isset($component['added_by'])) {
+                    $sth = $pdo->prepare('SELECT username FROM users WHERE id_user = ?');
+                    $sth->execute([$component['added_by']]); // remplace le ? par la valeur
+                    $result = $sth->fetch();
+
+                    $username = $result['username'];
+                }
+
+                // TODO: Add link to user's profile
+                echo 'Ajouté par ' . $username . ' le ' . $d->format('d M yy');
+
+                if ($component['validated'] == 0) {
+                    echo '<span class="badge badge-danger badge-pill float-right" data-toggle="tooltip" data-placement="top" title="Les informations n\'ont pas été vérifiées">Non validé</span>';
+                } else {
+                    echo '<span class="badge badge-success badge-pill float-right" data-toggle="tooltip" data-placement="top" title="Les informations de ce composants sont correctes">Validé</span>';
+                }
+                ?>
+            </p>
             <hr>
             <?php foreach ($GLOBALS['cols'][$component['type']] as $key => $value) {
                 echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>';

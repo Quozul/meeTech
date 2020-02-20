@@ -71,7 +71,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                             $result = $sth->fetchAll();
 
                             if (count($result) > 0) { ?>
-                                <!-- Display component table -->
+                                <!-- Display component list -->
                                 <div class="list-group">
                                     <?php foreach ($result as $k => $component) {
                                         $specs = json_decode($component['specifications'], true);
@@ -89,16 +89,34 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                                                     <?php } ?>
                                                 </small>
                                             </div>
+
+                                            <!-- Component's specification -->
                                             <p class="mb-1">
-                                                <?php foreach ($GLOBALS['cols'][$component['type']] as $key => $value) {
+                                                <?php
+                                                $i = 0;
+                                                foreach ($GLOBALS['cols'][$component['type']] as $key => $value) {
                                                     echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>';
-                                                } ?>
+                                                    if (++$i == 3) break; // limit specifications to the 3 firsts one
+                                                }
+                                                ?>
                                             </p>
+
                                             <small class="text-muted">
                                                 <?php
-                                                $d = new DateTime($component['added_by']);
+                                                $d = new DateTime($component['added_date']);
 
-                                                echo 'Ajouté par ' . (isset($component['added_by']) ? $component['added_by'] : 'Anonyme') . ' le ' . $d->format('d M yy');
+                                                $username = 'Anonyme';
+
+                                                if (isset($component['added_by'])) {
+                                                    $sth = $pdo->prepare('SELECT username FROM users WHERE id_user = ?');
+                                                    $sth->execute([$component['added_by']]); // remplace le ? par la valeur
+                                                    $result = $sth->fetch();
+
+                                                    $username = $result['username'];
+                                                }
+
+                                                // TODO: Add link to user's profile
+                                                echo 'Ajouté par ' . $username . ' le ' . $d->format('d M yy');
                                                 ?>
                                             </small>
                                         </a>

@@ -15,12 +15,20 @@
         $component = $sth->fetch();
         ?>
 
-        <h1>Edition du composant n°<?php echo $_POST['id']; ?></h1>
-        <form action="../includes/hardware/edit_component.php" method="post" id="submit-component">
-            <?php include('../includes/hardware/new_component.php'); ?>
-        </form>
+        <h1>
+            <a class="btn btn-primary" role="button" href="javascript: history.go(-1)">« Retour</a>
+            Edition du composant n°<?php echo $_POST['id']; ?>
+        </h1>
+        <div class="jumbotron">
+            <?php if ($component['validated'] == 1) { ?>
+                <div class="alert alert-warning" role="alert">Attention ! Ce composant a été validé, êtes-vous certain(e) de vouloir le modifier ?</div>
+            <?php } ?>
+            <form action="../includes/hardware/edit_component.php" method="post" id="submit-component">
+                <?php include('../includes/hardware/new_component.php'); ?>
+            </form>
 
-        <button type="submit" class="btn btn-primary" form="submit-component" name="id" value="<?php echo $_POST['id']; ?>">Proposer le composant</button>
+            <button type="submit" class="btn btn-primary" form="submit-component" name="id" value="<?php echo $_POST['id']; ?>">Proposer le composant</button>
+        </div>
 
         <script>
             let specs = <?php echo $component['specifications']; ?>;
