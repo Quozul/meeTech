@@ -14,8 +14,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
 <body class="d-flex vh-100 flex-column justify-content-between">
     <?php include('includes/header.php'); ?>
 
-    <main role="main" class="container">
-        <!-- <div class="jumbotron"> -->
+    <main role="main" class="container h-100">
         <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Proposer un composant</button>
 
         <!-- Add component modal/form -->
@@ -47,12 +46,12 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
         <div class="row">
             <div class="col-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-cpu-tab" data-toggle="pill" href="#v-pills-cpu" role="tab" aria-controls="v-pills-cpu" aria-selected="true">Processeurs</a>
-                    <a class="nav-link" id="v-pills-gpu-tab" data-toggle="pill" href="#v-pills-gpu" role="tab" aria-controls="v-pills-gpu" aria-selected="false">Cartes graphiques</a>
-                    <a class="nav-link" id="v-pills-ram-tab" data-toggle="pill" href="#v-pills-ram" role="tab" aria-controls="v-pills-ram" aria-selected="false">Mémoire vive</a>
-                    <a class="nav-link" id="v-pills-hdd-tab" data-toggle="pill" href="#v-pills-hdd" role="tab" aria-controls="v-pills-hdd" aria-selected="false">Disques durs</a>
-                    <a class="nav-link" id="v-pills-ssd-tab" data-toggle="pill" href="#v-pills-ssd" role="tab" aria-controls="v-pills-ssd" aria-selected="false">SSDs</a>
-                    <a class="nav-link" id="v-pills-mb-tab" data-toggle="pill" href="#v-pills-mb" role="tab" aria-controls="v-pills-mb" aria-selected="false">Cartes mère</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'cpu') echo 'active'; ?>" id="v-pills-cpu-tab" data-toggle="pill" onclick="change_tab('cpu')" role="tab" aria-controls="v-pills-cpu" aria-selected="true">Processeurs</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'gpu') echo 'active'; ?>" id="v-pills-gpu-tab" data-toggle="pill" onclick="change_tab('gpu')" role="tab" aria-controls="v-pills-gpu" aria-selected="false">Cartes graphiques</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'ram') echo 'active'; ?>" id="v-pills-ram-tab" data-toggle="pill" onclick="change_tab('ram')" role="tab" aria-controls="v-pills-ram" aria-selected="false">Mémoire vive</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'hdd') echo 'active'; ?>" id="v-pills-hdd-tab" data-toggle="pill" onclick="change_tab('hdd')" role="tab" aria-controls="v-pills-hdd" aria-selected="false">Disques durs</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'ssd') echo 'active'; ?>" id="v-pills-ssd-tab" data-toggle="pill" onclick="change_tab('ssd')" role="tab" aria-controls="v-pills-ssd" aria-selected="false">SSDs</a>
+                    <a class="nav-link cursor-pointer <?php if ($_GET['tab'] == 'mb') echo 'active'; ?>" id="v-pills-mb-tab" data-toggle="pill" onclick="change_tab('mb')" role="tab" aria-controls="v-pills-mb" aria-selected="false">Cartes mère</a>
                 </div>
             </div>
 
@@ -64,6 +63,23 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                         $sth = $pdo->prepare('SELECT COUNT(*) FROM component WHERE type = ?');
                         $sth->execute([$table_name]);
                         $content_count = $sth->fetch()[0];
+
+                        // change the page to an existing one
+                        $page_count = ceil($content_count / $page_limit);
+                        if ($page > $page_count) {
+                            $page = min($page, $page_count);
+                    ?>
+
+                            <script>
+                                let url = new URL(window.location.href);
+                                let params = new URLSearchParams(url.search.slice(1));
+                                params.set('page', <?php echo $page ?>);
+
+                                window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
+                            </script>
+
+                            <?php
+                        }
 
                         if ($content_count > 0) {
                             $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? LIMIT ? OFFSET ?');
@@ -79,7 +95,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                                         <a href="<?php echo '/view_component.php?id=' . $component['id']; ?>" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">
-                                                    <?php echo $specs['brand'] . ' ' . $specs['name']; ?>
+                                                    <?php echo (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName'); ?>
                                                 </h5>
                                                 <small class="text-muted">
                                                     <?php if ($component['validated'] == 0) { ?>
@@ -129,9 +145,6 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                             <!-- Table pagination -->
                             <nav aria-label="..." class="mt-4">
                                 <ul class="pagination justify-content-center">
-                                    <?php
-                                    $page_count = $content_count / $page_limit;
-                                    ?>
                                     <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
                                         <a class="page-link" onclick="change_page(<?php echo intval($page) - 1; ?>);" tabindex="-1">Précédent</a>
                                     </li>
@@ -157,51 +170,58 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                             <p>Oops, il semblerait qu'il n'y ait rien ici :(</p>
                     <?php }
                     } ?>
-                    <div class="tab-pane fade show active" id="v-pills-cpu" role="tabpanel" aria-labelledby="v-pills-cpu-tab">
+
+                    <div class="tab-pane <?php if ($_GET['tab'] == 'cpu') echo 'show active'; ?>" id="v-pills-cpu" role="tabpanel" aria-labelledby="v-pills-cpu-tab">
                         <h3>Processeurs</h3>
 
                         <?php
-                        component_table('cpu', $pdo, $page_limit, $page);
+                        if ($_GET['tab'] == 'cpu')
+                            component_table('cpu', $pdo, $page_limit, $page);
                         ?>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-gpu" role="tabpanel" aria-labelledby="v-pills-gpu-tab">
+                    <div class="tab-pane <?php if ($_GET['tab'] == 'gpu') echo 'show active'; ?>" id="v-pills-gpu" role="tabpanel" aria-labelledby="v-pills-gpu-tab">
                         <h3>Cartes graphiques</h3>
 
                         <?php
-                        component_table('gpu', $pdo, $page_limit, $page);
+                        if ($_GET['tab'] == 'gpu')
+                            component_table('gpu', $pdo, $page_limit, $page);
                         ?>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-ram" role="tabpanel" aria-labelledby="v-pills-ram-tab">
+                    <div class="tab-pane <?php if ($_GET['tab'] == 'ram') echo 'show active'; ?>" id="v-pills-ram" role="tabpanel" aria-labelledby="v-pills-ram-tab">
                         <h3>Mémoire vive</h3>
 
                         <?php
-                        component_table('ram', $pdo, $page_limit, $page);
+                        if ($_GET['tab'] == 'ram')
+                            component_table('ram', $pdo, $page_limit, $page);
                         ?>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-hdd" role="tabpanel" aria-labelledby="v-pills-hdd-tab">
+                    <div class="tab-pane <?php if ($_GET['tab'] == 'hdd') echo 'show active'; ?>" id="v-pills-hdd" role="tabpanel" aria-labelledby="v-pills-hdd-tab">
                         <h3>Disques dur</h3>
 
                         <?php
-                        component_table('hdd', $pdo, $page_limit, $page);
+                        if ($_GET['tab'] == 'hdd')
+                            component_table('hdd', $pdo, $page_limit, $page);
                         ?>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-ssd" role="tabpanel" aria-labelledby="v-pills-ssd-tab">
+                    <div class="tab-pane <?php if ($_GET['tab'] == 'ssd') echo 'show active'; ?>" id="v-pills-ssd" role="tabpanel" aria-labelledby="v-pills-ssd-tab">
                         <h3>SSD</h3>
 
                         <?php
-                        component_table('ssd', $pdo, $page_limit, $page);
+                        if ($_GET['tab'] == 'ssd')
+                            component_table('ssd', $pdo, $page_limit, $page);
                         ?>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-mb" role="tabpanel" aria-labelledby="v-pills-mb-tab">
+                    <div class="tab-pane <?php if ($_GET['tab'] == 'mb') echo 'show active'; ?>" id="v-pills-mb" role="tabpanel" aria-labelledby="v-pills-mb-tab">
                         <h3>Cartes mère</h3>
 
                         <?php
-                        component_table('mb', $pdo, $page_limit, $page);
+                        if ($_GET['tab'] == 'mb')
+                            component_table('mb', $pdo, $page_limit, $page);
                         ?>
                     </div>
                 </div>
@@ -211,7 +231,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
 
     <script>
         // TODO: Change page without reloading
-        function change_page(page) {
+        function reload_page(page) {
             let url = window.location.href;
             url = url.substr(0, url.lastIndexOf('?'))
             console.log(url);
@@ -221,6 +241,22 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
             window.location.href = new_url;
 
             window.history.replaceState('test', 'title', url + '?page=' + page);
+        }
+
+        function change_tab(tab) {
+            let url = new URL(window.location.href);
+            let params = new URLSearchParams(url.search.slice(1));
+            params.set('tab', tab);
+
+            window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
+        }
+
+        function change_page(page) {
+            let url = new URL(window.location.href);
+            let params = new URLSearchParams(url.search.slice(1));
+            params.set('page', page);
+
+            window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
         }
     </script>
 

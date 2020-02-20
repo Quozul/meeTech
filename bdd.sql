@@ -1,4 +1,4 @@
-dCREATE DATABASE IF NOT EXISTS meetech;
+CREATE DATABASE IF NOT EXISTS meetech;
 
 USE meetech;
 
@@ -36,7 +36,7 @@ CREATE TABLE message (
     default_langugage VARCHAR(32) NOT NULL REFERENCES language (lang),
     category VARCHAR(32) NOT NULL REFERENCES category (name),
     note INTEGER
-) ;
+);
 
 CREATE TABLE translation (
     id_t INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -46,7 +46,7 @@ CREATE TABLE translation (
     translator INTEGER NOT NULL REFERENCES users (id_user),
     original_message INTEGER NOT NULL REFERENCES message (id_m),
     date_translated DATE
-) ;
+);
 
 CREATE TABLE comment (
     id_c INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -56,7 +56,7 @@ CREATE TABLE comment (
     date_published DATE,
     date_edited DATE,
     note INTEGER
-) ;
+);
 
 CREATE TABLE file(
     added_by INTEGER NOT NULL REFERENCES user(id_user),
