@@ -123,6 +123,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
                             <?php } ?>
 
                             <!-- Table pagination -->
+                            <!-- TODO: Fix pagination on this page, see commit f1931dc -->
                             <nav aria-label="..." class="mt-4">
                                 <ul class="pagination justify-content-center">
                                     <?php

@@ -37,12 +37,12 @@
         "gpu-frequency": {
             "input-type": "number",
             "name": "Fréquence",
-            "unit": "GHz"
+            "unit": "MHz"
         },
         "gpu-boost-frequency": {
             "input-type": "number",
             "name": "Fréquence boost",
-            "unit": "GHz"
+            "unit": "MHz"
         },
         "gpu-memory-type": {
             "input-type": "text",

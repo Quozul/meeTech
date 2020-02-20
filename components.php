@@ -28,7 +28,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="submit-component" method="post" action="/includes/hardware/add_component/" autocomplete="off">
+                        <form class="needs-validation" id="submit-component" method="post" action="/includes/hardware/add_component/" autocomplete="off" novalidate>
                             <?php include('includes/hardware/new_component.php'); ?>
                         </form>
                     </div>
@@ -128,7 +128,8 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                                                     $sth->execute([$component['added_by']]); // remplace le ? par la valeur
                                                     $result = $sth->fetch();
 
-                                                    $username = $result['username'];
+                                                    if ($result)
+                                                        $username = $result['username'];
                                                 }
 
                                                 // TODO: Add link to user's profile

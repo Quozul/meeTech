@@ -3,12 +3,23 @@
 $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/hardware/specifications.json'), true);
 ?>
 
+<!-- TODO: Add verification for the first 3 fields -->
 <div class="form-group">
     <label for="brand">Fabricant</label>
-    <input type="text" class="form-control" id="brand" placeholder="Fabricant" name="brand">
+    <input type="text" class="form-control" id="brand" placeholder="Fabricant" name="brand" required>
 
+    <div class="invalid-feedback">
+        Veuillez indiquer une marque.
+    </div>
+</div>
+
+<div class="form-group">
     <label for="name">Nom/modèle</label>
-    <input type="text" class="form-control" id="name" placeholder="Nom/modèle" name="name">
+    <input type="text" class="form-control" id="name" placeholder="Nom/modèle" name="name" required>
+
+    <div class="invalid-feedback">
+        Veuillez indiquer un nom.
+    </div>
 </div>
 
 <div class="input-group mb-3">
@@ -16,8 +27,8 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
         <label class="input-group-text" for="component-type">Composant</label>
     </div>
 
-    <select class="custom-select" id="component-type" name="type">
-        <option selected>Selectionnez...</option>
+    <select class="custom-select" id="component-type" name="type" required>
+        <option value="" selected>Selectionnez...</option>
         <option value="cpu">Processeur</option>
         <option value="gpu">Carte graphique</option>
         <option value="ram">Mémoire vive</option>
@@ -25,6 +36,10 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
         <option value="ssd">SSD</option>
         <option value="mb">Carte mère</option>
     </select>
+
+    <div class="invalid-feedback">
+        Veuillez selectionner un type de composant.
+    </div>
 </div>
 
 <span id="submit-components-group">
