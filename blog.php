@@ -12,12 +12,12 @@
         <?php include('includes/header.php'); ?>
 
         <main role="main" class="container">
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Publier un nouvel article</button>
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#blogPostModal">Publier un nouvel article</button>
+            <div class="modal fade bd-example-modal-xl" id="blogPostModal" tabindex="-1" role="dialog" aria-labelledby="blogPostModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Nouvel article</h5>
+                            <h5 class="modal-title" id="blogPostModalTitle">Nouvelle publication</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -57,10 +57,10 @@
                     </aside>
                     <article class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="#"><?php echo $messages[$i]['title'] ?></a></h5>
+                            <h5 class="card-title"><a href=<?php echo '"article?post=' . $messages[$i]['id_m'] . '"' ; ?>><?php echo $messages[$i]['title'] ?></a></h5>
                             <p class="card-text">
                                 <?php echo $messages[$i]['content'] ?> <!--Couper le texte à un nb de caractères donnés via un script JS-->
-                                <a href="#">» Continue reading</a>
+                                <a href=<?php echo '"article?post=' . $messages[$i]['id_m'] . '"' ; ?>>» Continue reading</a>
                             </p>
                             <p class="card-text">
                                 <small class="text-muted">Published on <?php echo $messages[$i]['date_published'] ?> by 
@@ -68,7 +68,7 @@
                                     $auth_query = $pdo->prepare('SELECT username FROM users WHERE id_user = ?') ;
                                     $auth_query->execute([$messages[$i]['author']]) ;
                                     $author = $auth_query->fetch()[0] ;
-                                    echo $author;
+                                    echo '<a href="#">' . $author . '</a>';
                                     ?>
                                 </small>
                             </p>

@@ -15,10 +15,8 @@
             <label class="input-group-text" for="category">Catégorie*</label>
         </div>
 
-        <select class="custom-select" id="category" name="category">
-            <option selected>Selectionnez...</option>
-            <option value="blog">Blog</option>
-            <option value="c2">Forum</option>
+        <select class="custom-select" id="category" name="category" readonly>
+            <option selected value=<?php echo strtolower('"' . $page_name . '"') ; ?>><?php echo $page_name ; ?></option>
         </select>
     </div>
 </form>
