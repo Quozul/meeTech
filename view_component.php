@@ -5,6 +5,14 @@ $page_name = 'Composant n°' . $_GET['id'];
 
 // Columns names and description
 $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
+
+// Get component's informations
+$sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
+$sth->execute([$_GET['id']]);
+$component = $sth->fetch();
+$specs = json_decode($component['specifications'], true);
+
+$page_description = (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName') . ' - ' . $component['score'] . ' points';
 ?>
 
 <!DOCTYPE html>
@@ -15,14 +23,6 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
     <?php include('includes/header.php'); ?>
 
     <main role="main" class="container">
-        <!-- Get component's informations -->
-        <?php
-        $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
-        $sth->execute([$_GET['id']]);
-        $component = $sth->fetch();
-        $specs = json_decode($component['specifications'], true);
-        ?>
-
         <h1>
             <a class="btn btn-primary" role="button" href="javascript: history.go(-1)">« Retour</a>
             <?php echo $cols[$component['type']]['name']; ?>

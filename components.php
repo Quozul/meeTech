@@ -1,6 +1,6 @@
 <?php
 include('config.php');
-$page_limit = 3;
+$page_limit = isset($_GET['page-limit']) ? $_GET['page-limit'] : 3;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
 // Columns names and description
@@ -14,7 +14,23 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
 <body class="d-flex vh-100 flex-column justify-content-between">
     <?php include('includes/header.php'); ?>
 
-    <main role="main" class="container h-100">
+    <main role="main" class="container">
+        <!-- Page's limit chooser -->
+        <form class="float-right ml-2">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="component-type">A afficher</label>
+                </div>
+                <select class="form-control" id="page-limit">
+                    <option value="3" <?php if ($page_limit == 3) echo 'selected'; ?>>3</option>
+                    <option value="9" <?php if ($page_limit == 9) echo 'selected'; ?>>9</option>
+                    <option value="15" <?php if ($page_limit == 15) echo 'selected'; ?>>15</option>
+                    <option value="30" <?php if ($page_limit == 30) echo 'selected'; ?>>30</option>
+                    <option value="50" <?php if ($page_limit == 50) echo 'selected'; ?>>50</option>
+                </select>
+            </div>
+        </form>
+
         <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Proposer un composant</button>
 
         <!-- Add component modal/form -->
@@ -257,6 +273,14 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
             let url = new URL(window.location.href);
             let params = new URLSearchParams(url.search.slice(1));
             params.set('page', page);
+
+            window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
+        }
+
+        document.getElementById('page-limit').onchange = function() {
+            let url = new URL(window.location.href);
+            let params = new URLSearchParams(url.search.slice(1));
+            params.set('page-limit', this.value);
 
             window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
         }

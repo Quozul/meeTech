@@ -1,7 +1,7 @@
 {
     "cpu": {
         "name": "Processeur",
-        "score-formula": "([cpu-cores]+[cpu-threads])*([cpu-frequency]+[cpu-boost-frequency])+(1/[cpu-cmos]*100)",
+        "score-formula": "([cpu-cores]+[cpu-threads])*([cpu-frequency]+[cpu-boost-frequency])+(1/[cpu-cmos]*100)+(cpu-l1-cache+cpu-l2-cache+cpu-l3-cache)",
         "specs": {
             "cpu-frequency": {
                 "input-type": "number",
@@ -12,6 +12,21 @@
                 "input-type": "number",
                 "name": "Fréquence boost",
                 "unit": "GHz"
+            },
+            "cpu-l1-cache": {
+                "input-type": "number",
+                "name": "Cache L1",
+                "unit": "Mo"
+            },
+            "cpu-l2-cache": {
+                "input-type": "number",
+                "name": "Cache L2",
+                "unit": "Mo"
+            },
+            "cpu-l3-cache": {
+                "input-type": "number",
+                "name": "Cache L3",
+                "unit": "Mo"
             },
             "cpu-cores": {
                 "input-type": "number",
@@ -78,7 +93,7 @@
     },
     "ram": {
         "name": "Mémoire vive",
-        "score-formula": "([ram-modules]*[ram-capacity])*[ram-frequency]",
+        "score-formula": "([ram-modules]*[ram-capacity])*[ram-frequency]*(1/ram-cas-latency)",
         "specs": {
             "ram-type": {
                 "input-type": "text",
@@ -97,12 +112,17 @@
                 "input-type": "number",
                 "name": "Fréquence de la mémoire",
                 "unit": "MHz"
+            },
+            "ram-cas-latency": {
+                "input-type": "number",
+                "name": "CAS Latency",
+                "unit": "MHz"
             }
         }
     },
     "hdd": {
         "name": "Disque dur",
-        "score-formula": "[hdd-speed]*[hdd-capacity]/1000",
+        "score-formula": "[hdd-speed]*([hdd-cache]*[hdd-capacity]/1000)",
         "specs": {
             "hdd-speed": {
                 "input-type": "number",
@@ -113,6 +133,19 @@
                 "input-type": "number",
                 "name": "Capacité",
                 "unit": "Go"
+            },
+            "hdd-cache": {
+                "input-type": "number",
+                "name": "Cache",
+                "unit": "Mo"
+            },
+            "hdd-form-factor": {
+                "input-type": "select",
+                "name": "Format",
+                "values": {
+                    "3.5": "3.5 pouces",
+                    "2.5": "2.5 pouces"
+                }
             }
         }
     },
