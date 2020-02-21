@@ -12,7 +12,7 @@ $sth->execute([$_GET['id']]);
 $component = $sth->fetch();
 $specs = json_decode($component['specifications'], true);
 
-$page_description = (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName') . ' - ' . $component['score'] . ' points';
+$page_description = $cols[$component['type']]['name'] . ' ' . (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName') . ' - ' . $component['score'] . ' points';
 ?>
 
 <!DOCTYPE html>
