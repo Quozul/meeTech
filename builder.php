@@ -3,6 +3,22 @@ include('config.php');
 
 // Columns names and description
 $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
+
+$config_name = isset($_GET['name']) && !empty($_GET['name']) ? $_GET['name'] : 'Config sans nom';
+unset($_GET['name']);
+$score = 0;
+
+foreach ($_GET as $type => $id) {
+    $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
+    $sth->execute([$id]);
+    $component = $sth->fetch();
+
+    $score += $component['score'];
+}
+
+$page_name = $config_name;
+
+$page_description = $config_name . ' - ' . $score . ' points.';
 ?>
 
 <!DOCTYPE html>
@@ -22,22 +38,10 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                 <div class="input-group-prepend col-2 d-block p-0">
                     <span class="input-group-text">Nom</span>
                 </div>
-                <input id="config-name" class="form-control" name="name" type="text" value="<?php echo isset($_GET['name']) && !empty($_GET['name']) ? $_GET['name'] : 'Config sans nom'; ?>">
+                <input id="config-name" class="form-control" name="name" type="text" value="<?php echo $config_name; ?>">
 
                 <div class="input-group-append">
-                    <span class="input-group-text">Score : <?php
-                                                            unset($_GET['name']);
-                                                            $score = 0;
-
-                                                            foreach ($_GET as $type => $id) {
-                                                                $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
-                                                                $sth->execute([$id]);
-                                                                $component = $sth->fetch();
-
-                                                                $score += $component['score'];
-                                                            }
-                                                            echo $score;
-                                                            ?></span>
+                    <span class="input-group-text">Score : <?php echo $score; ?></span>
                 </div>
             </div>
 

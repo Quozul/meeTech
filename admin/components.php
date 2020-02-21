@@ -89,7 +89,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
                             $result = $sth->fetchAll();
 
                             if (count($result) > 0) { ?>
-                                <table class="table mt-color-element rounded">
+                                <table class="table mt-color-element rounded table-responsive">
                                     <thead>
                                         <tr>
                                             <th scope="col">Marque</th>

@@ -157,6 +157,13 @@ CREATE TABLE component(
     specifications TEXT
 );
 
+-- statistics
+
+CREATE TABLE page_visit(
+    page VARCHAR(255) PRIMARY KEY,
+    visits INTEGER
+);
+
 -- old component tables
 /*CREATE TABLE cpu(
     name VARCHAR(25),
