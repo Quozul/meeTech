@@ -17,23 +17,52 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
         <h1>Configurateur</h1>
 
         <div class="jumbotron">
-            <?php foreach (['cpu' => 'Processeur', 'gpu' => 'Carte graphique', 'ram' => 'Mémoire vive', 'ssd' => 'SSD', 'hdd' => 'Disque dur', 'mb' => 'Carte mère'] as $type => $name) { ?>
+            <!-- Config name -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend col-2 d-block p-0">
+                    <span class="input-group-text">Nom</span>
+                </div>
+                <input id="config-name" class="form-control" name="name" type="text" value="<?php echo isset($_GET['name']) && !empty($_GET['name']) ? $_GET['name'] : 'Config sans nom'; ?>">
+
+                <div class="input-group-append">
+                    <span class="input-group-text">Score : <?php
+                                                            unset($_GET['name']);
+                                                            $score = 0;
+
+                                                            foreach ($_GET as $type => $id) {
+                                                                $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
+                                                                $sth->execute([$id]);
+                                                                $component = $sth->fetch();
+
+                                                                $score += $component['score'];
+                                                            }
+                                                            echo $score;
+                                                            ?></span>
+                </div>
+            </div>
+
+            <hr>
+
+            <?php foreach ($cols as $type => $name) { ?>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend col-2 d-block p-0">
-                        <span class="input-group-text"><?php echo $name; ?></span>
+                        <span class="input-group-text"><?php echo $name['name']; ?></span>
                     </div>
 
+                    <!-- Component select -->
                     <select class="form-control selectpicker" id="<?php echo $type; ?>" data-live-search="true" data-show-subtext="true">
-                        <option value="">Selectionnez un <?php echo $name; ?>...</option>
+                        <option value="">Selectionnez un <?php echo strtolower($name['name']); ?>...</option>
                         <?php
-                        $sth = $pdo->prepare('SELECT * FROM component WHERE type = ?');
+                        $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? ORDER BY score DESC ');
                         $sth->execute([$type]);
                         $result = $sth->fetchAll();
 
                         foreach ($result as $key => $value) {
                             $specs = json_decode($value['specifications'], true);
                         ?>
-                            <option data-tokens="<?php echo $specs['id']; ?>" value="<?php echo $value['id']; ?>" <?php if (!empty($_GET[$type]) && $_GET[$type] == $value['id']) echo 'selected'; ?>><?php echo $specs['brand'] . ' ' . $specs['name']; ?></option>
+                            <option data-tokens="<?php echo $specs['id']; ?>" value="<?php echo $value['id']; ?>" <?php if (!empty($_GET[$type]) && $_GET[$type] == $value['id']) echo 'selected'; ?>>
+                                <?php echo $specs['brand'] . ' ' . $specs['name']; ?>
+                            </option>
                         <?php } ?>
                     </select>
 
@@ -58,7 +87,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                                         </div>
                                         <div class="modal-body">
                                             <ul class="list-group">
-                                                <?php foreach ($cols[$type] as $key => $value) { ?>
+                                                <?php foreach ($cols[$type]['specs'] as $key => $value) { ?>
                                                     <li class="list-group-item">
                                                         <?php echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>'; ?>
                                                     </li>
@@ -78,6 +107,11 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                     </div>
                 </div>
             <?php } ?>
+
+            <hr>
+
+            <!-- Copy button -->
+            <button type="button" class="btn btn-primary" onclick="copy();">Copier le lien</button>
         </div>
     </main>
 
@@ -92,9 +126,27 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                     let params = new URLSearchParams(url.search.slice(1));
                     params.set(this.id, this.value);
 
+                    // TODO: reload info modal with ajax
                     window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
                 }
             }
+
+        document.getElementById('config-name').onchange = function() {
+            let url = new URL(window.location.href);
+            let params = new URLSearchParams(url.search.slice(1));
+            params.set('name', this.value);
+
+            window.history.pushState({}, '', url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString());
+        };
+
+        function copy() {
+            console.log('copy!');
+            navigator.clipboard.writeText(window.location.href).then(function() {
+                /* clipboard write success */
+            }, function() {
+                /* clipboard write failed */
+            });
+        }
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.9/js/bootstrap-select.min.js"></script>
 

@@ -1,151 +1,175 @@
 {
     "cpu": {
-        "cpu-frequency": {
-            "input-type": "number",
-            "name": "Fréquence",
-            "unit": "GHz"
-        },
-        "cpu-boost-frequency": {
-            "input-type": "number",
-            "name": "Fréquence boost",
-            "unit": "GHz"
-        },
-        "cpu-cores": {
-            "input-type": "number",
-            "name": "Coeurs physiques"
-        },
-        "cpu-threads": {
-            "input-type": "number",
-            "name": "Coeurs logiques"
-        },
-        "cpu-ram-max-frequency": {
-            "input-type": "number",
-            "name": "Fréquence max. de la mémoire",
-            "unit": "MHz"
-        },
-        "cpu-socket": {
-            "input-type": "text",
-            "name": "Socket"
-        },
-        "cpu-cmos": {
-            "input-type": "number",
-            "name": "Finesse de gravure",
-            "unit": "nm"
+        "name": "Processeur",
+        "score-formula": "([cpu-cores]+[cpu-threads])*([cpu-frequency]+[cpu-boost-frequency])+(1/[cpu-cmos]*100)",
+        "specs": {
+            "cpu-frequency": {
+                "input-type": "number",
+                "name": "Fréquence",
+                "unit": "GHz"
+            },
+            "cpu-boost-frequency": {
+                "input-type": "number",
+                "name": "Fréquence boost",
+                "unit": "GHz"
+            },
+            "cpu-cores": {
+                "input-type": "number",
+                "name": "Coeurs physiques"
+            },
+            "cpu-threads": {
+                "input-type": "number",
+                "name": "Coeurs logiques"
+            },
+            "cpu-ram-max-frequency": {
+                "input-type": "number",
+                "name": "Fréquence max. de la mémoire",
+                "unit": "MHz"
+            },
+            "cpu-socket": {
+                "input-type": "text",
+                "name": "Socket"
+            },
+            "cpu-cmos": {
+                "input-type": "number",
+                "name": "Finesse de gravure",
+                "unit": "nm"
+            }
         }
     },
     "gpu": {
-        "gpu-frequency": {
-            "input-type": "number",
-            "name": "Fréquence",
-            "unit": "MHz"
-        },
-        "gpu-boost-frequency": {
-            "input-type": "number",
-            "name": "Fréquence boost",
-            "unit": "MHz"
-        },
-        "gpu-memory-type": {
-            "input-type": "text",
-            "name": "Type de la mémoire"
-        },
-        "gpu-memory-capacity": {
-            "input-type": "number",
-            "name": "Taille de la mémoire",
-            "unit": "Go"
-        },
-        "gpu-memory-frequency": {
-            "input-type": "number",
-            "name": "Fréquence de la mémoire",
-            "unit": "MHz"
-        },
-        "gpu-flux-processors": {
-            "input-type": "text",
-            "name": "Processeurs de flux"
-        },
-        "gpu-cmos": {
-            "input-type": "number",
-            "name": "Finesse de gravure",
-            "unit": "nm"
+        "name": "Carte graphique",
+        "score-formula": "([gpu-frequency]+[gpu-boost-frequency])+([gpu-memory-capacity]*[gpu-memory-frequency])+[gpu-flux-processors]+(1/[gpu-cmos]*100)",
+        "specs": {
+            "gpu-frequency": {
+                "input-type": "number",
+                "name": "Fréquence",
+                "unit": "MHz"
+            },
+            "gpu-boost-frequency": {
+                "input-type": "number",
+                "name": "Fréquence boost",
+                "unit": "MHz"
+            },
+            "gpu-memory-type": {
+                "input-type": "text",
+                "name": "Type de la mémoire"
+            },
+            "gpu-memory-capacity": {
+                "input-type": "number",
+                "name": "Taille de la mémoire",
+                "unit": "Go"
+            },
+            "gpu-memory-frequency": {
+                "input-type": "number",
+                "name": "Fréquence de la mémoire",
+                "unit": "MHz"
+            },
+            "gpu-flux-processors": {
+                "input-type": "number",
+                "name": "Processeurs de flux"
+            },
+            "gpu-cmos": {
+                "input-type": "number",
+                "name": "Finesse de gravure",
+                "unit": "nm"
+            }
         }
     },
     "ram": {
-        "ram-type": {
-            "input-type": "text",
-            "name": "Type"
-        },
-        "ram-modules": {
-            "input-type": "number",
-            "name": "Barrettes mémoire"
-        },
-        "ram-capacity": {
-            "input-type": "number",
-            "name": "Taille de la mémoire",
-            "unit": "Go"
-        },
-        "ram-frequency": {
-            "input-type": "number",
-            "name": "Fréquence de la mémoire",
-            "unit": "MHz"
+        "name": "Mémoire vive",
+        "score-formula": "([ram-modules]*[ram-capacity])*[ram-frequency]",
+        "specs": {
+            "ram-type": {
+                "input-type": "text",
+                "name": "Type"
+            },
+            "ram-modules": {
+                "input-type": "number",
+                "name": "Barrettes mémoire"
+            },
+            "ram-capacity": {
+                "input-type": "number",
+                "name": "Taille de la mémoire",
+                "unit": "Go"
+            },
+            "ram-frequency": {
+                "input-type": "number",
+                "name": "Fréquence de la mémoire",
+                "unit": "MHz"
+            }
         }
     },
     "hdd": {
-        "hdd-speed": {
-            "input-type": "number",
-            "name": "Vitesse de rotation",
-            "unit": "tr/min"
-        },
-        "hdd-capacity": {
-            "input-type": "number",
-            "name": "Capacité",
-            "unit": "Go"
+        "name": "Disque dur",
+        "score-formula": "[hdd-speed]*[hdd-capacity]/1000",
+        "specs": {
+            "hdd-speed": {
+                "input-type": "number",
+                "name": "Vitesse de rotation",
+                "unit": "tr/min"
+            },
+            "hdd-capacity": {
+                "input-type": "number",
+                "name": "Capacité",
+                "unit": "Go"
+            }
         }
     },
     "ssd": {
-        "ssd-type": {
-            "input-type": "select",
-            "name": "Type",
-            "values": {
-                "nvme": "M.2 NVMe",
-                "sata": "SATA",
-                "msata": "M.2 SATA"
+        "name": "SSD",
+        "score-formula": "[ssd-capacity]*[ssd-write-speed]*[ssd-read-speed]/1000000",
+        "specs": {
+            "ssd-type": {
+                "input-type": "select",
+                "name": "Type",
+                "values": {
+                    "nvme": "M.2 NVMe",
+                    "sata": "SATA",
+                    "msata": "M.2 SATA"
+                }
+            },
+            "ssd-capacity": {
+                "input-type": "number",
+                "name": "Capacité",
+                "unit": "Go"
+            },
+            "ssd-read-speed": {
+                "input-type": "number",
+                "name": "Vitesse de lecture",
+                "unit": "Mo/s"
+            },
+            "ssd-write-speed": {
+                "input-type": "number",
+                "name": "Vitesse d'écriture",
+                "unit": "Mo/s"
             }
-        },
-        "ssd-capacity": {
-            "input-type": "number",
-            "name": "Capacité",
-            "unit": "Go"
-        },
-        "ssd-write-speed": {
-            "input-type": "number",
-            "name": "Vitesse d'écriture",
-            "unit": "Mo/s"
-        },
-        "ssd-read-speed": {
-            "input-type": "number",
-            "name": "Vitesse de lecture",
-            "unit": "Mo/s"
         }
     },
     "mb": {
-        "mb-chipset": {
-            "input-type": "text",
-            "name": "Chipset"
-        },
-        "mb-socket": {
-            "input-type": "text",
-            "name": "Socket"
-        },
-        "mb-wifi": {
-            "input-type": "select",
-            "name": "WiFi",
-            "values": {
-                "yes": "Oui",
-                "no": "Non"
+        "name": "Carte mère",
+        "score-formula": "1",
+        "specs": {
+            "mb-chipset": {
+                "input-type": "text",
+                "name": "Chipset"
+            },
+            "mb-socket": {
+                "input-type": "text",
+                "name": "Socket"
+            },
+            "mb-wifi": {
+                "input-type": "select",
+                "name": "WiFi",
+                "values": {
+                    "yes": "Oui",
+                    "no": "Non"
+                }
+            },
+            "mb-pcie": {
+                "input-type": "number",
+                "name": "Version du PCIe"
             }
-        },
-        "mb-pcie": {
-            "input-type": "number",
-            "name": "Version du PCIe"
         }
     }
 }

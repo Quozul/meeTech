@@ -1,12 +1,10 @@
 <head>
-    <title>meeTech -
-        <?php
-        if (!isset($page_name))
-            echo 'Hardware website';
-        else
-            echo $page_name;
-        ?>
-    </title>
+    <title>meeTech - <?php
+                        if (!isset($page_name))
+                            echo 'Hardware website';
+                        else
+                            echo $page_name;
+                        ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Hardware blog, forum and PC configurator.">

@@ -56,8 +56,8 @@ echo $score;
 
 // send component to pdo
 try {
-    $sth = $pdo->prepare('INSERT INTO component (validated, type, specifications, score) VALUES (?, ?, ?, ?);');
-    $sth->execute([$validated, $type, $specs, $score]);
+    $sth = $pdo->prepare('UPDATE component SET validated = ?, type = ?, specifications = ?, score = ? WHERE id = ?;');
+    $sth->execute([$validated, $type, $specs, $score, $_POST['id']]);
 } catch (Exception $e) {
     echo $e;
 }

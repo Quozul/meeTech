@@ -1,10 +1,10 @@
 <?php
 include('config.php');
-$page_limit = 3;
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+$page_name = 'Composant n°' . $_GET['id'];
 
 // Columns names and description
-$GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
+$cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +25,9 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
 
         <h1>
             <a class="btn btn-primary" role="button" href="javascript: history.go(-1)">« Retour</a>
-            Composant
+            <?php echo $cols[$component['type']]['name']; ?>
         </h1>
+
         <div class="jumbotron">
             <?php if ($component['validated'] == 0) { ?>
                 <form action="/admin/edit_component.php" method="post">
@@ -58,14 +59,15 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                 echo 'Ajouté par ' . $username . ' le ' . $d->format('d M yy');
 
                 if ($component['validated'] == 0) {
-                    echo '<span class="badge badge-danger badge-pill float-right" data-toggle="tooltip" data-placement="top" title="Les informations n\'ont pas été vérifiées">Non validé</span>';
+                    echo '<span class="badge badge-danger float-right" data-toggle="tooltip" data-placement="top" title="Les informations n\'ont pas été vérifiées">Non validé</span>';
                 } else {
-                    echo '<span class="badge badge-success badge-pill float-right" data-toggle="tooltip" data-placement="top" title="Les informations de ce composants sont correctes">Validé</span>';
+                    echo '<span class="badge badge-success float-right" data-toggle="tooltip" data-placement="top" title="Les informations de ce composants sont correctes">Validé</span>';
                 }
                 ?>
+                <span class="badge badge-primary float-right mr-1">Score : <?php echo $component['score']; ?></span>
             </p>
             <hr>
-            <?php foreach ($GLOBALS['cols'][$component['type']] as $key => $value) {
+            <?php foreach ($cols[$component['type']]['specs'] as $key => $value) {
                 echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>';
             } ?>
         </div>

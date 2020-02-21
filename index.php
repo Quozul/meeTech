@@ -51,29 +51,10 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                     <?php } ?>
                     <div class="card-header">
                         <h5 class="card-title"><?php echo $specs['brand'] . ' ' . $specs['name']; ?></h5>
-                        <p class="card-subtitle text-muted"><?php switch ($component['type']) {
-                                                                case 'cpu':
-                                                                    echo 'Processeur';
-                                                                    break;
-                                                                case 'gpu':
-                                                                    echo 'Carte graphique';
-                                                                    break;
-                                                                case 'ram':
-                                                                    echo 'Mémoire vive';
-                                                                    break;
-                                                                case 'hdd':
-                                                                    echo 'Disque dur';
-                                                                    break;
-                                                                case 'ssd':
-                                                                    echo 'SSD';
-                                                                    break;
-                                                                case 'mb':
-                                                                    echo 'Carte mère';
-                                                                    break;
-                                                            } ?></p>
+                        <p class="card-subtitle text-muted"><?php echo $cols[$component['type']]['name']; ?></p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <?php foreach ($GLOBALS['cols'][$component['type']] as $key => $value) { ?>
+                        <?php foreach ($GLOBALS['cols'][$component['type']]['specs'] as $key => $value) { ?>
                             <li class="list-group-item"><?php echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? $specs[$key] : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : ''); ?></li>
                         <?php } ?>
                     </ul>

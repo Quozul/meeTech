@@ -3,7 +3,6 @@
 $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/hardware/specifications.json'), true);
 ?>
 
-<!-- TODO: Add verification for the first 3 fields -->
 <div class="form-group">
     <label for="brand">Fabricant</label>
     <input type="text" class="form-control" id="brand" placeholder="Fabricant" name="brand" required>
@@ -45,9 +44,10 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
 <span id="submit-components-group">
     <hr class="d-none" id="submit-component-delimiter">
 
+    <!-- Generating form -->
     <?php foreach ($cols as $type => $value) { ?>
         <div class="form-group d-none" id="submit-component-<?php echo $type; ?>">
-            <?php foreach ($value as $spec_name => $spec) { ?>
+            <?php foreach ($value['specs'] as $spec_name => $spec) { ?>
                 <div class="input-group mb-3">
                     <?php if ($spec['input-type'] != 'select') { ?>
                         <input type="<?php echo $spec['input-type']; ?>" step="any" class="form-control" placeholder="<?php echo $spec['name']; ?>" name="<?php echo $spec_name; ?>">
@@ -69,6 +69,8 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
 </span>
 
 <script>
+    // Hides all forms and display the one wanted
+
     function display_form(f, n) {
         for (const key in f)
             if (f.hasOwnProperty(key))
@@ -77,6 +79,7 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
         document.getElementById(`submit-component-${n}`).classList.remove('d-none');
     }
 
+    // Fires display_form function when type changed and empty old infos
     document.getElementById('component-type').onchange = function() {
         let group = document.getElementById('submit-components-group');
 

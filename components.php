@@ -29,7 +29,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                     </div>
                     <div class="modal-body">
                         <form class="needs-validation" id="submit-component" method="post" action="/includes/hardware/add_component/" autocomplete="off" novalidate>
-                            <?php include('includes/hardware/new_component.php'); ?>
+                            <?php include('includes/hardware/component_form.php'); ?>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -82,7 +82,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                         }
 
                         if ($content_count > 0) {
-                            $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? LIMIT ? OFFSET ?');
+                            $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? ORDER BY score DESC LIMIT ? OFFSET ?');
                             $sth->execute([$table_name, $page_limit, ($page - 1) * $page_limit]); // remplace le ? par la valeur
                             $result = $sth->fetchAll();
 
@@ -99,10 +99,11 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                                                 </h5>
                                                 <small class="text-muted">
                                                     <?php if ($component['validated'] == 0) { ?>
-                                                        <span class="badge badge-danger badge-pill" data-toggle="tooltip" data-placement="top" title="Les informations n'ont pas été vérifiées">Non validé</span>
+                                                        <span class="badge badge-danger" data-toggle="tooltip" data-placement="top" title="Les informations n'ont pas été vérifiées">Non validé</span>
                                                     <?php } else { ?>
-                                                        <span class="badge badge-success badge-pill" data-toggle="tooltip" data-placement="top" title="Les informations de ce composants sont correctes">Validé</span>
+                                                        <span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Les informations de ce composants sont correctes">Validé</span>
                                                     <?php } ?>
+                                                    <span class="badge badge-primary">Score : <?php echo $component['score']; ?></span>
                                                 </small>
                                             </div>
 
@@ -110,7 +111,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                                             <p class="mb-1">
                                                 <?php
                                                 $i = 0;
-                                                foreach ($GLOBALS['cols'][$component['type']] as $key => $value) {
+                                                foreach ($GLOBALS['cols'][$component['type']]['specs'] as $key => $value) {
                                                     echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>';
                                                     if (++$i == 3) break; // limit specifications to the 3 firsts one
                                                 }

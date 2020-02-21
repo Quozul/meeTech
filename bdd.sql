@@ -152,6 +152,7 @@ CREATE TABLE component(
     added_date TIMESTAMP,
     added_by INTEGER REFERENCES user(id_user),
     type VARCHAR(3),
+    score INTEGER DEFAULT 0,
 
     specifications TEXT
 );

@@ -23,8 +23,9 @@
             <?php if ($component['validated'] == 1) { ?>
                 <div class="alert alert-warning" role="alert">Attention ! Ce composant a été validé, êtes-vous certain(e) de vouloir le modifier ?</div>
             <?php } ?>
-            <form action="../includes/hardware/edit_component.php" method="post" id="submit-component">
-                <?php include('../includes/hardware/new_component.php'); ?>
+            <span class="badge badge-primary float-right">Score : <?php echo $component['score']; ?></span>
+            <form action="../includes/hardware/update_component.php" method="post" id="submit-component">
+                <?php include('../includes/hardware/component_form.php'); ?>
             </form>
 
             <button type="submit" class="btn btn-primary" form="submit-component" name="id" value="<?php echo $_POST['id']; ?>">Proposer la modification</button>
