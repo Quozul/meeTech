@@ -93,7 +93,7 @@
     },
     "ram": {
         "name": "Mémoire vive",
-        "score-formula": "([ram-modules]*[ram-capacity])*[ram-frequency]*(1/ram-cas-latency)",
+        "score-formula": "([ram-modules]*[ram-capacity])*[ram-frequency]",
         "specs": {
             "ram-type": {
                 "input-type": "text",
@@ -116,13 +116,13 @@
             "ram-cas-latency": {
                 "input-type": "number",
                 "name": "CAS Latency",
-                "unit": "MHz"
+                "unit": "CL"
             }
         }
     },
     "hdd": {
         "name": "Disque dur",
-        "score-formula": "[hdd-speed]*([hdd-cache]*[hdd-capacity]/1000)",
+        "score-formula": "[hdd-speed]*([hdd-cache]*[hdd-capacity])/100000",
         "specs": {
             "hdd-speed": {
                 "input-type": "number",

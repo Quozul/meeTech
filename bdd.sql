@@ -160,7 +160,7 @@ CREATE TABLE component(
 -- statistics
 
 CREATE TABLE page_visit(
-    page VARCHAR(255) PRIMARY KEY,
+    page VARCHAR(127) PRIMARY KEY,
     visits INTEGER
 );
 
