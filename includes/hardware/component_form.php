@@ -28,12 +28,9 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
 
     <select class="custom-select" id="component-type" name="type" required>
         <option value="" selected>Selectionnez...</option>
-        <option value="cpu">Processeur</option>
-        <option value="gpu">Carte graphique</option>
-        <option value="ram">Mémoire vive</option>
-        <option value="hdd">Disque dur</option>
-        <option value="ssd">SSD</option>
-        <option value="mb">Carte mère</option>
+        <?php foreach ($cols as $key => $value) { ?>
+            <option value="<?php echo $key; ?>"><?php echo $value['name']; ?></option>
+        <?php } ?>
     </select>
 
     <div class="invalid-feedback">

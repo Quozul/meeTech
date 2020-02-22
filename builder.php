@@ -9,6 +9,7 @@ unset($_GET['name']);
 $score = 0;
 
 foreach ($_GET as $type => $id) {
+    if (empty($id)) continue;
     $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
     $sth->execute([$id]);
     $component = $sth->fetch();

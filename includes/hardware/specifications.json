@@ -1,7 +1,7 @@
 {
     "cpu": {
         "name": "Processeur",
-        "score-formula": "([cpu-cores]+[cpu-threads])*([cpu-frequency]+[cpu-boost-frequency])+(1/[cpu-cmos]*100)+(cpu-l1-cache+cpu-l2-cache+cpu-l3-cache)",
+        "score-formula": "[cpu-cores]*[cpu-frequency]+[cpu-boost-frequency]+[cpu-threads]+[cpu-l1-cache]+[cpu-l2-cache]+[cpu-l3-cache]",
         "specs": {
             "cpu-frequency": {
                 "input-type": "number",
@@ -54,7 +54,7 @@
     },
     "gpu": {
         "name": "Carte graphique",
-        "score-formula": "([gpu-frequency]+[gpu-boost-frequency])+([gpu-memory-capacity]*[gpu-memory-frequency])+[gpu-flux-processors]+(1/[gpu-cmos]*100)",
+        "score-formula": "([gpu-frequency]+[gpu-boost-frequency])/10+[gpu-memory-capacity]*10+[gpu-memory-frequency]/100+[gpu-flux-processors]/10",
         "specs": {
             "gpu-frequency": {
                 "input-type": "number",
@@ -93,7 +93,7 @@
     },
     "ram": {
         "name": "Mémoire vive",
-        "score-formula": "([ram-modules]*[ram-capacity])*[ram-frequency]",
+        "score-formula": "([ram-modules]*[ram-capacity])+([ram-frequency]/100)+(-0.5*[ram-cas-latency]+20)",
         "specs": {
             "ram-type": {
                 "input-type": "text",
@@ -122,7 +122,7 @@
     },
     "hdd": {
         "name": "Disque dur",
-        "score-formula": "[hdd-speed]*([hdd-cache]*[hdd-capacity])/100000",
+        "score-formula": "([hdd-speed]/100)+[hdd-cache]+([hdd-capacity]/100)",
         "specs": {
             "hdd-speed": {
                 "input-type": "number",
@@ -151,7 +151,7 @@
     },
     "ssd": {
         "name": "SSD",
-        "score-formula": "[ssd-capacity]*[ssd-write-speed]*[ssd-read-speed]/1000000",
+        "score-formula": "(log([ssd-capacity]+1)*10)+[ssd-write-speed]/100+[ssd-read-speed]/100",
         "specs": {
             "ssd-type": {
                 "input-type": "select",
@@ -181,8 +181,18 @@
     },
     "mb": {
         "name": "Carte mère",
-        "score-formula": "1",
+        "score-formula": "[mb-pcie]+[mb-wifi]+[mb-sata-slots]+[mb-m2-slots]",
         "specs": {
+            "mb-form-factor": {
+                "input-type": "select",
+                "name": "Format",
+                "values": {
+                    "eatx": "EATX",
+                    "atx": "ATX Standard",
+                    "matx": "Micro-ATX",
+                    "itx": "Mini-ITX"
+                }
+            },
             "mb-chipset": {
                 "input-type": "text",
                 "name": "Chipset"
@@ -202,6 +212,33 @@
             "mb-pcie": {
                 "input-type": "number",
                 "name": "Version du PCIe"
+            },
+            "mb-sata-slots": {
+                "input-type": "number",
+                "name": "Quantitié d'emplacements SATA"
+            },
+            "mb-m2-slots": {
+                "input-type": "number",
+                "name": "Quantité d'emplacements M.2"
+            }
+        }
+    },
+    "ps": {
+        "name": "Alimentation",
+        "score-formula": "[ps-wattage]/100",
+        "specs": {
+            "ps-wattage": {
+                "input-type": "number",
+                "name": "Puissance",
+                "unit": "W"
+            },
+            "ps-modular": {
+                "input-type": "select",
+                "name": "Modulaire",
+                "values": {
+                    "yes": "Oui",
+                    "no": "Non"
+                }
             }
         }
     }

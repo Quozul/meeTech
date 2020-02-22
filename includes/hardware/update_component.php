@@ -9,10 +9,14 @@ $validated = 0;
 $type = $_POST['type'];
 unset($_POST['type']);
 
-// unset all empty values
-foreach ($_POST as $key => $value)
+foreach ($_POST as $key => $value) {
+    // removes special chars to prevent xss
+    $_POST[$key] = htmlspecialchars($value);
+
+    // unset all empty values
     if ($value === "")
         unset($_POST[$key]);
+}
 
 // converts the post array to json
 $specs = json_encode($_POST);
@@ -46,8 +50,16 @@ $values = getContents($formula, '[', ']');
 
 // calculate score
 $score = 0;
-foreach ($values as $key => $value)
-    $formula = str_replace('[' . $value . ']', isset($_POST[$value]) && is_numeric($_POST[$value]) ? $_POST[$value] : 1, $formula);
+foreach ($values as $key => $value) {
+    $i = 0;
+    if (isset($specs[$value]))
+        if (is_numeric($specs[$value]))
+            $i = $specs[$value];
+        else if ($specs[$value] == 'yes')
+            $i = 1;
+
+    $formula = str_replace('[' . $value . ']', $i, $formula);
+}
 
 var_dump($values);
 echo $formula . '<br>';
