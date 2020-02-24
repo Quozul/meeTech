@@ -18,5 +18,6 @@
 			<input type="password" name="password" placeholder="Votre mot de passe"><br>
 			<button type="submit" name="submit">S'inscrire</button>
 		</form>
+		<?php include('../includes/footer.php'); ?>
 	</body>
 </html>
