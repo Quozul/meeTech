@@ -142,9 +142,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
                                                         <form action="/admin/edit_component.php" method="post">
                                                             <button type="submit" class="btn btn-sm btn-primary w-100 mb-1" name="id" value="<?php echo $component['id']; ?>">Modifier</button>
                                                         </form>
-                                                        <form action="/includes/hardware/remove_component.php" method="post">
-                                                            <button type="submit" class="btn btn-sm btn-danger w-100 mb-1" name="id" value="<?php echo $component['id']; ?>">Supprimer</button>
-                                                        </form>
+                                                        <a class="btn btn-sm btn-danger w-100 mb-1" onclick="delete_component(<?php echo $component['id']; ?>)">Supprimer</a>
                                                     </th>
                                                 </tr>
                                             <?php } ?>
@@ -221,6 +219,23 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
             params.set('page', page);
 
             window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
+        }
+
+        function delete_component(id) {
+            let req = new XMLHttpRequest();  
+            req.onreadystatechange = function() {
+                if(req.readyState == 4) {
+                    if(req.status == 200) {
+                        window.alert('Composant supprimé avec succès !');
+                    } else {
+                        alert('Error: returned status code ' + req.status + ' ' + req.statusText);
+                    }
+                }
+            }
+
+            req.open('post', '/includes/hardware/remove_component.php', true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            req.send(`id=${id}`);
         }
     </script>
 

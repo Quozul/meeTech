@@ -13,7 +13,7 @@
 		?>
 		<h1>Inscription</h1>
 		<form action="/profil/sign_up_process.php" method="post">
-			<input type="text" name="pseudo" placeholder="Votre pseudo"><br>
+			<input type="text" name="username" placeholder="Votre pseudo"><br>
 			<input type="email" name="email" placeholder="Votre email"><br>
 			<input type="password" name="password" placeholder="Votre mot de passe"><br>
 			<button type="submit" name="submit">S'inscrire</button>
