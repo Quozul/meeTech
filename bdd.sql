@@ -9,6 +9,7 @@ CREATE TABLE language(
 );
 
 CREATE TABLE users(
+    id_u INTEGER AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(32),
     password VARCHAR(255),
     avatar VARCHAR(32),
@@ -16,8 +17,7 @@ CREATE TABLE users(
     location VARCHAR(32),
     prefered_language VARCHAR(32) REFERENCES language(lang),
     note INT,
-    email VARCHAR(127),
-    PRIMARY KEY(username, email)
+    email VARCHAR(127)
 );
 
 -- messages
@@ -36,7 +36,8 @@ CREATE TABLE message (
     date_edited DATE,
     default_langugage VARCHAR(32) NOT NULL REFERENCES language (lang),
     category VARCHAR(32) NOT NULL REFERENCES category (name),
-    note INTEGER
+    note INTEGER,
+    signaled BOOLEAN
 );
 
 CREATE TABLE translation (
@@ -53,6 +54,7 @@ CREATE TABLE comment (
     id_c INTEGER AUTO_INCREMENT PRIMARY KEY,
     author INTEGER NOT NULL REFERENCES users (id_user),
     parent_message INTEGER NOT NULL REFERENCES messages (id_m),
+    parent_comment INTEGER REFERENCES comment (id_c),
     content TEXT,
     date_published DATE,
     date_edited DATE,
