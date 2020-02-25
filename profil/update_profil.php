@@ -1,8 +1,11 @@
 <?php
-
-var_dump($_POST);
+include('../config.php');
 
 // delete empty values
 foreach ($_POST as $key => $value)
-    if (empty($value))
-        unset($_POST[$key]);
+    if (!empty($value)) {
+
+        $sth = $pdo->prepare('UPDATE users SET ' . $key . '=? WHERE id_u=?');
+
+        $sth->execute([$_POST[$key], $_SESSION['userid']]);
+    }
