@@ -9,6 +9,7 @@ CREATE TABLE language(
 );
 
 CREATE TABLE users(
+    id_u INTEGER AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(32),
     password VARCHAR(255),
     avatar VARCHAR(32),
@@ -16,8 +17,7 @@ CREATE TABLE users(
     location VARCHAR(32),
     prefered_language VARCHAR(32) REFERENCES language(lang),
     note INT,
-    email VARCHAR(127),
-    PRIMARY KEY(username, email)
+    email VARCHAR(127)
 );
 
 -- messages
