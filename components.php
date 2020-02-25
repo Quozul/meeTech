@@ -1,7 +1,5 @@
 <?php
 include('config.php');
-$page_limit = isset($_GET['page-limit']) ? $_GET['page-limit'] : 3;
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
 
 // Columns names and description
 $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
@@ -32,10 +30,10 @@ $GLOBALS['cols'] = $cols;
             </div>
         </form>
 
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Proposer un composant</button>
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#add-component-modal">Proposer un composant</button>
 
         <!-- Add component modal/form -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="add-component-modal" tabindex="-1" role="dialog" aria-labelledby="add-component-modal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -64,12 +62,8 @@ $GLOBALS['cols'] = $cols;
             <div class="col-3">
                 <div class="nav flex-column nav-pills bg-light rounded" role="tablist" aria-orientation="vertical">
                     <?php
-                    if (!isset($_GET['tab'])) $_GET['tab'] = 'cpu';
                     foreach ($cols as $key => $value) { ?>
-                        <a class="nav-link <?php
-                                            if ($_GET['tab'] == $key) echo 'active';
-                                            else echo 'bg-light';
-                                            ?>" data-toggle="pill" onclick="change_tab('<?php echo $key; ?>')" href="" role="tab" aria-selected="true">
+                        <a class="nav-link tab-selector" data-toggle="pill" onclick="change_tab('<?php echo $key; ?>')" id="tab-<?php echo $key; ?>" href="" role="tab" aria-selected="true">
                             <?php echo $value['name']; ?>
                             <span class="badge badge-light float-right">
                                 <?php
@@ -87,60 +81,75 @@ $GLOBALS['cols'] = $cols;
             <div class="col-9">
                 <div class="tab-content" id="component-list">
                     <!-- Include component list -->
-                    <?php include('includes/hardware/component_list.php'); ?>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        // TODO: Change page without reloading
-        function reload_page(page) {
-            let url = window.location.href;
-            url = url.substr(0, url.lastIndexOf('?'))
-            console.log(url);
+        const tabs = document.getElementsByClassName('tab-selector');
 
-            let new_url = url + '?page=' + page;
+        function update_content() {
+            getHtmlContent('/includes/hardware/component_list.php', params.toString()).then((res) => {
+                document.getElementById('component-list').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
+            });
 
-            window.location.href = new_url;
+            // removes active class from all tabs
+            for (const key in tabs)
+                if (tabs.hasOwnProperty(key))
+                    tabs[key].classList.remove('active');
 
-            window.history.replaceState('test', 'title', url + '?page=' + page);
+            // re-add active class to tab
+            document.getElementById('tab-' + params.get('tab')).classList.add('active');
         }
 
-        function change_tab(tab) {
-            let url = new URL(window.location.href);
-            let params = new URLSearchParams(url.search.slice(1));
-            params.set('tab', tab);
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams(url.search.slice(1));
+        params.set('tab', 'cpu');
+        params.set('page', 1);
+        params.set('page-limit', 3);
 
-            window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
+        update_content();
+
+
+        // Change tab without reload
+        function change_tab(t) {
+            params.set('tab', t);
+
+            update_content();
         }
 
-        function change_page(page) {
-            let url = new URL(window.location.href);
-            let params = new URLSearchParams(url.search.slice(1));
-            params.set('page', page);
+        // Change page without reload
+        function change_page(p) {
+            params.set('page', p);
 
-            window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
+            update_content();
         }
 
+        // Change displayed inputs according to selected type
         document.getElementById('page-limit').onchange = function() {
-            let url = new URL(window.location.href);
-            let params = new URLSearchParams(url.search.slice(1));
             params.set('page-limit', this.value);
 
-            window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
+            update_content();
         }
 
+        // Add a component without reload
         function add_component(form_id) {
             const form = document.getElementById(form_id);
             const form_data = new FormData(form);
             let query = '';
+
             for (let pair of form_data.entries())
                 query += pair[0] + '=' + pair[1] + '&';
 
             request('/includes/hardware/add_component.php', query).then(() => {
-                alert('Composant ajouté!');
+                // update list when component is submitted and hide modal
+                update_content();
+                $('#add-component-modal').modal('hide')
+            }).catch((e) => {
+                alert('Une erreur est survenue.');
             });
+
         }
     </script>
 

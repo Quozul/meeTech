@@ -1,6 +1,9 @@
 <?php
-include('../config.php');
-$cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
+include($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+$cols = json_decode(file_get_contents('specifications.json'), true);
+
+$page_limit = isset($_GET['page-limit']) ? $_GET['page-limit'] : 3;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
 
 foreach ($cols as $component_id => $comp_infos) {
     if ($_GET['tab'] == $component_id) {
@@ -27,7 +30,7 @@ foreach ($cols as $component_id => $comp_infos) {
                         let params = new URLSearchParams(url.search.slice(1));
                         params.set('page', page);
 
-                        window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
+                        // window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
                     </script>
 
                 <?php }
