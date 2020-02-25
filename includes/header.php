@@ -35,9 +35,9 @@
                             <a class="dropdown-item" href="#">Profil</a>
                             <div class="dropdown-divider"></div>
                             
-                            <a  class="dropdown-item" data-toggle="modal" data-target="#sign_up_form">Créer un compte</a>
+                            <a  class="dropdown-item" data-toggle="modal" data-target="#sign_up_modal">Créer un compte</a>
                             
-                            <a  class="dropdown-item" data-toggle="modal" data-target="#sign_in_form">Se connecter</a>
+                            <a  class="dropdown-item" data-toggle="modal" data-target="#sign_in_modal">Se connecter</a>
                         </div>    
                     </li>
                 </ul>
