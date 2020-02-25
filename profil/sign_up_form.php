@@ -16,18 +16,18 @@
                     </form> -->
                     <div class="form-row">
                         <label for="username_input">Username</label>
-                        <input type="text" class="form-control" id="username_input" required>
+                        <input type="text" class="form-control" id="username_input" name="username" required>
                         <div class="valid-feedback">
                             C'est bon !
                         </div>
                         <label for="email_input">email</label>
-                        <input type="email" class="form-control" id="email_input" required>
+                        <input type="email" class="form-control" id="email_input" name="email" required>
                         <div class="valid-feedback">
                             C'est bon !
                         </div>
                         <label for="password_input">Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password_input" required>
+                            <input type="password" class="form-control" id="password_input" name="password" required>
                             <div class="invalid-feedback">
                                 Ajouter un mot de passe.
                             </div>

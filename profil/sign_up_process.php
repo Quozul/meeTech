@@ -15,7 +15,7 @@ if (!isset($_POST['username']) || strlen($_POST['username']) > 35) {
 $sth = $pdo->prepare('SELECT * FROM users WHERE username = ?');
 $sth->execute([$pseudo]);
 $rec = $sth->fetch();
-if (count($rec) > 0) {
+if (!empty($rec) && count($rec) > 0) {
 ?>
 	<script>
 		history.back()
@@ -33,7 +33,7 @@ if (!isset($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAI
 $sth = $pdo->prepare('SELECT * FROM users WHERE email = ?');
 $sth->execute([$email]);
 $rec = $sth->fetch();
-if (count($rec) > 0) {
+if (!empty($rec) && count($rec) > 0) {
 ?>
 	<script>
 		history.back()
