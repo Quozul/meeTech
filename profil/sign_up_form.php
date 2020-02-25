@@ -10,16 +10,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="needs-validation" id="submit-component" method="post" action="/includes/hardware/add_component/" autocomplete="off" novalidate>
-                    <input type="text" name="username" placeholder="Votre pseudo"><br>
-                    <input type="email" name="email" placeholder="Votre email"><br>
-                    <input type="password" name="password" placeholder="Votre mot de passe"><br>
-                    <button type="submit" name="submit">S'inscrire</button>
+                <form id="sign_up_form" method="post" action="/profil/sign_up_process.php" autocomplete="off" novalidate>
+                    <input class="form-control" type="text" name="username" placeholder="Votre pseudo"><br>
+                    <input class="form-control" type="email" name="email" placeholder="Votre email"><br>
+                    <input class="form-control" type="password" name="password" placeholder="Votre mot de passe"><br>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <button type="submit" class="btn btn-primary" form="submit-component">Créer mon compte</button>
+                <button type="submit" class="btn btn-primary" form="sign_up_form">Créer mon compte</button>
             </div>
         </div>
     </div>

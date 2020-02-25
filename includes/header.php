@@ -34,9 +34,9 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Profil</a>
                             <div class="dropdown-divider"></div>
-                            <?php include($_SERVER['DOCUMENT_ROOT'].'/profil/sign_up_form.php'); ?>
+                            
                             <a  class="dropdown-item" data-toggle="modal" data-target="#sign_up_form">Créer un compte</a>
-                            <?php include($_SERVER['DOCUMENT_ROOT'].'/profil/sign_in_form.php'); ?>
+                            
                             <a  class="dropdown-item" data-toggle="modal" data-target="#sign_in_form">Se connecter</a>
                         </div>    
                     </li>
@@ -49,3 +49,6 @@
         </div>
     </nav>
 </header>
+
+<?php include($_SERVER['DOCUMENT_ROOT'].'/profil/sign_up_form.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/profil/sign_in_form.php'); ?>
