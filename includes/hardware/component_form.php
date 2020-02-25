@@ -21,6 +21,21 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
     </div>
 </div>
 
+<div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="available-for-public">
+    <label class="form-check-label" for="available-for-public" name="available-for-public">Disponible à la vente</label>
+</div>
+
+<div class="form-group">
+    <label for="release-date">Nom/modèle</label>
+    <input type="date" class="form-control" id="release-date" placeholder="Date de sortie" name="release-date">
+</div>
+
+<div class="form-group">
+    <label for="name">Sources</label>
+    <textarea class="form-control" id="component-sources" name="sources" placeholder="Indiquez les sources de vos informations dans ce champ"></textarea>
+</div>
+
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <label class="input-group-text" for="component-type">Composant</label>

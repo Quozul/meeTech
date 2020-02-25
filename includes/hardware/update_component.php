@@ -1,5 +1,12 @@
 <?php
 include('../../config.php');
+
+// verify if user is connected
+if (!isset($_SESSION['userid'])) {
+    http_response_code(401);
+    exit();
+}
+
 $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/hardware/specifications.json'), true);
 
 // TODO: Check if user have permission to add validated components according to badge
@@ -8,6 +15,12 @@ $validated = 0;
 // get type then removes it from post array
 $type = $_POST['type'];
 unset($_POST['type']);
+
+$sources = htmlspecialchars($_POST['sources']);
+unset($_POST['sources']);
+
+$id = $_POST['id'];
+unset($_POST['id']);
 
 foreach ($_POST as $key => $value) {
     // removes special chars to prevent xss
@@ -68,16 +81,8 @@ echo $score;
 
 // send component to pdo
 try {
-    $sth = $pdo->prepare('UPDATE component SET validated = ?, type = ?, specifications = ?, score = ? WHERE id = ?;');
-    $sth->execute([$validated, $type, $specs, $score, $_POST['id']]);
+    $sth = $pdo->prepare('UPDATE component SET sources = ?, validated = ?, type = ?, specifications = ?, score = ? WHERE id = ?;');
+    $sth->execute([$sources, $validated, $type, $specs, $score, $id]);
 } catch (Exception $e) {
     echo $e;
 }
-?>
-
-<noscript>JavaScript needs to be enabled to go back automatically</noscript>
-
-<a href="javascript: history.go(-1)">Back</a>
-<script>
-    history.back();
-</script>

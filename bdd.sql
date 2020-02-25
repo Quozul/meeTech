@@ -157,7 +157,8 @@ CREATE TABLE component(
     type VARCHAR(3),
     score INTEGER DEFAULT 0,
 
-    specifications TEXT
+    specifications TEXT,
+    sources TEXT
 );
 
 -- statistics

@@ -8,7 +8,10 @@ function request(url, query) {
         let req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (req.readyState == 4)
-                resolve();
+                if (req.status == 200)
+                    resolve(req);
+                else
+                    reject(req);
         }
 
         req.open('post', url, true);
@@ -27,7 +30,10 @@ function getHtmlContent(url, query) {
         let req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (req.readyState == 4)
-                resolve(req.response);
+                if (req.status == 200)
+                    resolve(req.response);
+                else
+                    reject(req);
         }
 
         req.onerror = reject;
@@ -37,4 +43,20 @@ function getHtmlContent(url, query) {
         req.responseType = 'document';
         req.send();
     });
+}
+
+/**
+ * Takes a form's id as input and returns a query of all form's values
+ * @param {*} form_id The unique ID of the form where the values are
+ */
+function formToQuery(form_id) {
+    const form = document.getElementById(form_id);
+    const form_data = new FormData(form);
+    let query = '';
+
+    for (let pair of form_data.entries())
+        if (pair[1] != '')
+            query += pair[0] + '=' + pair[1] + '&';
+
+    return query;
 }

@@ -1,5 +1,3 @@
-<?php include('../config.php'); ?>
-
 <!DOCTYPE html>
 <html>
 <?php include('../includes/head.php'); ?>
@@ -28,26 +26,36 @@
                 <?php include('../includes/hardware/component_form.php'); ?>
             </form>
 
-            <button type="submit" class="btn btn-primary" form="submit-component" name="id" value="<?php echo $_POST['id']; ?>">Proposer la modification</button>
+            <button type="submit" class="btn btn-primary" onclick="send_update();" name="id" value="<?php echo $_POST['id']; ?>">Proposer la modification</button>
         </div>
 
         <script>
             let specs = <?php echo $component['specifications']; ?>;
-            let type = <?php echo "'" . $component['type'] . "'"; ?>
-
-            console.log(specs);
-
-            console.log(type);
+            let type = <?php echo "'" . $component['type'] . "'"; ?>;
+            let sources = <?php echo "'" . $component['sources'] . "'"; ?>;
 
             document.getElementById('component-type').value = type;
+            document.getElementById('component-sources').value = sources;
 
             display_form(document.getElementById('submit-components-group').children, type)
 
-            for (const key in specs) {
-                console.log(key);
-                if (specs.hasOwnProperty(key) && document.getElementsByName(key)[0]) {
+            for (const key in specs)
+                if (specs.hasOwnProperty(key) && document.getElementsByName(key)[0])
                     document.getElementsByName(key)[0].value = specs[key];
-                }
+
+            function send_update() {
+                console.log(formToQuery('submit-component'));
+                request('/includes/hardware/update_component.php', formToQuery('submit-component')).then((req) => {
+                    update_content();
+                    $('#add-component-modal').modal('hide');
+                    alert('Composant correctement mis à jour !\nVous pouvez retourner en arrière.');
+                }).catch((e) => {
+                    console.log(e.response);
+                    if (e.status == 401)
+                        alert('Impossible d\'effectuer cette action. Vérifiez que vous êtes bien connecté.');
+                    else
+                        alert('Une erreur est survenue. Contactez un administrateur avec le code d\'erreur :\n' + e.status);
+                });
             }
         </script>
 

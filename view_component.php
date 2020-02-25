@@ -1,18 +1,16 @@
 <?php
-include('config.php');
-
 $page_name = 'Composant n°' . $_GET['id'];
 
 // Columns names and description
 $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
 
 // Get component's informations
-$sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
-$sth->execute([$_GET['id']]);
-$component = $sth->fetch();
-$specs = json_decode($component['specifications'], true);
+// $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
+// $sth->execute([$_GET['id']]);
+// $component = $sth->fetch();
+// $specs = json_decode($component['specifications'], true);
 
-$page_description = $cols[$component['type']]['name'] . ' ' . (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName') . ' - ' . $component['score'] . ' points';
+// $page_description = $cols[$component['type']]['name'] . ' ' . (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName') . ' - ' . $component['score'] . ' points';
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +23,14 @@ $page_description = $cols[$component['type']]['name'] . ' ' . (isset($specs['bra
     <main role="main" class="container">
         <h1>
             <a class="btn btn-primary" role="button" href="javascript: history.go(-1)">« Retour</a>
-            <?php echo $cols[$component['type']]['name']; ?>
+            <?php
+            $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
+            $sth->execute([$_GET['id']]);
+            $component = $sth->fetch();
+            $specs = json_decode($component['specifications'], true);
+
+            echo $cols[$component['type']]['name'];
+            ?>
         </h1>
 
         <div class="jumbotron">
@@ -47,7 +52,7 @@ $page_description = $cols[$component['type']]['name'] . ' ' . (isset($specs['bra
                 $username = 'Anonyme';
 
                 if (isset($component['added_by'])) {
-                    $sth = $pdo->prepare('SELECT username FROM users WHERE id_user = ?');
+                    $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ?');
                     $sth->execute([$component['added_by']]); // remplace le ? par la valeur
                     $result = $sth->fetch();
 
@@ -70,6 +75,9 @@ $page_description = $cols[$component['type']]['name'] . ' ' . (isset($specs['bra
             <?php foreach ($cols[$component['type']]['specs'] as $key => $value) {
                 echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>';
             } ?>
+            <hr>
+            <h5>Sources</h5>
+            <?php echo str_replace('\n', '<br>', $component['sources']); ?>
         </div>
     </main>
 

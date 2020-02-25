@@ -1,5 +1,4 @@
 <?php
-include('../config.php');
 $page_limit = 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 

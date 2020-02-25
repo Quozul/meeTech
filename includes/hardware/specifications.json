@@ -151,16 +151,23 @@
     },
     "ssd": {
         "name": "SSD",
-        "score-formula": "(log([ssd-capacity]+1)*10)+[ssd-write-speed]/100+[ssd-read-speed]/100",
+        "score-formula": "(log([ssd-capacity]+1)*10)+[ssd-write-speed]/100+[ssd-read-speed]/100+[ssd-pcie]",
         "specs": {
             "ssd-type": {
                 "input-type": "select",
                 "name": "Type",
                 "values": {
+                    "2.5": "2.5 pouces",
                     "nvme": "M.2 NVMe",
                     "sata": "SATA",
-                    "msata": "M.2 SATA"
+                    "m2sata": "M.2 SATA",
+                    "msata": "mSATA",
+                    "pcie": "PCIe"
                 }
+            },
+            "ssd-pcie": {
+                "input-type": "number",
+                "name": "Version du PCIe"
             },
             "ssd-capacity": {
                 "input-type": "number",

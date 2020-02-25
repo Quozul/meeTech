@@ -1,7 +1,6 @@
 <?php
 // Columns names and description
 $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
-$GLOBALS['cols'] = $cols;
 ?>
 
 <!DOCTYPE html>
@@ -19,11 +18,11 @@ $GLOBALS['cols'] = $cols;
                     <label class="input-group-text" for="component-type">A afficher</label>
                 </div>
                 <select class="form-control" id="page-limit">
-                    <option value="3" <?php if ($page_limit == 3) echo 'selected'; ?>>3</option>
-                    <option value="9" <?php if ($page_limit == 9) echo 'selected'; ?>>9</option>
-                    <option value="15" <?php if ($page_limit == 15) echo 'selected'; ?>>15</option>
-                    <option value="30" <?php if ($page_limit == 30) echo 'selected'; ?>>30</option>
-                    <option value="50" <?php if ($page_limit == 50) echo 'selected'; ?>>50</option>
+                    <option value="3" selected>3</option>
+                    <option value="9">9</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="50">50</option>
                 </select>
             </div>
         </form>
@@ -90,6 +89,8 @@ $GLOBALS['cols'] = $cols;
         function update_content() {
             getHtmlContent('/includes/hardware/component_list.php', params.toString()).then((res) => {
                 document.getElementById('component-list').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
+            }).catch((e) => {
+                console.log(e);
             });
 
             // removes active class from all tabs
@@ -132,19 +133,16 @@ $GLOBALS['cols'] = $cols;
 
         // Add a component without reload
         function add_component(form_id) {
-            const form = document.getElementById(form_id);
-            const form_data = new FormData(form);
-            let query = '';
-
-            for (let pair of form_data.entries())
-                query += pair[0] + '=' + pair[1] + '&';
-
-            request('/includes/hardware/add_component.php', query).then(() => {
+            request('/includes/hardware/add_component.php', formToQuery(form_id)).then((req) => {
+                console.log(req.response);
                 // update list when component is submitted and hide modal
                 update_content();
-                $('#add-component-modal').modal('hide')
+                $('#add-component-modal').modal('hide');
             }).catch((e) => {
-                alert('Une erreur est survenue.');
+                if (e.status == 401)
+                    alert('Impossible d\'effectuer cette action. Vérifiez que vous êtes bien connecté.');
+                else
+                    alert('Une erreur est survenue. Contactez un administrateur avec le code d\'erreur :\n' + e.status);
             });
         }
     </script>

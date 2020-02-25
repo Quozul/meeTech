@@ -10,24 +10,20 @@
             </div>
             <div class="modal-body">
                 <form id="sign_up_form" method="post" action="/profil/sign_up_process.php" autocomplete="off" novalidate>
-                    <!-- <input class="form-control" type="text" name="username" placeholder="Votre pseudo"><br>
-                        <input class="form-control" type="email" name="email" placeholder="Votre email"><br>
-                        <input class="form-control" type="password" name="password" placeholder="Votre mot de passe"><br>
-                    </form> -->
                     <div class="form-row">
-                        <label for="username_input">Username</label>
-                        <input type="text" class="form-control" id="username_input" name="username" required>
+                        <label for="username_input">Pseudonyme</label>
+                        <input type="text" class="form-control" id="username_input" name="username" placeholder="Votre pseudo" required>
                         <div class="valid-feedback">
                             C'est bon !
                         </div>
-                        <label for="email_input">email</label>
-                        <input type="email" class="form-control" id="email_input" name="email" required>
+                        <label for="email_input">Adresse e-mail</label>
+                        <input type="email" class="form-control" id="email_input" name="email" placeholder="Votre adresse e-mail" required>
                         <div class="valid-feedback">
                             C'est bon !
                         </div>
-                        <label for="password_input">Password</label>
+                        <label for="password_input">Mot de passe</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password_input" name="password" required>
+                            <input type="password" class="form-control" id="password_input" name="password" placeholder="Votre mot de passe" required>
                             <div class="invalid-feedback">
                                 Ajouter un mot de passe.
                             </div>
@@ -45,15 +41,10 @@
 </div>
 <script>
     function create_acount() {
-        const form = document.getElementById("sign_up_form");
-        const form_data = new FormData(form);
-        let query = '';
-
-        for (let pair of form_data.entries())
-            query += pair[0] + '=' + pair[1] + '&';
-
-        request('/profil/sign_up_process.php', query).then(function() {
+        request('/profil/sign_up_process.php', formToQuery('sign_up_form')).then(function(req) {
             document.location.reload();
+        }).catch(function(req) {
+            alert('Une erreur est survenue, contacter un administrateur avec le code d\'erreur suivant :\n' + req.status);
         });
     }
 </script>

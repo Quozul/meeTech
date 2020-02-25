@@ -79,7 +79,7 @@ foreach ($cols as $component_id => $comp_infos) {
                                     $username = 'Anonyme';
 
                                     if (isset($component['added_by'])) {
-                                        $sth = $pdo->prepare('SELECT username FROM users WHERE id_user = ?');
+                                        $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ?');
                                         $sth->execute([$component['added_by']]); // remplace le ? par la valeur
                                         $result = $sth->fetch();
 
