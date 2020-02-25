@@ -222,20 +222,10 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
         }
 
         function delete_component(id) {
-            let req = new XMLHttpRequest();  
-            req.onreadystatechange = function() {
-                if(req.readyState == 4) {
-                    if(req.status == 200) {
-                        window.alert('Composant supprimé avec succès !');
-                    } else {
-                        alert('Error: returned status code ' + req.status + ' ' + req.statusText);
-                    }
-                }
-            }
-
-            req.open('post', '/includes/hardware/remove_component.php', true);
-            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            req.send(`id=${id}`);
+            request('/includes/hardware/remove_component.php', `id=${id}`)
+                .then(() => {
+                    alert('Composant supprimé avec succès!');
+                });
         }
     </script>
 
