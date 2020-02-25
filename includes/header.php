@@ -34,9 +34,9 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Profil</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/profil/sign_up.php">Créer un compte</a>
-                            <a class="dropdown-item" href="/profil/sign_in.php">Se connecter</a>
-                        </div>
+                            <?php include($_SERVER['DOCUMENT_ROOT'].'/profil/sign_up_form.php'); ?>
+                            <a  class="dropdown-item" data-toggle="modal" data-target="#sign_up_form">Créer un compte</a>
+                        </div>    
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
