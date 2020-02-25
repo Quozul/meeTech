@@ -38,8 +38,22 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <button type="submit" class="btn btn-primary" form="sign_up_form">Créer mon compte</button>
+                <button type="button" class="btn btn-primary" onclick="create_acount()">Créer mon compte</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function create_acount() {
+        const form = document.getElementById("sign_up_form");
+        const form_data = new FormData(form);
+        let query = '';
+
+        for (let pair of form_data.entries())
+            query += pair[0] + '=' + pair[1] + '&';
+
+        request('/profil/sign_up_process.php', query).then(function() {
+            document.location.reload();
+        });
+    }
+</script>

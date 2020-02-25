@@ -59,10 +59,10 @@ if (isset($_SESSION['userid'])) {
                                             } else {
                                                 echo 'data-toggle="modal" data-target="#sign_in_modal"';
                                             } ?>><?php if (isset($rec)) {
-                                                        echo $rec[0]['username'];
-                                                    } else {
-                                                        echo 'Se connecter';
-                                                    } ?></a> </li>
+                                                echo $rec[0]['username'];
+                                            } else {
+                                                echo 'Se connecter';
+                                            } ?></a> </li>
                     <?php if (isset($rec)) { ?>
 
 

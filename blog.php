@@ -3,7 +3,6 @@
     <?php
         $page_name = 'Blog';
         include('includes/head.php');
-        include('config.php') ;
         $page_limit = 4 ;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
     ?>
