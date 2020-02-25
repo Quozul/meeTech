@@ -67,7 +67,6 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
 
 <script>
     // Hides all forms and display the one wanted
-
     function display_form(f, n) {
         for (const key in f)
             if (f.hasOwnProperty(key))
