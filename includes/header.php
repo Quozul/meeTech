@@ -36,6 +36,8 @@
                             <div class="dropdown-divider"></div>
                             <?php include($_SERVER['DOCUMENT_ROOT'].'/profil/sign_up_form.php'); ?>
                             <a  class="dropdown-item" data-toggle="modal" data-target="#sign_up_form">Créer un compte</a>
+                            <?php include($_SERVER['DOCUMENT_ROOT'].'/profil/sign_in_form.php'); ?>
+                            <a  class="dropdown-item" data-toggle="modal" data-target="#sign_in_form">Se connecter</a>
                         </div>    
                     </li>
                 </ul>
