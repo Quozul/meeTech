@@ -1,12 +1,24 @@
 <?php
 	include ('../config.php');
 
-	var_dump($_POST);
+	$pseudo = htmlspecialchars($_POST['username']);
+	$email = $_POST['email'];
+	$password = hash('sha256', $_POST['password']);
 
 	// Pseudo deja existant et longueur comprise 5 et 35 caractères
 	if(!isset($_POST['username']) || strlen($_POST['username']) < 5 || strlen($_POST['username']) > 35){
 		// Redirection
 		header('location: sign_up.php?msg=Pseudo invalide');
+		exit();
+	}
+	// existe ou non dans la BBD
+	$sth = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+	$sth->execute([$pseudo]);
+	$rec = $sth->fetch();
+	if(count($rec) > 0){
+		?>
+		<script>history.back()</script>
+		<?php
 		exit();
 	}
 	// Email au format valide et si deja existant
@@ -15,17 +27,23 @@
 		header('location: sign_up.php?msg=Email invalide');
 		exit();
 	}
+	// Exisste ou non dans la BBD
+	$sth = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+	$sth->execute([$email]);
+	$rec = $sth->fetch();
+	if(count($rec) > 0){
+		?>
+		<script>history.back()</script>
+		<?php
+		exit();
+	}
 	// Password 8 à 15 char
-	if(!isset($_POST['password']) || strlen($_POST['password']) < 8 || strlen($_POST['password']) > 15){
+	if(!isset($_POST['password']) || strlen($_POST['password']) < 8 ){
 		// Redirection
 		header('location: sign_up.php?msg=Mot de passe invalide');
 		exit();
 	}
 
-	$pseudo = htmlspecialchars($_POST['username']);
-	$email = $_POST['email'];
-	$password = hash('sha256', $_POST['password']);
-	
 	echo $pseudo . '<br>';
 	echo $email . '<br>';
 	echo $password . '<br>';
@@ -38,3 +56,5 @@
 		echo $e;
 	}
 ?>
+
+<script>history.back()</script>
