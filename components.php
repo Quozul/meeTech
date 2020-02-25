@@ -1,6 +1,4 @@
 <?php
-include('config.php');
-
 // Columns names and description
 $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
 $GLOBALS['cols'] = $cols;
@@ -111,7 +109,6 @@ $GLOBALS['cols'] = $cols;
 
         update_content();
 
-
         // Change tab without reload
         function change_tab(t) {
             params.set('tab', t);
@@ -149,7 +146,6 @@ $GLOBALS['cols'] = $cols;
             }).catch((e) => {
                 alert('Une erreur est survenue.');
             });
-
         }
     </script>
 
