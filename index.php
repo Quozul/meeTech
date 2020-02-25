@@ -1,5 +1,4 @@
 <?php
-include('config.php');
 // Columns components' specifications names and description
 $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
 ?>

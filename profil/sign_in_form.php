@@ -12,7 +12,6 @@
                 <div class="modal-body">
                     <form id="sign_in_form" method="post" action="/profil/sign_in_process.php" autocomplete="off" novalidate>
                         <input class="form-control" type="text" name="username" placeholder="Votre pseudo"><br>
-                        <input class="form-control" type="email" name="email" placeholder="Votre email"><br>
                         <input class="form-control" type="password" name="password" placeholder="Votre mot de passe"><br>
                     </form>
                 </div>

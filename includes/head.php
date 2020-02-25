@@ -1,3 +1,5 @@
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/config.php'); ?>
+
 <head>
     <title>meeTech - <?php
                         if (!isset($page_name))

@@ -1,3 +1,15 @@
+<?php
+
+if (isset($_SESSION['userid'])) {
+    $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ? ');
+
+    $sth->execute([$_SESSION['userid']]);
+
+    $rec = $sth->fetchAll();
+}
+
+?>
+
 <header class="mb-4">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -32,14 +44,32 @@
                             Utilisateur
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Profil</a>
+                            <a class="dropdown-item" href="/profil/profil.php">Profil</a>
                             <div class="dropdown-divider"></div>
-                            
-                            <a  class="dropdown-item" data-toggle="modal" data-target="#sign_up_modal">Créer un compte</a>
-                            
-                            <a  class="dropdown-item" data-toggle="modal" data-target="#sign_in_modal">Se connecter</a>
-                        </div>    
+
+                            <a class="dropdown-item" data-toggle="modal" data-target="#sign_up_modal">Créer un compte</a>
+
+                            <a class="dropdown-item" data-toggle="modal" data-target="#sign_in_modal">Se connecter</a>
+                            <a class="dropdown-item" onclick="request('/profil/sign_out.php','').then(function(){document.location.reload();})">Se déconnecter</a>
+                        </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" <?php if (isset($rec)) {
+                                                echo 'href="/profil/profil.php"';
+                                            } else {
+                                                echo 'data-toggle="modal" data-target="#sign_in_modal"';
+                                            } ?>><?php if (isset($rec)) {
+                                                        echo $rec[0]['username'];
+                                                    } else {
+                                                        echo 'Se connecter';
+                                                    } ?></a> </li>
+                    <?php if (isset($rec)) { ?>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="request('/profil/sign_out.php','').then(function(){document.location.reload();})">Se déconnecter</a>
+                        </li>
+                    <?php } ?>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
@@ -50,5 +80,5 @@
     </nav>
 </header>
 
-<?php include($_SERVER['DOCUMENT_ROOT'].'/profil/sign_up_form.php'); ?>
-<?php include($_SERVER['DOCUMENT_ROOT'].'/profil/sign_in_form.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/profil/sign_up_form.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/profil/sign_in_form.php'); ?>
