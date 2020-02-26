@@ -51,6 +51,11 @@ body, .mt-color-background {
     border-radius: 5px;
     width: 50px;
     height: 25px;
+    border: solid 1px black;
+}
+
+.color-is-background {
+    background-color: currentColor;
 }
 
 .text-indent {

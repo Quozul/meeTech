@@ -53,9 +53,13 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                         <p class="card-subtitle text-muted"><?php echo $cols[$component['type']]['name']; ?></p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <?php foreach ($GLOBALS['cols'][$component['type']]['specs'] as $key => $value) { ?>
+                        <?php
+                        $i = 0;
+                        foreach ($GLOBALS['cols'][$component['type']]['specs'] as $key => $value) { ?>
                             <li class="list-group-item"><?php echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? $specs[$key] : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : ''); ?></li>
-                        <?php } ?>
+                        <?php
+                            if (++$i == 3) break; // limit specifications to the 3 firsts one
+                        } ?>
                     </ul>
                     <div class="card-body">
                         <a href="<?php echo '/view_component.php?id=' . $component['id']; ?>" class="card-link">Découvrir</a>
