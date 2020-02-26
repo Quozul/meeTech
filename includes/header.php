@@ -58,13 +58,22 @@ if (isset($_SESSION['userid'])) {
                                                 echo 'href="/profil/profil.php"';
                                             } else {
                                                 echo 'data-toggle="modal" data-target="#sign_in_modal"';
-                                            } ?>><?php if (isset($rec)) {
-                                                echo $rec[0]['username'];
-                                            } else {
-                                                echo 'Se connecter';
-                                            } ?></a> </li>
+                                            } ?>>
+                            <?php if (isset($rec)) {
+                                echo $rec[0]['username'];
+                            } else {
+                                echo 'Se connecter';
+                            } ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" <?php if (!isset($rec)) {
+                                                echo 'data-toggle="modal" data-target="#sign_up_modal"';
+                                            } ?>>
+                            <?php if (!isset($rec)) {
+                                echo 'Créer un compte';
+                            } ?></a>
+                    </li>
                     <?php if (isset($rec)) { ?>
-
 
                         <li class="nav-item">
                             <a class="nav-link" onclick="request('/profil/sign_out.php','').then(function(){document.location.reload();})">Se déconnecter</a>
