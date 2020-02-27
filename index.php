@@ -1,6 +1,6 @@
 <?php
 // Columns components' specifications names and description
-$GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
+$cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,11 +55,26 @@ $GLOBALS['cols'] = json_decode(file_get_contents('includes/hardware/specificatio
                     <ul class="list-group list-group-flush">
                         <?php
                         $i = 0;
-                        foreach ($GLOBALS['cols'][$component['type']]['specs'] as $key => $value) { ?>
-                            <li class="list-group-item"><?php echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? $specs[$key] : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : ''); ?></li>
+                        foreach ($cols[$component['type']]['specs'] as $key => $value) {
+                            if (!isset($specs[$key])) continue;
+                        ?>
+                            <li class="list-group-item">
+                                <?php
+                                echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>';
+                                ?>
+                            </li>
                         <?php
                             if (++$i == 3) break; // limit specifications to the 3 firsts one
-                        } ?>
+                        }
+
+                        if ($i == 0) { ?>
+                            <li class="list-group-item">Il n'y a aucune informations sur ce composant.</li>
+                            <li class="list-group-item text-center">
+                                <form action="/admin/edit_component.php" method="post">
+                                    <button type="submit" class="btn btn-sm btn-primary" name="id" value="<?php echo $component['id']; ?>">Proposer une modification</button>
+                                </form>
+                            </li>
+                        <?php } ?>
                     </ul>
                     <div class="card-body">
                         <a href="<?php echo '/view_component.php?id=' . $component['id']; ?>" class="card-link">Découvrir</a>

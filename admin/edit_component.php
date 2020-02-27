@@ -46,15 +46,16 @@
             function send_update() {
                 console.log(formToQuery('submit-component'));
                 request('/includes/hardware/update_component.php', formToQuery('submit-component')).then((req) => {
-                    update_content();
-                    $('#add-component-modal').modal('hide');
+                    console.log(req);
                     alert('Composant correctement mis à jour !\nVous pouvez retourner en arrière.');
                 }).catch((e) => {
                     console.log(e.response);
                     if (e.status == 401)
                         alert('Impossible d\'effectuer cette action. Vérifiez que vous êtes bien connecté.');
-                    else
+                    else {
+                        console.log(e);
                         alert('Une erreur est survenue. Contactez un administrateur avec le code d\'erreur :\n' + e.status);
+                    }
                 });
             }
         </script>

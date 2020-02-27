@@ -36,7 +36,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
         <div class="jumbotron">
             <?php if ($component['validated'] == 0) { ?>
                 <form action="/admin/edit_component.php" method="post">
-                    <button type="submit" class="btn btn btn-primary float-right" name="id" value="<?php echo $component['id']; ?>">Proposer une modification</button>
+                    <button type="submit" class="btn btn-primary float-right" name="id" value="<?php echo $component['id']; ?>">Proposer une modification</button>
                 </form>
             <?php } ?>
 
