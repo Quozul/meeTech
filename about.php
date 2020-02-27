@@ -30,7 +30,7 @@ include('includes/head.php');
             <p class="lead">Voici une liste des outils que nous utilisons pour développer le site :</p>
             <ul class="list">
                 <li><b>Synchronisation du code :</b> GitHub</li>
-                <li><b>Organisation des taches :</b> Trello</li>
+                <li><b>Organisation des tâches :</b> Trello</li>
                 <li><b>Logo :</b> Adobe Illustrator</li>
                 <li><b>Design :</b> Figma, Adobe XD</li>
                 <li><b>Développement :</b> Visual Studio Code, Sublime Text</li>

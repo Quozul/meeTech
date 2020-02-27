@@ -27,7 +27,7 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
 </div>
 
 <div class="form-group">
-    <label for="release-date">Nom/modèle</label>
+    <label for="release-date">Date de sortie</label>
     <input type="date" class="form-control" id="release-date" placeholder="Date de sortie" name="release-date">
 </div>
 
