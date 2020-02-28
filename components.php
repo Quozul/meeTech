@@ -45,7 +45,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-secondary" id="dismiss-modal" data-dismiss="modal">Annuler</button>
                         <button class="btn btn-primary" onclick="add_component('submit-component');">Proposer le composant</button>
                     </div>
                 </div>
@@ -133,12 +133,15 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
 
         // Add a component without reload
         function add_component(form_id) {
+
             request('/includes/hardware/add_component.php', formToQuery(form_id)).then((req) => {
                 console.log(req.response);
                 // update list when component is submitted and hide modal
                 update_content();
-                $('#add-component-modal').modal('hide');
+                // hide modal WITHOUT JQUERY
+                document.querySelector('#dismiss-modal').click();
             }).catch((e) => {
+                console.log(e);
                 if (e.status == 401)
                     alert('Impossible d\'effectuer cette action. Vérifiez que vous êtes bien connecté.');
                 else

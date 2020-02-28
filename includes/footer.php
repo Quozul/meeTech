@@ -24,9 +24,10 @@
 </footer>
 
 <script>
-    $(function() {
+    // TODO: Rewrite tooltip WITHOUT JQUERY
+    (function() {
         $('[data-toggle="tooltip"]').tooltip();
-    });
+    })();
 
     // Form validation
     // https://getbootstrap.com/docs/4.1/components/forms/#validation
