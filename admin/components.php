@@ -5,7 +5,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $page_name = 'Back-office : composants';
 
 // Columns names and description
-$GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifications.json'), true);
+$cols = json_decode(file_get_contents('../includes/hardware/specifications.json'), true);
 ?>
 
 <!DOCTYPE html>
@@ -109,7 +109,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
                                                 <th scope="col">Nom</th>
                                                 <!-- Component specification title -->
                                                 <?php
-                                                foreach ($GLOBALS['cols'][$_GET['tab']]['specs'] as $key => $value) { ?>
+                                                foreach ($cols[$_GET['tab']]['specs'] as $key => $value) { ?>
                                                     <th scope="col"><?php echo $value['name']; ?></th>
                                                 <?php } ?>
                                                 <th scope="col">Actions</th>
@@ -124,7 +124,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
                                                     <th scope="col"><?php echo $specs['brand']; ?></th>
                                                     <th scope="col"><?php echo $specs['name']; ?></th>
 
-                                                    <?php foreach ($GLOBALS['cols'][$_GET['tab']]['specs'] as $key => $value) { ?>
+                                                    <?php foreach ($cols[$_GET['tab']]['specs'] as $key => $value) { ?>
                                                         <th scope="col"><?php echo isset($specs[$key]) ? $specs[$key] : "Inconnu"; ?></th>
                                                     <?php } ?>
 
@@ -138,7 +138,7 @@ $GLOBALS['cols'] = json_decode(file_get_contents('../includes/hardware/specifica
                                                                 ?>
                                                             </button>
                                                         </form>
-                                                        <form action="/admin/edit_component.php" method="post">
+                                                        <form action="/edit_component.php" method="post">
                                                             <button type="submit" class="btn btn-sm btn-primary w-100 mb-1" name="id" value="<?php echo $component['id']; ?>">Modifier</button>
                                                         </form>
                                                         <a class="btn btn-sm btn-danger w-100 mb-1" onclick="delete_component(<?php echo $component['id']; ?>)">Supprimer</a>

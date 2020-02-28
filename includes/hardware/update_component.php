@@ -1,5 +1,5 @@
 <?php
-include('../../config.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 
 // verify if user is connected
 if (!isset($_SESSION['userid'])) {
@@ -11,6 +11,8 @@ $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/har
 
 // TODO: Check if user have permission to add validated components according to badge
 $validated = 0;
+
+echo var_dump($_POST);
 
 // get type then removes it from post array
 $type = $_POST['type'];

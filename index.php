@@ -70,7 +70,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                         if ($i == 0) { ?>
                             <li class="list-group-item">Il n'y a aucune informations sur ce composant.</li>
                             <li class="list-group-item text-center">
-                                <form action="/admin/edit_component.php" method="post">
+                                <form action="/edit_component.php" method="post">
                                     <button type="submit" class="btn btn-sm btn-primary" name="id" value="<?php echo $component['id']; ?>">Proposer une modification</button>
                                 </form>
                             </li>
