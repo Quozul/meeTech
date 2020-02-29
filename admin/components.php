@@ -30,7 +30,7 @@ $cols = json_decode(file_get_contents('../includes/hardware/specifications.json'
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="submit-component" method="post" action="/includes/hardware/add_component/" autocomplete="off">
+                        <form id="submit-component" method="post" action="/actions/hardware/add_component/" autocomplete="off">
                             <?php include('../includes/hardware/component_form.php'); ?>
                         </form>
                     </div>
@@ -130,7 +130,7 @@ $cols = json_decode(file_get_contents('../includes/hardware/specifications.json'
 
                                                     <!-- Action buttons -->
                                                     <th scope="col">
-                                                        <form action="/includes/hardware/validate_component.php" method="post">
+                                                        <form action="/actions/hardware/validate_component.php" method="post">
                                                             <button type="submit" class="btn btn-sm btn-success w-100 mb-1 <?php if ($component['validated'] == 1) echo 'disabled'; ?>" name="id" value="<?php echo $component['id']; ?>">
                                                                 <?php
                                                                 if ($component['validated'] == 1) echo 'Validé';
@@ -221,7 +221,7 @@ $cols = json_decode(file_get_contents('../includes/hardware/specifications.json'
         }
 
         function delete_component(id) {
-            request('/includes/hardware/remove_component.php', `id=${id}`)
+            request('/actions/hardware/remove_component.php', `id=${id}`)
                 .then(() => {
                     alert('Composant supprimé avec succès!');
                 });

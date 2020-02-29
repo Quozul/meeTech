@@ -99,6 +99,15 @@
                 "input-type": "text",
                 "name": "Type"
             },
+            "ram-format": {
+                "input-type": "select",
+                "name": "Format de la mémoire",
+                "values": {
+                    "dimm": "DIMM",
+                    "sodimm": "SO-DIMM",
+                    "simm": "SIMM"
+                }
+            },
             "ram-modules": {
                 "input-type": "number",
                 "name": "Barrettes mémoire"

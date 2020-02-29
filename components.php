@@ -40,7 +40,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="needs-validation" id="submit-component" method="post" action="/includes/hardware/add_component/" autocomplete="off" novalidate>
+                        <form class="needs-validation" id="submit-component" method="post" action="/actions/hardware/add_component/" autocomplete="off" novalidate>
                             <?php include('includes/hardware/component_form.php'); ?>
                         </form>
                     </div>
@@ -134,7 +134,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
 
         // Add a component without reload
         function add_component(form_id) {
-            request('/includes/hardware/add_component.php', formToQuery(form_id)).then((req) => {
+            request('/actions/hardware/add_component.php', formToQuery(form_id)).then((req) => {
                 console.log(req.response);
                 // update list when component is submitted and hide modal
                 update_content();

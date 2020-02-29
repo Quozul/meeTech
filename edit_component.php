@@ -22,7 +22,7 @@
                 <div class="alert alert-warning" role="alert">Attention ! Ce composant a été validé, êtes-vous certain(e) de vouloir le modifier ?</div>
             <?php } ?>
             <span class="badge badge-primary float-right">Score : <?php echo $component['score']; ?></span>
-            <form action="includes/hardware/update_component.php" method="post" id="submit-component">
+            <form action="actions/hardware/update_component.php" method="post" id="submit-component">
                 <?php include('includes/hardware/component_form.php'); ?>
                 <input type="number" class="d-none" name="id" value="<?php echo $_POST['id']; ?>">
             </form>
@@ -45,7 +45,7 @@
                     document.getElementsByName(key)[0].value = specs[key];
 
             function send_update() {
-                request('/includes/hardware/update_component.php', formToQuery('submit-component')).then((req) => {
+                request('/actions/hardware/update_component.php', formToQuery('submit-component')).then((req) => {
                     console.log(req);
                     alert('Composant correctement mis à jour !\nVous pouvez retourner en arrière.');
                 }).catch((e) => {

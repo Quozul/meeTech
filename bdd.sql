@@ -161,6 +161,17 @@ CREATE TABLE component(
     sources TEXT
 );
 
+CREATE TABLE component_comment(
+    id_c INTEGER AUTO_INCREMENT PRIMARY KEY,
+    author INTEGER NOT NULL REFERENCES users (id_user),
+    component INTEGER NOT NULL REFERENCES component (id),
+    parent_comment INTEGER REFERENCES comment (id_c),
+    content TEXT,
+    date_published DATE,
+    date_edited DATE,
+    note INTEGER
+);
+
 -- statistics
 
 CREATE TABLE page_visit(

@@ -21,7 +21,6 @@ foreach ($cols as $component_id => $comp_infos) {
                 $page_count = ceil($content_count / $page_limit);
                 if (1 > $page || $page > $page_count) {
                     $page = min(max($page, 1), $page_count);;
-                    echo $page;
             ?>
 
                     <script>
@@ -44,6 +43,11 @@ foreach ($cols as $component_id => $comp_infos) {
                     <div class="list-group">
                         <?php foreach ($result as $k => $component) {
                             $specs = json_decode($component['specifications'], true);
+
+                            // get comment count
+                            $sth = $pdo->prepare('SELECT COUNT(*) FROM component_comment WHERE component = ?');
+                            $sth->execute([$component['id']]);
+                            $comments = $sth->fetch()[0];
                         ?>
                             <a href="<?php echo '/view_component.php?id=' . $component['id']; ?>" class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-between">
@@ -51,12 +55,13 @@ foreach ($cols as $component_id => $comp_infos) {
                                         <?php echo (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName'); ?>
                                     </h5>
                                     <small class="text-muted">
+                                        <span class="badge badge-primary">Score : <?php echo $component['score']; ?></span>
                                         <?php if ($component['validated'] == 0) { ?>
                                             <span class="badge badge-danger" data-toggle="tooltip" data-placement="top" title="Les informations n'ont pas été vérifiées">Non validé</span>
                                         <?php } else { ?>
                                             <span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Les informations de ce composants sont correctes">Validé</span>
                                         <?php } ?>
-                                        <span class="badge badge-primary">Score : <?php echo $component['score']; ?></span>
+                                        <span class="badge badge-info"><?php echo $comments . ($comments <= 1 ? ' commentaire' : ' commentaires'); ?></span>
                                     </small>
                                 </div>
 
