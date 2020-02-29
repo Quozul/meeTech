@@ -1,5 +1,4 @@
 <?php
-include('config.php');
 
 // Columns names and description
 $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
@@ -7,19 +6,20 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
 $config_name = isset($_GET['name']) && !empty($_GET['name']) ? $_GET['name'] : 'Config sans nom';
 unset($_GET['name']);
 $score = 0;
-
-foreach ($_GET as $type => $id) {
-    if (empty($id)) continue;
-    $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
-    $sth->execute([$id]);
-    $component = $sth->fetch();
-
-    $score += $component['score'];
-}
-
 $page_name = $config_name;
 
-$page_description = $config_name . ' - ' . $score . ' points.';
+// include('config.php');
+// foreach ($_GET as $type => $id) {
+//     if (empty($id)) continue;
+//     $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
+//     $sth->execute([$id]);
+//     $component = $sth->fetch();
+
+//     $score += $component['score'];
+// }
+
+
+// $page_description = $config_name . ' - ' . $score . ' points.';
 ?>
 
 <!DOCTYPE html>

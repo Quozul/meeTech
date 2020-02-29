@@ -113,6 +113,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
         // Change tab without reload
         function change_tab(t) {
             params.set('tab', t);
+            params.set('page', 1);
 
             update_content();
         }
@@ -133,7 +134,6 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
 
         // Add a component without reload
         function add_component(form_id) {
-
             request('/includes/hardware/add_component.php', formToQuery(form_id)).then((req) => {
                 console.log(req.response);
                 // update list when component is submitted and hide modal
@@ -144,7 +144,25 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                 console.log(e);
                 if (e.status == 401)
                     alert('Impossible d\'effectuer cette action. Vérifiez que vous êtes bien connecté.');
-                else
+                else if (e.status == 417) {
+                    // server-side form validation
+                    let set_valid = function() {
+                        if (this.classList.contains('is-invalid')) {
+                            this.classList.remove('is-invalid');
+                            this.classList.add('is-valid');
+                        }
+                    }
+
+                    JSON.parse(e.response).forEach(i => {
+                        let e = document.querySelector(`[name=${i}]`);
+                        e.classList.add('is-invalid');
+
+                        if (e.type == 'text')
+                            e.addEventListener('keypress', set_valid);
+                        else
+                            e.addEventListener('change', set_valid);
+                    });
+                } else
                     alert('Une erreur est survenue. Contactez un administrateur avec le code d\'erreur :\n' + e.status);
             });
         }

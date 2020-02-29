@@ -7,6 +7,20 @@ if (!isset($_SESSION['userid'])) {
     exit();
 }
 
+$empty_values = [];
+if (empty($_POST['type']))
+    array_push($empty_values, 'type');
+if (empty($_POST['brand']))
+    array_push($empty_values, 'brand');
+if (empty($_POST['name']))
+    array_push($empty_values, 'name');
+
+if (count($empty_values) != 0) {
+    echo json_encode($empty_values);
+    http_response_code(417);
+    exit();
+}
+
 $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/hardware/specifications.json'), true);
 
 // TODO: Check if user have permission to add validated components according to badge
