@@ -39,20 +39,6 @@ if (isset($_SESSION['userid'])) {
                     <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/forum/') echo 'active'; ?>">
                         <a class="nav-link" href="/forum/">Forum</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Utilisateur
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/profil/profil.php">Profil</a>
-                            <div class="dropdown-divider"></div>
-
-                            <a class="dropdown-item" data-toggle="modal" data-target="#sign_up_modal">Créer un compte</a>
-
-                            <a class="dropdown-item" data-toggle="modal" data-target="#sign_in_modal">Se connecter</a>
-                            <a class="dropdown-item" onclick="request('/profil/sign_out.php','').then(function(){document.location.reload();})">Se déconnecter</a>
-                        </div>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" <?php if (isset($rec)) {
                                                 echo 'href="/profil/profil.php"';
