@@ -1,4 +1,4 @@
-<form id="submit-article" method="post" action="actions/blog/add_article/" autocomplete="off">
+<form id="submit-article" method="post" action="actions/blog/add_article.php" autocomplete="off">
     <div class="form-group">
         <label for="title">Titre de l'article*</label>
         <input type="text" class="form-control" id="title" placeholder="Titre de l'article" name="title">
