@@ -15,9 +15,9 @@ include('../includes/head.php');
 
                 $sth->execute([$_SESSION['userid']]);
 
-                $result['userid'] = $sth->fetch(); ?>
+                $result = $sth->fetch(); ?>
 
-                <form method="post" action="/profil/update_profil.php">
+                <form method="post" action="/profil/update_profil.php" id='profil'>
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" class="form-control" name="username" id="username" placeholder="Mon Pseudo" value=<?php echo $result['username']; ?>>
@@ -36,17 +36,24 @@ include('../includes/head.php');
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" name="bio" id="description" rows="3" value=<?php echo $result['bio']; ?>></textarea>
+                        <textarea class="form-control" name="bio" id="description" rows="3"><?php echo $result['bio']; ?></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Sauvegarder les modifications</button>
+                    <button type="button" class="btn btn-primary" onclick="update_profil()">Sauvegarder les modifications</button>
                 </form>
             <?php } else { ?>
                 <div class="alert alert-danger" role="alert">
                     Il faut être connecter pour pouvoire modifier votre profil !
                 </div>
             <?php  } ?>
-
-
+            <script>
+                function update_profil() {
+                    request('/profil/update_profil.php', formToQuery('profil')).then(function(req) {
+                        document.location.reload();
+                    }).catch(function(req) {
+                        alert('Une erreur est survenue, contacter un administrateur avec le code d\'erreur suivant :\n' + req.status);
+                    });
+                }
+            </script>
         </div>
     </main>
 
