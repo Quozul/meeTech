@@ -49,7 +49,7 @@
                 }
                 ?>.
 
-                Go back to <a href="/">home page</a>.
+                Retour à <a href="/">la page d'acceuil</a>.
             </p>
         </div>
     </main>
