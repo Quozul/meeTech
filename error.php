@@ -1,61 +1,61 @@
 <html>
-    <?php include('includes/head.php'); ?>
+<?php include('includes/head.php'); ?>
 
-    <body class="d-flex vh-100 flex-column justify-content-between">
+<body class="d-flex vh-100 flex-column justify-content-between">
 
-        <?php include('includes/header.php'); ?>
+    <?php include('includes/header.php'); ?>
 
-        <main role="main" class="container">
-            <div class="jumbotron">
-                <h1>Error <?php echo $_GET['code']; ?></h1>
-                <p class="lead">
-                    <?php
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <h1>Error <?php echo $_GET['code']; ?></h1>
+            <p class="lead">
+                <?php
                 switch ($_GET['code']) {
                     case '400':
-                        echo 'Bad Request';
+                        echo 'Mauvaise requête';
                         break;
                     case '401':
-                        echo 'Unauthorized ';
+                        echo 'Accès non autorisé';
                         break;
                     case '402':
-                        echo 'Payment Required';
+                        echo 'Requiert un paiment';
                         break;
                     case '403':
-                        echo 'Forbidden';
+                        echo 'Interdit';
                         break;
                     case '404':
-                        echo 'Not Found';
+                        echo 'Page non trouvée';
                         break;
 
                     case '500':
-                        echo 'Internal Server Error';
+                        echo 'Erreur interne au serveur';
                         break;
                     case '502':
-                        echo 'Bad Gateway';
+                        echo 'Mauvaise passerelle';
                         break;
                     case '503':
-                        echo 'Service Unavailable';
+                        echo 'Service indisponible';
                         break;
                     case '504':
-                        echo 'Gateway Timeout';
+                        echo 'Délai dépassé';
                         break;
                     case '505':
-                        echo 'HTTP Version Not Supported';
+                        echo 'Version HTTP non supportée';
                         break;
 
                     default:
-                        echo 'Unhandled Error code';
+                        echo 'Code erreur non supporté';
                         break;
                 }
                 ?>.
 
-                    Go back to <a href="/">home page</a>.
-                </p>
-            </div>
-        </main>
+                Go back to <a href="/">home page</a>.
+            </p>
+        </div>
+    </main>
 
-        <?php include('includes/footer.php'); ?>
+    <?php include('includes/footer.php'); ?>
 
-    </body>
+</body>
 
 </html>
