@@ -2,12 +2,12 @@
 <html>
     <?php
     $page_name = 'Back-office : languages' ;
-    include('../../includes/head.php') ;
+    include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php') ;
     $page_limit = 4 ;
     $page = isset($_GET['page']) ? $_GET['page'] : 1 ;
     ?>
     <body class="d-flex vh-100 flex-column justify-content-between">
-        <?php include('../../includes/header.php') ; ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php') ; ; ?>
         <main role="main" class="container">
             <div class="jumbotron">
                 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#languageSubmitModal">Ajouter une langue</button>
@@ -21,7 +21,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form id="submit-language" method="post" action="../actions/add_language.php" autocomplete="off">
+                                <form id="submit-language" method="post" action="/actions/add_language.php" autocomplete="off">
                                     <input type="text" class="form-control" id="language" name="language" placeholder="Nouvelle langue">
                                 </form>
                             </div>
@@ -66,6 +66,6 @@
                 </table>
             </div>
         </main>
-        <?php include('../../includes/footer.php') ; ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php') ; ; ?>
     </body>
 </html>
