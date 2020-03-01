@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="sign_up_form" method="post" action="/profile/sign_up_process.php" autocomplete="off" novalidate>
+                <form id="sign_up_form" autocomplete="off" novalidate>
                     <div class="form-row">
                         <label for="username_input">Pseudonyme</label>
                         <input type="text" class="form-control" id="username_input" name="username" placeholder="Votre pseudo" required>
@@ -41,7 +41,7 @@
 </div>
 <script>
     function create_acount() {
-        request('/profile/sign_up_process.php', formToQuery('sign_up_form')).then(function(req) {
+        request('/actions/profile/sign_up_process.php', formToQuery('sign_up_form')).then(function(req) {
             document.location.reload();
         }).catch(function(req) {
             alert('Une erreur est survenue, contacter un administrateur avec le code d\'erreur suivant :\n' + req.status);
