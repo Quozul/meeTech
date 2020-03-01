@@ -12,7 +12,7 @@
             <?php
             if (!isset($_GET['post']) || is_null($_GET['post'])) {
             ?>
-<!-- The $_GET isn't set -->
+<!-- The $_GET['post'] isn't set -->
             <section class="jumbotron">
                 <h1>Whoups, there's nothing here !</h1>
                 <hr>
@@ -26,7 +26,7 @@
                 $exists = $query->fetch()[0] ;
                 if ($exists == 0) {
                 ?>
-<!-- The $_GET is set but no matching article in DB -->
+<!-- The $_GET['post'] is set but no matching article in DB -->
                 <section class="jumbotron">
                     <h1>Whoups, this article doesn't exist !</h1>
                     <hr>

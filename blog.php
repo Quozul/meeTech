@@ -56,18 +56,18 @@
                     </aside>
                     <article class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><a href=<?php echo '"article?post=' . $messages[$i]['id_m'] . '"' ; ?>><?php echo $messages[$i]['title'] ?></a></h5>
+                            <h5 class="card-title"><a href=<?php echo '"/article.php?post=' . $messages[$i]['id_m'] . '"' ; ?>><?php echo $messages[$i]['title'] ?></a></h5>
                             <p class="card-text">
                                 <?php echo $messages[$i]['content'] ?> <!--Couper le texte à un nb de caractères donnés via un script JS-->
-                                <a href=<?php echo '"article?post=' . $messages[$i]['id_m'] . '"' ; ?>>» Continue reading</a>
+                                <a href=<?php echo '"/article.php?post=' . $messages[$i]['id_m'] . '"' ; ?>>» Continue reading</a>
                             </p>
                             <p class="card-text">
                                 <small class="text-muted">Published on <?php echo $messages[$i]['date_published'] ?> by 
                                     <?php
-                                    $auth_query = $pdo->prepare('SELECT username FROM users WHERE id_user = ?') ;
+                                    $auth_query = $pdo->prepare('SELECT username FROM users WHERE id_u = ?') ;
                                     $auth_query->execute([$messages[$i]['author']]) ;
                                     $author = $auth_query->fetch()[0] ;
-                                    echo '<a href="#">' . $author . '</a>';
+                                    echo '<a href="/profile.php">' . $author . '</a>';
                                     ?>
                                 </small>
                             </p>
