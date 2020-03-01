@@ -38,13 +38,5 @@
             }
             ?>
         </select>
-        <div class="input-group-append">
-            <span class="btn btn-primary" data-toggle="collapse" data-target="#collapseLanguage">Ajouter une langue</span>
-        </div>
-        <div class="collapse" id="collapseLanguage">
-            <form id="submit-language" method="post" action="actions/blog/add_language" autocomplete="off">
-                <input type="text" class="form-control" id="language" placeholder="New language" name ="language">
-            </form>
-        </div>
     </div>
 </form>
