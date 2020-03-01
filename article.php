@@ -12,6 +12,7 @@
             <?php
             if (!isset($_GET['post']) || is_null($_GET['post'])) {
             ?>
+<!-- The $_GET isn't set -->
             <section class="jumbotron">
                 <h1>Whoups, there's nothing here !</h1>
                 <hr>
@@ -25,6 +26,7 @@
                 $exists = $query->fetch()[0] ;
                 if ($exists == 0) {
                 ?>
+<!-- The $_GET is set but no matching article in DB -->
                 <section class="jumbotron">
                     <h1>Whoups, this article doesn't exist !</h1>
                     <hr>
@@ -39,6 +41,7 @@
                     $author_query->execute([$message['author']]) ;
                     $author = $author_query->fetch()[0] ;
             ?>
+<!-- Article display -->
             <section class="jumbotron">
                 <h1><?php echo $message['title'] ; ?></h1>
                 <div class="float-right">
@@ -64,6 +67,7 @@
             <?php
             if ($exists != 0 && !is_null($message[0])) {
             ?>
+<!-- Comments display -->
             <section class="jumbotron">
                 <?php
                 $query = $pdo->prepare('SELECT COUNT(*) FROM comment WHERE parent_message = ? AND parent_comment IS NULL') ;
