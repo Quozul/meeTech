@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="sign_in_form" method="post" action="/profil/sign_in_process.php" autocomplete="off" novalidate>
+                <form id="sign_in_form" method="post" action="/profile/sign_in_process.php" autocomplete="off" novalidate>
                     <label for="username_input">Pseudonyme</label>
                     <input class="form-control" type="text" name="username" placeholder="Votre pseudo"><br>
                     <label for="username_input">Mot de passe</label>
