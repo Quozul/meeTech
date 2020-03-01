@@ -26,7 +26,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn btn-primary" form="submit-component">Publier</button>
+                            <button type="submit" class="btn btn-primary" form="submit-article">Publier</button>
                         </div>
                     </div>
                 </div>
@@ -83,5 +83,4 @@
 
         <?php include('includes/footer.php'); ?>
     </body>
-
 </html>

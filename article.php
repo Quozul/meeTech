@@ -26,7 +26,7 @@
                 if ($exists == 0) {
                 ?>
                 <section class="jumbotron">
-                    <h1>Whoups, there's nothing here !</h1>
+                    <h1>Whoups, this article doesn't exist !</h1>
                     <hr>
                     <a href="index"><button type="button" class="btn btn-primary">Go back to home page</button></a>
                 </section>
@@ -90,12 +90,27 @@
                             </small>
                         </header>
                         <p><?php echo $comment['content'] ; ?></p>
-                        <small class="text-muted"><a href="#" data-toggle="modal" data-target="#commResp">Répondre</a></small>
+                        <small class="text-muted"><a data-toggle="collapse" href="#collapseResp" aria-expanded="false" aria-controls="collapseResp">Répondre</a></small>
+
+                        <div class="collapse" id="collapseResp">
+                            <div class="card card-body">
+                                <form id="submit-response" method="post" action="includes/blog/new_response.php/">
+                                    <div class="form-group">
+                                        <textarea type="text" class="form-control form-control-lg" id="content" name="content"></textarea>
+                                    </div>
+                                    <div class="collapse-footer">
+                                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="collapse">Annuler</button>
+                                        <button type="submit" class="btn btn-primary btn-sm" form="submit-response">Publier</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         <hr>
                         <?php
                         getRelatedComments($comment['id_c'], $comment['parent_message'], $pdo, $increment) ;
                         ?>
                     </div>
+
                     <?php
                     }
                     function getRelatedComments ($parent_comm, $id_m, $pdo, $indent) {
@@ -125,10 +140,10 @@
                     }
                     ?>
                     <button type="button" class="btn btn-primary">Comment</button>
-        <?php
+            <?php
                 }
             }
-        ?>
+            ?>
             </section>
         </main>
         <?php include('includes/footer.php') ; ?>

@@ -34,7 +34,7 @@ CREATE TABLE message (
     content TEXT,
     date_published DATE,
     date_edited DATE,
-    default_langugage VARCHAR(32) NOT NULL REFERENCES language (lang),
+    default_language VARCHAR(32) NOT NULL REFERENCES language (lang),
     category VARCHAR(32) NOT NULL REFERENCES category (name),
     note INTEGER,
     signaled BOOLEAN
