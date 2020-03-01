@@ -41,7 +41,7 @@ if (isset($_SESSION['userid'])) {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" <?php if (isset($rec)) {
-                                                echo 'href="/profil/profil.php"';
+                                                echo 'href="/profile.php"';
                                             } else {
                                                 echo 'data-toggle="modal" data-target="#sign_in_modal"';
                                             } ?>>
@@ -62,7 +62,7 @@ if (isset($_SESSION['userid'])) {
                     <?php if (isset($rec)) { ?>
 
                         <li class="nav-item">
-                            <a class="nav-link" onclick="request('/profil/sign_out.php','').then(function(){document.location.reload();})">Se déconnecter</a>
+                            <a class="nav-link" onclick="request('/actions/profile/sign_out.php','').then(function(){document.location.reload();})">Se déconnecter</a>
                         </li>
                     <?php } ?>
                 </ul>
@@ -75,5 +75,5 @@ if (isset($_SESSION['userid'])) {
     </nav>
 </header>
 
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/profil/sign_up_form.php'); ?>
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/profil/sign_in_form.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/profile/sign_up_form.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/profile/sign_in_form.php'); ?>

@@ -1,5 +1,5 @@
 <?php
-include('../config.php');
+include('../../config.php');
 
 // delete empty values
 foreach ($_POST as $key => $value)
