@@ -1,5 +1,5 @@
 <?php
-include('../../config.php') ;
+include($_SERVER['DOCUMENT_ROOT'] . '/config.php') ;
 
 // verify if user is connected
 if (!isset($_SESSION['userid'])) {
@@ -42,6 +42,6 @@ $q->execute([
 	'signaled' => $signaled
 ]) ;
 
-header('location: ../../../index.php') ;
+header('location: /' . $category . '/') ;
 exit ;
 ?>
