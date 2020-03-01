@@ -21,7 +21,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form id="submit-language" method="post" action="<?php echo $_SERVER['DOCUMENT_ROOT'] . '/actions/add_language.php/' ; ?>" autocomplete="off">
+                                <form id="submit-language" method="post" action="/actions/add_language.php" autocomplete="off">
                                     <input type="text" class="form-control" id="language" name="language" placeholder="Nouvelle langue">
                                 </form>
                             </div>
