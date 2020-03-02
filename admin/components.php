@@ -17,7 +17,7 @@ $cols = json_decode(file_get_contents('../includes/hardware/specifications.json'
 
     <main role="main" class="container-fluid">
         <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Proposer un composant</button>
-        <a class="btn btn-warning float-right mr-1" href="/admin/update_component_scores.php">Mettre à jour les scores</a>
+        <a class="btn btn-warning float-right mr-1" href="/actions/hardware/update_component_scores.php">Mettre à jour les scores</a>
 
         <!-- Add component modal/form -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

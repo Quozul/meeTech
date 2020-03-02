@@ -1,5 +1,5 @@
 <?php
-include('../config.php');
+include('../../config.php');
 $cols = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/includes/hardware/specifications.json'), true);
 ?>
 
