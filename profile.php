@@ -11,7 +11,7 @@ include('includes/head.php');
         <h1>Votre profile</h1>
         <div class="jumbotron">
             <?php if (!empty($_SESSION['userid'])) {
-                $sth = $pdo->prepare('SELECT username, email, location, prefered_languae , bio FROM users WHERE id_u=?');
+                $sth = $pdo->prepare('SELECT username, email, location, prefered_language , bio FROM users WHERE id_u=?');
 
                 $sth->execute([$_SESSION['userid']]);
 
