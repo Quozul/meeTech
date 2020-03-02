@@ -27,6 +27,20 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
             </div>
         </form>
 
+        <form class="float-right ml-2">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="page-order">Trier</label>
+                </div>
+                <select class="form-control" id="page-order">
+                    <option value="score" selected>Score</option>
+                    <option value="new">Nouveaux</option>
+                    <option value="last_comment">Dernier commentaire</option>
+                    <option value="most_comment">Nb. commentaires</option>
+                </select>
+            </div>
+        </form>
+
         <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#add-component-modal">Proposer un composant</button>
 
         <!-- Add component modal/form -->
@@ -107,6 +121,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
         params.set('tab', 'cpu');
         params.set('page', 1);
         params.set('page-limit', 3);
+        params.set('order', 'score');
 
         update_content();
 
@@ -128,6 +143,12 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
         // Change displayed inputs according to selected type
         document.getElementById('page-limit').onchange = function() {
             params.set('page-limit', this.value);
+
+            update_content();
+        }
+
+        document.getElementById('page-order').onchange = function() {
+            params.set('page-order', this.value);
 
             update_content();
         }

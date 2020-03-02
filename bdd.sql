@@ -152,7 +152,7 @@ CREATE TABLE answer(
 CREATE TABLE component(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     validated BOOLEAN DEFAULT FALSE,
-    added_date TIMESTAMP,
+    added_date DATETIME,
     added_by INTEGER REFERENCES user(id_user),
     type VARCHAR(3),
     score INTEGER DEFAULT 0,
@@ -167,8 +167,8 @@ CREATE TABLE component_comment(
     component INTEGER NOT NULL REFERENCES component (id),
     parent_comment INTEGER REFERENCES comment (id_c),
     content TEXT,
-    date_published DATE,
-    date_edited DATE,
+    date_published DATETIME,
+    date_edited DATETIME,
     note INTEGER
 );
 

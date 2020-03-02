@@ -4,16 +4,25 @@ $cols = json_decode(file_get_contents('specifications.json'), true);
 
 $page_limit = isset($_GET['page-limit']) ? $_GET['page-limit'] : 3;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
+$page_order = isset($_GET['page-order']) ? $_GET['page-order'] : 'score';
 
-foreach ($cols as $component_id => $comp_infos) {
-    if ($_GET['tab'] == $component_id) {
+foreach ($cols as $component_type => $comp_infos) {
+    if ($_GET['tab'] == $component_type) {
 ?>
-        <div class="tab-pane <?php if ($_GET['tab'] == $component_id) echo 'show active'; ?>" id="v-pills-cpu" role="tabpanel" aria-labelledby="v-pills-cpu-tab">
+        <div class="tab-pane <?php if ($_GET['tab'] == $component_type) echo 'show active'; ?>" id="v-pills-cpu" role="tabpanel" aria-labelledby="v-pills-cpu-tab">
             <h3><?php echo $comp_infos['name'] ?></h3>
 
             <?php
-            $sth = $pdo->prepare('SELECT COUNT(*) FROM component WHERE type = ?');
-            $sth->execute([$component_id]);
+            if ($page_order == 'new')
+                $sth = $pdo->prepare('SELECT COUNT(*) FROM component WHERE type = ? ORDER BY added_date DESC');
+            else if ($page_order == 'last_comment')
+                $sth = $pdo->prepare('SELECT COUNT(*) FROM component AS comp WHERE type = ? ORDER BY (SELECT date_published FROM component_comment WHERE component = comp.id ORDER BY date_published LIMIT 1)');
+            else if ($page_order == 'most_comment')
+                $sth = $pdo->prepare('SELECT COUNT(*) FROM component AS comp WHERE type = ? ORDER BY (SELECT count(*) FROM component_comment WHERE component = comp.id)');
+            else if ($page_order == 'score')
+                $sth = $pdo->prepare('SELECT COUNT(*) FROM component WHERE type = ? ORDER BY score DESC');
+
+            $sth->execute([$component_type]);
             $content_count = $sth->fetch()[0];
 
             if ($content_count > 0) {
@@ -28,14 +37,20 @@ foreach ($cols as $component_id => $comp_infos) {
                         let url = new URL(window.location.href);
                         let params = new URLSearchParams(url.search.slice(1));
                         params.set('page', page);
-
-                        // window.location.href = url.href.substr(0, url.href.lastIndexOf('?')) + '?' + params.toString();
                     </script>
 
                 <?php }
 
-                $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? ORDER BY score DESC LIMIT ? OFFSET ?');
-                $sth->execute([$component_id, $page_limit, ($page - 1) * $page_limit]); // remplace le ? par la valeur
+                if ($page_order == 'new')
+                    $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? ORDER BY added_date DESC LIMIT ? OFFSET ?');
+                else if ($page_order == 'last_comment')
+                    $sth = $pdo->prepare('SELECT * FROM component AS comp WHERE type = ? ORDER BY (SELECT date_published FROM component_comment WHERE component = comp.id ORDER BY date_published LIMIT 1) DESC LIMIT ? OFFSET ?');
+                else if ($page_order == 'most_comment')
+                    $sth = $pdo->prepare('SELECT * FROM component AS comp WHERE type = ? ORDER BY (SELECT count(*) FROM component_comment WHERE component = comp.id) DESC LIMIT ? OFFSET ?');
+                else if ($page_order == 'score')
+                    $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? ORDER BY score DESC LIMIT ? OFFSET ?');
+
+                $sth->execute([$component_type, $page_limit, ($page - 1) * $page_limit]);
                 $result = $sth->fetchAll();
 
                 if (count($result) > 0) { ?>
@@ -103,7 +118,7 @@ foreach ($cols as $component_id => $comp_infos) {
                     <p>Oops, il semblerait qu'il n'y ait rien ici :(</p>
                 <?php } ?>
 
-                <!-- Table pagination -->
+                <!-- Pagination -->
                 <nav aria-label="..." class="mt-4">
                     <ul class="pagination justify-content-center">
                         <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
