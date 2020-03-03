@@ -62,12 +62,11 @@ CREATE TABLE comment (
 );
 
 CREATE TABLE file(
+    file_number INTEGER PRIMARY KEY,
+    extension VARCHAR(4),
     added_by INTEGER NOT NULL REFERENCES user(id_user),
-    message INTEGER NOT NULL REFERENCES message(id_m),
-    file_name VARCHAR(32),
-
-    PRIMARY KEY(message, file_name)
-);
+    message INTEGER NOT NULL REFERENCES message(id_m)
+   );
 
 -- badges
 
