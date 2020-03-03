@@ -11,13 +11,13 @@ if (isset($_SESSION['userid'])) {
 ?>
 
 <header class="mb-4">
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) echo 'mt-backoffice-color'; ?>">
         <div class="container">
             <a class="navbar-brand" href="/">
                 <img src="/images/logov4.svg" style="height: 24px;">
                 meeTech
             </a>
-            <button class=" navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -68,7 +68,7 @@ if (isset($_SESSION['userid'])) {
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Rechercher</button>
                 </form>
             </div>
         </div>

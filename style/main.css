@@ -46,6 +46,10 @@ body, .mt-color-background {
     background-color: #ffffff;
 }
 
+.mt-backoffice-color {
+    background-color: red;
+}
+
 .color-square {
     display: block;
     border-radius: 5px;
