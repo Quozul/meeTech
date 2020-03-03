@@ -13,9 +13,9 @@
         <div class="jumbotron">
             <p class="lead">Voici une liste de pages sur lesquelles vous pouvez administrer le site</p>
             <ul>
-                <li><a href="/admin/list_users.php">Utilisateurs</a></li>
-                <li><a href="/admin/languages.php">Langages</a></li>
-                <li><a href="/admin/components.php">Composants</a></li>
+                <li><a href="/admin/list_users/">Utilisateurs</a></li>
+                <li><a href="/admin/languages/">Langages</a></li>
+                <li><a href="/admin/components/">Composants</a></li>
             </ul>
         </div>
     </main>

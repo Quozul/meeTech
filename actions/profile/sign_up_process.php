@@ -5,30 +5,51 @@ $pseudo = htmlspecialchars($_POST['username']);
 $email = $_POST['email'];
 $password = hash('sha256', $_POST['password']);
 
+$error = '';
+
 // Pseudo deja existant et longueur comprise 5 et 35 caractères
-if (!isset($_POST['username']) || strlen($_POST['username']) > 35) {
-	exit();
-}
+if (!isset($_POST['username']))
+	$error = $error . 'username_not_set;';
+
+if (strlen($_POST['username']) > 35)
+	$error = $error . 'username_too_long;';
+
 // existe ou non dans la BBD
 $sth = $pdo->prepare('SELECT * FROM users WHERE username = ?');
 $sth->execute([$pseudo]);
 $rec = $sth->fetch();
-if (!empty($rec) && count($rec) > 0) {
-	exit();
-}
+
+if (!empty($rec) && count($rec) > 0)
+	$error = $error . 'username_already_taken;';
+
 // Email au format valide et si deja existant
-if (!isset($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-	exit();
-}
-// Exisste ou non dans la BBD
+if (!isset($_POST['email']))
+	$error = $error . 'email_not_set;';
+else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+	$error = $error . 'invalid_email_address;';
+
+// Existe ou non dans la BBD
 $sth = $pdo->prepare('SELECT * FROM users WHERE email = ?');
 $sth->execute([$email]);
 $rec = $sth->fetch();
-if (!empty($rec) && count($rec) > 0) {
-	exit();
-}
-// Password 8 à 15 char
-if (!isset($_POST['password']) || strlen($_POST['password']) < 8) {
+
+if (!empty($rec) && count($rec) > 0)
+	$error = $error . 'email_already_taken;';
+
+// Password min 8 char
+if (!isset($_POST['password']))
+	$error = $error . 'password_not_set;';
+
+if (!isset($_POST['confirm-password']) || empty($_POST['confirm-password']))
+	$error = $error . 'confirm_password;';
+else if ($_POST['password'] != $_POST['confirm-password'])
+	$error = $error . 'incorrect_password;';
+
+if (strlen($_POST['password']) < 8)
+	$error = $error . 'password_too_short;';
+
+if (!empty($error)) {
+	echo 'ERROR\n' . $error;
 	exit();
 }
 

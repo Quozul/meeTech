@@ -51,16 +51,13 @@ if (isset($_SESSION['userid'])) {
                                 echo 'Se connecter';
                             } ?></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" <?php if (!isset($rec)) {
-                                                echo 'data-toggle="modal" data-target="#sign_up_modal"';
-                                            } ?>>
-                            <?php if (!isset($rec)) {
-                                echo 'Créer un compte';
-                            } ?></a>
-                    </li>
-                    <?php if (isset($rec)) { ?>
-
+                    <?php if (!isset($rec)) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="modal" data-target="#sign_up_modal">
+                                Créer un compte
+                            </a>
+                        </li>
+                    <?php } else { ?>
                         <li class="nav-item">
                             <a class="nav-link" onclick="request('/actions/profile/sign_out.php','').then(function(){document.location.reload();})">Se déconnecter</a>
                         </li>
