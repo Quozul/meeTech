@@ -56,11 +56,14 @@
                     </aside>
                     <article class="col-md-8">
                         <div class="card-body">
-                            <button type="button" class="btn btn-outline-success btn-sm float-right"><?php echo $post['note'] ; ?></button>
-                            <h5 class="card-title"><a href=<?php echo '"article?post=' . $post['id_m'] . '"' ; ?>><?php echo $post['title'] ?></a></h5>
+                            <div class="float-right">
+                                <span class="badge badge-pill badge-success"><?php echo $post['note'] ; ?></span>
+                                <span class="badge badge-pill badge-danger">!</span>
+                            </div>
+                            <h5 class="card-title"><a href="/article.php?post=<?php $post['id_m'] ; ?>"><?php echo $post['title'] ?></a></h5>
                             <p class="card-text">
                                 <?php echo substr($post['content'], 0, 270) .'…' ; ?>
-                                <a href="article?post=<?php echo $post['id_m'] ; ?>"> » Continue reading</a>
+                                <a href="/article.php?post=<?php echo $post['id_m'] ; ?>"> » Continue reading</a>
                             </p>
                             <p class="card-text">
                                 <small class="text-muted">Published on <?php echo $post['date_published'] ?> by 
