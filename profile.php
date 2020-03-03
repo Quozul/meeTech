@@ -39,6 +39,29 @@ include('includes/head.php');
                         <textarea class="form-control" name="bio" id="description" rows="3"><?php echo $result['bio']; ?></textarea>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="update_profile()">Sauvegarder les modifications</button>
+
+                    <div id="clear_session" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Suppression du compte</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Êtes vous sur de vouloir supprimer votre compte ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                                    <button type="button" class="btn btn-danger" onclick="clear_session()">Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#clear_session">
+                        Supprimer votre compte
+                    </button>
                 </form>
             <?php } else { ?>
                 <div class="alert alert-danger" role="alert">
@@ -48,6 +71,16 @@ include('includes/head.php');
             <script>
                 function update_profile() {
                     request('/actions/profile/update_profile.php', formToQuery('profile')).then(function(req) {
+                        document.location.reload();
+                    }).catch(function(req) {
+                        alert('Une erreur est survenue, contacter un administrateur avec le code d\'erreur suivant :\n' + req.status);
+                    });
+                }
+
+                function clear_session() {
+                    request('/actions/profile/clear_session.php', '').then(function(req) {
+                        console.log(req.response);
+
                         document.location.reload();
                     }).catch(function(req) {
                         alert('Une erreur est survenue, contacter un administrateur avec le code d\'erreur suivant :\n' + req.status);
