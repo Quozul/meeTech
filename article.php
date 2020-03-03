@@ -4,21 +4,18 @@
         include('includes/head.php') ;
         $page_limit = 10 ;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $exists = 0 ;
     ?>
 
     <body class="d-flex vh-100 flex-column justify-content-between">
         <?php include('includes/header.php') ; ?>
         <main role="main" class="container">
+            <section class="jumbotron">
+
+<!-- The $_GET['post'] isn't set -->
             <?php
             if (!isset($_GET['post']) || is_null($_GET['post'])) {
-            ?>
-<!-- The $_GET['post'] isn't set -->
-            <section class="jumbotron">
-                <h1>Whoups, there's nothing here !</h1>
-                <hr>
-                <a href="index"><button type="button" class="btn btn-primary">Go back to home page</button></a>
-            </section>
-            <?php
+                include('includes/nothing.php')  ;
             } else {
                 $message_id = strip_tags($_GET['post']) ;
                 $query = $pdo->prepare('SELECT COUNT(*) FROM message WHERE id_m = ?') ;
@@ -26,23 +23,23 @@
                 $exists = $query->fetch()[0] ;
                 if ($exists == 0) {
                 ?>
+
 <!-- The $_GET['post'] is set but no matching article in DB -->
-                <section class="jumbotron">
                     <h1>Whoups, this article doesn't exist !</h1>
                     <hr>
-                    <a href="index"><button type="button" class="btn btn-primary">Go back to home page</button></a>
-                </section>
+                    <a href="blog/"><button type="button" class="btn btn-primary">Go to Blog</button></a>
+                    <a href="forum/"><button type="button" class="btn btn-primary">Go to Forum</button></a>
+
+<!-- Valid article display -->
                 <?php
                 } else {
                     $query = $pdo->prepare('SELECT * FROM message WHERE id_m = ?') ;
                     $query->execute([$message_id]) ;
                     $message = $query->fetchAll()[0] ;
-                    $author_query = $pdo->prepare('SELECT username FROM users WHERE id_user = ?') ;
+                    $author_query = $pdo->prepare('SELECT username FROM users WHERE id_u = ?') ;
                     $author_query->execute([$message['author']]) ;
                     $author = $author_query->fetch()[0] ;
             ?>
-<!-- Article display -->
-            <section class="jumbotron">
                 <h1><?php echo $message['title'] ; ?></h1>
                 <div class="float-right">
                     <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button>
@@ -127,7 +124,7 @@
                         $q->execute([$id_m, $parent_comm]) ;
                         $comments = $q->fetchAll() ;
                         for ($k = 0 ; $k < $total ; ++$k) {
-                            $author_query = $pdo->prepare('SELECT username FROM users WHERE id_user = ?') ;
+                            $author_query = $pdo->prepare('SELECT username FROM users WHERE id_u = ?') ;
                             $author_query->execute([$comments[$k]['author']]) ;
                             $author = $author_query->fetch()[0] ;
                             displayComment($k, $indent, $author, $comments[$k], $pdo) ;
@@ -136,7 +133,7 @@
 
                     $offset = $page_limit * ($page - 1) ;
                     for ($i = $offset ; $i < $offset + $page_limit && $i < $elements ; $i++) {
-                        $author_query = $pdo->prepare('SELECT username FROM users WHERE id_user = ?') ;
+                        $author_query = $pdo->prepare('SELECT username FROM users WHERE id_u = ?') ;
                         $author_query->execute([$comments[$i]['author']]) ;
                         $author = $author_query->fetch()[0] ;
                         $increment = 1 ;
