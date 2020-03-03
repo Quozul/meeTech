@@ -5,7 +5,9 @@ USE meetech;
 -- user
 
 CREATE TABLE language(
-    lang VARCHAR(32) PRIMARY KEY
+    lang VARCHAR(32) PRIMARY KEY,
+    icon CHAR(16),
+    label CHAR(2)
 );
 
 CREATE TABLE users(
