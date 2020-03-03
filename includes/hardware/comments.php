@@ -1,5 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/author_query.php');
 
 $compid = isset($component['id']) ? $component['id'] : $_GET['id'];
 
@@ -9,9 +10,7 @@ $result = $sth->fetchAll();
 
 if (count($result) > 0) {
     foreach ($result as $key => $comment) {
-        $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ?');
-        $sth->execute([$comment['author']]);
-        $author = $sth->fetch()[0];
+        $author = author_query($comment['author'], $pdo);
 ?>
         <div class="border-left border-dark pl-3">
             <!-- get image from user -->
