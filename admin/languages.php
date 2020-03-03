@@ -2,12 +2,12 @@
 <html>
     <?php
     $page_name = 'Back-office : languages' ;
-    include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php') ;
+    include('includes/head.php') ;
     $page_limit = 4 ;
     $page = isset($_GET['page']) ? $_GET['page'] : 1 ;
     ?>
     <body class="d-flex vh-100 flex-column justify-content-between">
-        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php') ; ; ?>
+        <?php include('includes/header.php') ; ?>
         <main role="main" class="container">
             <div class="jumbotron">
                 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#languageSubmitModal">Ajouter une langue</button>
@@ -34,8 +34,9 @@
                 </div>
                 <h2>Langages</h2>
                 <hr>
+                <p><a href="https://www.alt-codes.net/flags">Liens unicode des drapeaux</a></p>
                 <?php
-                $q = $pdo->prepare('SELECT * FROM language') ;
+                $q = $pdo->prepare('SELECT lang, icon, label FROM language') ;
                 $q->execute() ;
                 $languages = $q->fetchAll() ;
                 ?>
@@ -43,29 +44,32 @@
                     <thead>
                         <tr>
                             <th scope="col">Langue</th>
+                            <th scope="col">Icône</th>
                             <th scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                <?php
-                foreach ($languages as $value) {
-                ?>
+                        <?php
+                        foreach ($languages as $value) {
+                        ?>
                         <tr>
                             <td><?php echo $value['lang'] ; ?></td>
+                            <td><?php if (strlen($value['icon']) != 0) echo $value['icon'] ;
+                                      else echo $value['label'] ; ?></td>
                             <td>
                                 <div>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">Éditer</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
                                 </div>
                             </td>
                         </tr>
-                <?php
-                } ;
-                ?>
+                        <?php
+                        } ;
+                        ?>
                     </tbody>
                 </table>
             </div>
         </main>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php') ; ; ?>
+        <?php include('includes/footer.php') ; ; ?>
     </body>
 </html>

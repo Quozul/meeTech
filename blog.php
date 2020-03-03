@@ -3,6 +3,7 @@
     <?php
         $page_name = 'Blog';
         include('includes/head.php');
+        include('includes/author_query.php') ;
         $page_limit = 4 ;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
     ?>
@@ -48,6 +49,7 @@
             $offset = $page_limit * ($page - 1) ;
             for ($i = $offset ; $i < $offset + $page_limit && $i < $elements ; $i++) {
                 $post = $messages[$i] ;
+                echo $post['id_m'] ;
             ?>
             <section class="card mb-3" style="max-width: width;">
                 <div class="row no-gutters">
@@ -60,19 +62,14 @@
                                 <span class="badge badge-pill badge-success"><?php echo $post['note'] ; ?></span>
                                 <span class="badge badge-pill badge-danger">!</span>
                             </div>
-                            <h5 class="card-title"><a href="/article.php?post=<?php $post['id_m'] ; ?>"><?php echo $post['title'] ?></a></h5>
+                            <h5 class="card-title"><a href="/article.php?post=<?php echo $post['id_m'] ; ?>"><?php echo $post['title'] ?></a></h5>
                             <p class="card-text">
                                 <?php echo substr($post['content'], 0, 270) .'…' ; ?>
                                 <a href="/article.php?post=<?php echo $post['id_m'] ; ?>"> » Continue reading</a>
                             </p>
                             <p class="card-text">
-                                <small class="text-muted">Published on <?php echo $post['date_published'] ?> by 
-                                    <?php
-                                    $auth_query = $pdo->prepare('SELECT username FROM users WHERE id_u = ?') ;
-                                    $auth_query->execute([$post['author']]) ;
-                                    $author = $auth_query->fetch()[0] ;
-                                    echo '<a href="#">' . $author . '</a>';
-                                    ?>
+                                <?php $author = author_query($post['author'], $pdo) ; ?>
+                                <small class="text-muted">Published on <?php echo $post['date_published'] ?> by <a href="/user/?id=<?php echo $post['id_m'] ; ?>"><?php echo $author ; ?></a>
                                 </small>
                             </p>
                         </div>
