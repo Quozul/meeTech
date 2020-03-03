@@ -67,7 +67,7 @@
 <!-- Comments display -->
             <section class="jumbotron">
                 <?php
-                $query = $pdo->prepare('SELECT COUNT(*) FROM comment WHERE parent_message = ? AND parent_comment IS NULL') ;
+                $query = $pdo->prepare('SELECT COUNT(id_c) FROM comment WHERE parent_message = ? AND parent_comment IS NULL') ;
                 $query->execute([$message_id]) ;
                 $elements = $query->fetch()[0] ;
                 if ($elements == 0) {

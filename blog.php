@@ -2,13 +2,13 @@
 <html>
     <?php
         $page_name = 'Blog';
-        include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
+        include('includes/head.php');
         $page_limit = 4 ;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
     ?>
 
     <body class="d-flex vh-100 flex-column justify-content-between">
-        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'); ?>
+        <?php include('includes/header.php'); ?>
 
         <main role="main" class="container">
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#blogPostModal">Publier un nouvel article</button>
@@ -33,21 +33,21 @@
             </div>
 
             <h2>Blog</h2>
-
             <hr>
-            <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/blog/page_nav.php') ; ?>
+            <?php include('includes/blog/page_nav.php') ; ?>
 
             <?php
-            $query = $pdo->prepare('SELECT COUNT(*) FROM message WHERE category = ?') ;
+            $query = $pdo->prepare('SELECT COUNT(id_m) FROM message WHERE category = ?') ;
             $query->execute([$page_name]) ;
             $elements = $query->fetch()[0] ;
 
-            $query = $pdo->prepare('SELECT * FROM message WHERE category = ? ORDER BY date_published DESC') ;
+            $query = $pdo->prepare('SELECT id_m, author, title, content, date_published, default_language, note FROM message WHERE category = ? ORDER BY date_published DESC') ;
             $query->execute([$page_name]) ;
             $messages = $query->fetchAll() ;
 
             $offset = $page_limit * ($page - 1) ;
             for ($i = $offset ; $i < $offset + $page_limit && $i < $elements ; $i++) {
+                $post = $messages[$i] ;
             ?>
             <section class="card mb-3" style="max-width: width;">
                 <div class="row no-gutters">
@@ -56,18 +56,19 @@
                     </aside>
                     <article class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><a href=<?php echo '"/article.php?post=' . $messages[$i]['id_m'] . '"' ; ?>><?php echo $messages[$i]['title'] ?></a></h5>
+                            <button type="button" class="btn btn-outline-success btn-sm float-right"><?php echo $post['note'] ; ?></button>
+                            <h5 class="card-title"><a href=<?php echo '"article?post=' . $post['id_m'] . '"' ; ?>><?php echo $post['title'] ?></a></h5>
                             <p class="card-text">
-                                <?php echo $messages[$i]['content'] ?> <!--Couper le texte à un nb de caractères donnés via un script JS-->
-                                <a href=<?php echo '"/article.php?post=' . $messages[$i]['id_m'] . '"' ; ?>>» Continue reading</a>
+                                <?php echo substr($post['content'], 0, 270) .'…' ; ?>
+                                <a href="article?post=<?php echo $post['id_m'] ; ?>"> » Continue reading</a>
                             </p>
                             <p class="card-text">
-                                <small class="text-muted">Published on <?php echo $messages[$i]['date_published'] ?> by 
+                                <small class="text-muted">Published on <?php echo $post['date_published'] ?> by 
                                     <?php
                                     $auth_query = $pdo->prepare('SELECT username FROM users WHERE id_u = ?') ;
-                                    $auth_query->execute([$messages[$i]['author']]) ;
+                                    $auth_query->execute([$post['author']]) ;
                                     $author = $auth_query->fetch()[0] ;
-                                    echo '<a href="/profile.php">' . $author . '</a>';
+                                    echo '<a href="#">' . $author . '</a>';
                                     ?>
                                 </small>
                             </p>
@@ -77,10 +78,10 @@
             </section>
             <?php
             } ;
-            include($_SERVER['DOCUMENT_ROOT'] . '/includes/blog/page_nav.php') ;
+            include('includes/blog/page_nav.php') ;
             ?>
         </main>
 
-        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'); ?>
+        <?php include('includes/footer.php'); ?>
     </body>
 </html>
