@@ -2,6 +2,9 @@
 
 $error = '';
 
+$pseudo = htmlspecialchars($_POST['username']);
+$password = hash('sha256', $_POST['password']);
+
 // verify if username exists
 $sth = $pdo->prepare('SELECT id_u FROM users WHERE username=?');
 $sth->execute([$_POST['username']]);

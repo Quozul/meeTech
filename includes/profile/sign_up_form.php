@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="sign_up_form" autocomplete="off" novalidate>
+                <form id="sign_up_form" autocomplete="off" novalidate enctype='multipart/form-data'>
                     <div class="form-row">
                         <label for="username_input">Pseudonyme</label>
                         <div class="input-group">
@@ -32,7 +32,7 @@
                             <div class="invalid-feedback d-block" id="confirm-password-invalid-feedback"></div>
                         </div>
                     </div>
-
+                    <input type='file' name='avatar'>
                 </form>
             </div>
             <div class="modal-footer">
@@ -45,75 +45,75 @@
 
 <script>
     function create_acount() {
-        request('/actions/profile/sign_up_process.php', formToQuery('sign_up_form')).then(function(req) {
-            const response = req.response.split('\\n');
+    request('/actions/profile/sign_up_process.php', formToQuery('sign_up_form')).then(function(req) {
+        const response = req.response.split('\\n');
 
-            // remove "is-invalid" classes
-            let invalid_fields = document.getElementsByClassName('is-invalid');
-            for (const key in invalid_fields)
-                if (invalid_fields.hasOwnProperty(key)) {
-                    const element = invalid_fields[key];
+        // remove "is-invalid" classes
+        let invalid_fields = document.getElementsByClassName('is-invalid');
+        for (const key in invalid_fields)
+            if (invalid_fields.hasOwnProperty(key)) {
+                const element = invalid_fields[key];
 
-                    element.classList.remove('is-invalid');
-                    element.innerHTML = '';
+                element.classList.remove('is-invalid');
+                element.innerHTML = '';
+            }
+
+        // display errors
+        let uif = document.getElementById('username-invalid-feedback');
+        let eif = document.getElementById('email-invalid-feedback');
+        let pif = document.getElementById('password-invalid-feedback');
+        let cpif = document.getElementById('confirm-password-invalid-feedback');
+
+        if (response[0] == 'ERROR')
+            response[1].split(';').forEach((code) => {
+                switch (code) {
+                    case 'username_not_set':
+                        uif.innerHTML = 'Veuillez entrer un nom d\'utilisateur.';
+                        uif.classList.add('is-invalid');
+                        break;
+                    case 'username_too_long':
+                        uif.innerHTML = 'Le nom d\'utilisateur entré est trop long.';
+                        uif.classList.add('is-invalid');
+                        break;
+                    case 'username_already_taken':
+                        uif.innerHTML = 'Ce nom d\'utilisateur est déjà pris.';
+                        uif.classList.add('is-invalid');
+                        break;
+                    case 'email_not_set':
+                        eif.innerHTML = 'Veuillez entrer une adresse e-mail.';
+                        eif.classList.add('is-invalid');
+                        break;
+                    case 'invalid_email_address':
+                        eif.innerHTML = 'Adresse e-mail invalide.';
+                        eif.classList.add('is-invalid');
+                        break;
+                    case 'email_already_taken':
+                        eif.innerHTML = 'Cette adresse e-mail est déjà prise.';
+                        eif.classList.add('is-invalid');
+                        break;
+                    case 'password_not_set':
+                        pif.innerHTML = 'Veuillez entrer un mot de passe';
+                        pif.classList.add('is-invalid');
+                        break;
+                    case 'password_too_short':
+                        pif.innerHTML = 'Mot de passe trop court, taille minimum : 8.';
+                        pif.classList.add('is-invalid');
+                        break;
+                    case 'confirm_password':
+                        cpif.innerHTML = 'Veuillez taper votre mot de passe 2 fois.';
+                        cpif.classList.add('is-invalid');
+                        break;
+                    case 'incorrect_password':
+                        cpif.innerHTML = 'Le mot de passe renseigné ne correspond pas.';
+                        cpif.classList.add('is-invalid');
+                        break;
                 }
+            });
+        else
+            window.location.reload();
 
-            // display errors
-            let uif = document.getElementById('username-invalid-feedback');
-            let eif = document.getElementById('email-invalid-feedback');
-            let pif = document.getElementById('password-invalid-feedback');
-            let cpif = document.getElementById('confirm-password-invalid-feedback');
-
-            if (response[0] == 'ERROR')
-                response[1].split(';').forEach((code) => {
-                    switch (code) {
-                        case 'username_not_set':
-                            uif.innerHTML = 'Veuillez entrer un nom d\'utilisateur.';
-                            uif.classList.add('is-invalid');
-                            break;
-                        case 'username_too_long':
-                            uif.innerHTML = 'Le nom d\'utilisateur entré est trop long.';
-                            uif.classList.add('is-invalid');
-                            break;
-                        case 'username_already_taken':
-                            uif.innerHTML = 'Ce nom d\'utilisateur est déjà pris.';
-                            uif.classList.add('is-invalid');
-                            break;
-                        case 'email_not_set':
-                            eif.innerHTML = 'Veuillez entrer une adresse e-mail.';
-                            eif.classList.add('is-invalid');
-                            break;
-                        case 'invalid_email_address':
-                            eif.innerHTML = 'Adresse e-mail invalide.';
-                            eif.classList.add('is-invalid');
-                            break;
-                        case 'email_already_taken':
-                            eif.innerHTML = 'Cette adresse e-mail est déjà prise.';
-                            eif.classList.add('is-invalid');
-                            break;
-                        case 'password_not_set':
-                            pif.innerHTML = 'Veuillez entrer un mot de passe';
-                            pif.classList.add('is-invalid');
-                            break;
-                        case 'password_too_short':
-                            pif.innerHTML = 'Mot de passe trop court, taille minimum : 8.';
-                            pif.classList.add('is-invalid');
-                            break;
-                        case 'confirm_password':
-                            cpif.innerHTML = 'Veuillez taper votre mot de passe 2 fois.';
-                            cpif.classList.add('is-invalid');
-                            break;
-                        case 'incorrect_password':
-                            cpif.innerHTML = 'Le mot de passe renseigné ne correspond pas.';
-                            cpif.classList.add('is-invalid');
-                            break;
-                    }
-                });
-            else
-                window.location.reload();
-
-        }).catch(function(req) {
-            alert('Une erreur est survenue, contacter un administrateur avec le code d\'erreur suivant :\n' + req.status);
-        });
+    }).catch(function(req) {
+        alert('Une erreur est survenue, contacter un administrateur avec le code d\'erreur suivant :\n' + req.status);
+    });
     }
 </script>
