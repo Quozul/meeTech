@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="sign_up_form" autocomplete="off" novalidate enctype="multipart/form-data">
+                <form id="sign_up_form" autocomplete="off" novalidate>
                     <div class="form-row">
                         <label for="username_input">Pseudonyme</label>
                         <div class="input-group">
@@ -32,7 +32,7 @@
                             <div class="invalid-feedback d-block" id="confirm-password-invalid-feedback"></div>
                         </div>
                         <label for="puzzle-canvas">Complétez le captcha</label>
-                        <input class="d-none" id="puzzle-completed" type="checkbox" required>
+                        <input class="d-none" name="puzzle-completed" id="puzzle-completed" type="checkbox" required>
                         <div class="input-group">
                             <canvas id="puzzle-canvas" style="width: 100%;"></canvas>
                             <div class="invalid-feedback d-block" id="captcha-invalid-feedback"></div>
@@ -50,7 +50,7 @@
 
 <script>
     const canvas = document.getElementById('puzzle-canvas')
-    drawCaptcha(canvas, function() {
+    drawCaptcha(canvas, '/image.jpg', function() {
         const ctx = canvas.getContext('2d');
 
         ctx.fillStyle = 'rgba(0, 0, 0, .5)';

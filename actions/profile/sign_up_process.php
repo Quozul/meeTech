@@ -1,11 +1,13 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 
-$pseudo = htmlspecialchars($_POST['username']);
-$email = $_POST['email'];
-$password = hash('sha256', $_POST['password']);
-
+// verification stuff and error feedback
 $error = '';
+
+$pseudo = htmlspecialchars($_POST['username']);
+
+if (!isset($_POST['puzzle-completed']))
+	$error = $error . 'no_captcha;';
 
 // Pseudo deja existant et longueur comprise 5 et 35 caractères
 if (!isset($_POST['username']))
@@ -22,20 +24,6 @@ $rec = $sth->fetch();
 if (!empty($rec) && count($rec) > 0)
 	$error = $error . 'username_already_taken;';
 
-// Email au format valide et si deja existant
-if (!isset($_POST['email']))
-	$error = $error . 'email_not_set;';
-else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-	$error = $error . 'invalid_email_address;';
-
-// Existe ou non dans la BBD
-$sth = $pdo->prepare('SELECT * FROM users WHERE email = ?');
-$sth->execute([$email]);
-$rec = $sth->fetch();
-
-if (!empty($rec) && count($rec) > 0)
-	$error = $error . 'email_already_taken;';
-
 // Password min 8 char
 if (!isset($_POST['password']))
 	$error = $error . 'password_not_set;';
@@ -48,14 +36,28 @@ else if ($_POST['password'] != $_POST['confirm-password'])
 if (strlen($_POST['password']) < 8)
 	$error = $error . 'password_too_short;';
 
+// Email au format valide et si deja existant
+if (!isset($_POST['email']))
+	$error = $error . 'email_not_set;';
+else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+	$error = $error . 'invalid_email_address;';
+else {
+	// Existe ou non dans la BBD
+	$email = $_POST['email'];
+	$sth = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+	$sth->execute([$email]);
+	$rec = $sth->fetch();
+
+	if (!empty($rec) && count($rec) > 0)
+		$error = $error . 'email_already_taken;';
+}
+
 if (!empty($error)) {
 	echo 'ERROR\n' . $error;
 	exit();
 }
 
-echo $pseudo . '<br>';
-echo $email . '<br>';
-echo $password . '<br>';
+$password = hash('sha256', $_POST['password']);
 
 // Requete preparée
 try {

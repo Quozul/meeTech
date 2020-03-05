@@ -65,3 +65,10 @@ body, .mt-color-background {
 .text-indent {
     text-indent: 2em;
 }
+
+.mt-avatar {
+    background-size: cover;
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+}

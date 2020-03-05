@@ -1,4 +1,4 @@
-function drawCaptcha(puzzle_canvas, action) {
+function drawCaptcha(puzzle_canvas, image_path, action) {
     const part_count = 4;
     const font_size = 60;
     const space_between = font_size + 10;
@@ -30,7 +30,7 @@ function drawCaptcha(puzzle_canvas, action) {
     }
 
     const img = new Image();
-    img.src = '/image.jpg';
+    img.src = image_path;
 
     let parts = new Array(); // this array stores the puzzle
     let missing_part = Math.floor(Math.random() * Math.pow(part_count, 2)); // this is the missing part from the puzzle
