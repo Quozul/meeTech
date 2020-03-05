@@ -22,7 +22,7 @@ include('includes/head.php');
                         <input type="file" class="form-control-file" name="avatar" id="avatar">
                     </div>
                     <div class="mt-avatar col-2" style="background-image: url('<?php echo $result['avatar']; ?>');"></div>
-                    <button type="submit" class="btn btn-primary mt-2" disabled>Envoyer l'avatar</button>
+                    <button type="submit" class="btn btn-primary mt-2">Envoyer l'avatar</button>
                 </form>
 
                 <hr>
