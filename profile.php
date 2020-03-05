@@ -16,7 +16,7 @@ include('includes/head.php');
                 $result = $sth->fetch(); ?>
 
                 <!-- TODO: Action file -->
-                <form id="avatar-form" action="/action/profile/update_avatar.php" method="post" autocomplete="off" enctype="multipart/form-data" novalidate>
+                <form id="avatar-form" actions="/action/profile/update_avatar.php" method="post" autocomplete="off" enctype="multipart/form-data" novalidate>
                     <div class="form-group float-right col-10">
                         <label for="avatar">Avatar</label>
                         <input type="file" class="form-control-file" name="avatar" id="avatar">
