@@ -26,6 +26,11 @@
 </div>
 
 <script>
+    document.getElementById('sign_in_modal').addEventListener('keypress', function(e) {
+        if (e.key == 'Enter')
+            sign_in();
+    });
+
     function sign_in() {
         request('/actions/profile/sign_in_process.php', formToQuery('sign_in_form')).then(function(req) {
             const response = req.response.split('\\n');

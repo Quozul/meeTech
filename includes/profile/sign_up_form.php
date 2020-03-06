@@ -49,6 +49,11 @@
 </div>
 
 <script>
+    document.getElementById('sign_up_modal').addEventListener('keypress', function(e) {
+        if (e.key == 'Enter')
+            create_acount();
+    });
+
     const canvas = document.getElementById('puzzle-canvas')
     drawCaptcha(canvas, '/image.jpg', function() {
         const ctx = canvas.getContext('2d');

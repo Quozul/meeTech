@@ -55,7 +55,7 @@ $page_name = $config_name;
                     </div>
 
                     <!-- Component select -->
-                    <select class="form-control selectpicker" id="<?php echo $type; ?>" data-live-search="true" data-show-subtext="true">
+                    <select class="form-control" id="<?php echo $type; ?>">
                         <option value="">Selectionnez un <?php echo strtolower($name['name']); ?>...</option>
                         <?php
                         $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? ORDER BY score DESC ');
@@ -65,7 +65,7 @@ $page_name = $config_name;
                         foreach ($result as $key => $value) {
                             $specs = json_decode($value['specifications'], true);
                         ?>
-                            <option data-tokens="<?php echo $specs['id']; ?>" value="<?php echo $value['id']; ?>" <?php if (!empty($_GET[$type]) && $_GET[$type] == $value['id']) echo 'selected'; ?>>
+                            <option value="<?php echo $value['id']; ?>" <?php if (!empty($_GET[$type]) && $_GET[$type] == $value['id']) echo 'selected'; ?>>
                                 <?php echo $specs['brand'] . ' ' . $specs['name']; ?>
                             </option>
                         <?php } ?>
