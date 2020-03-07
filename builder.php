@@ -7,19 +7,6 @@ $config_name = isset($_GET['name']) && !empty($_GET['name']) ? $_GET['name'] : '
 unset($_GET['name']);
 $score = 0;
 $page_name = $config_name;
-
-// include('config.php');
-// foreach ($_GET as $type => $id) {
-//     if (empty($id)) continue;
-//     $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
-//     $sth->execute([$id]);
-//     $component = $sth->fetch();
-
-//     $score += $component['score'];
-// }
-
-
-// $page_description = $config_name . ' - ' . $score . ' points.';
 ?>
 
 <!DOCTYPE html>
@@ -62,11 +49,11 @@ $page_name = $config_name;
                         $sth->execute([$type]);
                         $result = $sth->fetchAll();
 
-                        foreach ($result as $key => $value) {
-                            $specs = json_decode($value['specifications'], true);
+                        foreach ($result as $key => $component) {
+                            $specs = json_decode($component['specifications'], true);
                         ?>
-                            <option value="<?php echo $value['id']; ?>" <?php if (!empty($_GET[$type]) && $_GET[$type] == $value['id']) echo 'selected'; ?>>
-                                <?php echo $specs['brand'] . ' ' . $specs['name']; ?>
+                            <option value="<?php echo $component['id']; ?>" <?php if (!empty($_GET[$type]) && $_GET[$type] == $component['id']) echo 'selected'; ?>>
+                                <?php echo $component['brand'] . ' ' . $component['name']; ?>
                             </option>
                         <?php } ?>
                     </select>
@@ -85,7 +72,7 @@ $page_name = $config_name;
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title"><?php echo (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName'); ?></h5>
+                                            <h5 class="modal-title"><?php echo $component['brand'] . ' ' . $component['name']; ?></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
