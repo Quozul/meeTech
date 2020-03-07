@@ -1,6 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/config.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/author_query.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/includes/author_query.php');
 
 $compid = isset($component['id']) ? $component['id'] : $_GET['id'];
 
@@ -10,18 +10,24 @@ $result = $sth->fetchAll();
 
 if (count($result) > 0) {
     foreach ($result as $key => $comment) {
-        $author = author_query($comment['author'], $pdo);
+        $req = $pdo->prepare('SELECT username, avatar FROM users WHERE id_u = ?');
+        $req->execute([$_SESSION['userid']]);
+        $author = $req->fetch();
 ?>
         <div class="border-left border-dark pl-3">
-            <!-- get image from user -->
-            <h7 class="d-inline"><?php echo $author; ?></h7>
-            <small class="text-muted">
-                <?php
-                echo "Publié le " . $comment['date_published'];
-                if ($comment['date_edited'] != NULL) echo ", dernière édition le " . $comment['date_edited'];
-                ?>
-            </small>
-            <p><?php echo $comment['content']; ?></p>
+            <div class="mt-avatar col-2 float-left mr-2" style="width: 48px; height: 48px; background-image: url('/uploads/<?php echo $author['avatar']; ?>');"></div>
+            <div>
+                <!-- TODO: Add user's profile link -->
+                <h7 class="d-inline"><?php echo $author['username']; ?></h7>
+                <small class="text-muted">
+                    <?php
+                    $d = new DateTime($comment['date_published']);
+                    echo "Publié le " . $d->format('d M yy H:m');
+                    if ($comment['date_edited'] != NULL) echo ", dernière édition le " . $comment['date_edited'];
+                    ?>
+                </small>
+                <p><?php echo $comment['content']; ?></p>
+            </div>
         </div>
     <?php }
 } else { ?>

@@ -158,6 +158,8 @@ CREATE TABLE component(
     type VARCHAR(3),
     score INTEGER DEFAULT 0,
 
+    name VARCHAR(32) DEFAULT 'No name',
+    brand VARCHAR(32) DEFAULT 'No brand',
     specifications TEXT,
     sources TEXT
 );

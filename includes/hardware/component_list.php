@@ -41,6 +41,7 @@ foreach ($cols as $component_type => $comp_infos) {
 
                 <?php }
 
+                // result order
                 if ($page_order == 'new')
                     $sth = $pdo->prepare('SELECT * FROM component WHERE type = ? ORDER BY added_date DESC LIMIT ? OFFSET ?');
                 else if ($page_order == 'last_comment')
@@ -67,7 +68,7 @@ foreach ($cols as $component_type => $comp_infos) {
                             <a href="<?php echo '/view_component.php?id=' . $component['id']; ?>" class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">
-                                        <?php echo (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName'); ?>
+                                        <?php echo $component['brand'] . ' ' . $component['name']; ?>
                                     </h5>
                                     <small class="text-muted">
                                         <span class="badge badge-primary">Score : <?php echo $component['score']; ?></span>
@@ -125,7 +126,7 @@ foreach ($cols as $component_type => $comp_infos) {
                             <a class="page-link" onclick="change_page(<?php echo intval($page) - 1; ?>);" tabindex="-1">Précédent</a>
                         </li>
                         <?php
-                        for ($i = 1; $i < $page_count + 1; $i++) {
+                        for ($i = max(1, $page - 2); $i < min($page_count + 1, $page + 3); $i++) {
                             if ($i == $page) {
                         ?>
                                 <li class="page-item active">

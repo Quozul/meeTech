@@ -4,18 +4,6 @@
     font-family: 'Quicksand';
 }
 
-/* body {
-    box-sizing: border-box;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.navbar {
-    margin-bottom: 32px;
-} */
-
 /* Colors */
 
 *, .mt-color-text {
@@ -66,9 +54,8 @@ body, .mt-color-background {
     text-indent: 2em;
 }
 
+/* Avatars */
 .mt-avatar {
     background-size: cover;
-    width: 64px;
-    height: 64px;
-    border-radius: 32px;
+    border-radius: calc(attr(height) / 2);
 }

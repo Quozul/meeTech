@@ -16,12 +16,12 @@ include('includes/head.php');
                 $result = $sth->fetch(); ?>
 
                 <!-- TODO: Action file -->
-                <form id="avatar-form" actions="/action/profile/update_avatar.php" method="post" autocomplete="off" enctype="multipart/form-data" novalidate>
+                <form id="avatar-form" action="/actions/profile/update_avatar.php" method="post" autocomplete="off" enctype="multipart/form-data">
                     <div class="form-group float-right col-10">
                         <label for="avatar">Avatar</label>
                         <input type="file" class="form-control-file" name="avatar" id="avatar">
                     </div>
-                    <div class="mt-avatar col-2" style="background-image: url('<?php echo $result['avatar']; ?>');"></div>
+                    <div class="mt-avatar col-2" style="width: 64px; height: 64px; background-image: url('/uploads/<?php echo $result['avatar']; ?>');"></div>
                     <button type="submit" class="btn btn-primary mt-2">Envoyer l'avatar</button>
                 </form>
 

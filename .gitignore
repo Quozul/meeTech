@@ -2,6 +2,7 @@
 
 config.php
 .htaccess
+uploads/
 
 # We all hate Mac users (kidding)
 

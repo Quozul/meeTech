@@ -33,6 +33,12 @@ unset($_POST['type']);
 $sources = htmlspecialchars($_POST['sources']);
 unset($_POST['sources']);
 
+$brand = htmlspecialchars($_POST['brand']);
+unset($_POST['brand']);
+
+$name = htmlspecialchars($_POST['name']);
+unset($_POST['name']);
+
 foreach ($_POST as $key => $value) {
     // removes special chars to prevent xss
     $_POST[$key] = htmlspecialchars($value);
@@ -76,24 +82,21 @@ $values = getContents($formula, '[', ']');
 $score = 0;
 foreach ($values as $key => $value) {
     $i = 0;
-    if (isset($specs[$value]))
-        if (is_numeric($specs[$value]))
-            $i = $specs[$value];
-        else if ($specs[$value] == 'yes')
+    if (isset($_POST[$value]))
+        if (is_numeric(strval($_POST[$value])))
+            $i = $_POST[$value];
+        else if ($_POST[$value] == 'yes')
             $i = 1;
 
     $formula = str_replace('[' . $value . ']', $i, $formula);
 }
 
-var_dump($values);
-echo $formula . '<br>';
 $score = round(eval('return ' . $formula . ';'));
-echo $score;
 
 // send component to pdo
 try {
-    $sth = $pdo->prepare('INSERT INTO component (added_by, sources, validated, type, specifications, score) VALUES (?, ?, ?, ?, ?, ?);');
-    $sth->execute([$_SESSION['userid'], $sources, $validated, $type, $specs, $score]);
+    $sth = $pdo->prepare('INSERT INTO component (added_by, brand, name, sources, validated, type, specifications, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?);');
+    $sth->execute([$_SESSION['userid'], $brand, $name, $sources, $validated, $type, $specs, $score]);
 } catch (Exception $e) {
     echo $e;
 }

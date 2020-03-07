@@ -49,7 +49,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                         <img class="card-img-top" src="" alt="Card image cap">
                     <?php } ?>
                     <div class="card-header">
-                        <h5 class="card-title"><?php echo $specs['brand'] . ' ' . $specs['name']; ?></h5>
+                        <h5 class="card-title"><?php echo $component['brand'] . ' ' . $component['name']; ?></h5>
                         <p class="card-subtitle text-muted"><?php echo $cols[$component['type']]['name']; ?></p>
                     </div>
                     <ul class="list-group list-group-flush">

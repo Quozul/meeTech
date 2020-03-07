@@ -3,16 +3,7 @@ $page_name = 'Composant n°' . $_GET['id'];
 
 // Columns names and description
 $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
-
-// Get component's informations
-// $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
-// $sth->execute([$_GET['id']]);
-// $component = $sth->fetch();
-// $specs = json_decode($component['specifications'], true);
-
-// $page_description = $cols[$component['type']]['name'] . ' ' . (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName') . ' - ' . $component['score'] . ' points';
 ?>
-
 <!DOCTYPE html>
 <html>
 <?php include('includes/head.php'); ?>
@@ -42,7 +33,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
 
             <h2>
                 <?php
-                echo (isset($specs['brand']) ? $specs['brand'] : 'NoBrand') . ' ' . (isset($specs['name']) ? $specs['name'] : 'NoName');
+                echo $component['brand'] . ' ' . $component['name'];
                 ?>
             </h2>
             <p class="text-muted">
@@ -50,18 +41,26 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                 $d = new DateTime($component['added_date']);
 
                 $username = 'Anonyme';
+                $avatar = '';
 
                 if (isset($component['added_by'])) {
-                    $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ?');
+                    $sth = $pdo->prepare('SELECT avatar, username FROM users WHERE id_u = ?');
                     $sth->execute([$component['added_by']]); // remplace le ? par la valeur
                     $result = $sth->fetch();
 
-                    if ($result)
+                    if ($result) {
                         $username = $result['username'];
+                        $avatar = $result['avatar'];
+                    }
                 }
 
                 // TODO: Add link to user's profile
-                echo 'Ajouté par ' . $username . ' le ' . $d->format('d M yy');
+                if (!empty($avatar)) {
+                ?>
+                    <img src="/uploads/<?php echo $avatar; ?>" style="width: 16px; height: 16px; margin-top: -4px" class="mt-avatar">
+                <?php } ?>
+                Ajouté par <?php echo $username; ?> le <?php echo $d->format('d M yy'); ?>
+                <?php
 
                 if ($component['validated'] == 0) {
                     echo '<span class="badge badge-danger float-right" data-toggle="tooltip" data-placement="top" title="Les informations n\'ont pas été vérifiées">Non validé</span>';
