@@ -1,4 +1,4 @@
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/config.php'); ?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/config.php'); ?>
 
 <head>
     <title>meeTech - <?php

@@ -98,21 +98,21 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                 <div class="alert alert-info">Vous devez être connecté pour poster un commentaire.</div>
             <?php } ?>
         </div>
+
+        <script>
+            function submit_comment(component_id) {
+                request('/actions/hardware/submit_comment.php', `id=${component_id}&comment=${document.getElementById('comment').value}`).then((e) => {
+                    console.log(e.resonse);
+
+                    getHtmlContent('/includes/hardware/comments.php', `id=${component_id}`).then((res) => {
+                        document.getElementById('comments').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
+                    });
+
+                    document.getElementById('comment').value = '';
+                })
+            }
+        </script>
     </main>
-
-    <script>
-        function submit_comment(component_id) {
-            request('/actions/hardware/submit_comment.php', `id=${component_id}&comment=${document.getElementById('comment').value}`).then((e) => {
-                console.log(e.resonse);
-
-                getHtmlContent('/includes/hardware/comments.php', `id=${component_id}`).then((res) => {
-                    document.getElementById('comments').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
-                });
-
-                document.getElementById('comment').value = '';
-            })
-        }
-    </script>
 
     <?php include('includes/footer.php'); ?>
 </body>

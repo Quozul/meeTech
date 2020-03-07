@@ -95,99 +95,99 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                 </div>
             </div>
         </div>
-    </main>
 
-    <script>
-        const tabs = document.getElementsByClassName('tab-selector');
+        <script>
+            const tabs = document.getElementsByClassName('tab-selector');
 
-        function update_content() {
-            getHtmlContent('/includes/hardware/component_list.php', params.toString()).then((res) => {
-                document.getElementById('component-list').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
-            }).catch((e) => {
-                console.log(e);
-            });
+            function update_content() {
+                getHtmlContent('/includes/hardware/component_list.php', params.toString()).then((res) => {
+                    document.getElementById('component-list').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
+                }).catch((e) => {
+                    console.log(e);
+                });
 
-            // removes active class from all tabs
-            for (const key in tabs)
-                if (tabs.hasOwnProperty(key))
-                    tabs[key].classList.remove('active');
+                // removes active class from all tabs
+                for (const key in tabs)
+                    if (tabs.hasOwnProperty(key))
+                        tabs[key].classList.remove('active');
 
-            // re-add active class to tab
-            document.getElementById('tab-' + params.get('tab')).classList.add('active');
-        }
+                // re-add active class to tab
+                document.getElementById('tab-' + params.get('tab')).classList.add('active');
+            }
 
-        const url = new URL(window.location.href);
-        const params = new URLSearchParams(url.search.slice(1));
-        params.set('tab', 'cpu');
-        params.set('page', 1);
-        params.set('page-limit', 3);
-        params.set('order', 'score');
-
-        update_content();
-
-        // Change tab without reload
-        function change_tab(t) {
-            params.set('tab', t);
+            const url = new URL(window.location.href);
+            const params = new URLSearchParams(url.search.slice(1));
+            params.set('tab', 'cpu');
             params.set('page', 1);
+            params.set('page-limit', 3);
+            params.set('order', 'score');
 
             update_content();
-        }
 
-        // Change page without reload
-        function change_page(p) {
-            params.set('page', p);
+            // Change tab without reload
+            function change_tab(t) {
+                params.set('tab', t);
+                params.set('page', 1);
 
-            update_content();
-        }
-
-        // Change displayed inputs according to selected type
-        document.getElementById('page-limit').onchange = function() {
-            params.set('page-limit', this.value);
-
-            update_content();
-        }
-
-        document.getElementById('page-order').onchange = function() {
-            params.set('page-order', this.value);
-
-            update_content();
-        }
-
-        // Add a component without reload
-        function add_component(form_id) {
-            request('/actions/hardware/add_component.php', formToQuery(form_id)).then((req) => {
-                console.log(req.response);
-                // update list when component is submitted and hide modal
                 update_content();
-                // hide modal WITHOUT JQUERY
-                document.querySelector('#dismiss-modal').click();
-            }).catch((e) => {
-                console.log(e);
-                if (e.status == 401)
-                    alert('Impossible d\'effectuer cette action. Vérifiez que vous êtes bien connecté.');
-                else if (e.status == 417) {
-                    // server-side form validation
-                    let set_valid = function() {
-                        if (this.classList.contains('is-invalid')) {
-                            this.classList.remove('is-invalid');
-                            this.classList.add('is-valid');
+            }
+
+            // Change page without reload
+            function change_page(p) {
+                params.set('page', p);
+
+                update_content();
+            }
+
+            // Change displayed inputs according to selected type
+            document.getElementById('page-limit').onchange = function() {
+                params.set('page-limit', this.value);
+
+                update_content();
+            }
+
+            document.getElementById('page-order').onchange = function() {
+                params.set('page-order', this.value);
+
+                update_content();
+            }
+
+            // Add a component without reload
+            function add_component(form_id) {
+                request('/actions/hardware/add_component.php', formToQuery(form_id)).then((req) => {
+                    console.log(req.response);
+                    // update list when component is submitted and hide modal
+                    update_content();
+                    // hide modal WITHOUT JQUERY
+                    document.querySelector('#dismiss-modal').click();
+                }).catch((e) => {
+                    console.log(e);
+                    if (e.status == 401)
+                        alert('Impossible d\'effectuer cette action. Vérifiez que vous êtes bien connecté.');
+                    else if (e.status == 417) {
+                        // server-side form validation
+                        let set_valid = function() {
+                            if (this.classList.contains('is-invalid')) {
+                                this.classList.remove('is-invalid');
+                                this.classList.add('is-valid');
+                            }
                         }
-                    }
 
-                    JSON.parse(e.response).forEach(i => {
-                        let e = document.querySelector(`[name=${i}]`);
-                        e.classList.add('is-invalid');
+                        JSON.parse(e.response).forEach(i => {
+                            let e = document.querySelector(`[name=${i}]`);
+                            e.classList.add('is-invalid');
 
-                        if (e.type == 'text')
-                            e.addEventListener('keypress', set_valid);
-                        else
-                            e.addEventListener('change', set_valid);
-                    });
-                } else
-                    alert('Une erreur est survenue. Contactez un administrateur avec le code d\'erreur :\n' + e.status);
-            });
-        }
-    </script>
+                            if (e.type == 'text')
+                                e.addEventListener('keypress', set_valid);
+                            else
+                                e.addEventListener('change', set_valid);
+                        });
+                    } else
+                        alert('Une erreur est survenue. Contactez un administrateur avec le code d\'erreur :\n' + e.status);
+                });
+            }
+        </script>
+    </main>
 
     <?php include('includes/footer.php'); ?>
 

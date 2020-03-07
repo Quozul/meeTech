@@ -1,13 +1,9 @@
 <?php
-
 if (isset($_SESSION['userid'])) {
     $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ? ');
-
     $sth->execute([$_SESSION['userid']]);
-
     $rec = $sth->fetchAll();
 }
-
 ?>
 
 <header class="mb-4">
@@ -63,14 +59,16 @@ if (isset($_SESSION['userid'])) {
                         </li>
                     <?php } ?>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
-                    <button class="btn btn-success my-2 my-sm-0" type="submit">Rechercher</button>
-                </form>
+                <div class="form-inline my-2 my-lg-0" id="search-form">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" id="search-bar">
+                    <button class="btn btn-success my-2 my-sm-0" type="button" id="search-button">Rechercher</button>
+                </div>
             </div>
         </div>
     </nav>
-</header>
 
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/profile/sign_up_form.php'); ?>
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/profile/sign_in_form.php'); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/profile/sign_up_form.php'); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/profile/sign_in_form.php'); ?>
+
+    <script src="/scripts/search_bar.js"></script>
+</header>
