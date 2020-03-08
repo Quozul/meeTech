@@ -7,8 +7,13 @@
     $sth = $pdo->prepare('UPDATE users SET verified = TRUE WHERE token =?');
     $sth->execute([$_GET['token']]);
     ?>
-    <main>
-        <p>Votre compte a été validé avec succés</p>
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <p class="text-justify">
+                Votre compte a été validé avec succés cliquez ici pour revenir à l'acceuil de<a href="/">meetech</a>
+            </p>
+        </div>
+
     </main>
     <?php include('includes/footer.php'); ?>
 </body>
