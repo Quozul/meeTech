@@ -19,7 +19,9 @@ CREATE TABLE users(
     location VARCHAR(32),
     prefered_language VARCHAR(32) REFERENCES language(lang),
     note INT,
-    email VARCHAR(127)
+    email VARCHAR(127),
+    token CHAR(13),
+    verified BOOLEAN DEFAULT FALSE
 );
 
 -- messages

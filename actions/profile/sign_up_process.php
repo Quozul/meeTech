@@ -59,10 +59,20 @@ if (!empty($error)) {
 
 $password = hash('sha256', $_POST['password']);
 
+$headers = "MIME-Version: 1.0\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8\r\n";
+$headers .= "From: no-reply@meetech.ovh\r\n";
+$email = $_POST['email'];
+$subject = "Validation de votre compte";
+$message = "Cliquez sur le lien pour valider votre compte : https://www.meetech.ovh/verify_account/?token=$token";
+$token = uniqid();
+
+mail($email, $subject, $message, $headers);
+
 // Requete preparée
 try {
-	$sth = $pdo->prepare('INSERT INTO users (username, email, password) VALUES (?, ?, ?)');
-	$sth->execute([$pseudo, $email, $password]);
+	$sth = $pdo->prepare('INSERT INTO users (username, email, password, token) VALUES (?, ?, ?,?)');
+	$sth->execute([$pseudo, $email, $password, $token]);
 } catch (Exception $e) {
 	echo $e;
 }
