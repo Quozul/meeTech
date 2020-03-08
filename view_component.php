@@ -18,100 +18,114 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
             $sth = $pdo->prepare('SELECT * FROM component WHERE id = ?');
             $sth->execute([$_GET['id']]);
             $component = $sth->fetch();
-            $specs = json_decode($component['specifications'], true);
 
-            echo $cols[$component['type']]['name'];
+            if ($component) {
+                $specs = json_decode($component['specifications'], true);
+                echo $cols[$component['type']]['name'];
+            }
             ?>
         </h1>
 
         <div class="jumbotron">
-            <?php if ($component['validated'] == 0) { ?>
-                <form action="/edit_component.php" method="post">
-                    <button type="submit" class="btn btn-primary float-right" name="id" value="<?php echo $component['id']; ?>">Proposer une modification</button>
-                </form>
-            <?php } ?>
-
-            <h2>
-                <?php
-                echo $component['brand'] . ' ' . $component['name'];
-                ?>
-            </h2>
-            <p class="text-muted">
-                <?php
-                $d = new DateTime($component['added_date']);
-
-                $username = 'Anonyme';
-                $avatar = '';
-
-                if (isset($component['added_by'])) {
-                    $sth = $pdo->prepare('SELECT avatar, username FROM users WHERE id_u = ?');
-                    $sth->execute([$component['added_by']]); // remplace le ? par la valeur
-                    $result = $sth->fetch();
-
-                    if ($result) {
-                        $username = $result['username'];
-                        $avatar = $result['avatar'];
-                    }
-                }
-
-                // TODO: Add link to user's profile
-                if (!empty($avatar)) {
-                ?>
-                    <img src="/uploads/<?php echo $avatar; ?>" style="width: 16px; height: 16px; margin-top: -4px" class="mt-avatar">
+            <?php if ($component) {
+                if ($component['validated'] == 0) { ?>
+                    <form action="/edit_component.php" method="post">
+                        <button type="submit" class="btn btn-primary float-right" name="id" value="<?php echo $component['id']; ?>">Proposer une modification</button>
+                    </form>
                 <?php } ?>
-                Ajouté par <?php echo $username; ?> le <?php echo $d->format('d M yy'); ?>
-                <?php
 
-                if ($component['validated'] == 0) {
-                    echo '<span class="badge badge-danger float-right" data-toggle="tooltip" data-placement="top" title="Les informations n\'ont pas été vérifiées">Non validé</span>';
-                } else {
-                    echo '<span class="badge badge-success float-right" data-toggle="tooltip" data-placement="top" title="Les informations de ce composants sont correctes">Validé</span>';
-                }
-                ?>
-                <span class="badge badge-primary float-right mr-1">Score : <?php echo $component['score']; ?></span>
-            </p>
-            <hr>
-            <?php foreach ($cols[$component['type']]['specs'] as $key => $value) {
-                echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>';
-            } ?>
-            <hr>
-            <h5>Sources</h5>
-            <?php echo str_replace('\n', '<br>', $component['sources']); ?>
-        </div>
+                <h2>
+                    <?php
+                    echo $component['brand'] . ' ' . $component['name'];
+                    ?>
+                </h2>
+                <p class="text-muted">
+                    <?php
+                    $d = new DateTime($component['added_date']);
 
-        <!-- Comments -->
-        <h3>Commentaires</h3>
-        <div class="jumbotron">
-            <div id="comments">
-                <?php include('includes/hardware/comments.php'); ?>
-            </div>
-            <hr>
-            <?php if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) { ?>
-                <form>
-                    <div class="form-group">
-                        <label for="comment">Commentaire</label>
-                        <textarea class="form-control" id="comment" name="comment" placeholder="Tapez un commentaire pour ce composant..."></textarea>
-                    </div>
-                    <button type="button" onclick="submit_comment(<?php echo $component['id']; ?>);" class="btn btn-primary">Poster</button>
-                </form>
-            <?php } else { ?>
-                <div class="alert alert-info">Vous devez être connecté pour poster un commentaire.</div>
+                    $username = 'Anonyme';
+                    $avatar = '';
+
+                    if (isset($component['added_by'])) {
+                        $sth = $pdo->prepare('SELECT avatar, username FROM users WHERE id_u = ?');
+                        $sth->execute([$component['added_by']]); // remplace le ? par la valeur
+                        $result = $sth->fetch();
+
+                        if ($result) {
+                            $username = $result['username'];
+                            $avatar = $result['avatar'];
+                        }
+                    }
+
+                    // TODO: Add link to user's profile
+                    if (!empty($avatar)) {
+                    ?>
+                        <img src="/uploads/<?php echo $avatar; ?>" style="width: 16px; height: 16px; margin-top: -4px" class="mt-avatar">
+                    <?php } ?>
+                    Ajouté par <?php echo $username; ?> le <?php echo $d->format('d M yy'); ?>
+                    <?php
+
+                    if ($component['validated'] == 0) {
+                        echo '<span class="badge badge-danger float-right" data-toggle="tooltip" data-placement="top" title="Les informations n\'ont pas été vérifiées">Non validé</span>';
+                    } else {
+                        echo '<span class="badge badge-success float-right" data-toggle="tooltip" data-placement="top" title="Les informations de ce composants sont correctes">Validé</span>';
+                    }
+                    ?>
+                    <span class="badge badge-primary float-right mr-1">Score : <?php echo $component['score']; ?></span>
+                </p>
+                <hr>
+                <?php foreach ($cols[$component['type']]['specs'] as $key => $value) {
+                    echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>';
+                } ?>
+                <hr>
+                <h5>Sources</h5>
+            <?php echo str_replace('\n', '<br>', $component['sources']);
+            } else { ?>
+                <h3>Ce composant n'existe pas.</h3>
             <?php } ?>
         </div>
 
-        <script>
-            function submit_comment(component_id) {
-                request('/actions/hardware/submit_comment.php', `id=${component_id}&comment=${document.getElementById('comment').value}`).then((e) => {
-                    console.log(e.resonse);
+        <?php if ($component) { ?>
+            <!-- Comments -->
+            <h3>Commentaires</h3>
+            <div class="jumbotron">
+                <div id="comments">
+                    <?php include('includes/hardware/comments.php'); ?>
+                </div>
+                <hr>
+                <?php if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) { ?>
+                    <form>
+                        <div class="form-group">
+                            <label for="comment" id="comment-label">Commentaire</label>
+                            <textarea class="form-control" id="comment" name="comment" placeholder="Tapez un commentaire pour ce composant..."></textarea>
+                        </div>
+                        <button type="button" onclick="submit_comment(<?php echo $component['id']; ?>);" class="btn btn-primary">Poster</button>
+                    </form>
+                <?php } else { ?>
+                    <div class="alert alert-info">Vous devez être connecté pour poster un commentaire.</div>
+                <?php } ?>
 
-                    getHtmlContent('/includes/hardware/comments.php', `id=${component_id}`).then((res) => {
-                        document.getElementById('comments').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
-                    });
+                <script>
+                    function submit_comment(component_id) {
+                        let query = `id=${component_id}&comment=${document.getElementById('comment').value}`;
 
-                    document.getElementById('comment').value = '';
-                })
-            }
-        </script>
+                        const answers = comment_get_answer();
+                        if (answers != null)
+                            query += `&answers=${answers}`;
+
+                        request('/actions/hardware/submit_comment.php', query).then((e) => {
+                            console.log(e.resonse);
+
+                            getHtmlContent('/includes/hardware/comments.php', `id=${component_id}`).then((res) => {
+                                document.getElementById('comments').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
+                            });
+
+                            document.getElementById('comment').value = '';
+                        })
+                    }
+                </script>
+            </div>
+        <?php } ?>
     </main>
 
     <?php include('includes/footer.php'); ?>
