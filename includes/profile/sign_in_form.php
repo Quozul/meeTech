@@ -62,6 +62,10 @@
                             pif.innerHTML = 'Mot de passe incorrect.';
                             pif.classList.add('is-invalid');
                             break;
+                        case 'account_not_verified':
+                            uif.innerHTML = 'Le compte n\'a pas été vérifié.';
+                            uif.classList.add('is-invalid');
+                            break;
                     }
                 });
             else
