@@ -121,8 +121,8 @@ $cols = json_decode(file_get_contents('../includes/hardware/specifications.json'
                                                 $specs = json_decode($component['specifications'], true);
                                             ?>
                                                 <tr>
-                                                    <th scope="col"><?php echo $specs['brand']; ?></th>
-                                                    <th scope="col"><?php echo $specs['name']; ?></th>
+                                                    <th scope="col"><?php echo $component['brand']; ?></th>
+                                                    <th scope="col"><?php echo $component['name']; ?></th>
 
                                                     <?php foreach ($cols[$_GET['tab']]['specs'] as $key => $value) { ?>
                                                         <th scope="col"><?php echo isset($specs[$key]) ? $specs[$key] : "Inconnu"; ?></th>

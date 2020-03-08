@@ -32,7 +32,7 @@ $sth = $pdo->prepare('SELECT avatar FROM users WHERE id_u=?');
 $sth->execute([$_SESSION['userid']]);
 $avatar = $sth->fetch();
 
-if (isset($avatar[0])) {
+if ($avatar) {
     $filepath = $path . '/' . $avatar[0];
     unlink($filepath);
 }
@@ -50,5 +50,5 @@ echo 'Avatar mis à jour, vous pouvez retourner en arrière !';
 ?>
 
 <script>
-    // history.back()
+    history.back()
 </script>
