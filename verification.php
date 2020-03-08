@@ -8,9 +8,10 @@
     $sth->execute([$_GET['token']]);
     ?>
     <main role="main" class="container">
+        <h1>Vérification</h1>
         <div class="jumbotron">
             <p class="text-justify">
-                Votre compte a été validé avec succés cliquez ici pour revenir à l'acceuil de<a href="/">meetech</a>
+                Votre compte a été validé avec succés cliquez <a href="/">ici</a> pour revenir à l'acceuil de meetech
             </p>
         </div>
 
