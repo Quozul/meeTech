@@ -65,7 +65,7 @@ $headers .= "From: no-reply@meetech.ovh\r\n";
 $email = $_POST['email'];
 $subject = "Validation de votre compte";
 $token = uniqid();
-$message = "Cliquez sur le lien pour valider votre compte : https://www.meetech.ovh/verify_account/?token=" . $token;
+$message = "Cliquez sur le lien pour valider votre compte : https://www.meetech.ovh/verification/?token=" . $token;
 
 mail($email, $subject, $message, $headers);
 
