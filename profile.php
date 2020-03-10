@@ -30,23 +30,23 @@ include('includes/head.php');
                 <form method="post" action="/actions/profile/update_profile.php" id="profile">
                     <div class="form-group">
                         <label for="username">Nom d'utilisateur</label>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Pseudonyme" value="<?php echo htmlspecialchars($result['username']); ?>">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Pseudonyme" value="<?php echo $result['username']; ?>">
                     </div>
                     <div class=" form-group">
                         <label for="email">Adresse e-mail</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Adresse e-mail" value="<?php echo htmlspecialchars($result['email']); ?>">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Adresse e-mail" value="<?php echo $result['email']; ?>">
                     </div>
                     <div class=" form-group">
                         <label for="pays">Pays</label>
-                        <input type="text" class="form-control" name="location" id="pays" placeholder="Pays" value="<?php echo htmlspecialchars($result['location']); ?>">
+                        <input type="text" class="form-control" name="location" id="pays" placeholder="Pays" value="<?php echo $result['location']; ?>">
                     </div>
                     <div class=" form-group">
                         <label for="langue">Langue préférée</label>
-                        <input type="text" class="form-control" name="prefered_language" id="langue" placeholder="Langue" value="<?php echo htmlspecialchars($result['prefered_language']); ?>">
+                        <input type="text" class="form-control" name="prefered_language" id="langue" placeholder="Langue" value="<?php echo $result['prefered_language']; ?>">
                     </div>
                     <div class=" form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" name="bio" id="description" rows="3"><?php echo htmlspecialchars($result['bio']); ?></textarea>
+                        <textarea class="form-control" name="bio" id="description" rows="3"><?php echo $result['bio']; ?></textarea>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="update_profile()">Sauvegarder les modifications</button>
 
