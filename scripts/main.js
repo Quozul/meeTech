@@ -39,8 +39,6 @@ function getHtmlContent(url, query) {
         req.onerror = reject;
 
         req.open('get', url + '?' + query, true);
-        req.setRequestHeader('Content-Type', 'text/html');
-        req.responseType = 'document';
         req.send();
     });
 }

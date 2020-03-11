@@ -101,7 +101,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
 
             function update_content() {
                 getHtmlContent('/includes/hardware/component_list.php', params.toString()).then((res) => {
-                    document.getElementById('component-list').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
+                    document.getElementById('component-list').innerHTML = res;
                 }).catch((e) => {
                     console.log(e);
                 });

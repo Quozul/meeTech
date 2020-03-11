@@ -9,11 +9,10 @@
         getHtmlContent('/includes/search.php', 'search=' + sbar.value).then((res) => {
             // change main's content
 
-            const res_inner = res.getElementsByTagName('body')[0].innerHTML;
             if (t)
-                transition(main, res_inner);
+                transition(main, res);
             else
-                main.innerHTML = res_inner;
+                main.innerHTML = res;
 
             setTimeout(function () {
                 main.classList.remove('fade');

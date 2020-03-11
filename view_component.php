@@ -117,7 +117,7 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
                             console.log(e.resonse);
 
                             getHtmlContent('/includes/hardware/comments.php', `id=${component_id}`).then((res) => {
-                                document.getElementById('comments').innerHTML = res.getElementsByTagName('body')[0].innerHTML;
+                                document.getElementById('comments').innerHTML = res;
                             });
 
                             document.getElementById('comment').value = '';
