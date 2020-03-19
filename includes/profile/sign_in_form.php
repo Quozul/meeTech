@@ -15,6 +15,7 @@
                     <label for="username_input">Mot de passe</label>
                     <input class="form-control" type="password" name="password" placeholder="Votre mot de passe">
                     <div class="invalid-feedback d-block" id="password-invalid-infeedback"></div>
+                    <a href="../../lost_credentials_form.php">Mot de passe oublié ?</a>
                 </form>
             </div>
             <div class="modal-footer">
