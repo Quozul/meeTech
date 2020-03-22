@@ -56,5 +56,6 @@ function formToQuery(form_id) {
         if (pair[1] != '')
             query += pair[0] + '=' + pair[1] + '&';
 
+    query = query.split('+').join('%2B');
     return query;
 }

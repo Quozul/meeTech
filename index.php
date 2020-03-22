@@ -1,7 +1,3 @@
-<?php
-// Columns components' specifications names and description
-$cols = json_decode(file_get_contents('includes/hardware/specifications.json'), true);
-?>
 <!DOCTYPE html>
 <html>
 <?php include('includes/head.php'); ?>
@@ -36,45 +32,47 @@ $cols = json_decode(file_get_contents('includes/hardware/specifications.json'), 
         <h1>Nouveaux composants ajoutés</h1>
         <div class="d-flex flex-row justify-content-around">
             <?php
-            // Verify is there is at least 1 event
-            $sth = $pdo->prepare('SELECT * FROM component ORDER BY added_date DESC LIMIT 3');
-            $sth->execute();
-            $result = $sth->fetchAll();
+            $req = $pdo->prepare('SELECT id_c, brand, name, added_by, added_date, type FROM component ORDER BY added_date DESC LIMIT 3');
+            $req->execute();
+            $components = $req->fetchAll();
 
-            foreach ($result as $key => $component) {
-                $specs = json_decode($component['specifications'], true);
+            foreach ($components as $key => $component) {
+                $req = $pdo->prepare('SELECT name, value, unit FROM specification JOIN specification_list ON specification.specification = specification_list.id_s WHERE component = ?');
+                $req->execute([$component['id_c']]);
+                $specs = $req->fetchAll();
+
+                $req = $pdo->prepare('SELECT name FROM component_type where id_t = ?');
+                $req->execute([$component['type']]);
+                $type = $req->fetch()[0];
             ?>
                 <div class="card" style="width: 18rem;">
                     <?php if (isset($component['image'])) { ?>
                         <img class="card-img-top" src="" alt="Card image cap">
                     <?php } ?>
+
                     <div class="card-header">
                         <h5 class="card-title"><?php echo $component['brand'] . ' ' . $component['name']; ?></h5>
-                        <p class="card-subtitle text-muted"><?php echo $cols[$component['type']]['name']; ?></p>
+                        <p class="card-subtitle text-muted"><?php echo $type; ?></p>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <?php
-                        $i = 0;
-                        foreach ($cols[$component['type']]['specs'] as $key => $value) {
-                            if (!isset($specs[$key])) continue;
-                        ?>
-                            <li class="list-group-item">
-                                <?php
-                                echo '<b>' . $value['name'] . '</b> : ' . (isset($specs[$key]) ? (isset($value['values']) ? $value['values'][$specs[$key]] : $specs[$key]) : 'Inconnu') . ' ' . (isset($value['unit']) ? $value['unit'] : "") . '<br>';
-                                ?>
-                            </li>
-                        <?php
-                            if (++$i == 3) break; // limit specifications to the 3 firsts one
-                        }
 
-                        if ($i == 0) { ?>
+                    <ul class="list-group list-group-flush">
+                        <?php if (count($specs) == 0) { ?>
                             <li class="list-group-item">Il n'y a aucune informations sur ce composant.</li>
                             <li class="list-group-item text-center">
                                 <form action="/edit_component.php" method="post">
                                     <button type="submit" class="btn btn-sm btn-primary" name="id" value="<?php echo $component['id']; ?>">Proposer une modification</button>
                                 </form>
                             </li>
-                        <?php } ?>
+                            <?php } else {
+                            foreach ($specs as $key => $spec) {
+                                if (!isset($specs[$key])) continue; ?>
+                                <li class="list-group-item">
+                                    <?php echo '<b>' . $spec['name'] . '</b> : ' . $spec['value'] . ' ' . $spec['unit']; ?><br>
+                                </li>
+                        <?php
+                                if ($key == 3) break; // limit specifications to the 3 firsts one
+                            }
+                        } ?>
                     </ul>
                     <div class="card-body">
                         <a href="<?php echo '/view_component.php?id=' . $component['id']; ?>" class="card-link">Découvrir</a>
