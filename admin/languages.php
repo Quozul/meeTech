@@ -43,14 +43,29 @@
                 <hr>
                 <p><a href="https://www.alt-codes.net/flags" target="_blank">Liens unicode des drapeaux</a></p>
                 <?php
-                if(isset($_GET['error'])) {
-                  if(htmlspecialchars($_GET['error']) == 'setlang') $message = 'Saisissez un nom de langue' ;
+                $message = '' ;
+                if (isset($_GET['error'])) {
+                  if (htmlspecialchars($_GET['error']) == 'setlang') $message = 'Saisissez un nom de langue' ;
                   else if (htmlspecialchars($_GET['error']) == 'elsewhere') $message = 'La valeur entrée existe déjà' ;
-                  else $message = '' ;
                   if (!empty($message)) {
                 ?>
                 <hr>
                 <div class="alert alert-danger" role="alert">
+                  <?php echo $message ; ?>
+                </div>
+                <?php
+                  }
+                }
+
+                $message = '' ;
+                if (isset($_GET['success'])) {
+                  if (htmlspecialchars($_GET['success']) == 'edit') $message = 'Langue éditée' ;
+                  else if (htmlspecialchars($_GET['success']) == 'add') $message = 'Langue ajoutée' ;
+                  else if (htmlspecialchars($_GET['success']) == 'drop') $message = 'Langue supprimée' ;
+                  if (!empty($message)) {
+                ?>
+                <hr>
+                <div class="alert alert-success" role="alert">
                   <?php echo $message ; ?>
                 </div>
                 <?php
@@ -94,7 +109,9 @@
                             </td>
                           </form>
                           <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
+                            <a href="../actions/languages/drop_language/?lang=<?php echo $value['lang'] ; ?>">
+                              <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
+                            </a>
                           </td>
                         </tr>
                         <?php

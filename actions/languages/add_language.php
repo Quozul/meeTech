@@ -26,6 +26,6 @@ $q->execute([
   'label' => $label
 ]) ;
 
-header('location:' . $_SERVER['DOCUMENT_ROOT'] . '/admin/languages/') ;
+header('location:' . $_SERVER['DOCUMENT_ROOT'] . '/admin/languages/?success=add') ;
 exit() ;
 ?>

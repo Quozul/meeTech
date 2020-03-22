@@ -23,6 +23,6 @@ $q->execute([
   'reference' => $language
 ]) ;
 
-header('location:' . $_SERVER['DOCUMENT_ROOT'] . '/admin/languages/') ;
+header('location:' . $_SERVER['DOCUMENT_ROOT'] . '/admin/languages/?success=edit') ;
 exit() ;
 ?>
