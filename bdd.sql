@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS users(
     token CHAR(13),
     verified BOOLEAN DEFAULT FALSE,
     last_ip VARCHAR(15),
-    last_connection VARCHAR(15)
+    last_connection DATETIME
 );
 
 -- Messages
