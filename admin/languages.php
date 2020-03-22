@@ -109,7 +109,9 @@
                             </td>
                           </form>
                           <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
+                            <a href="../actions/languages/drop_language.php">
+                              <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
+                            </a>
                           </td>
                         </tr>
                         <?php
