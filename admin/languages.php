@@ -2,12 +2,12 @@
 <html>
     <?php
     $page_name = 'Back-office : languages' ;
-    include('includes/head.php') ;
+    include('../includes/head.php') ;
     $page_limit = 4 ;
     $page = isset($_GET['page']) ? $_GET['page'] : 1 ;
     ?>
     <body class="d-flex vh-100 flex-column justify-content-between">
-        <?php include('includes/header.php') ; ?>
+        <?php include('../includes/header.php') ; ?>
         <main role="main" class="container">
             <div class="jumbotron">
                 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#submitModal">Ajouter une langue</button>
@@ -21,7 +21,7 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <form id="submit-language" method="post" action="../actions/languages//add_language.php" autocomplete="off">
+                              <form id="submit-language" method="post" action="../actions/languages/add_language.php" autocomplete="off">
                                   <input type="text" class="form-control mb-3" id="language" name="language" placeholder="Nouvelle langue">
                                   <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="icon" name="icon" placeholder="Code HTML de l'icône (laisser vide si inexistante)">
@@ -44,8 +44,8 @@
                 <p><a href="https://www.alt-codes.net/flags" target="_blank">Liens unicode des drapeaux</a></p>
                 <?php
                 $message = '' ;
-                if (isset($_GET['error'])) {
-                  if (htmlspecialchars($_GET['error']) == 'setlang') $message = 'Saisissez un nom de langue' ;
+                if(isset($_GET['error'])) {
+                  if(htmlspecialchars($_GET['error']) == 'setlang') $message = 'Saisissez un nom de langue' ;
                   else if (htmlspecialchars($_GET['error']) == 'elsewhere') $message = 'La valeur entrée existe déjà' ;
                   if (!empty($message)) {
                 ?>
@@ -58,8 +58,8 @@
                 }
 
                 $message = '' ;
-                if (isset($_GET['success'])) {
-                  if (htmlspecialchars($_GET['success']) == 'edit') $message = 'Langue éditée' ;
+                if(isset($_GET['success'])) {
+                  if(htmlspecialchars($_GET['success']) == 'edit') $message = 'Langue éditée' ;
                   else if (htmlspecialchars($_GET['success']) == 'add') $message = 'Langue ajoutée' ;
                   else if (htmlspecialchars($_GET['success']) == 'drop') $message = 'Langue supprimée' ;
                   if (!empty($message)) {
@@ -91,7 +91,7 @@
                         foreach ($languages as $value) {
                         ?>
                         <tr>
-                          <form action="../actions/languages//edit_language.php" method="post">
+                          <form action="../actions/languages/edit_language.php" method="post">
                             <td>
                               <div class="row">
                                 <?php if (strlen($value['icon']) != 0) echo $value['icon'] ; else echo '&#127987' ; ?>
@@ -109,7 +109,7 @@
                             </td>
                           </form>
                           <td>
-                            <a href="../actions/languages/drop_language/?lang=<?php echo $value['lang'] ; ?>">
+                            <a href="../actions/languages/drop_language.php">
                               <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
                             </a>
                           </td>
@@ -121,6 +121,6 @@
                 </table>
             </div>
         </main>
-        <?php include('includes/footer.php') ; ; ?>
+        <?php include('../includes/footer.php') ; ; ?>
     </body>
 </html>

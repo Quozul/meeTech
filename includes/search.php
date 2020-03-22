@@ -10,7 +10,7 @@ $query->execute([$search_q, $search_q, $search_q]);
 $messages = $query->fetchAll();
 
 // brand matches, name matches, brand + name matches, sources matches, comments matches, author matches
-$query = $pdo->prepare('SELECT id, brand, name FROM component WHERE brand LIKE ? OR name LIKE ? OR CONCAT(brand, \' \', name) LIKE ? OR sources LIKE ? OR id IN (SELECT component FROM component_comment WHERE content LIKE ? GROUP BY component) OR added_by IN (SELECT id_u FROM users WHERE username LIKE ?)');
+$query = $pdo->prepare('SELECT id_c, brand, name FROM component WHERE brand LIKE ? OR name LIKE ? OR CONCAT(brand, \' \', name) LIKE ? OR sources LIKE ? OR id_c IN (SELECT component FROM component_comment WHERE content LIKE ? GROUP BY component) OR added_by IN (SELECT id_u FROM users WHERE username LIKE ?)');
 $query->execute([$search_q, $search_q, $search_q, $search_q, $search_q, $search_q]);
 $components = $query->fetchAll();
 

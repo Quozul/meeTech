@@ -6,7 +6,7 @@
     <?php include('../includes/header.php'); ?>
 
     <main class="container">
-        <h1>Bienvenue dans le back office!
+        <h1>Bienvenue dans le back office !
             <!-- Utilisateur -->
         </h1>
 
@@ -15,7 +15,8 @@
             <ul>
                 <li><a href="/admin/list_users/">Utilisateurs</a></li>
                 <li><a href="/admin/languages/">Langages</a></li>
-                <li><a href="/admin/components/">Composants</a></li>
+                <li><a href="/admin/hardware/components/">Composants</a></li>
+                <li><a href="/admin/hardware/component_types/">Types de composants</a></li>
             </ul>
         </div>
     </main>
