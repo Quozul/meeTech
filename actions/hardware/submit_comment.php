@@ -6,7 +6,7 @@ if (!isset($_POST['comment']) || empty($_POST['comment']) || !isset($_SESSION['u
     exit();
 
 // verify that component exists
-$sth = $pdo->prepare('SELECT name FROM component WHERE id = ?');
+$sth = $pdo->prepare('SELECT name FROM component WHERE id_c = ?');
 $sth->execute([$_POST['id']]);
 if (!$sth->fetch())
     exit();
@@ -28,7 +28,7 @@ $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ?');
 $sth->execute([$_SESSION['userid']]);
 $author = $sth->fetch();
 
-$sth = $pdo->prepare('SELECT username, email FROM users WHERE id_u = (SELECT added_by FROM component WHERE id = ?)');
+$sth = $pdo->prepare('SELECT username, email FROM users WHERE id_u = (SELECT added_by FROM component WHERE id_c = ?)');
 $sth->execute([$_POST['id']]);
 $component_author = $sth->fetch();
 
