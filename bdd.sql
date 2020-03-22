@@ -20,6 +20,7 @@ CREATE TABLE users(
     prefered_language VARCHAR(32) REFERENCES language(lang),
     note INT,
     email VARCHAR(127),
+    code_verif INTEGER,
     token CHAR(13),
     verified BOOLEAN DEFAULT FALSE
 );
