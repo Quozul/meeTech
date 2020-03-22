@@ -10,31 +10,47 @@
     <main role="main" class="container">
         <form id="lost_credentials_form" method="post" action="/actions/profile/rec_pwd.php" autocomplete="off" novalidate>
             <div class="form-group">
-                <label for="exampleInputEmail1">Adresse email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <label for="eamil_rec">Adresse email</label>
+                <input type="email" class="form-control" id="email_rec" name="email" placeholder="Votre mail de récupération">
             </div>
             <input type="submit" class="btn btn-primary" value="Envoi du mail">
         </form>
         <hr>
-        <form>
+        <form id="lost_credentials_form" method="post" action="/actions/profile/verif_code.php" autocomplete="off" novalidate>
             <div class="form-group">
-                <label for="exempleInputCode1">Code de verification</label>
-                <input type="text" class="form-control" id="exempleInputCode1">
+                <label for="verif_code">Code de verification</label>
+                <input type="text" class="form-control" id="verif_code" name="code" placeholder="code de verification">
             </div>
             <input type="submit" class="btn btn-primary" value="Valider votre code">
         </form>
         <hr>
-        <form>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword2">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword2">
-            </div>
-            <input type="submit" class="btn btn-primary" value="Valider le nouveau mot de passe">
-        </form>
+        <?php
+
+        if (isset($_POST['code'])) {
+            $code = ($_POST['code']);
+            $sth = $pdo->prepare('SELECT code FROM users WHERE email = ?');
+            $sth->execute([$code]);
+            $rec = $sth->fetch();
+
+
+
+            if ($code != $rec)
+                echo "code invalide ou non renseigné";
+            else { ?>
+                <form id="lost_credentials_form" method="post" action="/actions/profile/new_pwd.php" autocomplete="off" novalidate>
+                    <div class="form-group">
+                        <label for="password1">Password</label>
+                        <input type="password" class="form-control" id="new_pwd" name="new_pwd" placeholder="Votre nouveau mot de passe">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Password</label>
+                        <input type="password" class="form-control" id="confirm_pwd" name="confirm_pwd" placeholder="Veuillez confirmer votre nouveau mot de passe">
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Valider le nouveau mot de passe">
+                </form>
+        <?php }
+        } ?>
+
 
     </main>
     <?php include('includes/footer.php'); ?>

@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS users(
     note INT,
     email VARCHAR(127),
     display_email BOOLEAN DEFAULT FALSE,
+    code_verif INTEGER,
     token CHAR(13),
     verified BOOLEAN DEFAULT FALSE,
     last_ip VARCHAR(15),
