@@ -58,14 +58,14 @@
                 }
 
                 $message = '' ;
-                if(isset($_GET['error'])) {
+                if(isset($_GET['success'])) {
                   if(htmlspecialchars($_GET['success']) == 'edit') $message = 'Langue éditée' ;
                   else if (htmlspecialchars($_GET['success']) == 'add') $message = 'Langue ajoutée' ;
                   else if (htmlspecialchars($_GET['success']) == 'drop') $message = 'Langue supprimée' ;
                   if (!empty($message)) {
                 ?>
                 <hr>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-success" role="alert">
                   <?php echo $message ; ?>
                 </div>
                 <?php
