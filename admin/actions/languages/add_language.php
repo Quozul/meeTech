@@ -2,7 +2,7 @@
 require($_SERVER['DOCUMENT_ROOT'] . '/config.php') ;
 
 if(!isset($_POST['language']) || empty($_POST['language'])) {
-  header('location:' . $_SERVER['DOCUMENT_ROOT'] . '/admin/languages/?error=setlang') ;
+  header('location: ../../languages/?error=setlang') ;
   exit() ;
 }
 
@@ -14,7 +14,7 @@ $label = strtoupper(htmlspecialchars($_POST['label'])) ;
 $q = $pdo->query('SELECT lang, icon, label FROM language') ;
 while ($result = $q->fetch()) {
   if ($result['lang'] == $language || $result['icon'] == $icon || $result['label'] == $label) {
-    header('location:' . $_SERVER['DOCUMENT_ROOT'] . '/admin/languages/?error=elsewhere') ;
+    header('location: ../../languages/?error=elsewhere') ;
     exit() ;
   }
 }
@@ -26,6 +26,6 @@ $q->execute([
   'label' => $label
 ]) ;
 
-header('location:' . $_SERVER['DOCUMENT_ROOT'] . '/admin/languages/?success=add') ;
+header('location: ../../languages/?success=add') ;
 exit() ;
 ?>

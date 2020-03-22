@@ -11,7 +11,7 @@ $label = strtoupper(htmlspecialchars($_POST['label'])) ;
 $q = $pdo->query('SELECT lang, icon, label FROM language') ;
 while ($result = $q->fetch()) {
   if ($result['lang'] != $language && ($result['icon'] == $icon || $result['label'] == $label)) {
-    header('location:' . $_SERVER['DOCUMENT_ROOT'] . '/admin/languages/?error=elsewhere') ;
+    header('location: ../../languages/?error=elsewhere') ;
     exit() ;
   }
 }
@@ -23,6 +23,6 @@ $q->execute([
   'reference' => $language
 ]) ;
 
-header('location:' . $_SERVER['DOCUMENT_ROOT'] . '/admin/languages/?success=edit') ;
+header('location: ../../languages/?success=edit') ;
 exit() ;
 ?>
