@@ -13,7 +13,7 @@ $count = $req->fetch()[0];
 $page_count = ceil($count / $page_limit);
 
 // Change the page to an existing one
-if ($count > 0 && 1 > $page || $page > $page_count)
+if ($count > 0 && (1 > $page || $page > $page_count))
     $page = min(max($page, 1), $page_count);
 
 // Get all components with type
