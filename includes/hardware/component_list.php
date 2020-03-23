@@ -13,16 +13,18 @@ $count = $req->fetch()[0];
 $page_count = ceil($count / $page_limit);
 
 // Change the page to an existing one
-if ($count > 0 && 1 > $page || $page > $page_count)
+if ($count > 0 && (1 > $page || $page > $page_count))
     $page = min(max($page, 1), $page_count);
 
 // Get all components with type
-if ($order == 'new')
-    $req = $pdo->prepare('SELECT id_c, brand, name, validated, added_date, added_by, score FROM component WHERE type = ? ORDER BY added_date DESC LIMIT ? OFFSET ?');
-else if ($order == 'last_comment')
+if ($order == 'last_comment')
     $req = $pdo->prepare('SELECT id_c, brand, name, validated, added_date, added_by, score FROM component AS comp WHERE type = ? ORDER BY (SELECT date_published FROM component_comment WHERE component = comp.id_c ORDER BY date_published LIMIT 1) DESC LIMIT ? OFFSET ?');
 else if ($order == 'most_comment')
     $req = $pdo->prepare('SELECT id_c, brand, name, validated, added_date, added_by, score FROM component AS comp WHERE type = ? ORDER BY (SELECT count(*) FROM component_comment WHERE component = comp.id_c) DESC LIMIT ? OFFSET ?');
+else if ($order == 'score')
+    $req = $pdo->prepare('SELECT id_c, brand, name, validated, added_date, added_by, score FROM component AS comp WHERE type = ? ORDER BY score DESC LIMIT ? OFFSET ?');
+else
+    $req = $pdo->prepare('SELECT id_c, brand, name, validated, added_date, added_by, score FROM component WHERE type = ? ORDER BY added_date DESC LIMIT ? OFFSET ?');
 
 $req->execute([$type, $page_limit, ($page - 1) * $page_limit]);
 $components = $req->fetchAll();

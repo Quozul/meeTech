@@ -70,11 +70,7 @@
                                 <?php foreach ($specs as $key => $spec) { ?>
                                     <div class="input-group mb-3">
 
-                                        <?php if ($spec['data_type'] == 'string') { ?>
-                                            <input type="text" class="form-control" placeholder="<?php echo $spec['name']; ?>" name="<?php echo $spec['id_s']; ?>">
-                                        <?php } else if ($spec['data_type'] == 'number') { ?>
-                                            <input type="text" class="form-control" placeholder="<?php echo $spec['name']; ?>" name="<?php echo $spec['id_s']; ?>">
-                                        <?php } else if ($spec['data_type'] == 'list') {
+                                        <?php if ($spec['data_type'] == 'list') {
                                             // Get options
                                             $req = $pdo->prepare('SELECT id_o, option FROM specification_option WHERE specification = ?');
                                             $req->execute([$spec['id_s']]);
@@ -85,6 +81,8 @@
                                                     <option value="<?php echo $option['id_o']; ?>"><?php echo $option['option']; ?></option>
                                                 <?php } ?>
                                             </select>
+                                        <?php } else { ?>
+                                            <input type="<?php echo $spec['data_type']; ?>" class="form-control" placeholder="<?php echo $spec['name']; ?>" name="<?php echo $spec['id_s']; ?>">
                                         <?php } ?>
 
                                         <?php if (!empty($spec['unit'])) { ?>

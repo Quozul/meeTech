@@ -29,7 +29,6 @@
                         <form class="mb-3">
                             <label>Limite de page</label>
                             <select class="form-control" id="page-limit">
-                                <option value="1">1</option>
                                 <option value="5" selected>5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
@@ -78,10 +77,17 @@
             </div>
 
             <div class="col-9">
-                <ul class="nav nav-tabs border-0" id="tab-selector">
-                    <?php foreach ($types as $key => $type) { ?>
+                <ul class="nav nav-tabs border-0 flex-nowrap" id="tab-selector">
+                    <?php foreach ($types as $key => $type) {
+                        $req = $pdo->prepare('SELECT COUNT(*) FROM component WHERE type = ?');
+                        $req->execute([$type['id_t']]);
+                        $count = $req->fetch()[0]; ?>
+
                         <li class="nav-item">
-                            <span class="nav-link" id="tab-<?php echo $type['id_t']; ?>" onclick="change_tab(<?php echo $type['id_t']; ?>);"><?php echo $type['name']; ?></span>
+                            <span class="nav-link" id="tab-<?php echo $type['id_t']; ?>" onclick="change_tab(<?php echo $type['id_t']; ?>);">
+                                <?php echo $type['name']; ?>
+                                <span class="badge badge-secondary"><?php echo $count; ?></span>
+                            </span>
                         </li>
                     <?php } ?>
                 </ul>
