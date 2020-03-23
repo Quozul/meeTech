@@ -10,17 +10,17 @@ include('includes/head.php');
     <main role="main" class="container">
         <h1>Votre profil</h1>
         <div class="jumbotron">
-            <?php if (!empty($_SESSION['id_u'])) {
+            <?php if (!empty($_SESSION['userid'])) {
                 $sth = $pdo->prepare('SELECT avatar, username, email, location, prefered_language, bio FROM users WHERE id_u=?');
-                $sth->execute([$_SESSION['id_u']]);
+                $sth->execute([$_SESSION['userid']]);
                 $result = $sth->fetch(); ?>
-
+                
                 <!-- TODO: Action file -->
 
-                <form id="avatar-form" <?php if ($_GET['id_u'] != $_SESSION['id_u']) { ?>action="/actions/profile/update_avatar.php" <?php } ?> method="post" autocomplete="off" enctype="multipart/form-data">
+                <form id="avatar-form" <?php if ($_POST['userid'] != $_SESSION['userid']) { ?>action="/actions/profile/update_avatar.php" <?php } ?> method="post" autocomplete="off" enctype="multipart/form-data">
                     <div class="form-group float-right col-10">
                         <label for="avatar">Avatar</label>
-                        <input type="file" class="form-control-file" name="avatar" id="avatar" <?php if ($_GET['id_u'] != $_SESSION['id_u']) echo 'disabled'; ?>>
+                        <input type="file" class="form-control-file" name="avatar" id="avatar" <?php if ($_POST['userid'] != $_SESSION['userid']) echo 'disabled'; ?>>
                     </div>
                     <div class="mt-avatar col-2" style="width: 64px; height: 64px; background-image: url('/uploads/<?php echo $result['avatar']; ?>');"></div>
                     <button type="submit" class="btn btn-primary mt-2">Envoyer l'avatar</button>
@@ -31,25 +31,25 @@ include('includes/head.php');
                 <form method="post" action="/actions/profile/update_profile.php" id="profile">
                     <div class="form-group">
                         <label for="username">Nom d'utilisateur</label>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Pseudonyme" value="<?php echo $result['username']; ?>" <?php if ($_GET['id_u'] != $_SESSION['id_u']) echo 'disabled'; ?>>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Pseudonyme" value="<?php echo $result['username']; ?>" <?php if ($_POST['userid'] != $_SESSION['userid']) echo 'disabled'; ?>>
                     </div>
                     <div class=" form-group">
                         <label for="email">Adresse e-mail</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Adresse e-mail" value="<?php echo $result['email']; ?>" <?php if ($_GET['id_u'] != $_SESSION['id_u']) echo 'disabled'; ?>>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Adresse e-mail" value="<?php echo $result['email']; ?>" <?php if ($_POST['userid'] != $_SESSION['userid']) echo 'disabled'; ?>>
                     </div>
                     <div class=" form-group">
                         <label for="pays">Pays</label>
-                        <input type="text" class="form-control" name="location" id="pays" placeholder="Pays" value="<?php echo $result['location']; ?>" <?php if ($_GET['id_u'] != $_SESSION['id_u']) echo 'disabled'; ?>>
+                        <input type="text" class="form-control" name="location" id="pays" placeholder="Pays" value="<?php echo $result['location']; ?>" <?php if ($_POST['userid'] != $_SESSION['userid']) echo 'disabled'; ?>>
                     </div>
                     <div class=" form-group">
                         <label for="langue">Langue préférée</label>
-                        <input type="text" class="form-control" name="prefered_language" id="langue" placeholder="Langue" value="<?php echo $result['prefered_language']; ?>" <?php if ($_GET['id_u'] != $_SESSION['id_u']) echo 'disabled'; ?>>
+                        <input type="text" class="form-control" name="prefered_language" id="langue" placeholder="Langue" value="<?php echo $result['prefered_language']; ?>" <?php if ($_POST['userid'] != $_SESSION['userid']) echo 'disabled'; ?>>
                     </div>
                     <div class=" form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" name="bio" id="description" rows="3"><?php echo $result['bio']; ?><?php if ($_GET['id_u'] != $_SESSION['id_u']) echo 'disabled'; ?></textarea>
+                        <textarea class="form-control" name="bio" id="description" rows="3"><?php echo $result['bio']; ?><?php if ($_POST['userid'] != $_SESSION['userid']) echo 'disabled'; ?></textarea>
                     </div>
-                    <?php if ($_GET['id_u'] != $_SESSION['id_u']) { ?><button type="button" class="btn btn-primary" onclick="update_profile()">Sauvegarder les modifications</button><?php } ?>
+                    <?php if ($_POST['userid'] != $_SESSION['userid']) { ?><button type="button" class="btn btn-primary" onclick="update_profile()">Sauvegarder les modifications</button><?php } ?>
 
                     <div id="clear_session" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
