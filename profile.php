@@ -10,9 +10,9 @@ include('includes/head.php');
     <main role="main" class="container">
         <h1>Votre profil</h1>
         <div class="jumbotron">
-            <?php if (!empty($_SESSION['userid'])) {
+            <?php if (!empty($_SESSION['id_u'])) {
                 $sth = $pdo->prepare('SELECT avatar, username, email, location, prefered_language, bio FROM users WHERE id_u=?');
-                $sth->execute([$_SESSION['userid']]);
+                $sth->execute([$_SESSION['id_u']]);
                 $result = $sth->fetch(); ?>
 
                 <!-- TODO: Action file -->
