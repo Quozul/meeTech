@@ -38,7 +38,7 @@ $users = $query->fetchAll();
         <ul class="list-group">
             <?php if (count($components) > 0)
                 foreach ($components as $key => $component) { ?>
-                <li><a href="/view_component/?id=<?php echo $component['id'] ?>"><?php echo $component['brand'] . ' ' . $component['name']; ?></a></li>
+                <li><a href="/view_component/?id=<?php echo $component['id_c'] ?>"><?php echo $component['brand'] . ' ' . $component['name']; ?></a></li>
             <?php } else { ?>
                 <p>Rien n'a été trouvé ici :(</p>
             <?php } ?>

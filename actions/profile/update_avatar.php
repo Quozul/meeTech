@@ -28,11 +28,11 @@ if (!file_exists($path)) {
 }
 
 // delete previous avatar
-$sth = $pdo->prepare('SELECT avatar FROM users WHERE id_u=?');
+$sth = $pdo->prepare('SELECT avatar FROM users WHERE id_u = ?');
 $sth->execute([$_SESSION['userid']]);
 $avatar = $sth->fetch();
 
-if ($avatar) {
+if ($avatar && !empty($avatar[0])) {
     $filepath = $path . '/' . $avatar[0];
     unlink($filepath);
 }

@@ -107,7 +107,7 @@
             params.set('page-limit', 5);
             params.set('order', 'new');
 
-            function update_list() {
+            const update_list = page_add_component = function() {
                 // Set active tab
                 for (const key in tabs)
                     if (tabs.hasOwnProperty(key)) {

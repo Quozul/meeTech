@@ -75,7 +75,7 @@
                         } ?>
                     </ul>
                     <div class="card-body">
-                        <a href="<?php echo '/view_component.php?id=' . $component['id']; ?>" class="card-link">Découvrir</a>
+                        <a href="<?php echo '/view_component.php?id=' . $component['id_c']; ?>" class="card-link">Découvrir</a>
                         <a href="#" class="card-link disabled">Comparer</a>
                     </div>
                 </div>

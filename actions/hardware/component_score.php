@@ -36,9 +36,7 @@ function score($pdo, $type, $comp_id)
         $req->execute([$spec, $comp_id]);
         $value = $req->fetch();
 
-        echo $value[0] . "\n";
-
-        $formula = str_replace('[' . $spec . ']', isset($value) ? $value[0] : 0, $formula);
+        $formula = str_replace('[' . $spec . ']', $value ? $value[0] : 0, $formula);
     }
 
     $score = round(eval('return ' . $formula . ';'));
