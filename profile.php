@@ -40,9 +40,19 @@ include('includes/head.php');
                         <label for="pays">Pays</label>
                         <input type="text" class="form-control" name="location" id="pays" placeholder="Pays" value="<?php echo $result['location']; ?>">
                     </div>
-                    <div class=" form-group">
+                    <div class="form-group">
                         <label for="langue">Langue préférée</label>
-                        <input type="text" class="form-control" name="prefered_language" id="langue" placeholder="Langue" value="<?php echo $result['prefered_language']; ?>">
+                        <select class="form-control" name="prefered_language" id="langue">
+                          <option<?php if ($result['prefered_language'] == NULL) echo ' selected' ; ?>>Choose…</option>
+                          <?php
+                          $q = $pdo->query('SELECT lang FROM language') ;
+                          while ($language = $q->fetch()['lang']) {
+                          ?>
+                          <option<?php if ($result['prefered_language'] == $language) echo ' selected' ; ?>><?php echo $language ; ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
                     </div>
                     <div class=" form-group">
                         <label for="description">Description</label>
