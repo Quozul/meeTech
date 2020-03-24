@@ -89,7 +89,7 @@
                         <input type="text" name="name" value="<?php echo $value['name'] ; ?>" class="form-control col-md-6" readonly>
                       </td>
                       <td>
-                        <textarea name="description" value="<?php echo $value['description']?>" class="form-control"></textarea>
+                        <textarea name="description" class="form-control" rows="2"><?php echo $value['description']?></textarea>
                       </td>
                       <td>
                         <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm">
