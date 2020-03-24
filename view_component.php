@@ -34,8 +34,12 @@
                         form($pdo, $comp_id); ?>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-edit-component-modal">Annuler</button>
-                        <button type="button" class="btn btn-primary" onclick="update_component();">Mettre à jour</button>
+                        <?php if (isset($_SESSION['userid'])) { ?>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-edit-component-modal">Annuler</button>
+                            <button type="button" class="btn btn-primary" onclick="update_component();">Mettre à jour</button>
+                        <?php } else { ?>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-edit-component-modal">Fermer</button>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

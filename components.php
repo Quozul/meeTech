@@ -13,8 +13,7 @@
         // Fetch component types
         $req = $pdo->prepare('SELECT name, id_t FROM component_type');
         $req->execute();
-        $types = $req->fetchAll();
-        ?>
+        $types = $req->fetchAll(); ?>
 
         <button class="btn btn-success float-right" data-toggle="modal" data-target="#add-component-modal">Ajouter un composant</button>
         <h1>Composants</h1>
