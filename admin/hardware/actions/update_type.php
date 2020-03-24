@@ -80,5 +80,9 @@ if ($res) {
 
     // Update type
     $req = $pdo->prepare('UPDATE component_type SET name = ?, category = ?, score_formula = ? WHERE id_t = ?');
-    $req->execute([$name, $cat, $id, $formula]);
-}
+    $req->execute([$name, $cat, $formula, $id]);
+    echo 'Updated sucessfully!';
+} ?>
+<script>
+    window.history.back();
+</script>

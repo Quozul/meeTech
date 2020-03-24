@@ -1,4 +1,4 @@
-<form id="add-type-form" autocomplete="off">
+<form id="add-type-form" autocomplete="off" action="/admin/hardware/actions/add_type.php" method="post">
     <div class="form-group">
         <label>Nom</label>
         <input name="name" type="text" class="form-control" placeholder="Nom du type">
