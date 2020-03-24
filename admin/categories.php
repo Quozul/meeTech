@@ -23,7 +23,7 @@
                       <div class="modal-body">
                         <form id="submit-category" method="post" action="../actions/categories/add_category.php" autocomplete="off">
                             <input type="text" class="form-control mb-3" name="name" placeholder="Nouvelle catégorie">
-                            <input type="text" class="form-control mb-3" name="description" placeholder="Description de la catégorie">
+                            <textarea class="form-control mb-3" name="description" placeholder="Description de la catégorie"></textarea>
                         </form>
                       </div>
                       <div class="modal-footer">
@@ -89,7 +89,7 @@
                         <input type="text" name="name" value="<?php echo $value['name'] ; ?>" class="form-control col-md-6" readonly>
                       </td>
                       <td>
-                        <input type="text" name="description" value="<?php echo $value['description']?>" class="form-control">
+                        <textarea name="description" value="<?php echo $value['description']?>" class="form-control"></textarea>
                       </td>
                       <td>
                         <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm">
