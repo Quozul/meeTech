@@ -147,8 +147,21 @@
         request('/actions/hardware/add_component.php', formToQuery('new-component-form')).then((res) => {
             // Call page's add component function if defined, just close modal
             if (page_add_component != undefined) page_add_component();
-            console.log(res.response);
-            document.getElementById('close-add-component-modal').click();
+
+            if (res.response.includes('required_fields')) {
+                // alert('Des champs requis ne sont pas complétés.');
+                JSON.parse(res.response.split(';')[1]).forEach(name => {
+                    const element = document.getElementsByName(name)[0];
+                    element.classList.add('is-invalid');
+                    element.addEventListener('change', function() {
+                        this.classList.remove('is-invalid');
+                        this.removeEventListener('change');
+                    });
+                });
+            } else if (res.response.includes('already_exists'))
+                alert('Un composant avec ce nom existe déjà.');
+            else
+                document.getElementById('close-add-component-modal').click();
         }).catch((e) => {
             console.log(e.response);
         });

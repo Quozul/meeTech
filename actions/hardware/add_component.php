@@ -8,6 +8,9 @@ if (!isset($_SESSION['userid'])) {
     exit();
 }
 
+foreach ($_POST as $key => $value)
+    $_POST[$key] = trim($value);
+
 // Check for empty values
 $empty_values = [];
 if (empty($_POST['type']))
@@ -18,9 +21,8 @@ if (empty($_POST['name']))
     array_push($empty_values, 'name');
 
 if (count($empty_values) != 0) {
-    echo $empty_values;
-    echo 'required_fields';
-    http_response_code(417);
+    echo 'required_fields;';
+    echo json_encode($empty_values);
     exit();
 }
 
@@ -47,7 +49,6 @@ $res = $req->fetch();
 
 if ($res) {
     echo 'already_exists';
-    http_response_code(417);
     exit();
 }
 
