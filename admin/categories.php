@@ -2,12 +2,12 @@
 <html>
     <?php
     $page_name = 'Back-office : catégories' ;
-    include('includes/head.php') ;
+    include($_SERVER['DOCUMENT_ROOT']. '/includes/head.php') ;
     $page_limit = 4 ;
     $page = isset($_GET['page']) ? $_GET['page'] : 1 ;
     ?>
     <body class="d-flex vh-100 flex-column justify-content-between">
-        <?php include('includes/header.php') ; ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php') ; ?>
         <main role="main" class="container">
             <div class="jumbotron">
           <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#submitModal">Ajouter une catégorie</button>
@@ -107,6 +107,6 @@
               </tbody>
           </table>
         </main>
-        <?php include('includes/footer.php') ; ; ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php') ; ; ?>
     </body>
 </html>
