@@ -39,7 +39,7 @@ include('includes/head.php');
                     </div>
                     <div class=" form-group">
                         <label for="pays">Pays</label>
-                        <select class="custom-select">
+                        <select class="custom-select" name="location">
                           <?php displayCountryList($result['location']) ; ?>
                         </select>
                     </div>
