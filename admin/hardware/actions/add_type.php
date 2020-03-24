@@ -65,4 +65,7 @@ if ($res) {
 
     $req = $pdo->prepare('UPDATE component_type SET score_formula = ? WHERE id_t = ?');
     $req->execute([$formula, $type_id]);
-}
+} ?>
+<script>
+    window.history.back();
+</script>

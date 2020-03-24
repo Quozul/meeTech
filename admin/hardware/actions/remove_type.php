@@ -17,4 +17,7 @@ foreach ($list_specs as $key => $spec) {
 
 // Delete specifications for that component
 $req = $pdo->prepare('DELETE FROM specification_list WHERE type = ?');
-$req->execute([$_POST['id']]);
+$req->execute([$_POST['id']]); ?>
+<script>
+    window.history.back();
+</script>

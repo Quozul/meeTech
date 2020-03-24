@@ -30,13 +30,19 @@ if ($components) { ?>
                     <td><?php echo $component['name']; ?></td>
                     <td><?php echo $type; ?></td>
                     <td>
-                        <a href="/view_component.php?id=<?php echo $component['id_c']; ?>" class="btn btn-sm btn-primary">Voir le composant</a>
-                        <a href="#" class="btn btn-sm btn-danger" onclick="remove_component(<?php echo $component['id_c']; ?>);">Supprimer</a>
+                        <a href="/view_component.php?id=<?php echo $component['id_c']; ?>" class="btn btn-sm btn-outline-primary">Voir le composant</a>
+                        <form action="/admin/hardware/actions/remove_component.php" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-danger" name="id" value="<?php echo $component['id_c']; ?>">Supprimer</button>
+                        </form>
+                        <form action="/admin/hardware/actions/validate_component.php" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-success" name="id" value="<?php echo $component['id_c']; ?>" <?php echo $component['validated'] == 0 ? '' : 'disabled'; ?>><?php echo $component['validated'] == 0 ? 'Valider' : 'Validé'; ?></button>
+                        </form>
+                        <!-- <a href="#" class="btn btn-sm btn-outline-danger" onclick="remove_component(<?php echo $component['id_c']; ?>);">Supprimer</a>
                         <?php if ($component['validated'] == 0) { ?>
-                            <a href="#" class="btn btn-sm btn-success" onclick="validate_component(<?php echo $component['id_c']; ?>);">Valider</a>
+                            <a href="#" class="btn btn-sm btn-outline-success" onclick="validate_component(<?php echo $component['id_c']; ?>);">Valider</a>
                         <?php } else { ?>
-                            <a href="#" class="btn btn-sm btn-success disabled" disabled>Validé</a>
-                        <?php } ?>
+                            <a href="#" class="btn btn-sm btn-outline-success disabled" disabled>Validé</a>
+                        <?php } ?> -->
                     </td>
 
                 </tr>

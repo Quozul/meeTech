@@ -21,7 +21,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-add-type-modal">Annuler</button>
-                        <button type="button" class="btn btn-primary" onclick="add_type();">Ajouter</button>
+                        <!-- <button type="button" class="btn btn-primary" onclick="add_type();">Ajouter</button> -->
+                        <button type="submit" class="btn btn-primary" form="add-type-form">Ajouter</button>
                     </div>
                 </div>
             </div>
@@ -30,9 +31,16 @@
         <button class="btn btn-success float-right" data-toggle="modal" data-target="#add-type-modal">Ajouter un type</button>
         <h1>Types de composants</h1>
 
-        <div class="jumbotron" id="list"></div>
+        <div class="jumbotron" id="list"><?php include('includes/type_list.php'); ?></div>
 
         <script>
+            function update_list() {
+                document.location.reload();
+                /*getHtmlContent('/admin/hardware/includes/type_list.php', '').then((res) => {
+                    document.getElementById('list').innerHTML = res;
+                }).catch(e => console.log);
+            }
+
             function add_type() {
                 request('/admin/hardware/actions/add_type.php', formToQuery('add-type-form')).then((res) => {
                     console.log(res.response);
@@ -49,16 +57,8 @@
                     document.getElementById('component-type-row-' + id).remove();
                     alert('Type de composant supprimé avec succès !');
                     update_list();
-                });
+                });*/
             }
-
-            function update_list() {
-                getHtmlContent('/admin/hardware/includes/type_list.php', '').then((res) => {
-                    document.getElementById('list').innerHTML = res;
-                }).catch(e => console.log);
-            }
-
-            update_list();
         </script>
     </main>
 

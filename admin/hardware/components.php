@@ -12,11 +12,12 @@
         <button class="btn btn-success float-right" data-toggle="modal" data-target="#add-component-modal">Ajouter un composant</button>
         <h1>Types de composants</h1>
 
-        <div class="jumbotron" id="list"></div>
+        <div class="jumbotron" id="list"><?php include('includes/component_list.php'); ?></div>
 
         <script>
             const update_list = page_add_component = function() {
-                getHtmlContent('/admin/hardware/includes/component_list.php', '').then((res) => {
+                document.location.reload();
+                /*getHtmlContent('/admin/hardware/includes/component_list.php', '').then((res) => {
                     document.getElementById('list').innerHTML = res;
                 }).catch(e => console.log);
             }
@@ -30,10 +31,8 @@
             function validate_component(id) {
                 request('/admin/hardware/actions/validate_component.php', 'id=' + id).then((res) => {
                     update_list();
-                });
+                });*/
             }
-
-            update_list();
         </script>
     </main>
 

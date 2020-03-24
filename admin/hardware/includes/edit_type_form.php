@@ -12,7 +12,7 @@ $req->execute([$type_id]);
 $specs = $req->fetchAll();
 ?>
 
-<form id="edit-type-form" autocomplete="off">
+<form id="edit-type-form" autocomplete="off" action="/admin/hardware/actions/update_type.php" method="post">
     <div class="form-group">
         <label>Nom</label>
         <input name="name" type="text" class="form-control" placeholder="Nom du type" value="<?php echo $type['name']; ?>">
@@ -94,7 +94,7 @@ $specs = $req->fetchAll();
     </div>
 
     <div class="form-group" id="edit_spec-list">
-        <span class="btn btn-primary w-100" onclick="save();">Sauvegarder</span>
+        <button type="submit" class="btn btn-primary w-100" name="id" value="<?php echo $type_id; ?>">Sauvegarder</button>
     </div>
 </form>
 
@@ -202,11 +202,11 @@ $specs = $req->fetchAll();
         input.remove();
     }
 
-    function save() {
+    /*function save() {
         request('/admin/hardware/actions/update_type.php', formToQuery('edit-type-form') + '&id=<?php echo $type_id; ?>').then((res) => {
             console.log(res.response);
             if (res.response.includes('type_already_exists')) alert('Un type possedant ce nom existe déjà.')
             else alert('Type de composant mis à jour avec succès !\nVous pouvez retourner en arrière.')
         });
-    }
+    }*/
 </script>
