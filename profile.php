@@ -27,6 +27,7 @@ include('includes/head.php');
 
                 <hr>
 
+                <?php include('includes/countries.php') ; ?>
                 <form method="post" action="/actions/profile/update_profile.php" id="profile">
                     <div class="form-group">
                         <label for="username">Nom d'utilisateur</label>
@@ -38,7 +39,9 @@ include('includes/head.php');
                     </div>
                     <div class=" form-group">
                         <label for="pays">Pays</label>
-                        <input type="text" class="form-control" name="location" id="pays" placeholder="Pays" value="<?php echo $result['location']; ?>">
+                        <select class="custom-select">
+                          <?php displayCountryList($result['location']) ; ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="langue">Langue préférée</label>
