@@ -66,7 +66,7 @@
               $image = $query->fetch() ;
               if (!empty($image)) {
               ?>
-              <img src="images/<?= $image['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
+              <img src="uploads/<?= $image['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
               <?php } ?>
 
               <div class="markdown"><?= $message['content'] ; ?></div>

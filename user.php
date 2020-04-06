@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php'); //config.php dans le head.php 
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php'); //config.php dans le head.php
 ?>
 
 <body class="d-flex vh-100 flex-column justify-content-between">
@@ -22,7 +22,7 @@
             <?php if (!$result) {
                 echo "<h2>Cet utilisateur n'existe pas.</h2>";
             } else { ?>
-                <div class="mt-avatar col-2" style="width: 64px; height: 64px; background-image: url('/uploads/<?php echo $result['avatar']; ?>');"></div>
+                <img src="/uploads/<?= $result['avatar'] ; ?>" alt="Profile picture" class="rounded mb-3" style="max-width:64px; max-height:64px">
 
                 <b>Langue :</b> <?php echo $result['prefered_language']; ?><br>
                 <b>Localisation :</b> <?php echo $result['location']; ?><br>
