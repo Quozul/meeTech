@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="edit_article" onsubmit="checkArticle()" method="post" autocomplete="off" action="actions/blog/edit_article.php?post=<?= $message_id ; ?>">
+        <form id="edit_article" onsubmit="checkArticle()" method="post" autocomplete="off" action="/actions/blog/edit_article.php?post=<?= $message_id ; ?>">
           <label for="title">Titre de l'article*</label>
           <input type="text" class="form-control mb-3" name="title" id="title" value="<?= $message['title'] ; ?>">
 

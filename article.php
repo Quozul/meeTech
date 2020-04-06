@@ -102,8 +102,7 @@
         </main>
         <?php include('includes/footer.php') ; ?>
 
-
-        <script src="scripts/markdown.js" charset="utf-8"></script>
-        <script src="scripts/blogVerifications.js" charset="utf-8"></script>
+        <script src="/scripts/markdown.js" charset="utf-8"></script>
+        <script src="/scripts/blogVerifications.js" charset="utf-8"></script>
     </body>
 </html>
