@@ -21,7 +21,7 @@ if (!isset($_POST['title'])
     || empty(trim($_POST['content']))
     || !isset($_POST['language'])
     || empty(trim($_POST['language']))) {
-  header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/article/?post=' . $id . '&error=notset') ;
+  header('location: /article/?post=' . $id . '&error=notset') ;
   exit() ;
 }
 
@@ -32,6 +32,6 @@ $language = htmlspecialchars(trim($_POST['language'])) ;
 $q = $pdo->prepare('UPDATE message SET title = ?, content = ?, default_language = ? WHERE id_m = ?') ;
 $q->execute([$title, $content, $language, $id]) ;
 
-header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/article/?post=' . $id . '&success=edit') ;
+header('location: /article/?post=' . $id . '&success=edit') ;
 exit() ;
 ?>
