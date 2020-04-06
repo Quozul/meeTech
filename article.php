@@ -11,7 +11,6 @@
         $page_limit = 10 ;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $exists = 0 ;
-        $_SESSION['userid'] = 1 ;
     ?>
 
     <body class="d-flex vh-100 flex-column justify-content-between">
