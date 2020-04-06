@@ -46,13 +46,14 @@
                 include('includes/blog/edit_modal.php') ;
               ?>
               <h1><?= $message['title'] ; ?></h1>
-              <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] == $message['author']) { ?>
+
               <div class="float-right">
+                <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] == $message['author']) { ?>
                 <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#editModal">Éditer</button>
-                <a href="actions/blog/drop_article.php?post=<?= $message['id_m'] ; ?>" type="button" class="btn btn-outline-dark btn-sm">Supprimer</a>
-                <a href="actions/blog/report_article.php?post=<?= $message['id_m'] ; ?>" type="button" class="btn btn-outline-danger btn-sm">Signaler</a>
+                <?php } ?>
+                <a href="actions/blog/report_article.php?post=<?= $message_id ; ?>" type="button" class="btn btn-outline-danger btn-sm">Signaler</a>
               </div>
-              <?php } ?>
+
               <small class="text-muted">
                 Published on <?= $message['date_published'] ?> by
                 <?= '<a href="#">' . $author . '</a>' ; ?>
