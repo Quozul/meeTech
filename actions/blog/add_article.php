@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '/config.php') ;
+require($_SERVER['DOCUMENT_ROOT'] . '/config.php') ;
 
 // verify if user is connected
 if (!isset($_SESSION['userid'])) {

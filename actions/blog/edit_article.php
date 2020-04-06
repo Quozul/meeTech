@@ -1,30 +1,37 @@
 <?php
-require('/meetech/config.php') ;
+require($_SERVER['DOCUMENT_ROOT'] . '/config.php') ;
 
 // verify if user is connected
 if (!isset($_SESSION['userid'])) {
-    http_response_code(401);
-    exit();
+    http_response_code(401) ;
+    exit() ;
 }
 
-if (!isset($_POST['title']) || empty(trim($_POST['title']) || !isset($_POST['content']) || empty(trim($_POST['content'])) {
-  header('location: /meetech/article/?post=' . htmlspecialchars($_GET['post']) . '&error=notset') ;
+if (!isset($_GET['post']) || empty($_GET['post'])) {
+  http_response_code(400) ;
+  exit() ;
+}
+
+$id = htmlspecialchars($_GET['post']) ;
+
+//If title or content or language isn't set
+if (!isset($_POST['title'])
+    || empty(trim($_POST['title']))
+    || !isset($_POST['content'])
+    || empty(trim($_POST['content']))
+    || !isset($_POST['language'])
+    || empty(trim($_POST['language']))) {
+  header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/article/?post=' . $id . '&error=notset') ;
   exit() ;
 }
 
 $title = htmlspecialchars(trim($_POST['title'])) ;
 $content = htmlspecialchars(trim($_POST['content'])) ;
-$language = htmlspecialchars(trim($_POST['default_language'])) ;
-$id = htmlspecialchars($_GET['post']) ;
+$language = htmlspecialchars(trim($_POST['language'])) ;
 
-$q = $pdo->prepare('UPDATE message SET title = :title AND content = :content AND default_language = lang WHERE id_m = :id') ;
-$q->execute([
-  'title' => $title,
-  'content' => $content,
-  'lang' => $language,
-  'id_m' => $id
-])
+$q = $pdo->prepare('UPDATE message SET title = ?, content = ?, default_language = ? WHERE id_m = ?') ;
+$q->execute([$title, $content, $language, $id]) ;
 
-header('location: /meetech/article/?post=' . htmlspecialchars($_GET['post']) . '&success=edit') ;
+header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/article/?post=' . $id . '&success=edit') ;
 exit() ;
 ?>

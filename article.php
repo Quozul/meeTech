@@ -11,6 +11,7 @@
         $page_limit = 10 ;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $exists = 0 ;
+        $_SESSION['userid'] = 1 ;
     ?>
 
     <body class="d-flex vh-100 flex-column justify-content-between">
@@ -18,7 +19,7 @@
         <main role="main" class="container">
             <section class="jumbotron">
 
-<!-- The $_GET['post'] isn't set -->
+<!-- No article requested -->
             <?php
             if (!isset($_GET['post']) || is_null($_GET['post'])) {
               include('includes/nothing.php')  ;
@@ -30,7 +31,7 @@
               if ($exists == 0) {
               ?>
 
-<!-- The $_GET['post'] is set but no matching article in DB -->
+<!-- No matching article in DB -->
               <h1>Whoups, this article doesn't exist !</h1>
               <hr>
               <a href="blog/" type="button" class="btn btn-primary">Go to Blog</a>
@@ -45,23 +46,23 @@
                 $author = author_query($message['author'], $pdo) ;
                 include('includes/blog/edit_modal.php') ;
               ?>
-              <h1><?php echo $message['title'] ; ?></h1>
+              <h1><?= $message['title'] ; ?></h1>
               <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] == $message['author']) { ?>
               <div class="float-right">
                 <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#editModal">Éditer</button>
-                <a href="actions/blog/drop_article.php?post=<?php echo $message['id_m'] ; ?>" type="button" class="btn btn-outline-dark btn-sm">Supprimer</a>
-                <a href="actions/blog/report_article.php?post=<?php echo $message['id_m'] ; ?>" type="button" class="btn btn-outline-danger btn-sm">Signaler</a>
+                <a href="actions/blog/drop_article.php?post=<?= $message['id_m'] ; ?>" type="button" class="btn btn-outline-dark btn-sm">Supprimer</a>
+                <a href="actions/blog/report_article.php?post=<?= $message['id_m'] ; ?>" type="button" class="btn btn-outline-danger btn-sm">Signaler</a>
               </div>
               <?php } ?>
               <small class="text-muted">
-                Published on <?php echo $message['date_published'] ?> by
-                <?php echo '<a href="#">' . $author . '</a>' ; ?>
+                Published on <?= $message['date_published'] ?> by
+                <?= '<a href="#">' . $author . '</a>' ; ?>
               </small>
               <hr>
 
               <img src="..." class="rounded float-left" alt="...">
-              <div class="markdown"><?php echo $message['content'] ; ?></div>
-              <button type="button" class="btn btn-success">+ <?php echo $message['note'] ; ?></button>
+              <div class="markdown"><?= $message['content'] ; ?></div>
+              <button type="button" class="btn btn-success">+ <?= $message['note'] ; ?></button>
             <?php
               }
             }
@@ -104,5 +105,6 @@
 
 
         <script src="scripts/markdown.js" charset="utf-8"></script>
+        <script src="scripts/blogVerifications.js" charset="utf-8"></script>
     </body>
 </html>
