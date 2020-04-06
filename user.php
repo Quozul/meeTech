@@ -22,7 +22,7 @@
             <?php if (!$result) {
                 echo "<h2>Cet utilisateur n'existe pas.</h2>";
             } else { ?>
-                <img src="/uploads/<?= $result['avatar'] ; ?>" alt="Profile picture" class="rounded mb-3" style="max-width:64px; max-height:64px">
+                <img src="/uploads/<?= $result['avatar'] ; ?>" alt="Profile picture" class="mt-avatar col-2 rounded float-left mr-3 mb-3" style="max-width:100px; max-height:100px">
 
                 <b>Langue :</b> <?php echo $result['prefered_language']; ?><br>
                 <b>Localisation :</b> <?php echo $result['location']; ?><br>
