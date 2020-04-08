@@ -31,8 +31,8 @@
 <!-- The $_GET['post'] is set but no matching article in DB -->
               <h1>Whoups, this article doesn't exist !</h1>
               <hr>
-              <a href="blog/" type="button" class="btn btn-primary">Go to Blog</a>
-              <a href="forum/" type="button" class="btn btn-primary">Go to Forum</a>
+              <a href="/blog/" type="button" class="btn btn-primary">Go to Blog</a>
+              <a href="/forum/" type="button" class="btn btn-primary">Go to Forum</a>
 
 <!-- Valid article display -->
               <?php
@@ -54,7 +54,7 @@
                 <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] == $message['author']) { ?>
                 <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#editModal">Éditer</button>
                 <?php } ?>
-                <a href="actions/blog/report_article.php?post=<?= $message_id ; ?>" type="button" class="btn btn-outline-danger btn-sm">Signaler</a>
+                <a href="/actions/blog/report_article.php?post=<?= $message_id ; ?>" type="button" class="btn btn-outline-danger btn-sm">Signaler</a>
               </div>
 
               <small class="text-muted">
@@ -64,7 +64,7 @@
               <hr>
 
               <?php if (!empty($message['file_name'])) { ?>
-              <img src="assets/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
+              <img src="images/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
               <?php } ?>
 
               <div class="markdown"><?= $message['content'] ; ?></div>
@@ -82,7 +82,7 @@
               function markArticle() {
                 if (user != 0) {
                   const request = new XMLHttpRequest() ;
-                  request.open('POST', 'actions/blog/mark_article/') ;
+                  request.open('POST', '/actions/blog/mark_article/') ;
                   request.onreadystatechange = function() {
                     if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                       const success = parseInt(request.responseText);
@@ -109,7 +109,7 @@
 
               function getArticleMark() {
                 const request = new XMLHttpRequest() ;
-                request.open('POST', 'includes/blog/get_article_mark/') ;
+                request.open('POST', '/includes/blog/get_article_mark/') ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                     voteButton.innerHTML = '+ ' +  request.responseText ;
@@ -159,7 +159,7 @@
         </main>
         <?php include('includes/footer.php') ; ?>
 
-        <script src="scripts/markdown.js" charset="utf-8"></script>
-        <script src="scripts/blogVerifications.js" charset="utf-8"></script>
+        <script src="/scripts/markdown.js" charset="utf-8"></script>
+        <script src="/scripts/blogVerifications.js" charset="utf-8"></script>
     </body>
 </html>
