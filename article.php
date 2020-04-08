@@ -11,7 +11,6 @@
         $page_limit = 10 ;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $exists = 0 ;
-        $_SESSION['userid'] = 1 ;
     ?>
 
     <body class="d-flex vh-100 flex-column justify-content-between">
@@ -85,7 +84,7 @@
               function markArticle() {
                 if (user != 'NULL') {
                   const request = new XMLHttpRequest() ;
-                  request.open('POST', '/meetech/actions/blog/mark_article.php') ;
+                  request.open('POST', '/actions/blog/mark_article.php') ;
                   request.onreadystatechange = function() {
                     if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                       const success = parseInt(request.responseText);
@@ -108,7 +107,7 @@
 
               function getArticleMark() {
                 const request = new XMLHttpRequest() ;
-                request.open('POST', '/meetech/includes/blog/get_article_mark.php') ;
+                request.open('POST', '/includes/blog/get_article_mark.php') ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                     voteButton.innerHTML = '+ ' +  request.responseText ;
