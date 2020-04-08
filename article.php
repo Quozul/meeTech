@@ -102,6 +102,8 @@
                   };
                   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                   request.send(`message_id=${article}`);
+                } else {
+                  alert("Vous devez être connecté pour voter pour un article.") ;
                 }
               }
 

@@ -27,6 +27,7 @@
               LEFT JOIN users ON id_u = author
               LEFT JOIN language ON default_language = lang
               LEFT JOIN file ON message = id_m
+              WHERE category = ?
               ORDER BY date_published, latest_c ASC') ;
             $query->execute([$page_name]) ;
             $messages = $query->fetchAll() ;

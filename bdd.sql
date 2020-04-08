@@ -74,9 +74,10 @@ CREATE TABLE IF NOT EXISTS comment (
 );
 
 CREATE TABLE IF NOT EXISTS file(
-    file_number INTEGER PRIMARY KEY,
     added_by INTEGER NOT NULL REFERENCES user(id_user),
     message INTEGER NOT NULL REFERENCES message(id_m),
+    file_name VARCHAR(32),
+    PRIMARY KEY(message, file_name)
 
     extension VARCHAR(4)
 );
@@ -157,9 +158,9 @@ CREATE TABLE IF NOT EXISTS question(
 
 CREATE TABLE IF NOT EXISTS answer(
     poll INTEGER NOT NULL REFERENCES poll(id_p),
-    user INTEGER NOT NULL REFERENCES user(id_user), 
+    user INTEGER NOT NULL REFERENCES user(id_user),
 
-    PRIMARY KEY(poll, user) 
+    PRIMARY KEY(poll, user)
 );
 
 -- Components
