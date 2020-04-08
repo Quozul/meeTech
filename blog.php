@@ -42,7 +42,7 @@
             $query->execute([$page_name]) ;
             $elements = $query->fetch()[0] ;
 
-            $query = $pdo->prepare('SELECT id_m, author, title, content, date_published, default_language, note FROM message WHERE category = ? ORDER BY date_published DESC') ;
+            $query = $pdo->prepare('SELECT id_m, author, title, content, date_published, default_language FROM message WHERE category = ? ORDER BY date_published DESC') ;
             $query->execute([$page_name]) ;
             $messages = $query->fetchAll() ;
 
@@ -59,7 +59,7 @@
                     <article class="col-md-8">
                         <div class="card-body">
                             <div class="float-right">
-                                <span class="badge badge-pill badge-success"><?php echo $post['note'] ; ?></span>
+                                <!-- <span class="badge badge-pill badge-success"><?php echo $post['note'] ; ?></span> -->
                                 <span class="badge badge-pill badge-danger">!</span>
                             </div>
                             <h5 class="card-title"><a href="/article.php?post=<?php echo $post['id_m'] ; ?>"><?php echo $post['title'] ?></a></h5>
