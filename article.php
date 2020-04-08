@@ -74,13 +74,13 @@
               <script type="text/javascript">
               let article = <?php echo $message_id ; ?> ;
               let user = <?php  if (isset($_SESSION['userid'])) echo $_SESSION['userid'] ;
-                                else echo 'NULL' ;
+                                else echo '0' ;
                          ?> ;
               const voteButton = document.getElementById('articleMark') ;
               getArticleMark() ;
 
               function markArticle() {
-                if (user != 'NULL') {
+                if (user != 0) {
                   const request = new XMLHttpRequest() ;
                   request.open('POST', 'actions/blog/mark_article/') ;
                   request.onreadystatechange = function() {
@@ -107,7 +107,7 @@
 
               function getArticleMark() {
                 const request = new XMLHttpRequest() ;
-                request.open('POST', 'includes/blog/get_article_mark.php') ;
+                request.open('POST', 'includes/blog/get_article_mark/') ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                     voteButton.innerHTML = '+ ' +  request.responseText ;

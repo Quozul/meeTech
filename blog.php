@@ -26,13 +26,13 @@
             $query = $pdo->prepare('SELECT id_m, title, content, date_published, username, icon, file_name FROM message
               LEFT JOIN users ON id_u = author
               LEFT JOIN language ON default_language = lang
-              LEFT JOIN file ON file.message = id_m
+              LEFT JOIN file ON message = id_m
               ORDER BY date_published, latest_c ASC') ;
             $query->execute([$page_name]) ;
             $messages = $query->fetchAll() ;
 
             $offset = $page_limit * ($page - 1) ;
-            for ($i = $offset ; $i < $offset + $page_limit && $i < $elements ; $i++) {
+            for ($i = $offset ; $i < $offset + $page_limit && $i < $elements ; ++$i) {
                 $article = $messages[$i] ;
                 $query = $pdo->prepare('SELECT COUNT(user) FROM vote_message WHERE message = ?') ;
                 $query->execute([$article['id_m']]) ;

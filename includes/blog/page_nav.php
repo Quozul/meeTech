@@ -1,6 +1,6 @@
 <nav aria-label="..." class="mt-4">
     <?php
-    $sth = $pdo->prepare('SELECT COUNT(*) FROM message WHERE category = ?');
+    $sth = $pdo->prepare('SELECT COUNT(id_m) FROM message WHERE category = ?');
     $sth->execute([$page_name]);
     $content_count = $sth->fetch()[0];
     ?>
