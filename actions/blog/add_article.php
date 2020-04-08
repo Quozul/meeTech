@@ -26,18 +26,16 @@ $title = htmlspecialchars($_POST['title']) ;
 $content = htmlspecialchars($_POST['content']) ;
 $date_post = date('Y-m-d') ;
 $language = $_POST['language'] ;
-$note = 0 ;
 $category = $_POST['category'] ;
 $signaled = 0 ;
 
-$q = $pdo->prepare('INSERT INTO message (author, title, content, date_published, default_language, note, category, signaled) VALUES (:author, :title, :content, :date_published, :language, :note, :category, :signaled)') ;
+$q = $pdo->prepare('INSERT INTO message (author, title, content, date_published, default_language, category, signaled) VALUES (:author, :title, :content, :date_published, :language, :category, :signaled)') ;
 $q->execute([
 	'author' => $author,
 	'title' => $title,
 	'content' => $content,
 	'date_published' => $date_post,
 	'language' => $language,
-	'note' => $note,
 	'category' => $category,
 	'signaled' => $signaled
 ]) ;
