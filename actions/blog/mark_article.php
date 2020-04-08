@@ -1,22 +1,20 @@
 <?php
 require('../../config.php') ;
-// verify if user is connected
-if (isset($_POST['userid']) && isset($_POST['message_id'])) {
-    $user = htmlspecialchars(trim($_POST['userid'])) ;
+// verify if variables are set
+if (isset($_SESSION['userid'])) {
     $message = htmlspecialchars(trim($_POST['message_id'])) ;
-
-    if (empty($user) || empty($message)) {
+    if (empty($message)) {
       echo '-2' ;
       return ;
     }
 
     $alreadyVoted = $pdo->prepare('SELECT user FROM vote_message WHERE user = :user AND message = :message') ;
     if ($alreadyVoted == false) {
-      echo '-2' ;
+      echo '-4' ;
       return ;
     }
     $alreadyVoted->execute([
-      'user' => $user,
+      'user' => $_SESSION['userid'],
       'message' => $message
     ]) ;
     $userVote = $alreadyVoted->fetch() ;
@@ -27,11 +25,11 @@ if (isset($_POST['userid']) && isset($_POST['message_id'])) {
 
     $mark = $pdo->prepare('INSERT INTO vote_message (user, message) VALUES (:user, :message)') ;
     if ($mark == false) {
-      echo '-2' ;
+      echo '-4' ;
       return ;
     }
     $success = $mark->execute([
-      'user' => $user,
+      'user' => $_SESSION['userid'],
       'message' => $message
     ]) ;
     echo (int)$success ;

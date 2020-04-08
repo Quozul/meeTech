@@ -2,8 +2,6 @@
 <html>
     <?php
         include('includes/head.php') ;
-        include('includes/author_query.php') ;
-
         include('includes/blog/display_c.php') ;
         include('includes/blog/get_related_c.php') ;
         include('includes/blog/comment_modal.php') ;
@@ -39,15 +37,20 @@
 <!-- Valid article display -->
               <?php
               } else {
-                $query = $pdo->prepare('SELECT author, title, content, date_published, date_edited, default_language, category FROM message WHERE id_m = ?') ;
+                $query = $pdo->prepare('SELECT username, author, title, content, date_published, date_edited,
+                  default_language, icon, category, file_name FROM message
+                  LEFT JOIN users ON id_u = author
+                  LEFT JOIN file ON message = id_m
+                  LEFT JOIN language ON lang = default_language
+                  WHERE id_m = ?') ;
                 $query->execute([$message_id]) ;
                 $message = $query->fetchAll()[0] ;
-                $author = author_query($message['author'], $pdo) ;
                 include('includes/blog/edit_modal.php') ;
               ?>
               <h1><?= $message['title'] ; ?></h1>
 
               <div class="float-right">
+                <span><?= $message['icon'] ; ?></span>
                 <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] == $message['author']) { ?>
                 <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#editModal">Éditer</button>
                 <?php } ?>
@@ -56,22 +59,17 @@
 
               <small class="text-muted">
                 Published on <?= $message['date_published'] ?> by
-                <?= '<a href="#">' . $author . '</a>' ; ?>
+                <a href="user/?id=<?= $message['author'] ; ?>"><?= $message['username'] ; ?></a>
               </small>
               <hr>
 
-              <?php
-              $query = $pdo->prepare('SELECT file_name FROM file WHERE message = ?') ;
-              $query->execute([$message_id]) ;
-              $image = $query->fetch() ;
-              if (!empty($image)) {
-              ?>
-              <img src="assets/<?= $image['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
+              <?php if (!empty($message['file_name'])) { ?>
+              <img src="assets/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
               <?php } ?>
 
               <div class="markdown"><?= $message['content'] ; ?></div>
 
-              <button id="articleMark" type="button" class="btn btn-success" <?php if (isset($result) && $result == true) echo 'disabled' ; ?> onclick="markArticle()"></button>
+              <button id="articleMark" type="button" class="btn btn-success" onclick="markArticle()"></button>
 
               <script type="text/javascript">
               let article = <?php echo $message_id ; ?> ;
@@ -84,7 +82,7 @@
               function markArticle() {
                 if (user != 'NULL') {
                   const request = new XMLHttpRequest() ;
-                  request.open('POST', '/actions/blog/mark_article.php') ;
+                  request.open('POST', 'actions/blog/mark_article/') ;
                   request.onreadystatechange = function() {
                     if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                       const success = parseInt(request.responseText);
@@ -93,6 +91,8 @@
                         getArticleMark() ;
                       } else if (success === -1) {
                         alert("Vous devez être connecté pour voter pour un article.") ;
+                      } else if (success === -2) {
+                        alert("Ne jouez pas avec l'Ajax !") ;
                       } else if (success === -3) {
                         alert("Vous avez déjà voté pour cet article.") ;
                       } else {
@@ -101,13 +101,13 @@
                     }
                   };
                   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                  request.send(`userid=${user}&message_id=${article}`);
+                  request.send(`message_id=${article}`);
                 }
               }
 
               function getArticleMark() {
                 const request = new XMLHttpRequest() ;
-                request.open('POST', '/includes/blog/get_article_mark.php') ;
+                request.open('POST', 'includes/blog/get_article_mark.php') ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                     voteButton.innerHTML = '+ ' +  request.responseText ;
