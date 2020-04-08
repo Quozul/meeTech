@@ -27,7 +27,7 @@ include('includes/head.php');
 
                 <hr>
 
-                <?php include('includes/countries.php') ; ?>
+                <?php include('includes/countries.php'); ?>
                 <form method="post" action="/actions/profile/update_profile.php" id="profile">
                     <div class="form-group">
                         <label for="username">Nom d'utilisateur</label>
@@ -40,21 +40,21 @@ include('includes/head.php');
                     <div class=" form-group">
                         <label for="pays">Pays</label>
                         <select class="custom-select" name="location">
-                          <?php displayCountryList($result['location']) ; ?>
+                            <?php displayCountryList($result['location']); ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="langue">Langue préférée</label>
                         <select class="form-control" name="prefered_language" id="langue">
-                          <option<?php if ($result['prefered_language'] == NULL) echo ' selected' ; ?>>Choose…</option>
-                          <?php
-                          $q = $pdo->query('SELECT lang FROM language') ;
-                          while ($language = $q->fetch()['lang']) {
-                          ?>
-                          <option<?php if ($result['prefered_language'] == $language) echo ' selected' ; ?>><?php echo $language ; ?></option>
-                          <?php
-                          }
-                          ?>
+                            <option<?php if ($result['prefered_language'] == NULL) echo ' selected'; ?>>Choose…</option>
+                                <?php
+                                $q = $pdo->query('SELECT lang FROM language');
+                                while ($language = $q->fetch()['lang']) {
+                                ?>
+                                    <option<?php if ($result['prefered_language'] == $language) echo ' selected'; ?>><?php echo $language; ?></option>
+                                    <?php
+                                }
+                                    ?>
                         </select>
                     </div>
                     <div class=" form-group">

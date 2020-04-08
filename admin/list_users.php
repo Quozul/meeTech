@@ -21,6 +21,8 @@
                         <th scope="col">email</th>
                         <th scope="col">Pays</th>
                         <th scope="col">Langue</th>
+                        <th scope="col">Bio</th>
+                        <th scope="col">Supression</th>
                     </tr>
                 </thead>
                 <?php foreach ($rec as $key => $user) { ?>
@@ -32,16 +34,48 @@
                             <td><?php echo $user['email']; ?></td>
                             <td><?php echo $user['location']; ?></td>
                             <td><?php echo $user['prefered_language']; ?></td>
+                            <td><?php echo $user['bio']; ?></td>
+                            <td>
+                                <div id="drop_account" class="modal fade" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Suppression du compte</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Êtes-vous sûrs de vouloir supprimer votre compte ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                                                <button onclick="drop_account(<?php echo $user['id_u']; ?>)" class="btn btn-danger">Supprimer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#drop_account">
+                                    Suppression du compte
+                                </button>
+                            </td>
                         </tr>
                     <?php } ?>
                     </tbody>
             </table>
-
-
         </ul>
-
-
     </main>
+    <script>
+        function drop_account(userid) {
+            request('/admin/actions/drop_account.php?user=' + userid, '').then(function(req) {
+                console.log(req.response);
+
+                document.location.reload();
+            }).catch(function(req) {
+                alert('Une erreur est survenue, contacter un administrateur avec le code d\'erreur suivant :\n' + req.status);
+            });
+        }
+    </script>
 </body>
 
 </html>
