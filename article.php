@@ -11,6 +11,7 @@
         $page_limit = 10 ;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $exists = 0 ;
+        $_SESSION['userid'] = 1 ;
     ?>
 
     <body class="d-flex vh-100 flex-column justify-content-between">
@@ -18,7 +19,7 @@
         <main role="main" class="container">
             <section class="jumbotron">
 
-<!-- No article requested -->
+<!-- The $_GET['post'] isn't set -->
             <?php
             if (!isset($_GET['post']) || is_null($_GET['post'])) {
               include('includes/nothing.php')  ;
@@ -30,7 +31,7 @@
               if ($exists == 0) {
               ?>
 
-<!-- No matching article in DB -->
+<!-- The $_GET['post'] is set but no matching article in DB -->
               <h1>Whoups, this article doesn't exist !</h1>
               <hr>
               <a href="blog/" type="button" class="btn btn-primary">Go to Blog</a>
@@ -39,7 +40,7 @@
 <!-- Valid article display -->
               <?php
               } else {
-                $query = $pdo->prepare('SELECT author, title, content, date_published, date_edited, default_language, note, category FROM message WHERE id_m = ?') ;
+                $query = $pdo->prepare('SELECT author, title, content, date_published, date_edited, default_language, category FROM message WHERE id_m = ?') ;
                 $query->execute([$message_id]) ;
                 $message = $query->fetchAll()[0] ;
                 $author = author_query($message['author'], $pdo) ;
@@ -66,11 +67,57 @@
               $image = $query->fetch() ;
               if (!empty($image)) {
               ?>
-              <img src="uploads/<?= $image['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
+              <img src="assets/<?= $image['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
               <?php } ?>
 
               <div class="markdown"><?= $message['content'] ; ?></div>
-              <button type="button" class="btn btn-success">+ <?= $message['note'] ; ?></button>
+
+              <button id="articleMark" type="button" class="btn btn-success" <?php if (isset($result) && $result == true) echo 'disabled' ; ?> onclick="markArticle()"></button>
+
+              <script type="text/javascript">
+              let article = <?php echo $message_id ; ?> ;
+              let user = <?php  if (isset($_SESSION['userid'])) echo $_SESSION['userid'] ;
+                                else echo 'NULL' ;
+                         ?> ;
+              const voteButton = document.getElementById('articleMark') ;
+              getArticleMark() ;
+
+              function markArticle() {
+                if (user != 'NULL') {
+                  const request = new XMLHttpRequest() ;
+                  request.open('POST', '/meetech/actions/blog/mark_article.php') ;
+                  request.onreadystatechange = function() {
+                    if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+                      const success = parseInt(request.responseText);
+                      if (success === 1) {
+                        voteButton.disabled = 'disabled' ;
+                        getArticleMark() ;
+                      } else if (success === -1) {
+                        alert("Vous devez être connecté pour voter pour un article.") ;
+                      } else if (success === -3) {
+                        alert("Vous avez déjà voté pour cet article.") ;
+                      } else {
+                        alert("Une erreur est survenue") ;
+                      }
+                    }
+                  };
+                  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                  request.send(`userid=${user}&message_id=${article}`);
+                }
+              }
+
+              function getArticleMark() {
+                const request = new XMLHttpRequest() ;
+                request.open('POST', '/meetech/includes/blog/get_article_mark.php') ;
+                request.onreadystatechange = function() {
+                  if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+                    voteButton.innerHTML = '+ ' +  request.responseText ;
+                  }
+                };
+                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                request.send(`message_id=${article}`);
+              }
+              </script>
             <?php
               }
             }
@@ -91,7 +138,7 @@
               <p>Would you like to <a href="#collapseResp0">comment</a> on this ?</p>
               <?php
               } else {
-                $query = $pdo->prepare('SELECT id_c, author, parent_message, content, date_published, date_edited, note FROM comment WHERE parent_message = ? AND parent_comment = ?') ;
+                $query = $pdo->prepare('SELECT id_c, author, parent_message, content, date_published, date_edited FROM comment WHERE parent_message = ? AND parent_comment = ?') ;
                 $query->execute([$message_id, 0]) ;
                 $comments = $query->fetchAll() ;
 
@@ -111,7 +158,7 @@
         </main>
         <?php include('includes/footer.php') ; ?>
 
-        <script src="/scripts/markdown.js" charset="utf-8"></script>
-        <script src="/scripts/blogVerifications.js" charset="utf-8"></script>
+        <script src="scripts/markdown.js" charset="utf-8"></script>
+        <script src="scripts/blogVerifications.js" charset="utf-8"></script>
     </body>
 </html>
