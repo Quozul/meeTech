@@ -1,4 +1,5 @@
 <?php
+include_once('../../config.php') ;
 $article = $_GET['post'] ;
 
 $sth = $pdo->prepare('SELECT id_c, author, avatar, username, content, date_published, date_edited FROM comment
