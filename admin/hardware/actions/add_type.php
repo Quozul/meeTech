@@ -1,5 +1,4 @@
 <?php
-// TODO: Update this process to support the updated form
 include($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 
 $name = $_POST['name'];
