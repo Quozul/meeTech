@@ -36,7 +36,7 @@
                             <td><?php echo $user['prefered_language']; ?></td>
                             <td><?php echo $user['bio']; ?></td>
                             <td>
-                                <div id="drop_account" class="modal fade" tabindex="-1" role="dialog">
+                                <div id="drop_account<?php echo $user['id_u']; ?>" class="modal fade" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#drop_account">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#drop_account<?php echo $user['id_u']; ?>">
                                     Suppression du compte
                                 </button>
                             </td>
