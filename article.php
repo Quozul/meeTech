@@ -19,7 +19,7 @@
             include('includes/nothing.php')  ;
           } else {
             $message_id = strip_tags($_GET['post']) ;
-            $query = $pdo->prepare('SELECT username, author, title, content, date_published, date_edited,
+            $query = $pdo->prepare('SELECT username, avatar, author, title, content, date_published, date_edited,
               default_language, icon, category, file_name FROM message
               LEFT JOIN users ON id_u = author
               LEFT JOIN file ON message = id_m
@@ -40,6 +40,9 @@
             } else {
               include('includes/blog/edit_modal.php') ;
             ?>
+            <small class="text-muted">
+              « Retour au <a href="/<?= $message['category'] ; ?>/"><?= $message['category'] ; ?></a>
+            </small>
             <h1><?= $message['title'] ; ?></h1>
 
             <div class="float-right">
@@ -50,14 +53,21 @@
               <a href="/actions/blog/report_article.php?post=<?= $message_id ; ?>" type="button" class="btn btn-outline-danger btn-sm">Signaler</a>
             </div>
 
+            <img src="/uploads/<?= $message['avatar'] ; ?>" alt="<?= $message['username'] ; ?>'s profile picture" class="mt-avatar float-left" style="max-width: 32px, max-height: 32px">
             <small class="text-muted">
-              Published on <?= $message['date_published'] ?> by
-              <a href="user/?id=<?= $message['author'] ; ?>"><?= $message['username'] ; ?></a>
+              <?php
+              $dp = new DateTime($message['date_published']) ;
+              $de = new DateTime($message['date_edited']) ;
+              ?>
+              Publié le <?= $dp->format('d m Y à H:i') ; ?> par
+              <a href="/user/?id=<?= $message['author'] ; ?>"><?= $message['username'] ; ?></a>
+              <?php if ($message['date_edited'] != NULL) echo ", dernière édition le " . $de->format('d m Y à H:i') ; ?>
+              .
             </small>
             <hr>
 
             <?php if (!empty($message['file_name'])) { ?>
-            <img src="images/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
+            <img src="/images/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
             <?php } ?>
 
             <div class="markdown"><?= $message['content'] ; ?></div>
@@ -65,52 +75,52 @@
             <button id="articleMark" type="button" class="btn btn-success" onclick="markArticle()"></button>
 
             <script type="text/javascript">
-            let article = <?php echo $message_id ; ?> ;
-            let user = <?php  if (isset($_SESSION['userid'])) echo $_SESSION['userid'] ;
-                              else echo '0' ;
-                       ?> ;
-            const voteButton = document.getElementById('articleMark') ;
-            getArticleMark() ;
+              let article = <?php echo $message_id ; ?> ;
+              let user = <?php  if (isset($_SESSION['userid'])) echo $_SESSION['userid'] ;
+                                else echo '0' ;
+                         ?> ;
+              const voteButton = document.getElementById('articleMark') ;
+              getArticleMark() ;
 
-            function markArticle() {
-              if (user != 0) {
+              function markArticle() {
+                if (user != 0) {
+                  const request = new XMLHttpRequest() ;
+                  request.open('POST', '/actions/blog/mark_article/') ;
+                  request.onreadystatechange = function() {
+                    if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+                      const success = parseInt(request.responseText);
+                      if (success === 1) {
+                        voteButton.disabled = 'disabled' ;
+                        getArticleMark() ;
+                      } else if (success === -1) {
+                        alert("Vous devez être connecté pour voter pour un article.") ;
+                      } else if (success === -2) {
+                        alert("Ne jouez pas avec l'Ajax !") ;
+                      } else if (success === -3) {
+                        alert("Vous avez déjà voté pour cet article.") ;
+                      } else {
+                        alert("Une erreur est survenue") ;
+                      }
+                    }
+                  };
+                  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                  request.send(`message_id=${article}`);
+                } else {
+                  alert("Vous devez être connecté pour voter pour un article.") ;
+                }
+              }
+
+              function getArticleMark() {
                 const request = new XMLHttpRequest() ;
-                request.open('POST', '../actions/blog/mark_article/') ;
+                request.open('POST', '/includes/blog/get_article_mark/') ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
-                    const success = parseInt(request.responseText);
-                    if (success === 1) {
-                      voteButton.disabled = 'disabled' ;
-                      getArticleMark() ;
-                    } else if (success === -1) {
-                      alert("Vous devez être connecté pour voter pour un article.") ;
-                    } else if (success === -2) {
-                      alert("Ne jouez pas avec l'Ajax !") ;
-                    } else if (success === -3) {
-                      alert("Vous avez déjà voté pour cet article.") ;
-                    } else {
-                      alert("Une erreur est survenue") ;
-                    }
+                    voteButton.innerHTML = '+ ' +  request.responseText ;
                   }
                 };
                 request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 request.send(`message_id=${article}`);
-              } else {
-                alert("Vous devez être connecté pour voter pour un article.") ;
               }
-            }
-
-            function getArticleMark() {
-              const request = new XMLHttpRequest() ;
-              request.open('POST', '../includes/blog/get_article_mark/') ;
-              request.onreadystatechange = function() {
-                if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
-                  voteButton.innerHTML = '+ ' +  request.responseText ;
-                }
-              };
-              request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-              request.send(`message_id=${article}`);
-            }
             </script>
           </section>
 
@@ -120,7 +130,7 @@
                   <form>
                       <div class="form-group">
                           <label for="comment" id="comment-label">Commentaire</label>
-                          <textarea class="form-control" id="comment" name="comment" placeholder="Écrivez un commentaire..."></textarea>
+                          <textarea class="form-control" id="comment" name="comment" placeholder="Écrivez un commentaire…"></textarea>
                       </div>
                       <button type="button" onclick="submit_comment(<?php echo $article; ?>);" class="btn btn-primary">Poster</button>
                   </form>
@@ -128,86 +138,60 @@
                   <div class="alert alert-info">Vous devez être connecté pour poster un commentaire.</div>
               <?php } ?>
               <hr>
-              <div id="comments"><?php include('includes/blog/comments.php') ; ?></div>
+              <div id="comments"></div>
 
               <script>
-                  let answers = null;
+                const commentsDiv = document.getElementById('comments') ;
+                getComments() ;
 
-                  function update_comments() {
-                      const url_params = new URLSearchParams(window.location.search);
-                      const article = url_params.get('post');
-                      getHtmlContent('../includes/blog/comments.php', `post=${article}`).then((res) => {
-                          document.getElementById('comments').innerHTML = res;
-                      });
+                function submitAnswer(id_c) {
+                  if (user != 0) {
+                    const content = document.getElementById('commentContent' . id_c).innerHTML ;
+                    const parent = id_c ;
+                    console.log(`message_id=${article}&content=${content}&parent=${parent}`) ;
+                    // const request = new XMLHttpRequest() ;
+                    // request.open('POST', '/actions/blog/add_comment/') ;
+                    // request.onreadystatechange = function() {
+                    //   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+                    //     const success = parseInt(request.responseText);
+                    //     if (success === 1) {
+                    //       getComments() ;
+                    //     } else {
+                    //       alert("Une erreur est survenue") ;
+                    //     }
+                    //   }
+                    // };
+                    // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    // request.send(`message_id=${article}&content=${content}&parent=${parent}`);
+                  } else {
+                    alert("Vous devez être connecté pour voter pour un article.") ;
                   }
+                }
 
-                  function submit_comment() {
-                      let query = `id=${article}&comment=${document.getElementById('comment').value}`;
-
-                      const answers = comment_get_answer();
-                      if (answers != null)
-                          query += `&answers=${answers}`;
-
-                      request('/actions/hardware/submit_comment.php', query).then((e) => {
-                          console.log(e.resonse);
-
-                          update_comments();
-
-                          document.getElementById('comment').value = '';
-                      });
-                  }
-
-                  function comment_get_answer() {
-                      return answers;
-                  }
-
-                  function aswer_comment(comment_id) {
-                      const comments = document.getElementsByClassName('comment');
-                      const comment = document.getElementById(`comment-${comment_id}`);
-                      const comment_label = document.getElementById('comment-label');
-
-                      if (!comment.classList.contains('bg-light')) {
-
-                          for (const key in comments)
-                              if (comments.hasOwnProperty(key)) {
-                                  const element = comments[key];
-                                  if (element.classList.contains('bg-light'))
-                                      element.classList.remove('bg-light');
-                              }
-
-                          comment.classList.add('bg-light');
-                          answers = comment_id;
-
-                          comment_label.innerHTML = `Répondre à ${comment.getElementsByClassName('comment-author')[0].innerHTML}`;
+                function getComments() {
+                  const request = new XMLHttpRequest() ;
+                  request.open('POST', '/includes/blog/comments/') ;
+                  request.onreadystatechange = function() {
+                    if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+                      if (request.responseText == -1) {
+                        alert('Une erreur est survenue') ;
                       } else {
-                          comment.classList.remove('bg-light');
-                          comment_label.innerHTML = `Commentaire`;
-                          answers = null;
+                        commentsDiv.innerHTML = request.responseText ;
                       }
-                  }
-
-                  function remove_comment(comment_id) {
-                      let query = `id=${comment_id}`;
-
-                      request('/actions/hardware/delete_comment.php', query).then((e) => {
-                          console.log(e.resonse);
-                          update_comments();
-                      });
-                  }
-
-                  function page_update_component() {
-                      document.getElementById('close-edit-component-modal').click();
-                      window.location.reload();
-                  }
-
-                  update_comments();
+                    }
+                  };
+                  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                  request.send(`post=${article}`);
+                }
               </script>
-          <?php } } ?>
+          <?php
+            }
+          } ?>
           </section>
       </main>
       <?php include('includes/footer.php') ; ?>
 
-      <script src="../scripts/markdown.js" charset="utf-8"></script>
-      <script src="../scripts/blogVerifications.js" charset="utf-8"></script>
+      <script src="/scripts/markdown.js" charset="utf-8"></script>
+      <script src="/scripts/blogVerifications.js" charset="utf-8"></script>
   </body>
 </html>

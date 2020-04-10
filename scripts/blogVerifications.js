@@ -68,3 +68,19 @@ function displayError (text) {
     error.innerHTML = text ;
   }
 }
+
+function checkComment(id_c) {
+  const contentInput = document.getElementById('collapseResp' . id_c) ;
+  const content = contentInput.value ;
+
+  if (!checkContent(content)) {
+    errorMark(contentInput) ;
+    const error = 'Le texte doit faire au moins 5 caractères.'
+    const small = document.createElement('small') ;
+    small.className = 'alert alert-danger mb-3' ;
+    small.id = 'error' ;
+    small.innerHTML = text ;
+    contentInput.appendChild(small) ;
+  }
+  return checkContent(content) ;
+}

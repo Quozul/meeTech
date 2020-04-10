@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS message (
 
     title VARCHAR(255),
     content TEXT,
-    date_published DATE,
-    date_edited DATE,
+    date_published DATETIME,
+    date_edited DATETIME,
     note INTEGER,
     signaled BOOLEAN
 );
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS translation (
 
     title VARCHAR(255),
     content TEXT,
-    date_translated DATE
+    date_translated DATETIME
 );
 
 CREATE TABLE IF NOT EXISTS comment (
@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS comment (
     parent_comment INTEGER REFERENCES comment (id_c),
 
     content TEXT,
-    date_published DATE,
-    date_edited DATE,
+    date_published DATETIME,
+    date_edited DATETIME,
     note INTEGER
 );
 
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS private_message(
     author INTEGER NOT NULL REFERENCES user(id_user),
     channel INTEGER NOT NULL REFERENCES channel(id_m),
 
-    date_published DATE
+    date_published DATETIME
 );
 
 CREATE TABLE IF NOT EXISTS recipient(
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS event(
     id_e INTEGER PRIMARY KEY,
     name VARCHAR(25),
     description TEXT,
-    date DATE
+    date DATETIME
 );
 
 CREATE TABLE IF NOT EXISTS participant(
