@@ -89,10 +89,10 @@ class Statistics {
             canvas.width = window.innerWidth * hscale;
             canvas.height = window.innerHeight * vscale;
 
-            const pad_left = 24;
-            const pad_right = 4;
-            const pad_top = 4;
-            const pad_bottom = 24;
+            const pad_left = 50;
+            const pad_right = 5;
+            const pad_top = 10;
+            const pad_bottom = 25;
 
             let innerWidth = canvas.width - pad_left - pad_right;
             let innerHeight = canvas.height - pad_top - pad_bottom;

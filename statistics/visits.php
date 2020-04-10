@@ -33,7 +33,7 @@
                     fill_color: 'black'
                 })
                 stats.setChartType('bars');
-                stats.draw(document.getElementById('visits'), 1);
+                stats.draw(document.getElementById('visits'), .5);
             </script>
         </div>
     </main>
