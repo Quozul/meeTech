@@ -21,7 +21,7 @@ include('includes/head.php');
                         <label for="avatar">Avatar</label>
                         <input type="file" class="form-control-file" name="avatar" id="avatar">
                     </div>
-                    <div class="mt-avatar col-2" style="width: 64px; height: 64px; background-image: url('/uploads/<?php echo $result['avatar']; ?>');"></div>
+                    <img src="/uploads/<?php echo $result['avatar']; ?>" alt="<?= $result['username'] ; ?>'s avatar'" class="mt-avatar col-2" style="width: 64px; height: 64px;">
                     <button type="submit" class="btn btn-primary mt-2">Envoyer l'avatar</button>
                 </form>
 
