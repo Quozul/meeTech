@@ -41,7 +41,7 @@
               include('includes/blog/edit_modal.php') ;
             ?>
             <small class="text-muted">
-              « Retour au <a href="/<?= $message['category'] ; ?>/"><?= $message['category'] ; ?></a>
+              <a href="/<?= $message['category'] ; ?>/">« Retour au <?= $message['category'] ; ?></a>
             </small>
             <h1><?= $message['title'] ; ?></h1>
 
@@ -53,7 +53,7 @@
               <a href="/actions/blog/report_article.php?post=<?= $message_id ; ?>" type="button" class="btn btn-outline-danger btn-sm">Signaler</a>
             </div>
 
-            <img src="/uploads/<?= $message['avatar'] ; ?>" alt="<?= $message['username'] ; ?>'s profile picture" class="mt-avatar float-left" style="max-width: 32px, max-height: 32px">
+            <img src="/uploads/<?= $message['avatar'] ; ?>" alt="<?= $message['username'] ; ?>'s profile picture" class="mt-avatar float-left" style="max-width: 32px; max-height: 32px;">
             <small class="text-muted">
               <?php
               $dp = new DateTime($message['date_published']) ;
