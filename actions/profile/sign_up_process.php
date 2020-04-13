@@ -69,10 +69,12 @@ $message = "Cliquez sur le lien pour valider votre compte : https://www.meetech.
 
 mail($email, $subject, $message, $headers);
 
+$default_image = 'def_avatar.png';
+
 // Requete preparée
 try {
-	$sth = $pdo->prepare('INSERT INTO users (username, email, password, token) VALUES (?, ?, ?, ?)');
-	$sth->execute([$pseudo, $email, $password, $token]);
+	$sth = $pdo->prepare('INSERT INTO users (username, email, password, token, avatar) VALUES (?, ?, ?, ?, ?)');
+	$sth->execute([$pseudo, $email, $password, $token, $default_image]);
 } catch (Exception $e) {
 	echo $e;
 }

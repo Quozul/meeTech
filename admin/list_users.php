@@ -5,7 +5,7 @@
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'); ?>
     <main>
-        <?php $sth = $pdo->prepare('SELECT id_u,username, email, avatar, prefered_language, location, bio FROM users');
+        <?php $sth = $pdo->prepare('SELECT id_u, username, email, avatar, prefered_language, location, bio FROM users WHERE username != "Utilisateur supprimé"');
         $sth->execute([]);
         $rec = $sth->fetchAll(); ?>
 
