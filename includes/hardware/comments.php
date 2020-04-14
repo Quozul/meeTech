@@ -41,7 +41,7 @@ function print_comment($pdo, $comment, $padding = 0)
 
             <?php if ($comment['author'] != 0) { ?>
                 <small class="float-right btn btn-primary btn-sm mr-2" onclick="aswer_comment(<?php echo $comment['id_c']; ?>);">Répondre</small>
-                <?php if ($comment['author'] != $_SESSION['userid']) { ?>
+                <?php if (isset($_SESSION['userid']) && $comment['author'] != $_SESSION['userid']) { ?>
                     <small class="float-right btn btn-danger btn-sm mr-2">Signaler</small>
                 <?php } else { ?>
                     <small class="float-right btn btn-danger btn-sm mr-2" onclick="remove_comment(<?php echo $comment['id_c']; ?>);">Supprimer</small>
