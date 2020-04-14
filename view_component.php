@@ -129,6 +129,7 @@
 
                 <script>
                     let answers = null;
+                    const comp_id = <?php echo $comp_id; ?>;
 
                     function update_comments() {
                         const url_params = new URLSearchParams(window.location.search);
