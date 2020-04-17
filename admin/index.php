@@ -16,8 +16,11 @@
                 <li><a href="/admin/list_users/">Utilisateurs</a></li>
                 <li><a href="/admin/languages/">Langages</a></li>
                 <li><a href="/admin/categories/">Catégories</a></li>
+
+                <h3>Composants</h3>
                 <li><a href="/admin/hardware/components/">Composants</a></li>
                 <li><a href="/admin/hardware/component_types/">Types de composants</a></li>
+                <li><a href="/admin/hardware/comments/">Commentaires des composants</a></li>
             </ul>
         </div>
     </main>
