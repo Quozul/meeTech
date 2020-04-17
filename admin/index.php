@@ -17,15 +17,18 @@
                 <li><a href="/admin/languages/">Langages</a></li>
                 <li><a href="/admin/categories/">Catégories</a></li>
 
+                <hr>
+
                 <h3>Composants</h3>
                 <li><a href="/admin/hardware/components/">Composants</a></li>
                 <li><a href="/admin/hardware/component_types/">Types de composants</a></li>
                 <li><a href="/admin/hardware/comments/">Commentaires des composants</a></li>
+
+                <hr>
+
+                <a href="/admin/actions/xml_dump/" download="meetech.xml">Télécharger la base de données</a>
             </ul>
         </div>
-    </main>
-
-    <?php include('../includes/footer.php'); ?>
-</body>
+    </main> <?php include('../includes/footer.php'); ?> </body>
 
 </html>
