@@ -23,7 +23,7 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
           <div>
             <?php if (isset($_SESSION['userid'])) { ?>
               <div class="float-right">
-                <?php if ($comment['author'] == $_SESSION['userid']) { ?>
+                <?php if ($comment['author'] == $_SESSION['userid'] && $comment['content'] != '*Commentaire supprimé*') { ?>
                   <button class="badge badge-danger btn-sm mr-2" onclick="dropComment(<?= $comment['id_c'] ; ?>)">Supprimer</button>
                   <button class="badge badge-secondary btn-sm mr-2" onclick="editComment(<?= $comment['id_c'] ; ?>)">Modifier</button>
                 <?php } ?>
