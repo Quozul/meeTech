@@ -88,7 +88,8 @@ CREATE TABLE IF NOT EXISTS badge(
     name VARCHAR(16) PRIMARY KEY,
     description VARCHAR(255),
     global_permissions INTEGER,
-    obtention INT
+    obtention INT,
+    img_badge VARCHAR(32)
 );
 
 CREATE TABLE IF NOT EXISTS badged(

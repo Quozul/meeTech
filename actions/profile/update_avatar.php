@@ -6,7 +6,8 @@ $accept = [
     'image/jpeg',
     'image/jpg',
     'image/gif',
-    'image/png'
+    'image/png',
+    'image/jfif'
 ];
 
 // verify the file type
