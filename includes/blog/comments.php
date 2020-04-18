@@ -20,7 +20,6 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
   ?>
 
       <div class="border-left border-dark p-1 mb-2 comment" style="margin-left: <?= $padding ; ?>px" id="comment-<?= $comment['id_c'] ; ?>">
-          <div class="mt-avatar col-2 float-left mr-2" style="width: 48px ; height: 48px ; background-image: url('/uploads/<?= $comment['avatar'] ; ?>') ;"></div>
           <div>
             <?php if (isset($_SESSION['userid'])) { ?>
               <div class="float-right">

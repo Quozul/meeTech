@@ -78,13 +78,12 @@
               let user = <?php  if (isset($_SESSION['userid'])) echo $_SESSION['userid'] ;
                                 else echo '0' ;
                          ?> ;
-              const voteButton = document.getElementById('articleMark') ;
               getArticleMark() ;
 
               function markArticle() {
                 if (user != 0) {
                   const request = new XMLHttpRequest() ;
-                  request.open('PUT', '../actions/blog/mark_article/') ;
+                  request.open('PUT', '/actions/blog/mark_article/') ;
                   request.onreadystatechange = function() {
                     if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                       const success = parseInt(request.responseText);
@@ -110,8 +109,9 @@
               }
 
               function getArticleMark() {
+                const voteButton = document.getElementById('articleMark') ;
                 const request = new XMLHttpRequest() ;
-                request.open('POST', '../includes/blog/get_article_mark/') ;
+                request.open('POST', '/includes/blog/get_article_mark/') ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                     voteButton.innerHTML = '+ ' +  request.responseText ;
@@ -146,7 +146,7 @@
               function getComments() {
                 const commentsDiv = document.getElementById('comments') ;
                 let request = new XMLHttpRequest() ;
-                request.open('POST', '../includes/blog/comments/') ;
+                request.open('POST', '/includes/blog/comments/') ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
                     if (request.responseText == -1) {
@@ -166,7 +166,7 @@
                 const parent = id ;
 
                 let request = new XMLHttpRequest() ;
-                request.open('POST', '../actions/blog/add_comment/') ;
+                request.open('POST', '/actions/blog/add_comment/') ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {
                     const success = parseInt(request.responseText);
@@ -187,7 +187,7 @@
       <?php include('includes/footer.php') ; ?>
 
 
-      <script src="../scripts/markdown.js" charset="utf-8"></script>
-      <script src="../scripts/blogVerifications.js" charset="utf-8"></script>
+      <script src="/scripts/markdown.js" charset="utf-8"></script>
+      <script src="/scripts/blogVerifications.js" charset="utf-8"></script>
   </body>
 </html>

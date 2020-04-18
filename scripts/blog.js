@@ -87,7 +87,7 @@ function checkComment(id_c) {
 
 function dropComment (id) {
 	let request = new XMLHttpRequest() ;
-	request.open('DELETE', '../actions/blog/drop_comment/?comm=' + id) ;
+	request.open('DELETE', '/actions/blog/drop_comment/?comm=' + id) ;
 	request.onreadystatechange = function() {
 		if (request.readyState === 4) {
       const response = parseInt(request.responseText) ;
@@ -108,7 +108,7 @@ function editComment(id) {
 function submitModif(id) {
   const content = document.getElementById('editContent' + id).value ;
   const request = new XMLHttpRequest() ;
-  request.open('POST', '../actions/blog/edit_comment/') ;
+  request.open('POST', '/actions/blog/edit_comment/') ;
   request.onreadystatechange = function() {
     if (request.readyState === 4) {
       const success = parseInt(request.responseText);
