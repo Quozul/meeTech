@@ -87,13 +87,42 @@ function checkComment(id_c) {
 
 function dropComment (id) {
 	let request = new XMLHttpRequest() ;
-	request.open('DELETE', '../actions/blog/drop_comment.php?comm=' + id) ;
+	request.open('DELETE', '../actions/blog/drop_comment/?comm=' + id) ;
 	request.onreadystatechange = function() {
 		if (request.readyState === 4) {
       const response = parseInt(request.responseText) ;
       if (response === 1) getComments() ;
-      else if (response === -1) alert("Une erreur est survenue") ;
+      else if (response === 0) alert("Ce commentaire n'existe pas.") ;
+      else alert("Une erreur est survenue") ;
 		}
 	} ;
 	request.send() ;
+}
+
+function editComment(id) {
+  const editionForm = document.getElementById('collapseEdit' + id).innerHTML ;
+  const commentDiv = document.getElementById('comment-' + id) ;
+  commentDiv.innerHTML = editionForm ;
+}
+
+function submitModif(id) {
+  const content = document.getElementById('editContent' + id).value ;
+  const request = new XMLHttpRequest() ;
+  request.open('POST', '../actions/blog/edit_comment/') ;
+  request.onreadystatechange = function() {
+    if (request.readyState === 4) {
+      const success = parseInt(request.responseText);
+      if (success === 1) {
+        getComments() ;
+      } else if (success == 0) {
+        alert("Ce commentaire n'existe pas.") ;
+      } else if (success == -2) {
+        alert("Vous devez être connecté pour éditer votre commentaire !") ;
+      } else {
+        alert("Une erreur est survenue") ;
+      }
+    }
+  } ;
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  request.send(`comm=${id}&commentContent=${content}`);
 }
