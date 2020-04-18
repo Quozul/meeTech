@@ -139,51 +139,6 @@
               <?php } ?>
               <hr>
               <div id="comments"></div>
-
-              <script>
-                const commentsDiv = document.getElementById('comments') ;
-                getComments() ;
-
-                function submitAnswer(id_c) {
-                  if (user != 0) {
-                    const content = document.getElementById('commentContent' . id_c).innerHTML ;
-                    const parent = id_c ;
-                    console.log(`message_id=${article}&content=${content}&parent=${parent}`) ;
-                    // const request = new XMLHttpRequest() ;
-                    // request.open('POST', '/actions/blog/add_comment/') ;
-                    // request.onreadystatechange = function() {
-                    //   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
-                    //     const success = parseInt(request.responseText);
-                    //     if (success === 1) {
-                    //       getComments() ;
-                    //     } else {
-                    //       alert("Une erreur est survenue") ;
-                    //     }
-                    //   }
-                    // };
-                    // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    // request.send(`message_id=${article}&content=${content}&parent=${parent}`);
-                  } else {
-                    alert("Vous devez être connecté pour voter pour un article.") ;
-                  }
-                }
-
-                function getComments() {
-                  const request = new XMLHttpRequest() ;
-                  request.open('POST', '/includes/blog/comments/') ;
-                  request.onreadystatechange = function() {
-                    if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
-                      if (request.responseText == -1) {
-                        alert('Une erreur est survenue') ;
-                      } else {
-                        commentsDiv.innerHTML = request.responseText ;
-                      }
-                    }
-                  };
-                  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                  request.send(`post=${article}`);
-                }
-              </script>
           <?php
             }
           } ?>
@@ -192,6 +147,33 @@
       <?php include('includes/footer.php') ; ?>
 
       <script src="/scripts/markdown.js" charset="utf-8"></script>
-      <script src="/scripts/blogVerifications.js" charset="utf-8"></script>
+      <script src="/scripts/blog.js" charset="utf-8"></script>
+      <script>
+        getComments() ;
+
+        function submitAnswer(comment) {
+          if (user != 0) {
+            const content = document.getElementById('collapseContent' + comment).innerHTML ;
+            const parent = id_c ;
+            console.log(`message_id=${article}&content=${content}&parent=${parent}`) ;
+            // const request = new XMLHttpRequest() ;
+            // request.open('POST', '../actions/blog/add_comment/') ;
+            // request.onreadystatechange = function() {
+            //   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+            //     const success = parseInt(request.responseText);
+            //     if (success === 1) {
+            //       getComments() ;
+            //     } else {
+            //       alert("Une erreur est survenue") ;
+            //     }
+            //   }
+            // };
+            // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // request.send(`message_id=${article}&content=${content}&parent=${parent}`);
+          } else {
+            alert("Vous devez être connecté pour voter pour un article.") ;
+          }
+        }
+      </script>
   </body>
 </html>

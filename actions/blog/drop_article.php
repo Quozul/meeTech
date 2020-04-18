@@ -10,6 +10,6 @@ $category = $category['category'] ;
 $delete = $pdo->prepare('DELETE FROM message WHERE id_m = ?') ;
 $delete->execute([$article]) ;
 
-header('location : /' . $category . '/?success=drop') ;
+header('location: /' . $category . '/?success=drop') ;
 exit() ;
 ?>
