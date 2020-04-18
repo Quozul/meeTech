@@ -85,7 +85,7 @@
                   const request = new XMLHttpRequest() ;
                   request.open('PUT', '/actions/blog/mark_article/') ;
                   request.onreadystatechange = function() {
-                    if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+                    if (request.readyState === 4) {
                       const success = parseInt(request.responseText);
                       if (success === 1) {
                         voteButton.disabled = 'disabled' ;
@@ -113,7 +113,7 @@
                 const request = new XMLHttpRequest() ;
                 request.open('POST', '/includes/blog/get_article_mark/') ;
                 request.onreadystatechange = function() {
-                  if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+                  if (request.readyState === 4) {
                     voteButton.innerHTML = '+ ' +  request.responseText ;
                   }
                 };
@@ -148,7 +148,7 @@
                 let request = new XMLHttpRequest() ;
                 request.open('POST', '/includes/blog/comments/') ;
                 request.onreadystatechange = function() {
-                  if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+                  if (request.readyState === 4) {
                     if (request.responseText == -1) {
                       alert('Une erreur est survenue') ;
                     } else {
@@ -188,6 +188,6 @@
 
 
       <script src="/scripts/markdown.js" charset="utf-8"></script>
-      <script src="/scripts/blogVerifications.js" charset="utf-8"></script>
+      <script src="/scripts/blog.js" charset="utf-8"></script>
   </body>
 </html>

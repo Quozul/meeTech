@@ -99,13 +99,13 @@ function dropComment (id) {
 	request.send() ;
 }
 
-function editComment(id) {
+function editComment (id) {
   const editionForm = document.getElementById('collapseEdit' + id).innerHTML ;
   const commentDiv = document.getElementById('comment-' + id) ;
   commentDiv.innerHTML = editionForm ;
 }
 
-function submitModif(id) {
+function submitModif (id) {
   const content = document.getElementById('editContent' + id).value ;
   const request = new XMLHttpRequest() ;
   request.open('POST', '/actions/blog/edit_comment/') ;
