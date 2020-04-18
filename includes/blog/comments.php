@@ -43,7 +43,7 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
               ?>
           </small>
 
-          <p class="mb-0"><?= $comment['content'] ; ?></p>
+          <p class="mb-0 markdown"><?= $comment['content'] ; ?></p>
 
           <?php if (isset($_SESSION['userid'])) { ?>
           <small class="badge badge-primary ml-5" data-toggle="collapse" href="#collapseResp<?php echo $comment['id_c'] ; ?>" aria-expanded="false" aria-controls="collapseResp<?php echo $comment['id_c'] ; ?>">Répondre</small>
