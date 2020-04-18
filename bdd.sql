@@ -41,13 +41,17 @@ CREATE TABLE IF NOT EXISTS message (
     author INTEGER NOT NULL REFERENCES users (id_user),
     default_language VARCHAR(32) NOT NULL REFERENCES language (lang),
     category VARCHAR(32) NOT NULL REFERENCES category (name),
-
     title VARCHAR(255),
     content TEXT,
     date_published DATETIME,
     date_edited DATETIME,
-    note INTEGER,
-    signaled BOOLEAN
+    signaled BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS vote_message (
+    message INTEGER REFERENCES message (id_m),
+    user INTEGER REFERENCES users (id_u),
+    PRIMARY KEY (message, user)
 );
 
 CREATE TABLE IF NOT EXISTS translation (
@@ -66,12 +70,18 @@ CREATE TABLE IF NOT EXISTS comment (
     author INTEGER NOT NULL REFERENCES users (id_user),
     parent_message INTEGER NOT NULL REFERENCES messages (id_m),
     parent_comment INTEGER REFERENCES comment (id_c),
-
     content TEXT,
     date_published DATETIME,
-    date_edited DATETIME,
-    note INTEGER
+    date_edited DATETIME
+    signaled BOOLEAN DEFAULT FALSE
 );
+
+CREATE TABLE IF NOT EXISTS vote_comment (
+    comment INTEGER REFERENCES comment (id_c),
+    user INTEGER REFERENCES users (id_u),
+    PRIMARY KEY (comment, user)
+);
+
 
 CREATE TABLE IF NOT EXISTS file(
     added_by INTEGER NOT NULL REFERENCES user(id_user),
@@ -222,7 +232,6 @@ CREATE TABLE IF NOT EXISTS component_comment(
     author INTEGER NOT NULL REFERENCES users (id_user),
     component INTEGER NOT NULL REFERENCES component (id_c),
     parent_comment INTEGER REFERENCES comment (id_c),
-
     content TEXT,
     date_published DATETIME,
     date_edited DATETIME,
