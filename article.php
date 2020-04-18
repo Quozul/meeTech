@@ -126,54 +126,65 @@
 
 <!-- Comments display -->
           <section class="jumbotron">
-              <?php if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) { ?>
-                  <form>
-                      <div class="form-group">
-                          <label for="comment" id="comment-label">Commentaire</label>
-                          <textarea class="form-control" id="comment" name="comment" placeholder="Écrivez un commentaire…"></textarea>
-                      </div>
-                      <button type="button" onclick="submit_comment(<?php echo $article; ?>);" class="btn btn-primary">Poster</button>
-                  </form>
-              <?php } else { ?>
-                  <div class="alert alert-info">Vous devez être connecté pour poster un commentaire.</div>
-              <?php } ?>
-              <hr>
-              <div id="comments"></div>
-          <?php
-            }
-          } ?>
-          </section>
-      </main>
+                  <?php if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) { ?>
+                    <div class="form-group">
+                        <label for="comment" id="comment-label">Commentaire</label>
+                        <textarea class="form-control" id="collapseContent0" name="comment" placeholder="Écrivez un commentaire…"></textarea>
+                    </div>
+                    <button type="button" onclick="submitComment(0)" class="btn btn-primary">Poster</button>
+                  <?php } else { ?>
+                      <div class="alert alert-info">Vous devez être connecté pour poster un commentaire.</div>
+                  <?php } ?>
+                  <hr>
+                  <div id="comments"></div>
+              <?php
+                }
+              } ?>
+
+                <script type="text/javascript" charset="utf-8">
+                  getComments() ;
+
+                  function getComments() {
+                    const commentsDiv = document.getElementById('comments') ;
+                    let request = new XMLHttpRequest() ;
+                    request.open('POST', '../includes/blog/comments/') ;
+                    request.onreadystatechange = function() {
+                      if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
+                        if (request.responseText == -1) {
+                          alert('Une erreur est survenue') ;
+                        } else {
+                          commentsDiv.innerHTML = request.responseText ;
+                        }
+                      }
+                    };
+                    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    request.send(`post=${article}`);
+                  }
+
+                  function submitComment(id) {
+                    const content = document.getElementById('collapseContent' + id).value ;
+                    const parent = id ;
+
+                    let request = new XMLHttpRequest() ;
+                    request.open('POST', '../actions/blog/add_comment/') ;
+                    request.onreadystatechange = function() {
+                      if (request.readyState === 4) {
+                        const success = parseInt(request.responseText);
+                        if (success === 1) getComments() ;
+                        else if (success === -2) alert("Vous devez être connecté pour publier un commentaire !") ;
+                        else if (success === 0) alert("Erreur 0 !") ;
+                        else alert("Une erreur est survenue") ;
+                      }
+                    };
+                    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    request.send(`parentMessage=${article}&commentContent=${content}&parentComment=${id}`);
+                  }
+                </script>
+              </section>
+          </main>
       <?php include('includes/footer.php') ; ?>
 
       <script src="/scripts/markdown.js" charset="utf-8"></script>
       <script src="/scripts/blog.js" charset="utf-8"></script>
-      <script>
-        getComments() ;
-
-        function submitAnswer(comment) {
-          if (user != 0) {
-            const content = document.getElementById('collapseContent' + comment).innerHTML ;
-            const parent = id_c ;
-            console.log(`message_id=${article}&content=${content}&parent=${parent}`) ;
-            // const request = new XMLHttpRequest() ;
-            // request.open('POST', '../actions/blog/add_comment/') ;
-            // request.onreadystatechange = function() {
-            //   if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
-            //     const success = parseInt(request.responseText);
-            //     if (success === 1) {
-            //       getComments() ;
-            //     } else {
-            //       alert("Une erreur est survenue") ;
-            //     }
-            //   }
-            // };
-            // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            // request.send(`message_id=${article}&content=${content}&parent=${parent}`);
-          } else {
-            alert("Vous devez être connecté pour voter pour un article.") ;
-          }
-        }
-      </script>
   </body>
 </html>

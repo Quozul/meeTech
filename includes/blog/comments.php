@@ -20,50 +20,44 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
   ?>
 
       <div class="border-left border-dark p-1 mb-2 comment" style="margin-left: <?= $padding ; ?>px" id="comment-<?= $comment['id_c'] ; ?>">
-          <div class="mt-avatar col-2 float-left mr-2" style="width: 48px ; height: 48px ; background-image: url('/uploads/<?= $author['avatar'] ; ?>') ;"></div>
+          <div class="mt-avatar col-2 float-left mr-2" style="width: 48px ; height: 48px ; background-image: url('/uploads/<?= $comment['avatar'] ; ?>') ;"></div>
           <div>
             <?php if (isset($_SESSION['userid'])) { ?>
               <div class="float-right">
                 <?php if ($comment['author'] == $_SESSION['userid']) { ?>
-                  <!-- <small class="badge badge-danger btn-sm mr-2" onclick="remove_comment(<?= $comment['id_c'] ; ?>)">Supprimer</small> -->
-                  <small class="badge badge-secondary btn-sm mr-2">Modifier</small>
+                  <button class="badge badge-danger btn-sm mr-2" onclick="dropComment(<?= $comment['id_c'] ; ?>)">Supprimer</button>
+                  <button class="badge badge-secondary btn-sm mr-2">Modifier</button>
                 <?php } ?>
-                <small class="badge badge-danger mr-2">Signaler</small>
+                <button class="badge badge-danger mr-2">Signaler</button>
               </div>
             <?php } ?>
-              <?php if ($comment['author'] != 0) { ?>
-                <img src="/uploads/<?= $comment['avatar'] ; ?>" alt="<?= $comment['author'] ; ?>'s' profile picture" style="width:32px; height:32px;" class="mt-avatar float-left">
-                <h7 class="d-inline comment-author"><a href="/user/?id=<?= $comment['author'] ; ?>"><?= $comment['username'] ; ?></a></h7>
-              <?php } else { ?>
-                <h7 class="d-inline comment-author">[Supprimé]</h7>
-              <?php } ?>
 
-              <small class="text-muted">
-                  <?php
-                  $dp = new DateTime($comment['date_published']) ;
-                  $de = new DateTime($comment['date_edited']) ;
-                  echo "Publié le " . $dp->format('d m yy à H:i') ;
-                  if ($comment['date_edited'] != NULL) echo ", dernière édition le " . $dp->format('d m yy à H:i') ;
-                  ?>
-              </small>
+            <img src="/uploads/<?= $comment['avatar'] ; ?>" alt="<?= $comment['author'] ; ?>'s' profile picture" style="width:32px; height:32px;" class="mt-avatar float-left">
+            <h7 class="d-inline comment-author"><a href="/user/?id=<?= $comment['author'] ; ?>"><?= $comment['username'] ; ?></a></h7>
 
-              <p class="mb-0"><?= $comment['content'] ; ?></p>
+            <small class="text-muted">
+                <?php
+                $dp = new DateTime($comment['date_published']) ;
+                $de = new DateTime($comment['date_edited']) ;
+                echo "Publié le " . $dp->format('d m yy à H:i') ;
+                if ($comment['date_edited'] != NULL) echo ", dernière édition le " . $dp->format('d m yy à H:i') ;
+                ?>
+            </small>
 
-              <?php if (isset($_SESSION['userid'])) { ?>
-              <small class="badge badge-primary ml-5" data-toggle="collapse" href="#collapseResp<?php echo $comment['id_c'] ; ?>" aria-expanded="false" aria-controls="collapseResp<?php echo $comment['id_c'] ; ?>">Répondre</small>
-              <?php } ?>
-              <div class="collapse" id="collapseResp<?php echo $comment['id_c'] ; ?>">
-                  <div class="card card-body">
-                      <form id="submit-response" method="post" onsumbit="checkComment()">
-                          <div class="form-group">
-                              <textarea type="text" class="form-control form-control-lg" id="commentContent<?php echo $comment['id_c'] ; ?>" name="content"></textarea>
-                          </div>
-                          <div class="collapse-footer">
-                              <button type="submit" class="btn btn-primary btn-sm" form="submit-response" onclick="submitAnswer(<?php echo $comment['id_c'] ; ?>)">Répondre</button>
-                          </div>
-                      </form>
-                  </div>
+            <p class="mb-0"><?= $comment['content'] ; ?></p>
+
+            <?php if (isset($_SESSION['userid'])) { ?>
+            <small class="badge badge-primary ml-5" data-toggle="collapse" href="#collapseResp<?php echo $comment['id_c'] ; ?>" aria-expanded="false" aria-controls="collapseResp<?php echo $comment['id_c'] ; ?>">Répondre</small>
+            <?php } ?>
+            <div class="collapse" id="collapseResp<?php echo $comment['id_c'] ; ?>">
+              <hr>
+              <div class="form-group">
+                  <textarea type="text" class="form-control form-control-lg" id="collapseContent<?php echo $comment['id_c'] ; ?>" name="collapseContent"></textarea>
               </div>
+              <div class="collapse-footer">
+                  <button class="btn btn-primary btn-sm" onclick="submitComment(<?php echo $comment['id_c'] ; ?>)">Poster</button>
+              </div>
+            </div>
           </div>
       </div>
       <hr>

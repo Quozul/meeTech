@@ -85,23 +85,6 @@ function checkComment(id_c) {
   return checkContent(content) ;
 }
 
-function getComments() {
-  const commentsDiv = document.getElementById('comments') ;
-  const request = new XMLHttpRequest() ;
-  request.open('POST', '../includes/blog/comments/') ;
-  request.onreadystatechange = function() {
-    if (request.readyState === 4) {//event de fin de requête XMLHttpRequest
-      if (request.responseText == -1) {
-        alert('Une erreur est survenue') ;
-      } else {
-        commentsDiv.innerHTML = request.responseText ;
-      }
-    }
-  };
-  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  request.send(`post=${article}`);
-}
-
 function dropComment (id) {
 	let request = new XMLHttpRequest() ;
 	request.open('DELETE', '../actions/blog/drop_comment.php?comm=' + id) ;
