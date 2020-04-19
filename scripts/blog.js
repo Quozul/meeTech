@@ -69,6 +69,23 @@ function displayError (text) {
   }
 }
 
+function reportArticle(id) {
+  let request = new XMLHttpRequest() ;
+  request.open('GET', '/actions/blog/report_article/?article=' + id) ;
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      const success = parseInt(request.responseText) ;
+      if (success === 1) {
+        location.reload() ;
+        return false ;
+      } else {
+        alert("Une erreur est survenue") ;
+      }
+    }
+  } ;
+  request.send() ;
+}
+
 function checkComment(id_c) {
   const contentInput = document.getElementById('collapseResp' . id_c) ;
   const content = contentInput.value ;
@@ -125,4 +142,20 @@ function submitModif (id) {
   } ;
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   request.send(`comm=${id}&commentContent=${content}`);
+}
+
+function reportComment(id) {
+  let request = new XMLHttpRequest() ;
+  request.open('GET', '../actions/blog/report_comment/?comm=' + id) ;
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      const success = parseInt(request.responseText) ;
+      if (success === 1) {
+        getComments() ;
+      } else {
+        alert("Une erreur est survenue") ;
+      }
+    }
+  } ;
+  request.send() ;
 }

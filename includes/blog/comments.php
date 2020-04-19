@@ -3,7 +3,7 @@ include_once('../../config.php') ;
 if (isset($_POST['post']) && !empty($_POST['post'])) {
   $article = $_POST['post'] ;
 
-  $sth = $pdo->prepare('SELECT id_c, author, avatar, username, content, date_published, date_edited FROM comment
+  $sth = $pdo->prepare('SELECT id_c, author, avatar, username, content, date_published, date_edited, signaled FROM comment
     LEFT JOIN users ON id_u = author
     WHERE parent_message = ? AND parent_comment = 0 ORDER BY date_published DESC') ;
   $sth->execute([$article]) ;
@@ -12,7 +12,7 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
   function print_comment($pdo, $comment, $padding)
   {
       // get children comments
-      $req = $pdo->prepare('SELECT id_c, author, avatar, username, content, date_published, date_edited FROM comment
+      $req = $pdo->prepare('SELECT id_c, author, avatar, username, content, date_published, date_edited, signaled FROM comment
         LEFT JOIN users ON id_u = author
         WHERE parent_comment = ? ORDER BY date_published DESC') ;
       $req->execute([$comment['id_c']]) ;
@@ -21,15 +21,20 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
 
       <div class="border-left border-dark p-1 mb-2 comment" style="margin-left: <?= $padding ; ?>px" id="comment-<?= $comment['id_c'] ; ?>">
           <div>
-            <?php if (isset($_SESSION['userid']) && $comment['content'] != '*Commentaire supprimé*') { ?>
-              <div class="float-right">
-                <?php if ($comment['author'] == $_SESSION['userid']) { ?>
+            <div class="float-right">
+              <?php if (isset($_SESSION['userid'])) { ?>
+                <button class="badge badge-success mr-2" onclick="markComment(<?= $comment['id_c'] ; ?>)">+</button>
+                <?php if ($comment['author'] == $_SESSION['userid'] && $comment['content'] != '*Commentaire supprimé*') { ?>
                   <button class="badge badge-danger btn-sm mr-2" onclick="dropComment(<?= $comment['id_c'] ; ?>)">Supprimer</button>
                   <button class="badge badge-secondary btn-sm mr-2" onclick="editComment(<?= $comment['id_c'] ; ?>)">Modifier</button>
                 <?php } ?>
-                <button class="badge badge-danger mr-2">Signaler</button>
-              </div>
-            <?php } ?>
+                <?php if ($comment['signaled'] == false) { ?>
+                <button class="badge badge-danger mr-2" onclick="reportComment(<?= $comment['id_c'] ; ?>)">Signaler</button>
+                <?php } else { ?>
+                <div class="badge badge-warning mr-2">Commentaire signalé</div>
+                <?php } ?>
+              <?php } ?>
+            </div>
 
             <img src="/uploads/<?= $comment['avatar'] ; ?>" alt="<?= $comment['author'] ; ?>'s' profile picture" style="width:32px; height:32px;" class="mt-avatar float-left">
             <h7 class="d-inline comment-author"><a href="/user/?id=<?= $comment['author'] ; ?>"><?= $comment['username'] ; ?></a></h7>

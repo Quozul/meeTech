@@ -18,7 +18,7 @@
             include('includes/nothing.php')  ;
           } else {
             $message_id = strip_tags($_GET['post']) ;
-            $query = $pdo->prepare('SELECT username, avatar, author, title, content, date_published, date_edited,
+            $query = $pdo->prepare('SELECT username, avatar, author, title, content, date_published, date_edited, signaled,
               default_language, icon, category, file_name FROM message
               LEFT JOIN users ON id_u = author
               LEFT JOIN file ON message = id_m
@@ -40,7 +40,7 @@
               include('includes/blog/edit_modal.php') ;
             ?>
             <small class="text-muted">
-               <a href="/<?= $message['category'] ; ?>/">« Retour au<?= $message['category'] ; ?></a>
+               <a href="/<?= $message['category'] ; ?>/">« Retour au <?= $message['category'] ; ?></a>
             </small>
             <h1><?= $message['title'] ; ?></h1>
 
@@ -49,7 +49,11 @@
               <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] == $message['author']) { ?>
               <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#editModal">Éditer</button>
               <?php } ?>
-              <a href="/actions/blog/report_article/?post=<?= $message_id ; ?>" type="button" class="btn btn-outline-danger btn-sm">Signaler</a>
+              <?php if ($message['signaled'] == false) { ?>
+              <button class="btn btn-outline-danger btn-sm" onclick="reportArticle(<?= $message_id ; ?>)">Signaler</button>
+              <?php } else { ?>
+              <div class="btn btn-warning btn-sm">Article signalé</div>
+              <?php } ?>
             </div>
 
             <img src="/uploads/<?= $message['avatar'] ; ?>" alt="<?= $message['username'] ; ?>'s profile picture" class="mt-avatar float-left" style="max-width: 32px; max-height: 32px;">
@@ -78,11 +82,12 @@
               let user = <?php  if (isset($_SESSION['userid'])) echo $_SESSION['userid'] ;
                                 else echo '0' ;
                          ?> ;
+              const voteButton = document.getElementById('articleMark') ;
               getArticleMark() ;
 
               function markArticle() {
                 if (user != 0) {
-                  const request = new XMLHttpRequest() ;
+                  let request = new XMLHttpRequest() ;
                   request.open('POST', '/actions/blog/mark_article/') ;
                   request.onreadystatechange = function() {
                     if (request.readyState === 4) {
@@ -109,9 +114,8 @@
               }
 
               function getArticleMark() {
-                const voteButton = document.getElementById('articleMark') ;
-                const request = new XMLHttpRequest() ;
-                request.open('POST', '/includes/blog/get_article_mark/?article=' + article) ;
+                let request = new XMLHttpRequest() ;
+                request.open('GET', '/includes/blog/get_article_mark/?article=' + article) ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {
                     voteButton.innerHTML = '+ ' +  request.responseText ;
