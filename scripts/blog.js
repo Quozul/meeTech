@@ -78,6 +78,8 @@ function reportArticle(id) {
       if (success === 1) {
         location.reload() ;
         return false ;
+      } else if (success === -2) {
+        alert("Vous devez être connecté pour signaler un commentaire.") ;
       } else {
         alert("Une erreur est survenue") ;
       }
@@ -146,7 +148,7 @@ function submitModif (id) {
 
 function reportComment(id) {
   let request = new XMLHttpRequest() ;
-  request.open('GET', '../actions/blog/report_comment/?comm=' + id) ;
+  request.open('GET', '/actions/blog/report_comment/?comm=' + id) ;
   request.onreadystatechange = function () {
     if (request.readyState === 4) {
       const success = parseInt(request.responseText) ;
