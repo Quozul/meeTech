@@ -3,8 +3,6 @@
 <?php
 $page_name = 'List_badge';
 include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
-$page_limit = 4;
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
 ?>
 
 <body class="d-flex vh-100 flex-column justify-content-between">
@@ -22,32 +20,27 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="submit-language" method="post" action="../actions/languages/add_language.php" autocomplete="off">
-                                <input type="text" class="form-control mb-3" id="language" name="language" placeholder="Nouvelle langue">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="icon" name="icon" placeholder="Code HTML de l'icône (laisser vide si inexistante)">
-                                    <div class="input-group-append">
-                                        <a href="https://www.alt-codes.net/flags" target="_blank"><span class="input-group-text" id="flagsRef">Codes HTML drapeaux</span></a>
-                                    </div>
-                                </div>
-                                <input type="text" class="form-control mb-3" id="label" name="label" placeholder="Code de la langue (2 caractères)">
+                            <form id="submit-badge" method="post" action="/admin/actions/badges/add_badge.php" autocomplete="off">
+                                <input type="text" class="form-control mb-3" id="name" name="name" placeholder="Nouveau badge">
+                                <input type="text" class="form-control" id="description" name="description" placeholder="Ex : Décerné pour avoir ... n fois">
+                                <input type="number" class="form-control mb-3" id="global_perm" name="global_perm" placeholder="Permission globale">
+                                <input type="number" class="form-control mb-3" id="obtention" name="obtention" placeholder="Obtention">
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn btn-primary" form="submit-language">Ajouter</button>
+                            <button type="submit" class="btn btn-primary" form="submit-badge">Ajouter</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <h2>Langages</h2>
+            <h2>Badges</h2>
             <hr>
-            <p><a href="https://www.alt-codes.net/flags" target="_blank">Liens unicode des drapeaux</a></p>
             <?php
             $message = '';
             if (isset($_GET['error'])) {
-                if (htmlspecialchars($_GET['error']) == 'setlang') $message = 'Saisissez un nom de langue';
-                else if (htmlspecialchars($_GET['error']) == 'elsewhere') $message = 'La valeur entrée existe déjà';
+                if (htmlspecialchars($_GET['error']) == 'setlang') $message = 'Saisissez un nom de badge';
+                else if (htmlspecialchars($_GET['error']) == 'elsewhere') $message = 'Ce badge existe déjà';
                 if (!empty($message)) {
             ?>
                     <hr>
@@ -60,9 +53,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
             $message = '';
             if (isset($_GET['success'])) {
-                if (htmlspecialchars($_GET['success']) == 'edit') $message = 'Langue éditée';
-                else if (htmlspecialchars($_GET['success']) == 'add') $message = 'Langue ajoutée';
-                else if (htmlspecialchars($_GET['success']) == 'drop') $message = 'Langue supprimée';
+                if (htmlspecialchars($_GET['success']) == 'edit') $message = 'Badge éditée';
+                else if (htmlspecialchars($_GET['success']) == 'add') $message = 'Badge ajoutée';
+                else if (htmlspecialchars($_GET['success']) == 'drop') $message = 'Badge supprimée';
                 if (!empty($message)) {
                 ?>
                     <hr>
@@ -73,45 +66,51 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
                 }
             }
 
-            $q = $pdo->prepare('SELECT lang, icon, label FROM language');
+            $q = $pdo->prepare('SELECT name, description, global_permissions, obtention, img_badge FROM badge');
             $q->execute();
-            $languages = $q->fetchAll();
+            $badge = $q->fetchAll();
             ?>
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Langue</th>
-                        <th scope="col">Icône</th>
-                        <th scope="col">Label</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Nom du badge</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Permissions</th>
+                        <th scope="col">Obtention</th>
                         <th scope="col">Modifier</th>
                         <th scope="col">Supprimer</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($languages as $value) {
+                    foreach ($badge as $value) {
                     ?>
                         <tr>
-                            <form action="../actions/languages/edit_language.php" method="post">
+                            <form action="/admin/actions/badges/update_badge.php" method="post">
                                 <td>
                                     <div class="row">
-                                        <?php if (strlen($value['icon']) != 0) echo $value['icon'];
-                                        else echo '&#127987'; ?>
-                                        <input type="text" name="language" value="<?php echo $value['lang']; ?>" class="form-control col-md-6" readonly>
+                                        <img src="/images/<?php echo $value['img_badge']; ?>" alt="<?php echo $value['img_badge']; ?>">
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="text" name="icon" value="<?php echo htmlspecialchars(substr($value['icon'], 0, 8)) . ' ' . htmlspecialchars(substr($value['icon'], 8, 8)); ?>" class="form-control">
+                                    <input type="text" name="icon" value="<?php echo htmlspecialchars(substr($value['name'], 0, 8)) . ' ' . htmlspecialchars(substr($value['name'], 8, 8)); ?>" class="form-control">
                                 </td>
                                 <td>
-                                    <input type="text" name="label" value="<?php echo $value['label']; ?>" class="form-control col-md-3"></td>
+                                    <textarea type="text" name="description" class="form-control col-md-12" rows="2"><?php echo $value['description']; ?></textarea></td>
+                                </td>
+                                <td>
+                                    <input type="number" name="global_perm" value="<?php echo $value['global_permissions']; ?>" class="form-control col-md-5 float-right"></td>
+                                </td>
+                                <td>
+                                    <input type="number" name="obtention" value="<?php echo $value['obtention']; ?>" class="form-control col-md-5 float-right"></td>
                                 </td>
                                 <td>
                                     <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm">
                                 </td>
                             </form>
                             <td>
-                                <a href="../actions/languages/drop_language.php?lang=<?php echo $value['lang']; ?>" class="btn btn-outline-danger btn-sm">Supprimer</a>
+                                <a href="/admin/actions/badges/drop_badge.php?lang=<?php echo $value['name']; ?>" class="btn btn-outline-danger btn-sm">Supprimer</a>
                             </td>
                         </tr>
                     <?php
@@ -124,3 +123,14 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
 </body>
 
 </html>
+
+<?php
+//AJAX => affichage modal contenant les img
+
+//dans le modal => SELECT img_badge FROM badge WHERE file_name = Badge% 
+?>
+<!-- <div>
+    <?php foreach ($result as $image) { ?>
+        <img src="/images/<?= $image['file_name']; ?>" alt="<?= $image['file_name']; ?>">
+    <?php } ?>
+</div> -->

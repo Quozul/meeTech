@@ -87,8 +87,7 @@ CREATE TABLE IF NOT EXISTS file(
     added_by INTEGER NOT NULL REFERENCES user(id_user),
     message INTEGER NOT NULL REFERENCES message(id_m),
     file_name VARCHAR(32),
-    PRIMARY KEY(message, file_name)
-
+    PRIMARY KEY(message, file_name),
     extension VARCHAR(4)
 );
 
