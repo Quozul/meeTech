@@ -39,7 +39,7 @@
                                 </div>
                             </th>
                             <td scope="row" id="user<?= $user['id_u']; ?>"><?= $user['id_u']; ?></td>
-                            <td><img src="/images/<?= $user['avatar']; ?>" alt="<?= $user['avatar']; ?>"></td>
+                            <td><img src="/uploads/<?= $user['avatar']; ?>" alt="<?= $user['avatar']; ?>"></td>
                             <td><a href="https://www.meetech.ovh/user/?id=<?= $user['id_u']; ?>"><?= $user['username']; ?></a></td>
                             <td><?= $user['email']; ?></td>
                             <td><?= $user['location']; ?></td>

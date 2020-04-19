@@ -21,17 +21,18 @@ if (!isset($_POST['title'])
     || empty(trim($_POST['content']))
     || !isset($_POST['language'])
     || empty(trim($_POST['language']))) {
-  header('location: /article/?post=' . $id . '&error=notset') ;
+  header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/article/?post=' . $id . '&error=notset') ;
   exit() ;
 }
 
 $title = htmlspecialchars(trim($_POST['title'])) ;
 $content = htmlspecialchars(trim($_POST['content'])) ;
 $language = htmlspecialchars(trim($_POST['language'])) ;
+$date = date('Y-m-d H:i:s') ;
 
-$q = $pdo->prepare('UPDATE message SET title = ?, content = ?, default_language = ? WHERE id_m = ?') ;
-$q->execute([$title, $content, $language, $id]) ;
+$q = $pdo->prepare('UPDATE message SET title = ?, content = ?, default_language = ?, date_edited = ? WHERE id_m = ?') ;
+$q->execute([$title, $content, $language, $date, $id]) ;
 
-header('location: /article/?post=' . $id . '&success=edit') ;
+header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/article/?post=' . $id . '&success=edit') ;
 exit() ;
 ?>
