@@ -111,14 +111,13 @@
               function getArticleMark() {
                 const voteButton = document.getElementById('articleMark') ;
                 const request = new XMLHttpRequest() ;
-                request.open('POST', '/includes/blog/get_article_mark/') ;
+                request.open('POST', '/includes/blog/get_article_mark/?article=' + article) ;
                 request.onreadystatechange = function() {
                   if (request.readyState === 4) {
                     voteButton.innerHTML = '+ ' +  request.responseText ;
                   }
                 };
-                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                request.send(`message_id=${article}`);
+                request.send() ;
               }
             </script>
           </section>
