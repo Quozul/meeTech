@@ -21,9 +21,9 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
 
       <div class="border-left border-dark p-1 mb-2 comment" style="margin-left: <?= $padding ; ?>px" id="comment-<?= $comment['id_c'] ; ?>">
           <div>
-            <?php if (isset($_SESSION['userid'])) { ?>
+            <?php if (isset($_SESSION['userid']) && $comment['content'] != '*Commentaire supprimé*') { ?>
               <div class="float-right">
-                <?php if ($comment['author'] == $_SESSION['userid'] && $comment['content'] != '*Commentaire supprimé*') { ?>
+                <?php if ($comment['author'] == $_SESSION['userid']) { ?>
                   <button class="badge badge-danger btn-sm mr-2" onclick="dropComment(<?= $comment['id_c'] ; ?>)">Supprimer</button>
                   <button class="badge badge-secondary btn-sm mr-2" onclick="editComment(<?= $comment['id_c'] ; ?>)">Modifier</button>
                 <?php } ?>

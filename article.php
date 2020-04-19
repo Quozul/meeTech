@@ -83,7 +83,7 @@
               function markArticle() {
                 if (user != 0) {
                   const request = new XMLHttpRequest() ;
-                  request.open('PUT', '/actions/blog/mark_article/') ;
+                  request.open('POST', '/actions/blog/mark_article/') ;
                   request.onreadystatechange = function() {
                     if (request.readyState === 4) {
                       const success = parseInt(request.responseText);

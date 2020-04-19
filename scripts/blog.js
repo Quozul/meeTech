@@ -107,7 +107,7 @@ function editComment (id) {
 
 function submitModif (id) {
   const content = document.getElementById('editContent' + id).value ;
-  const request = new XMLHttpRequest() ;
+  let request = new XMLHttpRequest() ;
   request.open('POST', '/actions/blog/edit_comment/') ;
   request.onreadystatechange = function() {
     if (request.readyState === 4) {

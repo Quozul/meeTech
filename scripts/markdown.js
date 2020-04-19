@@ -9,9 +9,8 @@ const markers = [
 
 function markdown() {
   const toMark = document.getElementsByClassName('markdown') ;
-  let i ;
-  for (i = 0 ; i < toMark.length ; ++i) {
-    for (j = 0 ; j < markers.length ; ++j) {
+  for (let i = 0 ; i < toMark.length ; ++i) {
+    for (let j = 0 ; j < markers.length ; ++j) {
       change(toMark[i], markers[j][0]) ;
     }
     checkClosed(toMark[i]) ;
