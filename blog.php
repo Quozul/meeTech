@@ -32,7 +32,7 @@
             LEFT JOIN language ON default_language = lang
             LEFT JOIN file ON message = id_m
             WHERE category = ?
-            ORDER BY date_published, latest_c ASC') ;
+            ORDER BY date_published, latest_c DESC') ;
           $query->execute([$page_name]) ;
           $messages = $query->fetchAll() ;
 
@@ -65,7 +65,7 @@
                             <a href="/article.php?post=<?= $article['id_m'] ; ?>"> » Continue reading</a>
                           </p>
                           <p class="card-text">
-                            <?php $dp = new DateTime($message['date_edited']) ; ?>
+                            <?php $dp = new DateTime($article['date_edited']) ; ?>
                             <small class="text-muted">Publié le <?= $dp->format('d m Y à H:i') ; ?> by <a href="/user/?id=<?= $article['author'] ; ?>"><?= $article['username'] ; ?></a></small>
                           </p>
                       </div>
