@@ -35,5 +35,5 @@ if ($comments) { ?>
         </tbody>
     </table>
 <?php } else { ?>
-    <p>Oops, il semblerait qu'il n'y ai rien ici, commencez par ajouter un premier type avec le bouton ci-dessus.</p>
+    <p>Oops, il semblerait qu'il n'y ai rien ici.</p>
 <?php } ?>

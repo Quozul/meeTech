@@ -9,7 +9,7 @@
     <main class="container">
         <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/hardware/new_component_modal.php'); ?>
 
-        <h1>Commentaires</h1>
+        <h1>Commentaires des composants</h1>
 
         <div class="jumbotron" id="list"><?php include('includes/comments.php'); ?></div>
 
