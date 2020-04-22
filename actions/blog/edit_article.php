@@ -33,6 +33,6 @@ $date = date('Y-m-d H:i:s') ;
 $q = $pdo->prepare('UPDATE message SET title = ?, content = ?, default_language = ?, date_edited = ? WHERE id_m = ?') ;
 $q->execute([$title, $content, $language, $date, $id]) ;
 
-header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/article/?post=' . $id . '&success=edit') ;
+header('location: /article/?post=' . $id . '&success=edit') ;
 exit() ;
 ?>

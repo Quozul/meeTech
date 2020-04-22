@@ -27,7 +27,7 @@
           $query->execute([$page_name]) ;
           $elements = $query->fetch()[0] ;
 
-          $query = $pdo->prepare('SELECT id_m, title, content, date_published, username, icon, file_name FROM message
+          $query = $pdo->prepare('SELECT id_m, author title, content, date_published, username, icon, file_name FROM message
             LEFT JOIN users ON id_u = author
             LEFT JOIN language ON default_language = lang
             LEFT JOIN file ON message = id_m
@@ -65,8 +65,8 @@
                             <a href="/article.php?post=<?= $article['id_m'] ; ?>"> » Continue reading</a>
                           </p>
                           <p class="card-text">
-                              <small class="text-muted">Published on <?= $article['date_published'] ?> by <a href="/user/?id=<?= $article['id_m'] ; ?>"><?= $article['username'] ; ?></a>
-                              </small>
+                            <?php $dp = new DateTime($message['date_edited']) ; ?>
+                            <small class="text-muted">Publié le <?= $dp->format('d m Y à H:i') ; ?> by <a href="/user/?id=<?= $article['author'] ; ?>"><?= $article['username'] ; ?></a></small>
                           </p>
                       </div>
                   </article>
