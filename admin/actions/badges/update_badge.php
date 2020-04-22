@@ -12,5 +12,5 @@ foreach ($_POST as $key => $value)
         ]);
     }
 
-header('location: /admin/list_badge/');
+header('location: /admin/list_badge/?success=edit');
 exit();

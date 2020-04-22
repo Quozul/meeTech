@@ -43,7 +43,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
                 else if (htmlspecialchars($_GET['error']) == 'elsewhere') $message = 'Ce badge existe déjà';
                 if (!empty($message)) {
             ?>
-                    <hr>
                     <div class="alert alert-danger" role="alert">
                         <?= $message; ?>
                     </div>
@@ -58,7 +57,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
                 else if (htmlspecialchars($_GET['success']) == 'drop') $message = 'Badge supprimée';
                 if (!empty($message)) {
                 ?>
-                    <hr>
                     <div class="alert alert-success" role="alert">
                         <?= $message; ?>
                     </div>

@@ -34,4 +34,4 @@ try {
     echo $e;
 }
 
-header('location: /admin/list_badge/');
+header('location: /admin/list_badge/?success=add');

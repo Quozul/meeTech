@@ -8,5 +8,5 @@ if (!empty($badge)) {
     $sth->execute([$badge]);
 }
 
-header('location: /admin/list_badge/');
+header('location: /admin/list_badge/?success=drop');
 exit();
