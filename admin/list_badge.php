@@ -20,7 +20,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="submit-badge" method="post" action="/admin/actions/badges/add_badge.php" autocomplete="off">
+                            <form id="submit-badge" method="post" action="/admin/actions/badges/add_badge/" autocomplete="off">
                                 <input type="text" class="form-control mb-3" id="name" name="name" placeholder="Nouveau badge">
                                 <input type="text" class="form-control" id="description" name="description" placeholder="Ex : Décerné pour avoir ... n fois">
                                 <input type="number" class="form-control mb-3" id="global_perm" name="global_perm" placeholder="Permission globale">
@@ -45,7 +45,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
             ?>
                     <hr>
                     <div class="alert alert-danger" role="alert">
-                        <?php echo $message; ?>
+                        <?= $message; ?>
                     </div>
                 <?php
                 }
@@ -60,13 +60,13 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
                 ?>
                     <hr>
                     <div class="alert alert-success" role="alert">
-                        <?php echo $message; ?>
+                        <?= $message; ?>
                     </div>
             <?php
                 }
             }
 
-            $q = $pdo->prepare('SELECT name, description, global_permissions, obtention, img_badge FROM badge');
+            $q = $pdo->prepare('SELECT name, description, global_permissions, img_badge FROM badge');
             $q->execute();
             $badge = $q->fetchAll();
             ?>
@@ -77,7 +77,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
                         <th scope="col">Nom du badge</th>
                         <th scope="col">Description</th>
                         <th scope="col">Permissions</th>
-                        <th scope="col">Obtention</th>
                         <th scope="col">Modifier</th>
                         <th scope="col">Supprimer</th>
                     </tr>
@@ -88,29 +87,24 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
                     ?>
                         <tr>
                             <form action="/admin/actions/badges/update_badge.php" method="post">
-                                <td>
-                                    <div class="row">
-                                        <img src="/images/<?php echo $value['img_badge']; ?>" alt="<?php echo $value['img_badge']; ?>">
-                                    </div>
+                                <td class="row">
+                                    <img src="/images/<?= $value['img_badge']; ?>" alt="<?= $value['img_badge']; ?>" style="max-height: 64px; max-width: 64px;" title="<?= $value['description']; ?>">
                                 </td>
                                 <td>
-                                    <input type="text" name="icon" value="<?php echo htmlspecialchars(substr($value['name'], 0, 8)) . ' ' . htmlspecialchars(substr($value['name'], 8, 8)); ?>" class="form-control">
+                                    <input type="text" name="name" value="<?= $value['name']; ?>" class="form-control" readonly>
                                 </td>
                                 <td>
-                                    <textarea type="text" name="description" class="form-control col-md-12" rows="2"><?php echo $value['description']; ?></textarea></td>
+                                    <textarea type="text" name="description" class="form-control col-md-12 col-form-label-sm" rows="2"><?= $value['description']; ?></textarea></td>
                                 </td>
                                 <td>
-                                    <input type="number" name="global_perm" value="<?php echo $value['global_permissions']; ?>" class="form-control col-md-5 float-right"></td>
-                                </td>
-                                <td>
-                                    <input type="number" name="obtention" value="<?php echo $value['obtention']; ?>" class="form-control col-md-5 float-right"></td>
+                                    <input type="number" name="global_permissions" value="<?= $value['global_permissions']; ?>" class="form-control col-md-5"></td>
                                 </td>
                                 <td>
                                     <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm">
                                 </td>
                             </form>
                             <td>
-                                <a href="/admin/actions/badges/drop_badge.php?lang=<?php echo $value['name']; ?>" class="btn btn-outline-danger btn-sm">Supprimer</a>
+                                <a href="/admin/actions/badges/drop_badge.php?badge=<?= $value['name']; ?>" class="btn btn-outline-danger btn-sm">Supprimer</a>
                             </td>
                         </tr>
                     <?php

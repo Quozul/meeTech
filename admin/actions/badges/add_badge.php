@@ -6,7 +6,7 @@ $error = '';
 
 $name = htmlspecialchars(trim($_POST['name']));
 $description = htmlspecialchars(trim($_POST['description']));
-$glbperm = htmlspecialchars(trim($_POST['glbperm']));
+$glbperm = htmlspecialchars(trim($_POST['global_perm']));
 $obtention = htmlspecialchars(trim($_POST['obtention']));
 
 if (!isset($_POST['name']))
@@ -28,8 +28,8 @@ if (!empty($error)) {
 }
 
 try {
-    $sth = $pdo->prepare('INSERT INTO badge (name, description, global_permissions, obtention) VALUES (?, ?, ?, ?)');
-    $sth->execute([$name, $description, $glbperm, $obtention]);
+    $sth = $pdo->prepare('INSERT INTO badge (name, description, global_permissions, img_badge) VALUES (?, ?, ?, ?)');
+    $sth->execute([$name, $description, $glbperm, 'badge_def.png']);
 } catch (Exception $e) {
     echo $e;
 }
