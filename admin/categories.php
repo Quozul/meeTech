@@ -21,7 +21,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form id="submit-category" method="post" action="admin/actions/categories/add_category.php" autocomplete="off">
+                        <form id="submit-category" method="post" action="actions/categories/add_category.php" autocomplete="off">
                             <input type="text" class="form-control mb-3" name="name" placeholder="Nouvelle catégorie">
                             <input type="text" class="form-control mb-3" name="description" placeholder="Description de la catégorie">
                         </form>
@@ -87,7 +87,7 @@
                 <table class="table">
                   <tbody>
                       <tr>
-                        <form action="admin/actions/categories/edit_category.php" method="post">
+                        <form action="actions/categories/edit_category.php" method="post">
                           <td>
                             <label for="description">Description</label>
                           </td>
@@ -99,7 +99,7 @@
                           </td>
                         </form>
                         <td>
-                          <a href="admin/actions/categories/drop_category.php?category=<?php echo $cat['name'] ; ?>">
+                          <a href="actions/categories/drop_category.php?category=<?php echo $cat['name'] ; ?>">
                             <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
                           </a>
                         </td>
@@ -122,6 +122,6 @@
             </div>
         </main>
         <?php include($_SERVER['DOCUMENT_ROOT]' . 'includes/footer.php') ; ; ?>
-        <script src="admin/categories.js" charset="utf-8"></script>
+        <script src="categories.js" charset="utf-8"></script>
     </body>
 </html>
