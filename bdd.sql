@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS vote_message (
 CREATE TABLE IF NOT EXISTS translation (
     id_t INTEGER AUTO_INCREMENT PRIMARY KEY,
     language VARCHAR(32) NOT NULL REFERENCES language (lang),
-    translator INTEGER NOT NULL REFERENCES users (id_user),
+    translator INTEGER NOT NULL REFERENCES users (id_u),
     original_message INTEGER NOT NULL REFERENCES message (id_m),
 
     title VARCHAR(255),
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS translation (
 
 CREATE TABLE IF NOT EXISTS comment (
     id_c INTEGER AUTO_INCREMENT PRIMARY KEY,
-    author INTEGER NOT NULL REFERENCES users (id_user),
+    author INTEGER NOT NULL REFERENCES users (id_u),
     parent_message INTEGER NOT NULL REFERENCES messages (id_m),
     parent_comment INTEGER REFERENCES comment (id_c),
     content TEXT,
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS vote_comment (
 
 
 CREATE TABLE IF NOT EXISTS file(
-    added_by INTEGER NOT NULL REFERENCES user(id_user),
+    added_by INTEGER NOT NULL REFERENCES user(id_u),
     message INTEGER NOT NULL REFERENCES message(id_m),
     file_name VARCHAR(32),
     PRIMARY KEY(message, file_name),
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS badge(
 );
 
 CREATE TABLE IF NOT EXISTS badged(
-    user INTEGER NOT NULL REFERENCES user(id_user),
+    user INTEGER NOT NULL REFERENCES user(id_u),
     badge VARCHAR(16) NOT NULL REFERENCES badge(name),
 
     PRIMARY KEY(user, badge)

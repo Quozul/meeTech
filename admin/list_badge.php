@@ -64,7 +64,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
                 }
             }
 
-            $q = $pdo->prepare('SELECT name, description, global_permissions, img_badge FROM badge');
+            $q = $pdo->prepare('SELECT name, description, global_permissions, img_badge, obtention FROM badge');
             $q->execute();
             $badge = $q->fetchAll();
             ?>
@@ -75,6 +75,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
                         <th scope="col">Nom du badge</th>
                         <th scope="col">Description</th>
                         <th scope="col">Permissions</th>
+                        <th scope="col">Obtention</th>
                         <th scope="col">Modifier</th>
                         <th scope="col">Supprimer</th>
                     </tr>
@@ -96,6 +97,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
                                 </td>
                                 <td>
                                     <input type="number" name="global_permissions" value="<?= $value['global_permissions']; ?>" class="form-control col-md-5"></td>
+                                </td>
+                                <td>
+                                    <input type="number" name="obtention" value="<?= $value['obtention']; ?>" class="form-control col-md-5"></td>
                                 </td>
                                 <td>
                                     <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm">

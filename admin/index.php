@@ -14,6 +14,7 @@
             <p class="lead">Voici une liste de pages sur lesquelles vous pouvez administrer le site</p>
             <ul>
                 <li><a href="/admin/list_users/">Utilisateurs</a></li>
+                <li><a href="/admin/list_badge/">Badges</a></li>
                 <li><a href="/admin/languages/">Langages</a></li>
                 <li><a href="/admin/categories/">Catégories</a></li>
 

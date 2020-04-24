@@ -16,17 +16,25 @@ include('includes/head.php');
                 $result = $sth->fetch(); ?>
 
                 <!-- TODO: Action file -->
+                <div id='badge' name='badge' class="form-group float-right col-10">
+                    <?php
+                    $sth = $pdo->prepare('SELECT img_badge, name, description FROM badge INNER JOIN badged ON badge = name WHERE user = ?');
+                    $sth->execute([$_SESSION['userid']]);
+                    while ($res = $sth->fetch()) {;
+                    ?>
+                        <img src="/images/<?php echo $res['img_badge']; ?>" alt="<?= $res['name']; ?>'s badge' " class="mt-badge col-2" style="max-width: 64px; max-height: 64px;" title="<?= $res['description']; ?>">
+                    <?php } ?>
+                </div>
                 <form id="avatar-form" action="/actions/profile/update_avatar.php" method="post" autocomplete="off" enctype="multipart/form-data">
                     <div class="form-group float-right col-10">
                         <label for="avatar">Avatar</label>
                         <input type="file" class="form-control-file" name="avatar" id="avatar">
                     </div>
-                    <img src="/uploads/<?php echo $result['avatar']; ?>" alt="<?= $result['username']; ?>'s avatar'" class="mt-avatar col-2" style="max-width: 100px; max-height: 100px;">
+                    <img src="/images/<?php echo $result['avatar']; ?>" alt="<?= $result['username']; ?>'s avatar'" class="mt-avatar col-2" style="max-width: 100px; max-height: 100px;">
                     <button type="submit" class="btn btn-primary mt-2">Envoyer l'avatar</button>
                 </form>
 
                 <hr>
-
                 <?php include('includes/countries.php'); ?>
                 <form method="post" action="/actions/profile/update_profile.php" id="profile">
                     <div class="form-group">
