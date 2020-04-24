@@ -29,7 +29,7 @@ if ($success = 0) {
     <tr class="<?= $comment['signaled'] == true ? 'table-warning' : '' ; ?>">
       <td><a href="/article/?post=<?= $comment['id_m'] ; ?>" target="_blank"><?= $comment['title'] ; ?></a></td>
       <td><a href="/user/?id=<?= $comment['author'] ; ?>" target="_blank"><?= $comment['username'] ; ?></a></td>
-      <td scope="col"><?= substr($comment['content'], 0, 100) ; ?><a href="article/?post=<?= $comment['id_m'] ; ?>#comment<?= $comment['id_c'] ; ?>" target="_blank"><small>… » Voir le commentaire</small></a></td>
+      <td scope="col"><?= substr($comment['content'], 0, 100) ; ?><a href="/article/?post=<?= $comment['id_m'] ; ?>#comment<?= $comment['id_c'] ; ?>" target="_blank"><small>… » Voir le commentaire</small></a></td>
       <td scope="col">
         <?php if ($comment['signaled'] == true) { ?>
         <button type="button" class="btn btn-success btn-sm" onclick="unsignalC(<?= $comment['id_c'] ; ?>, 'all')">Désignaler</button>

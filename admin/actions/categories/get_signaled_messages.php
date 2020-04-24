@@ -33,7 +33,7 @@ $categories = $stmt->fetchAll() ;
     <tr class="table-warning">
       <td><a href="/article/?post=<?= $message['id_m'] ; ?>" target="_blank"><?= $message['title'] ; ?></a></td>
       <td><a href="/user/?id=<?= $message['author'] ; ?>" target="_blank"><?= $message['username'] ; ?></a></td>
-      <td scope="col"><?= substr($message['content'], 0, 100) ; ?><a href="article/?post=<?= $message['id_m'] ; ?>" target="_blank"><small>… » Voir l'article</small></a></td>
+      <td scope="col"><?= substr($message['content'], 0, 100) ; ?><a href="/article/?post=<?= $message['id_m'] ; ?>" target="_blank"><small>… » Voir l'article</small></a></td>
       <td scope="col">
         <select onchange="moveToCat(<?= $message['id_m'] ; ?>, 'signaled')" id="newCat<?= $message['id_m'] ; ?>">
           <?php
