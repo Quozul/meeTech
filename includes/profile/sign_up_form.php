@@ -51,7 +51,7 @@
 
 <script>
     document.getElementById('sign_up_modal').addEventListener('keypress', function(e) {
-        if (e.key == 'Enter')
+        if (e.key === 'Enter')
             create_acount();
     });
 

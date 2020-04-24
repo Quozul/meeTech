@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS private_message(
     id_pm INTEGER PRIMARY KEY,
     author INTEGER NOT NULL REFERENCES user(id_user),
     channel INTEGER NOT NULL REFERENCES channel(id_m),
-
+    content VARCHAR (3000),
     date_published DATETIME
 );
 
