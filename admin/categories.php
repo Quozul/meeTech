@@ -2,14 +2,14 @@
 <html>
     <?php
     $page_name = 'Back-office : catégories' ;
-    include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php') ;
+    include($_SERVER['DOCUMENT_ROOT]' . 'includes/head.php') ;
     $page_limit = 4 ;
     $page = isset($_GET['page']) ? $_GET['page'] : 1 ;
     ?>
     <body class="d-flex vh-100 flex-column justify-content-between">
-        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php') ; ?>
+        <?php include($_SERVER['DOCUMENT_ROOT]' . 'includes/header.php') ; ?>
         <main role="main" class="container">
-            <div class="jumbotron">
+
           <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#submitModal">Ajouter une catégorie</button>
           <div class="modal fade bd-example-modal-xl" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalTitle" aria-hidden="true">
               <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
@@ -33,9 +33,8 @@
                   </div>
               </div>
           </div>
+          <h1>Catégories</h1>
 
-          <h2>Catégories</h2>
-          <hr>
           <?php
           $message = '' ;
           if(isset($_GET['error'])) {
@@ -65,48 +64,64 @@
           <?php
             }
           }
-
-          $q = $pdo->prepare('SELECT name, description FROM category') ;
-          $q->execute() ;
-          $categories = $q->fetchAll() ;
           ?>
-          <table class="table">
-              <thead>
-                  <tr>
-                      <th scope="col">Catégorie</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Modifier</th>
-                      <th scope="col">Supprimer</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <?php
-                  foreach ($categories as $value) {
-                  ?>
-                  <tr>
-                    <form action="actions/categories/edit_category.php" method="post">
-                      <td>
-                        <input type="text" name="name" value="<?php echo $value['name'] ; ?>" class="form-control col-md-6" readonly>
-                      </td>
-                      <td>
-                        <input type="text" name="description" value="<?php echo $value['description']?>" class="form-control">
-                      </td>
-                      <td>
-                        <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm">
-                      </td>
-                    </form>
-                    <td>
-                      <a href="actions/categories/drop_category.php?category=<?php echo $value['name'] ; ?>">
-                        <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
-                      </a>
-                    </td>
-                  </tr>
-                  <?php
-                  } ;
-                  ?>
-              </tbody>
-          </table>
+
+          <div class="jumbotron">
+            <?php
+            $q = $pdo->prepare('SELECT name, description FROM category') ;
+            $q->execute() ;
+            $categories = $q->fetchAll() ;
+            ?>
+
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+              <?php foreach ($categories as $cat) { ?>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-<?= $cat['name'] ; ?>-tab" data-toggle="pill" href="#pills-<?= $cat['name'] ; ?>" role="tab" aria-controls="pills-<?= $cat['name'] ; ?>" aria-selected="<?= $cat['name'] ; ?>"><?= $cat['name'] ; ?></a>
+              </li>
+              <?php } ?>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+              <?php foreach ($categories as $cat) { ?>
+              <div class="tab-pane fade" id="pills-<?= $cat['name'] ; ?>" role="tabpanel" aria-labelledby="pills-<?= $cat['name'] ; ?>-tab">
+                <table class="table">
+                  <tbody>
+                      <tr>
+                        <form action="admin/actions/categories/edit_category.php" method="post">
+                          <td>
+                            <label for="description">Description</label>
+                          </td>
+                          <td>
+                            <input type="text" name="description" id="description-<?php echo $cat['description']?>" value="<?php echo $cat['description']?>" class="form-control col-md-12">
+                          </td>
+                          <td>
+                            <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm float-right">
+                          </td>
+                        </form>
+                        <td>
+                          <a href="admin/actions/categories/drop_category.php?category=<?php echo $cat['name'] ; ?>">
+                            <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
+                          </a>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+                <hr>
+
+                <div class="mb-3">
+                  <button type="button" class="btn btn-primary" onclick="get('<?= $cat['name'] ; ?>', 'all', 'messages')">Tous les messages</button>
+                  <button type="button" class="btn btn-warning" onclick="get('<?= $cat['name'] ; ?>', 'signaled', 'messages')">Messages signalés</button>
+                  <button type="button" class="btn btn-primary" onclick="get('<?= $cat['name'] ; ?>', 'all', 'comments')">Tous les commentaires</button>
+                  <button type="button" class="btn btn-warning" onclick="get('<?= $cat['name'] ; ?>', 'signaled', 'comments')">Commentaires signalés</button>
+                </div>
+
+                <div id="display-<?= $cat['name'] ; ?>"></div>
+
+              </div>
+              <?php } ?>
+            </div>
         </main>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php') ; ; ?>
+        <?php include($_SERVER['DOCUMENT_ROOT]' . 'includes/footer.php') ; ; ?>
+        <script src="admin/categories.js" charset="utf-8"></script>
     </body>
 </html>
