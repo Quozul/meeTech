@@ -52,9 +52,7 @@ $categories = $stmt->fetchAll() ;
         <?php } ?>
       </td>
       <td scope="col">
-        <a href="#">
-          <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
-        </a>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="dropMessage(<?= $message['id_m'] ; ?>, 'signaled')">Supprimer</button>
       </td>
     </tr>
     <?php

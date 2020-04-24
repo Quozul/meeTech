@@ -38,9 +38,7 @@ if ($success = 0) {
         <?php } ?>
       </td>
       <td scope="col">
-        <a href="#">
-          <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
-        </a>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="dropComment(<?= $comment['id_c'] ; ?>, 'all')">Supprimer</button>
       </td>
     </tr>
     <?php

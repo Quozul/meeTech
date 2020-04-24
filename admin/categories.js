@@ -69,3 +69,41 @@ function unsignalC (comment, data) {
     request.send() ;
   }
 }
+
+function dropComment (comment, data) {
+  if (confirm('Voulez-vous supprimer ce commentaire ?')) {
+    let request = new XMLHttpRequest() ;
+    request.open('DELETE', '/actions/blog/drop_comment/?comm='+ comment) ;
+    request.onreadystatechange = function() {
+      if (request.readyState === 4) {
+        const response = parseInt(request.responseText) ;
+        if (response === 1) {
+          const activeCat = document.getElementsByClassName('active')[0].innerHTML ;
+          get(activeCat, data, 'comments') ;
+        } else {
+          alert("Une erreur est survenue") ;
+        }
+      }
+    } ;
+    request.send() ;
+  }
+}
+
+function dropMessage (message, data) {
+  if (confirm('Voulez-vous supprimer ce message ?')) {
+    let request = new XMLHttpRequest() ;
+    request.open('DELETE', '../actions/categories/drop_message/?post='+ message) ;
+    request.onreadystatechange = function() {
+      if (request.readyState === 4) {
+        const response = parseInt(request.responseText) ;
+        if (response === 1) {
+          const activeCat = document.getElementsByClassName('active')[0].innerHTML ;
+          get(activeCat, data, 'messages') ;
+        } else {
+          alert("Une erreur est survenue") ;
+        }
+      }
+    } ;
+    request.send() ;
+  }
+}
