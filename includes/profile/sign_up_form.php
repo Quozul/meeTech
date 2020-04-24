@@ -23,9 +23,10 @@
                         </div>
                         <label for="password_input">Mot de passe</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password_input" name="password" placeholder="Votre mot de passe" required>
+                            <input type="password" class="form-control" id="password_input" name="password" aria-describedby="pwdHelp" placeholder="Votre mot de passe" required>
                             <div class="invalid-feedback d-block" id="password-invalid-feedback"></div>
                         </div>
+                        <div class="input-group"><small id="pwdHelp" class="text-muted">Doit contenir au minimum 8 charactères</small></div>
                         <label for="password_input">Confirmez le mot de passe</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="confirm_password_input" name="confirm-password" placeholder="Votre mot de passe" required>

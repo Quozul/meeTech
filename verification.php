@@ -15,15 +15,18 @@
                     $sth->execute([$token]);
 
                     $query = $pdo->prepare('SELECT id_u, verified FROM users WHERE token =?');
-                    $query->execute([$token]);
-                    $res = $sth->fetch();
+                    $result = $query->execute([$token]);
+                    $res = $query->fetch();
 
-                    if (!$res['verified'])
+                    if (!$res['verified']) {
                         echo "Le compte n'est pas validé";
-                    else {
+                    } else {
                         $_SESSION['userid'] = $res[0];
+                        $sth = $pdo->prepare('UPDATE users SET token = NULL WHERE id_u = ?');
+                        $query->execute([$_SESSION['userid']]);
+                        $res = $sth->fetch();
                 ?>
-                        Votre compte a été validé avec succés cliquez <a href="/">ici</a> pour revenir à l'acceuil de meetech
+                        <p>Votre compte a été validé avec succés cliquez <a href="/">ici</a> pour revenir à l'acceuil de meetech</p>
                 <?php
                     }
                 } else {
