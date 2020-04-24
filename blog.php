@@ -66,7 +66,7 @@
                           </p>
                           <p class="card-text">
                             <?php $dp = new DateTime($article['date_published']) ; ?>
-                            <small class="text-muted">Publié le <?= $dp->format('d m Y à H:i') ; ?> by <a href="/user/?id=<?= $article['author'] ; ?>"><?= $article['username'] ; ?></a></small>
+                            <small class="text-muted">Publié le <?= $dp->format('d/m/Y à H:i') ; ?> by <a href="/user/?id=<?= $article['author'] ; ?>"><?= $article['username'] ; ?></a></small>
                           </p>
                       </div>
                   </article>

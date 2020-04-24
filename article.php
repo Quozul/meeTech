@@ -62,9 +62,9 @@
               $dp = new DateTime($message['date_published']) ;
               $de = new DateTime($message['date_edited']) ;
               ?>
-              Publié le <?= $dp->format('d m Y à H:i') ; ?> par
+              Publié le <?= $dp->format('d/m/Y à H:i') ; ?> par
               <a href="/user/?id=<?= $message['author'] ; ?>"><?= $message['username'] ; ?></a>
-              <?php if ($message['date_edited'] != NULL) echo ", dernière édition le " . $de->format('d m Y à H:i') ; ?>
+              <?php if ($message['date_edited'] != NULL) echo ", dernière édition le " . $de->format('d/m/Y à H:i') ; ?>
               .
             </small>
             <hr>
