@@ -59,14 +59,20 @@
     drawCaptcha(canvas, '/image.jpg', function() {
         const ctx = canvas.getContext('2d');
 
-        ctx.fillStyle = 'rgba(0, 0, 0, .5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        let i = 0;
+        const interval = setInterval(() => {
+            ctx.fillStyle = 'rgba(0, 0, 0, ' + (i / 100) + ')';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = 'rgba(0, 255, 0, 1)';
-        ctx.font = canvas.height + 'px serif';
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText('✅', canvas.width / 2, canvas.height / 2);
+            ctx.fillStyle = 'rgba(0, 255, 0, 1)';
+            ctx.font = '64px sans-serif';
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText('Captcha complété !', canvas.width / 2, canvas.height / 2);
+            
+            i++;
+            if (i > 49) clearInterval(interval);
+        }, 10);
 
         document.getElementById('puzzle-completed').checked = true;
     });

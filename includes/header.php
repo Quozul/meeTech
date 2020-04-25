@@ -1,10 +1,8 @@
-<?php
-if (isset($_SESSION['userid'])) {
+<?php if (isset($_SESSION['userid'])) {
     $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ? ');
     $sth->execute([$_SESSION['userid']]);
     $rec = $sth->fetchAll();
-}
-?>
+} ?>
 
 <header class="mb-4">
     <nav class="navbar navbar-expand-lg <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) echo 'mt-backoffice-color'; ?>">
@@ -36,11 +34,11 @@ if (isset($_SESSION['userid'])) {
                         <a class="nav-link" href="/forum/">Forum</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" <?php if (isset($rec)) {
-                                                echo 'href="/profile.php"';
-                                            } else {
-                                                echo 'data-toggle="modal" data-target="#sign_in_modal"';
-                                            } ?>>
+                        <a href="" class="nav-link" <?php if (isset($rec)) {
+                                                        echo 'href="/profile.php"';
+                                                    } else {
+                                                        echo 'data-toggle="modal" data-target="#sign_in_modal"';
+                                                    } ?>>
                             <?php if (isset($rec)) {
                                 echo $rec[0]['username'];
                             } else {
@@ -49,13 +47,13 @@ if (isset($_SESSION['userid'])) {
                     </li>
                     <?php if (!isset($rec)) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="modal" data-target="#sign_up_modal">
+                            <a href="" class="nav-link" data-toggle="modal" data-target="#sign_up_modal">
                                 Créer un compte
                             </a>
                         </li>
                     <?php } else { ?>
                         <li class="nav-item">
-                            <a class="nav-link" onclick="request('/actions/profile/sign_out.php','').then(function(){document.location.reload();})">Se déconnecter</a>
+                            <a href="" class="nav-link" onclick="request('/actions/profile/sign_out.php','').then(function(){document.location.reload();})">Se déconnecter</a>
                         </li>
                     <?php } ?>
                 </ul>

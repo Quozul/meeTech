@@ -38,7 +38,7 @@ function drawCaptcha(puzzle_canvas, image_path, action) {
     let remaining_parts_id = new Array(); // this array stores parts ids
 
     /**
-     * Shuffles array in place. ES6 version
+     * Shuffles array in place.
      * @param {Array} a items An array containing the items.
      */
     function shuffle(a) {
@@ -152,6 +152,17 @@ function drawCaptcha(puzzle_canvas, image_path, action) {
             // do something when right part is clicked
             if (in_square(mp.x, mp.y, px, py, pw, ph) && id == missing_part)
                 action();
+            else if (in_square(mp.x, mp.y, px, py, pw, ph)) {
+                ctx.beginPath();
+                ctx.moveTo(part.x, part.y);
+                ctx.lineTo(part.x + part.w, part.y + part.h);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(part.x + part.w, part.y);
+                ctx.lineTo(part.x, part.y + part.h);
+                ctx.stroke();
+            }
         });
     }
 }
