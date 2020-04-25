@@ -26,7 +26,7 @@
                         <select name="<?php echo $type['id_t']; ?>" class="component_select form-control" <?php echo count($components) == 0 ? 'disabled' : ''; ?>>
                             <option value="" selected>Sélectionnez...</option>
                             <?php foreach ($components as $key => $component) { ?>
-                                <option value="<?php echo $component['id_c']; ?>"><?php echo $component['brand'] . ' ' . $component['name']; ?></option>
+                                <option value="<?php echo $component['id_c']; ?>" <?= isset($_GET[$type['id_t']]) && $component['id_c'] == $_GET[$type['id_t']] ? 'selected' : '' ?>><?php echo $component['brand'] . ' ' . $component['name']; ?></option>
                             <?php } ?>
                         </select>
 
@@ -54,22 +54,41 @@
                     </div>
                 <?php } ?>
             </form>
+
+            <button type="button" onclick="share_link();" class="btn btn-primary">Copier le lien de partage</button>
         </div>
 
         <script>
+            function on_select_change(s) {
+                getHtmlContent('/includes/hardware/config_score.php', formToQuery('components')).then((res) => {
+                    document.getElementById('total_score').innerHTML = 'Score total : ' + res;
+                });
+
+                getHtmlContent('/includes/hardware/component_resume.php', 'id=' + s.value).then((res) => {
+                    document.getElementById('modal-body-' + s.name).innerHTML = res;
+                });
+            }
+
             const selects = document.getElementsByClassName('component_select');
 
             for (const key in selects)
-                if (selects.hasOwnProperty(key))
-                    selects[key].addEventListener('change', function() {
-                        getHtmlContent('/includes/hardware/config_score.php', formToQuery('components')).then((res) => {
-                            document.getElementById('total_score').innerHTML = 'Score total : ' + res;
-                        });
+                if (selects.hasOwnProperty(key)) {
+                    selects[key].addEventListener('change', on_select_change, this);
+                    on_select_change(selects[key]);
+                }
 
-                        getHtmlContent('/includes/hardware/component_resume.php', 'id=' + this.value).then((res) => {
-                            document.getElementById('modal-body-' + this.name).innerHTML = res;
-                        });
-                    });
+            function share_link() {
+                let link = '';
+
+                for (const key in selects)
+                    if (selects.hasOwnProperty(key)) {
+                        const s = selects[key];
+                        if (s.value != '')
+                            link += `${s.name}=${s.value}&`;
+                    }
+
+                navigator.clipboard.writeText(document.location.href + '?' + link);
+            }
         </script>
     </main>
 
