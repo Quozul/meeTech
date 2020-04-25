@@ -28,12 +28,15 @@
                     </div>
                 </div>
             </div>
-
+            <hr>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createChanModal">Créer un salon de discussion</button>
+            <?php include('actions/chat/create_chan_form.php'); ?>
         </div>
     </main>
 
 </body>
 <script src="/scripts/chat.js" charset="utf-8"></script>
+<script src="/scripts/main.js" charset="utf-8"></script>
 <script>
     let m = 'J';
     m.addEventListener('keypress', function(e) {

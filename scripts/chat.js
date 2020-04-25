@@ -1,3 +1,16 @@
+function create_chan() {
+    let request = new XMLHttpRequest();
+    request.open('POST', '../actions/chat/create_chan.php');
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            getChat(channel);
+        }
+    }
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(`username=${username}&name=${name}`);
+
+}
+
 function getChat(channel) {
     let request = new XMLHttpRequest();
     request.open('GET', '../actions/chat/display_pm.php?chan=' + channel);
