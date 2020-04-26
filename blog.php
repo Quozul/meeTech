@@ -47,7 +47,7 @@
               <div class="row no-gutters">
                   <aside class="col-md-4">
                       <img src="
-                      <?php if(!empty($article['file_name'])) echo 'uploads/' . $article['file_name'] ;
+                      <?php if(!empty($article['file_name'])) echo '/uploads/' . $article['file_name'] ;
                       else echo 'https://www.meetech.ovh/images/logov4.svg' ; ?>" alt="Image article" style="max-width: 200px; max-height: 200px;">
                   </aside>
                   <article class="col-md-8">
