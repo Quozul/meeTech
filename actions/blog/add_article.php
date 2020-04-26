@@ -41,6 +41,9 @@ $q->execute([
 ]) ;
 
 if (isset($_FILES['image']) && !empty($_FILES['image'])) {
+  $count = $pdo->query('SELECT MAX(id_m) FROM message') ;
+  $id_m = $count->fetch()[0] ;
+
   //Check file format
   $acceptable = [
   	'image/jpeg',
@@ -67,13 +70,11 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   if(!file_exists($path)) {
   	mkdir($path, 0777, true) ;
   }
-  $name = $_FILES['image']['name'] ;
-  $newname = time() . '_' . $name ;
+  $name = preg_replace('# #', '_', $_FILES['image']['name']) ;
+  $newname = $id_m . '_' time() . '_' . $name ;
   $path .= $newname ;
 
   move_uploaded_file($_FILES['image']['tmp_name'], $path) ;
-  $count = $pdo->query('SELECT MAX(id_m) FROM message') ;
-  $id_m = $count->fetch()[0] ;
 
   $stmt = $pdo->prepare('INSERT INTO file (added_by, message, file_name) VALUES (:user, :message, :name)') ;
   $res = $stmt->execute([
