@@ -26,6 +26,7 @@ function getChat(channel) {
             m = document.getElementById('message-' + channel);
             let elmnt = document.getElementById('display_mp-' + channel);
             elmnt.scrollTo(0, elmnt.scrollHeight);
+            setTimeout(getChat, 15000);
         }
     }
     request.send();
