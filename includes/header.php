@@ -33,18 +33,25 @@
                     <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/forum/') echo 'active'; ?>">
                         <a class="nav-link" href="/forum/">Forum</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link" <?php if (isset($rec)) {
-                                                        echo 'href="/profile.php"';
-                                                    } else {
-                                                        echo 'data-toggle="modal" data-target="#sign_in_modal"';
-                                                    } ?>>
-                            <?php if (isset($rec)) {
-                                echo $rec[0]['username'];
-                            } else {
-                                echo 'Se connecter';
-                            } ?></a>
-                    </li>
+                    <?php if (isset($rec)) { ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Profil
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="" class="nav-link" href="/profile/">
+                                    <?php echo $rec[0]['username']; ?>
+                                </a>
+                                <a class="dropdown-item" href="/chat/">Salons de discussions</a>
+                            </div>
+                        </li>
+                    <?php } else { ?>
+                        <li class="nav-item">
+                            <a href="" class="nav-link" data-toggle="modal" data-target="#sign_in_modal">
+                                Se connecter
+                            </a>
+                        </li>
+                    <?php } ?>
                     <?php if (!isset($rec)) { ?>
                         <li class="nav-item">
                             <a href="" class="nav-link" data-toggle="modal" data-target="#sign_up_modal">
