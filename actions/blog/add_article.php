@@ -70,8 +70,10 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   if(!file_exists($path)) {
   	mkdir($path, 0777, true) ;
   }
+  $temp = explode('.', $_FILES['avatar']['name']) ;
+  $extension = end($temp) ;
   $name = preg_replace('# #', '_', $_FILES['image']['name']) ;
-  $newname = $id_m . '_' time() . '_' . $name ;
+  $newname = $id_m . '_' . time() . '_' . $name '.' . $extension ;
   $path .= $newname ;
 
   move_uploaded_file($_FILES['image']['tmp_name'], $path) ;
