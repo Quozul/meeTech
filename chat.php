@@ -37,12 +37,5 @@
 </body>
 <script src="/scripts/chat.js" charset="utf-8"></script>
 <script src="/scripts/main.js" charset="utf-8"></script>
-<script>
-    let m = 'J';
-    m.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter')
-            submitMessage();
-    });
-</script>
 
 </html>

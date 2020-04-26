@@ -44,7 +44,7 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
                 $dp = new DateTime($comment['date_published']) ;
                 $de = new DateTime($comment['date_edited']) ;
                 echo "Publié le " . $dp->format('d/m/Y à H:i') ;
-                if ($comment['date_edited'] != NULL) echo ", dernière édition le " . $dp->format('d/m/Y à H:i') ;
+                if ($comment['date_edited'] != NULL) echo ", dernière édition le " . $de->format('d/m/Y à H:i') ;
                 ?>
             </small>
 
