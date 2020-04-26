@@ -2,6 +2,8 @@
     $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ? ');
     $sth->execute([$_SESSION['userid']]);
     $rec = $sth->fetchAll();
+    $query = $pdo->query('SELECT name FROM category') ;
+    $categories = $query->fetchAll() ;
 } ?>
 
 <header class="mb-4">
@@ -27,11 +29,15 @@
                             <a class="dropdown-item" href="/comparator/">Comparateur</a>
                         </div>
                     </li>
-                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/blog/') echo 'active'; ?>">
-                        <a class="nav-link" href="/blog/">Blog</a>
-                    </li>
-                    <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] == '/forum/') echo 'active'; ?>">
-                        <a class="nav-link" href="/forum/">Forum</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Communauté
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                          <?php foreach($categories as $cat) { ?>
+                          <a class="dropdown-item" href="/community/?cat=<?= $cat['name'] ; ?>"><?= $cat['name'] ; ?></a>
+                          <?php } ?>
+                        </div>
                     </li>
                     <?php if (isset($rec)) { ?>
                         <li class="nav-item dropdown">
