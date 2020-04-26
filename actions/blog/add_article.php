@@ -40,6 +40,49 @@ $q->execute([
 	'signaled' => $signaled
 ]) ;
 
+if (isset($_FILES['image']) && !empty($_FILES['image'])) {
+  //Check file format
+  $acceptable = [
+  	'image/jpeg',
+  	'image/jpg',
+  	'image/gif',
+  	'image/png'
+  ] ;
+  echo $_FILES['image']['type'] ;
+  if(!in_array($_FILES['image']['type'], $acceptable)) {
+  	echo 'error' ;
+  	header('location: '. $_SERVER['DOCUMENT_ROOT'] . 'blog/?error=file1') ;
+  	exit ;
+  }
+
+  //Check file size
+  $maxsize = 1024 * 1024 ; //sets size to 1Mo
+  if ($_FILES['image']['size'] > $maxsize) {
+  	header('location: '. $_SERVER['DOCUMENT_ROOT'] . 'blog/?error=file2') ;
+  	exit ;
+  }
+
+  //File path
+  $path = '/uploads/' ;
+  if(!file_exists($path)) {
+  	mkdir($path, 0777, true) ;
+  }
+  $name = $_FILES['image']['name'] ;
+  $newname = time() . '_' . $name ;
+  $path .= $newname ;
+
+  move_uploaded_file($_FILES['image']['tmp_name'], $path) ;
+  $count = $pdo->query('SELECT MAX(id_m) FROM message') ;
+  $id_m = $count->fetch()[0] ;
+
+  $stmt = $pdo->prepare('INSERT INTO file (added_by, message, file_name) VALUES (:user, :message, :name)') ;
+  $res = $stmt->execute([
+    'user' => $_SESSION['userid'],
+    'message' => $id_m,
+    'name' => $newname
+  ])
+}
+
 header('location: /' . $category . '/') ;
 exit ;
 ?>

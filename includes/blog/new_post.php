@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="submit-article" method="post" action="/actions/blog/add_article/" autocomplete="off">
+        <form id="submit-article" method="post" action="/actions/blog/add_article/" autocomplete="off" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Titre de l'article*</label>
                 <input type="text" class="form-control" id="title" placeholder="Titre de l'article" name="title">
@@ -17,7 +17,7 @@
                 <textarea type="text" class="form-control" id="content" name="content"></textarea>
 
                 <label for="image">Image</label>
-                <input type="file" class="form-control-file" id="image">
+                <input type="file" class="form-control-file" id="image" name="image">
             </div>
 
             <div class="input-group mb-3">
@@ -25,7 +25,7 @@
                     <label class="input-group-text" for="category">Catégorie*</label>
                 </div>
                 <select class="custom-select" id="category" name="category" readonly>
-                    <option selected value=<?php echo strtolower('"' . $page_name . '"') ; ?>><?php echo $page_name ; ?></option>
+                    <option selected value="<?= strtolower($page_name) ; ?>"><?= $page_name ; ?></option>
                 </select>
             </div>
 
@@ -42,7 +42,7 @@
                     var_dump($languages) ;
                     foreach($languages as $option) {
                     ?>
-                    <option value="<?php echo $option['lang'] ; ?>"><?php echo $option['lang'] ; ?></option>
+                    <option value="<?= $option['lang'] ; ?>"><?= $option['lang'] ; ?></option>
                     <?php
                     }
                     ?>

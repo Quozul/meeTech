@@ -15,7 +15,7 @@ if (!isset($_POST['commentContent']) || empty($_POST['commentContent'])
 $content = htmlspecialchars(trim($_POST['commentContent'])) ;
 $article = htmlspecialchars(trim($_POST['parentMessage'])) ;
 $parent = htmlspecialchars(trim($_POST['parentComment'])) ;
-$date = date('Y-m-d H:m') ;
+$date = date('Y-m-d H:i') ;
 
 $query = $pdo->prepare('INSERT INTO comment (author, parent_message, parent_comment, content, date_published)
       VALUES (:author, :parentM, :parentC, :content, :datePub)') ;

@@ -29,7 +29,7 @@
                 <?php foreach ($rec as $key => $user) { ?>
                     <tbody>
                         <tr>
-                            <th>
+                            <td>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
@@ -37,7 +37,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </th>
+                            </td>
                             <td scope="row" id="user<?= $user['id_u']; ?>"><?= $user['id_u']; ?></td>
                             <td><img src="/uploads/<?= $user['avatar']; ?>" alt="<?= $user['avatar']; ?>" style="max-width: 64px; max-height: 64px;"></td>
                             <td><a href="https://www.meetech.ovh/user/?id=<?= $user['id_u']; ?>"><?= $user['username']; ?></a></td>
