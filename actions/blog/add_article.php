@@ -70,7 +70,7 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   if(!file_exists($path)) {
   	mkdir($path, 0777, true) ;
   }
-  $temp = explode('.', $_FILES['avatar']['name']) ;
+  $temp = explode('.', $_FILES['image']['name']) ;
   $extension = end($temp) ;
   $name = preg_replace('# #', '_', $_FILES['image']['name']) ;
   $newname = $id_m . '_' . time() . '_' . $name . '.' . $extension ;
