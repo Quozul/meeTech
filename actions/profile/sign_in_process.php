@@ -10,7 +10,7 @@ $sth = $pdo->prepare('SELECT id_u FROM users WHERE username=?');
 $sth->execute([$_POST['username']]);
 
 if (empty($sth->fetch()))
-    $error = $error . 'username_not_found;';
+    $error = $error . 'wrong_password;';
 
 $sth = $pdo->prepare('SELECT id_u, verified FROM users WHERE username=? AND password=?');
 $sth->execute([$_POST['username'], hash('sha256', $_POST['password'])]);

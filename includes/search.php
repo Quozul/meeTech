@@ -15,14 +15,14 @@ $query->execute([$search_q, $search_q, $search_q, $search_q, $search_q, $search_
 $components = $query->fetchAll();
 
 // username matches, bio matches
-$query = $pdo->prepare('SELECT id_u, username FROM users WHERE username LIKE ? OR bio LIKE ?');
+/*$query = $pdo->prepare('SELECT id_u, username FROM users WHERE username LIKE ? OR bio LIKE ?');
 $query->execute([$search_q, $search_q]);
-$users = $query->fetchAll();
+$users = $query->fetchAll();*/
 ?>
 
 <h1>Résultats pour : <span class="text-muted"><?php echo $search; ?></span></h1>
 <div class="jumbotron row">
-    <div class="col-4">
+    <div class="col-6">
         <h3>Messages <small class="text-muted">(<?php echo count($messages); ?> résultats)</small></h3>
         <ul class="list-group">
             <?php if (count($messages) > 0)
@@ -33,7 +33,7 @@ $users = $query->fetchAll();
             <?php } ?>
         </ul>
     </div>
-    <div class=" col-4">
+    <div class="col-6">
         <h3>Composants <small class="text-muted">(<?php echo count($components); ?> résultats)</small></h3>
         <ul class="list-group">
             <?php if (count($components) > 0)
@@ -44,7 +44,7 @@ $users = $query->fetchAll();
             <?php } ?>
         </ul>
     </div>
-    <div class="col-4">
+    <!--<div class="col-4">
         <h3>Utilisateurs <small class="text-muted">(<?php echo count($users); ?> résultats)</small></h3>
         <ul class="list-group">
             <?php if (count($users) > 0)
@@ -54,5 +54,5 @@ $users = $query->fetchAll();
                 <p>Rien n'a été trouvé ici :(</p>
             <?php } ?>
         </ul>
-    </div>
+    </div>-->
 </div>

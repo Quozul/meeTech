@@ -55,10 +55,6 @@
             if (response[0] == 'ERROR')
                 response[1].split(';').forEach((code) => {
                     switch (code) {
-                        case 'username_not_found':
-                            uif.innerHTML = 'Cet utilisateur n\'a pas été trouvé.';
-                            uif.classList.add('is-invalid');
-                            break;
                         case 'wrong_password':
                             pif.innerHTML = 'Mot de passe incorrect.';
                             pif.classList.add('is-invalid');
