@@ -70,7 +70,7 @@
             <hr>
 
             <?php if (!empty($message['file_name'])) { ?>
-            <img src="images/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
+            <img src="uploads/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
             <?php } ?>
 
             <div class="markdown"><?= $message['content'] ; ?></div>

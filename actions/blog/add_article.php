@@ -63,7 +63,7 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   }
 
   //File path
-  $path = '/uploads/' ;
+  $path = '../../uploads/' ;
   if(!file_exists($path)) {
   	mkdir($path, 0777, true) ;
   }
@@ -80,7 +80,7 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
     'user' => $_SESSION['userid'],
     'message' => $id_m,
     'name' => $newname
-  ])
+  ]) ;
 }
 
 header('location: /' . $category . '/') ;
