@@ -25,8 +25,8 @@ $author = $_SESSION['userid'] ;
 $title = htmlspecialchars($_POST['title']) ;
 $content = htmlspecialchars($_POST['content']) ;
 $date_post = date('Y-m-d H:i:s') ;
-$language = $_POST['language'] ;
-$category = $_POST['category'] ;
+$language = htmlspecialchars(trim($_POST['language'])) ;
+$category = htmlspecialchars(trim($_POST['category'])) ;
 $signaled = 0 ;
 
 $q = $pdo->prepare('INSERT INTO message (author, title, content, date_published, default_language, category, signaled) VALUES (:author, :title, :content, :date_published, :language, :category, :signaled)') ;
@@ -89,6 +89,6 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   ]) ;
 }
 
-header('location: /' . $category . '/') ;
+header('location: /community/?cat=' . $category) ;
 exit ;
 ?>

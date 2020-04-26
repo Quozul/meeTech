@@ -39,7 +39,7 @@
           foreach ($categories as $cat) {
           ?>
           <a href="/community/?cat=<?= $cat['name'] ; ?>" type="button" class="btn btn-primary">Go to <?= ucfirst($cat['name']) ; ?></a>
-          <?php } ?> 
+          <?php } ?>
 
 <!-- Valid article display -->
           <?php
@@ -77,7 +77,7 @@
           <hr>
 
           <?php if (!empty($message['file_name'])) { ?>
-          <img src="/uploads/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;">
+          <a href="/uploads/<?= $message['file_name'] ; ?>" target="_blank"><img src="/uploads/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;"></a>
           <?php } ?>
           <div style="min-height: 250px;">
             <div class="markdown"><?= $message['content'] ; ?></div>

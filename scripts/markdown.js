@@ -1,4 +1,4 @@
-const markers = [
+const biMarkers = [
   ['**', '<b>', '</b>'],
   ['*', '<i>', '</i>'],
   ['__', '<u>', '</u>'],
@@ -10,8 +10,8 @@ const markers = [
 function markdown() {
   const toMark = document.getElementsByClassName('markdown') ;
   for (let i = 0 ; i < toMark.length ; ++i) {
-    for (let j = 0 ; j < markers.length ; ++j) {
-      change(toMark[i], markers[j][0]) ;
+    for (let j = 0 ; j < biMarkers.length ; ++j) {
+      change(toMark[i], biMarkers[j][0]) ;
     }
     checkClosed(toMark[i]) ;
   }
@@ -40,10 +40,10 @@ function change (tag, marker) {
 function replaceByTag (counter, marker) {
   let tagBeginning ;
   let tagEnd ;
-  for (let i = 0 ; i < markers.length ; ++i) {
-    if (markers[i][0] == marker) {
-      tagBeginning = markers[i][1] ;
-      tagEnd = markers[i][2] ;
+  for (let i = 0 ; i < biMarkers.length ; ++i) {
+    if (biMarkers[i][0] == marker) {
+      tagBeginning = biMarkers[i][1] ;
+      tagEnd = biMarkers[i][2] ;
     }
   }
   if (counter % 2 == 0) tag = tagBeginning ;
@@ -53,10 +53,10 @@ function replaceByTag (counter, marker) {
 
 function checkClosed (tag) {
   let str = tag.innerHTML ;
-  for (let j = 0 ; j < markers.length ; ++j) {
-    for (let i = str.length - 1 - markers[j][1].length ; i >= 0 ; --i) {
-      if (str.substring(i, markers[j][1].length) == markers[j][1]) {
-        str += markers[j][2] ;
+  for (let j = 0 ; j < biMarkers.length ; ++j) {
+    for (let i = str.length - 1 - biMarkers[j][1].length ; i >= 0 ; --i) {
+      if (str.substring(i, biMarkers[j][1].length) == biMarkers[j][1]) {
+        str += biMarkers[j][2] ;
         break ;
       }
     }

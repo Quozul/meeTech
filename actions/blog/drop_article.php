@@ -13,6 +13,6 @@ $delete->execute([$article]) ;
 $delete = $pdo->prepare('DELETE FROM message WHERE id_m = ?') ;
 $delete->execute([$article]) ;
 
-header('location: /' . $category . '/?success=drop') ;
+header('location: /community/?cat=' . $category . '&success=drop') ;
 exit() ;
 ?>
