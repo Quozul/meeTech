@@ -45,10 +45,10 @@ $categories = $query->fetchAll() ; ?>
                                 Profil
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="" class="nav-link" href="/profile/">
+                                <a class="dropdown-item" class="nav-link" href="/profile/">
                                     <?php echo $rec[0]['username']; ?>
                                 </a>
-                                <a class="dropdown-item" href="/chat/">Salons de discussions</a>
+                                <a class="dropdown-item" href="/chat/">Messagerie privée</a>
                             </div>
                         </li>
                     <?php } else { ?>
