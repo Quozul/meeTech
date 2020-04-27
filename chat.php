@@ -16,7 +16,8 @@
                 <div class="col-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <?php foreach ($result as $chan) { ?>
-                            <a class="nav-link" id="v-pills-<?= $chan['id_c']; ?>-tab" data-toggle="pill" href="#v-pills-<?= $chan['id_c']; ?>" role="tab" aria-controls="v-pills-<?= $chan['id_c']; ?>" aria-selected="true" onclick="getChat(<?= $chan['id_c']; ?>)"><?= $category['name']; ?></a>
+                            <a class="nav-link" id="v-pills-<?= $chan['id_c']; ?>-tab" data-toggle="pill" href="#v-pills-<?= $chan['id_c']; ?>" role="tab"
+                              aria-controls="v-pills-<?= $chan['id_c']; ?>" aria-selected="true" onclick="getChat(<?= $chan['id_c'] ; ?>)"><?= $chan['name']; ?></a>
                         <?php } ?>
                     </div>
                 </div>
