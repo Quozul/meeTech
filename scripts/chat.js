@@ -34,7 +34,7 @@ function getChat(channel) {
 }
 
 function add_recipient(channel) {
-    const username = document.getElementById('add_user-' + channel).value;
+    const username = document.getElementById('add_user-' + channel);
     let request = new XMLHttpRequest();
     request.open('POST', '../actions/chat/add_recipient.php');
     request.onreadystatechange = function () {
@@ -44,6 +44,7 @@ function add_recipient(channel) {
             if (response === 1) {
                 success_div.innerHTML = "Utilisateur ajouté";
                 success_div.className = "alert alert-success ml-3";
+                username.value = "" ;
             } else {
                 if (response === -1) success_div.innerHTML = "L'utilisateur n'existe pas";
                 else if (response === -2) success_div.innerHTML = "L'utilisateur fait déjà partie de ce channel";
@@ -53,7 +54,7 @@ function add_recipient(channel) {
         }
     }
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send(`username=${username}&channel=${channel}`);
+    request.send(`username=${username.value}&channel=${channel}`);
 
 
 }
@@ -70,7 +71,6 @@ function submitMessage(channel) {
         request.open('POST', '../actions/chat/chat_post.php');
         request.onreadystatechange = function () {
             if (request.readyState === 4) {
-                getChat(channel);
                 const input = document.getElementById('message-' + channel);
                 input.value = '';
                 size_mp.innerHTML = "";
@@ -94,4 +94,16 @@ function leaveChat(channel) {
         }
     }
     request.send();
+}
+
+function recipients(channel) {
+  let request = new XMLHttpRequest;
+  request.open('GET', '../actions/chat/get_recipients/?chan=' + channel);
+  request.onreadystatechange = function () {
+      if (request.readyState === 4) {
+          const recipients = document.getElementById('recipients-' + channel) ;
+          recipients.innerHTML = request.responseText;
+      }
+  }
+  request.send();
 }

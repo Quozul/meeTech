@@ -25,11 +25,9 @@
                     <div class="tab-content" id="v-pills-tabContent">
                         <?php foreach ($result as $chan) { ?>
                             <div class="tab-pane fade show" id="v-pills-<?= $chan['id_c']; ?>" role="tabpanel" aria-labelledby="v-pills-<?= $chan['id_c']; ?>-tab">
+                              <div id="recipients-<?= $chan['id_c'] ; ?>" onload="recipients(<?= $chan['id_c'] ; ?>)"></div>
+                              <hr>
                               <div class="float-right">
-                                  <div>
-                                      <button class="btn btn-info btn-sm ml-3" onclick="getChat(<?= $chan['id_c']; ?>)">&#8634;</button>
-                                  </div>
-                                  <hr>
                                   <form method="post" class="mb-3 ml-3">
                                       <input class="form-control mb-2" type="text" name="add_user" id="add_user-<?= $chan['id_c']; ?>" placeholder="Utilisateur à ajouter">
                                       <button type="button" class="btn btn-success btn-sm" onclick="add_recipient(<?= $chan['id_c']; ?>)">Ajouter l'utilisateur</button>
