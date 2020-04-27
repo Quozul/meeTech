@@ -9,23 +9,23 @@
         $page_count = $content_count / $page_limit;
         ?>
         <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
-            <a class="page-link" href="<?php echo '?page=' . (intval($page) - 1); ?>" tabindex="-1">Précédent</a>
+            <a class="page-link" href="<?= '?page=' . (intval($page) - 1); ?>" tabindex="-1">Précédent</a>
         </li>
         <?php
         for ($i = 1; $i < $page_count + 1 ; $i++) {
             if ($i == $page) {
         ?>
                 <li class="page-item active">
-                    <a class="page-link" href="<?php echo '?page=' . $i; ?>"><?php echo $i; ?> <span class="sr-only">(current)</span></a>
+                    <a class="page-link" href="<?= '?cat=' . $page_name . '&page=' . $i; ?>"><?= $i; ?> <span class="sr-only">(current)</span></a>
                 </li>
             <?php } else { ?>
                 <li class="page-item">
-                    <a class="page-link" href="<?php echo '?page=' . $i; ?>"><?php echo $i; ?></a>
+                    <a class="page-link" href="<?= '?cat=' . $page_name . '&page=' . $i; ?>"><?= $i; ?></a>
                 </li>
         <?php }
         } ?>
         <li class="page-item <?php if ($page >= $page_count) echo 'disabled'; ?>">
-            <a class="page-link" href="<?php echo '?page=' . (intval($page) + 1); ?>">Suivant</a>
+            <a class="page-link" href="<?= '?page=' . (intval($page) + 1); ?>">Suivant</a>
         </li>
     </ul>
 </nav>
