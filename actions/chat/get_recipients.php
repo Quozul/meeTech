@@ -7,7 +7,7 @@ $query->execute([$channel]) ;
 $users = $query->fetchAll() ;
 
 foreach($users as $u) { ?>
-<a href="/user/?id=<?= $u['author'] ; ?>"<span class="badge badge-dark">
+<a href="/user/?id=<?= $u['author'] ; ?>"><span class="badge badge-dark">
   <img src="/uploads/<?= $u['avatar'] ; ?>" alt="<?= $u['username'] ; ?>" class="mt-avatar" style="max-width: 32px; max-height: 32px;">
   <?= $u['username'] ; ?>
 </span></a>

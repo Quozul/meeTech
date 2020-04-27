@@ -17,7 +17,7 @@
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <?php foreach ($result as $chan) { ?>
                             <a class="nav-link" id="v-pills-<?= $chan['id_c']; ?>-tab" data-toggle="pill" href="#v-pills-<?= $chan['id_c']; ?>" role="tab"
-                              aria-controls="v-pills-<?= $chan['id_c']; ?>" aria-selected="true" onclick="getChat(<?= $chan['id_c'] ; ?>)"><?= $chan['name']; ?></a>
+                              aria-controls="v-pills-<?= $chan['id_c']; ?>" aria-selected="true" onclick="getChat(<?= $chan['id_c'] ; ?>, 0)"><?= $chan['name']; ?></a>
                         <?php } ?>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="tab-content" id="v-pills-tabContent">
                         <?php foreach ($result as $chan) { ?>
                             <div class="tab-pane fade show" id="v-pills-<?= $chan['id_c']; ?>" role="tabpanel" aria-labelledby="v-pills-<?= $chan['id_c']; ?>-tab">
-                              <div id="recipients-<?= $chan['id_c'] ; ?>" onload="recipients(<?= $chan['id_c'] ; ?>)"></div>
+                              <div id="recipients-<?= $chan['id_c'] ; ?>"></div>
                               <hr>
                               <div class="float-right">
                                   <form method="post" class="mb-3 ml-3">

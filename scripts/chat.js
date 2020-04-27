@@ -15,18 +15,20 @@ function create_chan() {
 
 }
 
-function getChat(channel) {
-
+function getChat(channel, iter) {
     let request = new XMLHttpRequest();
     request.open('GET', '../actions/chat/display_pm.php?chan=' + channel);
     request.onreadystatechange = function () {
         if (request.readyState === 4) {
             const displayDiv = document.getElementById('display_pm-' + channel);
             displayDiv.innerHTML = request.responseText;
-            let elmnt = document.getElementById('display_pm-' + channel);
-            elmnt.scrollTo(0, elmnt.scrollHeight);
+            if (iter == 0) {
+              let elmnt = document.getElementById('display_pm-' + channel);
+              elmnt.scrollTo(0, elmnt.scrollHeight);
+              recipients(channel) ;
+            }
             setTimeout(function () {
-                getChat(channel);
+                getChat(channel, iter+1);
             }, 2000);
         }
     }
