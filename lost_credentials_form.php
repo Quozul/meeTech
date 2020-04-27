@@ -16,7 +16,7 @@
             <input type="submit" class="btn btn-primary" value="Envoi du mail">
         </form>
         <hr>
-        <form id="lost_credentials_form" method="post" action="/actions/profile/verif_code.php" autocomplete="off" novalidate>
+        <form id="token_verification" method="post" action="/actions/profile/verif_code.php" autocomplete="off" novalidate>
             <div class="form-group">
                 <label for="verif_code">Code de verification</label>
                 <input type="text" class="form-control" id="verif_code" name="code" placeholder="code de verification">

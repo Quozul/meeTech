@@ -5,11 +5,13 @@ $error = '';
 
 // Email au format valide et si deja existant
 if (!isset($_POST['email']) || empty($_POST['email'])) {
-    $error = $error . 'Veuillez_entrer_une_adresse_mail';
+    $error = 'datanotset';
     header('location: ../../lost_credentials_form/?error=' . $error);
+    exit() ;
 } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    $error = $error . 'Adresse_mail_invalide';
+    $error = 'invalidmail';
     header('location: ../../lost_credentials_form/?error=' . $error);
+    exit() ;
 } else {
     // Existe ou non dans la BBD
     $email = htmlspecialchars($_POST['email']);
@@ -18,7 +20,7 @@ if (!isset($_POST['email']) || empty($_POST['email'])) {
     $rec = $sth->fetch();
 
     if ($rec == 0)
-        $error = $error . 'usernotfound';
+        $error = 'usernotfound';
     header('location: ../../lost_credentials_form/?error=' . $error);
     exit();
 }
