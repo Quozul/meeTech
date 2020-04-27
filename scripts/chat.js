@@ -47,6 +47,7 @@ function add_recipient(channel) {
                 success_div.innerHTML = "Utilisateur ajouté";
                 success_div.className = "alert alert-success ml-3";
                 username.value = "" ;
+                recipients(channel);
             } else {
                 if (response === -1) success_div.innerHTML = "L'utilisateur n'existe pas";
                 else if (response === -2) success_div.innerHTML = "L'utilisateur fait déjà partie de ce channel";
@@ -62,7 +63,6 @@ function add_recipient(channel) {
 }
 
 function submitMessage(channel) {
-
     const message = document.getElementById('message-' + channel).value;
     const size_mp = document.getElementById('size_mp-' + channel);
     if (message.length < 2) {
