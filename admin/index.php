@@ -28,6 +28,17 @@
                 <hr>
 
                 <a href="/admin/actions/xml_dump/" download="meetech.xml">Télécharger la base de données</a>
+
+                <hr>
+                <h3>Changer l'image du captcha</h3>
+                <p>Privilégiez une image de grande résolution.</p>
+                <form action="/admin/actions/captcha.php" method="post" autocomplete="off" enctype="multipart/form-data">
+                    <div class="custom-file mb-3">
+                        <input type="file" class="custom-file-input" name="captcha" required>
+                        <label class="custom-file-label">Choississez un fichier...</label>
+                    </div>
+                    <button type="submit" class="form-control btn btn-primary">Changer le captcha</button>
+                </form>
             </ul>
         </div>
     </main> <?php include('../includes/footer.php'); ?> </body>

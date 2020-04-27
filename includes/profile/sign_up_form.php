@@ -56,7 +56,7 @@
     });
 
     const canvas = document.getElementById('puzzle-canvas')
-    drawCaptcha(canvas, '/image.jpg', function() {
+    drawCaptcha(canvas, '/assets/captcha.png', function() {
         const ctx = canvas.getContext('2d');
 
         let i = 0;
@@ -69,7 +69,7 @@
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText('Captcha complété !', canvas.width / 2, canvas.height / 2);
-            
+
             i++;
             if (i > 49) clearInterval(interval);
         }, 10);
