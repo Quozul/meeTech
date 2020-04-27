@@ -19,10 +19,11 @@ if (!isset($_POST['email']) || empty($_POST['email'])) {
     $sth->execute([$email]);
     $rec = $sth->fetch();
 
-    if ($rec == 0)
-        $error = 'usernotfound';
-    header('location: ../../lost_credentials_form/?error=' . $error);
-    exit();
+    if ($rec == 0) {
+      $error = 'usernotfound';
+      header('location: ../../lost_credentials_form/?error=' . $error);
+      exit();
+    }
 }
 
 $code = random_int(100000, 999999);
@@ -36,8 +37,8 @@ $headers .= "Content-type:text/html;charset=UTF-8\r\n";
 $headers .= "From: no-reply@meetech.ovh\r\n";
 $email = $_POST['email'];
 $subject = "Récupération du mot de passe ";
-$message = "Cliquez sur le lien pour valider votre compte :" . '<a href="https://www.meetech.ovh/lost_credentials_form/"></a>' ?><br>
-<?php "Votre code de vérification : " . $code;
+$message = "Cliquez sur le lien pour valider votre compte :" . '<a href="https://www.meetech.ovh/lost_credentials_form/"></a><br>'
+. "Votre code de vérification : " . $code;
 
 mail($email, $subject, $message, $headers);
 header('location: ../../lost_credentials_form/');
