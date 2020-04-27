@@ -25,7 +25,7 @@ function getChat(channel) {
             displayDiv.innerHTML = request.responseText;
             let elmnt = document.getElementById('display_mp-' + channel);
             elmnt.scrollTo(0, elmnt.scrollHeight);
-            setTimeout(getChat, 15000);
+            setTimeout(function () { getChat(channel); }, 15000);
         }
     }
     request.send();
@@ -89,6 +89,21 @@ function leaveChat(channel) {
             if (response === 1) {
                 location.reload();
             }
+        }
+    }
+    request.send();
+}
+
+function display_mp(){
+    let request = new XMLHttpRequest();
+    request.open('GET', '../actions/chat/display_pm.php?chan=' + channel);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            const displayDiv = document.getElementById('v-pills-' + channel);
+            displayDiv.innerHTML = request.responseText;
+            let elmnt = document.getElementById('display_mp-' + channel);
+            elmnt.scrollTo(0, elmnt.scrollHeight);
+            setTimeout(getChat, 15000);
         }
     }
     request.send();
