@@ -1,4 +1,4 @@
-<footer class="d-block footer p-2 <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) echo 'mt-backoffice-color'; ?>">
+<footer class="d-block footer p-2 mt-3 <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) echo 'mt-backoffice-color'; ?>">
     <div class="container d-flex">
 
         <div class="col-6">

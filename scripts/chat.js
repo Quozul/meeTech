@@ -23,12 +23,12 @@ function getChat(channel, iter) {
             const displayDiv = document.getElementById('display_pm-' + channel);
             displayDiv.innerHTML = request.responseText;
             if (iter == 0) {
-              let elmnt = document.getElementById('display_pm-' + channel);
-              elmnt.scrollTo(0, elmnt.scrollHeight);
-              recipients(channel) ;
+                let elmnt = document.getElementById('display_pm-' + channel);
+                elmnt.scrollTo(0, elmnt.scrollHeight);
+                recipients(channel);
             }
             setTimeout(function () {
-                getChat(channel, iter+1);
+                getChat(channel, iter + 1);
             }, 2000);
         }
     }
@@ -46,7 +46,7 @@ function add_recipient(channel) {
             if (response === 1) {
                 success_div.innerHTML = "Utilisateur ajouté";
                 success_div.className = "alert alert-success ml-3";
-                username.value = "" ;
+                username.value = "";
                 recipients(channel);
             } else {
                 if (response === -1) success_div.innerHTML = "L'utilisateur n'existe pas";
@@ -99,13 +99,13 @@ function leaveChat(channel) {
 }
 
 function recipients(channel) {
-  let request = new XMLHttpRequest;
-  request.open('GET', '../actions/chat/get_recipients/?chan=' + channel);
-  request.onreadystatechange = function () {
-      if (request.readyState === 4) {
-          const recipients = document.getElementById('recipients-' + channel) ;
-          recipients.innerHTML = request.responseText;
-      }
-  }
-  request.send();
+    let request = new XMLHttpRequest;
+    request.open('GET', '../actions/chat/get_recipients/?chan=' + channel);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            const recipients = document.getElementById('recipients-' + channel);
+            recipients.innerHTML = request.responseText;
+        }
+    }
+    request.send();
 }
