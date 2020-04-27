@@ -1,6 +1,6 @@
 <?php
 require('../../config.php') ;
-$channel = htmlspecialchars($_GET['channel']);
+$channel = htmlspecialchars($_GET['chan']);
 
 $query = $pdo->prepare('SELECT author, username, avatar FROM recipient INNER JOIN users ON id_u = author WHERE channel = ?') ;
 $query->execute([$channel]) ;
@@ -11,4 +11,4 @@ foreach($users as $u) { ?>
   <img src="/uploads/<?= $u['avatar'] ; ?>" alt="<?= $u['username'] ; ?>" class="mt-avatar" style="max-width: 32px; max-height: 32px;">
   <?= $u['username'] ; ?>
 </span></a>
-<? } ?>
+<?php } ?>
