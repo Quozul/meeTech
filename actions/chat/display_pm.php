@@ -21,6 +21,6 @@ while ($data = $sth->fetch()) {
             ?>
         </small>
         <br>
-        <?= htmlspecialchars($data['content']); ?>
+        <span class="markdown"><?= htmlspecialchars($data['content']); ?></span>
     </p>
 <?php } ?>

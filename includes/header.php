@@ -2,9 +2,9 @@
     $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ? ');
     $sth->execute([$_SESSION['userid']]);
     $rec = $sth->fetchAll();
-    $query = $pdo->query('SELECT name FROM category') ;
-    $categories = $query->fetchAll() ;
-} ?>
+}
+$query = $pdo->query('SELECT name FROM category') ;
+$categories = $query->fetchAll() ; ?>
 
 <header class="mb-4">
     <nav class="navbar navbar-expand-lg <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) echo 'mt-backoffice-color'; ?>">

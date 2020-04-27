@@ -61,6 +61,7 @@
 
 </body>
 <?php include('includes/footer.php') ?>
+<script src="/scripts/markdown.js" charset="utf-8"></script>
 <script src="/scripts/chat.js" charset="utf-8"></script>
 <script src="/scripts/main.js" charset="utf-8"></script>
 
