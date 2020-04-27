@@ -23,7 +23,7 @@
                 <div class="col-9">
                     <div class="tab-content" id="v-pills-tabContent">
                         <?php foreach ($result as $category) { ?>
-                            <div class="tab-pane fade show" id="v-pills-<?= $category['id_c']; ?>" role="tabpanel" aria-labelledby="v-pills-<?= $category['id_c']; ?>-tab">...</div>
+                            <div class="tab-pane fade show" id="v-pills-<?= $category['id_c']; ?>" role="tabpanel" aria-labelledby="v-pills-<?= $category['id_c']; ?>-tab"></div>
                         <?php } ?>
                     </div>
                 </div>

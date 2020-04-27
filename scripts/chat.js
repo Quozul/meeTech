@@ -23,7 +23,6 @@ function getChat(channel) {
         if (request.readyState === 4) {
             const displayDiv = document.getElementById('v-pills-' + channel);
             displayDiv.innerHTML = request.responseText;
-            m = document.getElementById('message-' + channel);
             let elmnt = document.getElementById('display_mp-' + channel);
             elmnt.scrollTo(0, elmnt.scrollHeight);
             setTimeout(getChat, 15000);
