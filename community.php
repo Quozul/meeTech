@@ -14,7 +14,7 @@
           <?php
           $stmt = $pdo->query('SELECT name FROM category') ;
           $categories = $stmt->fetchAll() ;
-          if ($page_name == '' || !in_array($page_name, $categories)) include('includes/nothing.php')  ;
+          if ($page_name == '') include('includes/nothing.php')  ;
           else {
             if (isset($_SESSION['userid'])) { ; ?>
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#blogPostModal">Publier un nouvel article</button>
