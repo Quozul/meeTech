@@ -29,11 +29,11 @@ function checkArticle() {
     return checkLanguage(languageInput);
   } else validMark(languageInput);
 
-  if (checkFile(file)) {
+  if (!checkFile(file)) {
     errorMark(file) ;
   }
 
-  return checkTitle(title) && checkContent(content) && checkLanguage(language);
+  return checkTitle(title) && checkContent(content) && checkLanguage(language) && checkFile(file);
 }
 
 
