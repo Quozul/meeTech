@@ -1,5 +1,5 @@
 <?php if (isset($_SESSION['userid'])) {
-    $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ? ');
+    $sth = $pdo->prepare('SELECT username, COUNT(notif) AS notifs FROM users LEFT JOIN recipient ON id_u = author WHERE id_u = ?');
     $sth->execute([$_SESSION['userid']]);
     $rec = $sth->fetchAll();
 }
@@ -49,6 +49,9 @@ $categories = $query->fetchAll() ; ?>
                                     <?php echo $rec[0]['username']; ?>
                                 </a>
                                 <a class="dropdown-item" href="/chat/">Messagerie privée</a>
+                                <?php if ($rec[0]['notifs'] != 0) { ?>
+                                <span class="badge badge-alert"><?= $rec[0]['notifs'] ; ?></span>
+                                <?php } ?>
                             </div>
                         </li>
                     <?php } else { ?>

@@ -45,7 +45,7 @@ function removeNotifs (channel) {
       if (response === 1) {
         const notifDiv = document.getElementById('notifs-' + channel) ;
         notifDiv.innerHTML = '0' ;
-        notif.className = 'badge badge-success';
+        notifDiv.className = 'badge badge-success';
       }
     }
   };
