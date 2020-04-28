@@ -86,4 +86,5 @@
 
       <?php include('includes/footer.php'); ?>
     </body>
+    <script src="scripts/blog.js" type="text/javascript" charset="utf-8"></script>
 </html>
