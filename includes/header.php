@@ -43,6 +43,9 @@ $categories = $query->fetchAll() ; ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Profil
+                                <?php if ($rec[0]['notifs'] != 0) { ?>
+                                <span class="badge badge-alert"><?= $rec[0]['notifs'] ; ?></span>
+                                <?php } ?>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" class="nav-link" href="/profile/">
