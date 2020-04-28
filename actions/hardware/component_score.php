@@ -1,21 +1,9 @@
 <?php
-// https://stackoverflow.com/questions/27078259/get-string-between-find-all-occurrences-php
-function getContents($str, $startDelimiter, $endDelimiter)
+function getContents($str)
 {
-    $contents = array();
-    $startDelimiterLength = strlen($startDelimiter);
-    $endDelimiterLength = strlen($endDelimiter);
-    $startFrom = $contentStart = $contentEnd = 0;
-    while (false !== ($contentStart = strpos($str, $startDelimiter, $startFrom))) {
-        $contentStart += $startDelimiterLength;
-        $contentEnd = strpos($str, $endDelimiter, $contentStart);
-        if (false === $contentEnd)
-            break;
-        $contents[] = substr($str, $contentStart, $contentEnd - $contentStart);
-        $startFrom = $contentEnd + $endDelimiterLength;
-    }
-
-    return $contents;
+    $content = [];
+    preg_match_all("/\[(.*?)\]/", $str, $content);
+    return $content[1];
 }
 
 // Score calculation

@@ -8,6 +8,11 @@ $req = $pdo->prepare('SELECT name, brand, score FROM component WHERE id_c = ?');
 $req->execute([$_GET['compb']]);
 $comp_b = $req->fetch();
 
+if (!$comp_b || !$comp_a) {
+    echo '<h3>Sélectionnez 2 composants</h3>';
+    exit();
+}
+
 $req = $pdo->prepare('SELECT id_s, name, unit FROM specification_list WHERE type = ?');
 $req->execute([$_GET['type']]);
 
