@@ -55,14 +55,13 @@ CREATE TABLE IF NOT EXISTS vote_message (
 );
 
 CREATE TABLE IF NOT EXISTS translation (
-    id_t INTEGER AUTO_INCREMENT PRIMARY KEY,
     language VARCHAR(32) NOT NULL REFERENCES language (lang),
-    translator INTEGER NOT NULL REFERENCES users (id_u),
     original_message INTEGER NOT NULL REFERENCES message (id_m),
-
+    translator INTEGER NOT NULL REFERENCES users (id_u),
     title VARCHAR(255),
     content TEXT,
-    date_translated DATETIME
+    date_translated DATETIME,
+    PRIMARY KEY (language, original_message)
 );
 
 CREATE TABLE IF NOT EXISTS comment (

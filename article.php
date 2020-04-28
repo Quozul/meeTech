@@ -12,11 +12,11 @@
       <main role="main" class="container">
         <?php
         if (isset($_GET['error'])) {
-          if ($_GET['error'] == 'file1') $message = 'Le format de l\'image n\'est pas accepté' ;
-          else if ($_GET['error'] == 'file2') $message = 'L\'image est trop volumineuse' ;
-          else $message = '' ;
+          if ($_GET['error'] == 'file1') $error = 'Le format de l\'image n\'est pas accepté' ;
+          else if ($_GET['error'] == 'file2') $error = 'L\'image est trop volumineuse' ;
+          else $error = '' ;
           ?>
-          <div class="alert alert-danger"><?= $message ; ?></div>
+          <div class="alert alert-danger"><?= $error ; ?></div>
           <?php
         }
 
@@ -56,19 +56,25 @@
           include('includes/blog/edit_modal.php') ;
         ?>
         <small class="text-muted">
-           <a href="/community/?cat=<?= $message['category'] ; ?>/">« Retour au <?= $message['category'] ; ?></a>
+           <a href="/community/?cat=<?= $message['category'] ; ?>">« Retour au <?= $message['category'] ; ?></a>
         </small>
         <h1><?= $message['title'] ; ?></h1>
 
         <div class="float-right">
           <span><?= $message['icon'] ; ?></span>
-          <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] == $message['author']) { ?>
+          <?php
+          if (isset($_SESSION['userid'])) {
+            if ($_SESSION['userid'] == $message['author']) {
+          ?>
           <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#editModal">Éditer</button>
-          <?php } ?>
-          <?php if ($message['signaled'] == false) { ?>
-          <button class="btn btn-outline-danger btn-sm" onclick="reportArticle(<?= $message_id ; ?>)">Signaler</button>
-          <?php } else { ?>
-          <div class="btn btn-warning btn-sm">Article signalé</div>
+          <?php
+            }
+            if ($message['signaled'] == false) { ?>
+              <button class="btn btn-outline-danger btn-sm" onclick="reportArticle(<?= $message_id ; ?>)">Signaler</button>
+            <?php } else { ?>
+              <div class="btn btn-warning btn-sm">Article signalé</div>
+            <?php } ?>
+            <a class="btn btn-outline-primary btn-sm" href="/translate/?post=<?= $message_id ; ?>">Traduire</a>
           <?php } ?>
         </div>
 
@@ -144,7 +150,7 @@
 <!-- Comments display -->
       <section class="jumbotron">
           <?php if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) { ?>
-            <small class="alert alert-info">Les commentaires sont personnalisables en <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">markdown</a></small>
+            <div class="alert alert-info">Les commentaires sont personnalisables en <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">markdown</a></div>
             <div class="form-group">
                 <label for="comment" id="comment-label">Commentaire</label>
                 <textarea class="form-control" id="collapseContent0" name="comment" placeholder="Écrivez un commentaire…"></textarea>
