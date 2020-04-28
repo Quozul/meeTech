@@ -19,7 +19,7 @@
                             <a class="nav-link" id="v-pills-<?= $chan['id_c']; ?>-tab" data-toggle="pill" href="#v-pills-<?= $chan['id_c']; ?>" role="tab"
                               aria-controls="v-pills-<?= $chan['id_c']; ?>" aria-selected="true" onclick="getChat(<?= $chan['id_c']; ?>, 0)">
                               <?= $chan['name']; ?>
-                              <span class="badge badge-danger" id="notifs-<?= $chan['id_c']; ?>"><?= $chan['notif'] ; ?></badge>
+                              <span class="badge <?= $chan['notif'] == 0 ? 'badge-success' : 'badge-danger' ; ?>" id="notifs-<?= $chan['id_c']; ?>"><?= $chan['notif'] ; ?></badge>
                             </a>
                         <?php } ?>
                     </div>

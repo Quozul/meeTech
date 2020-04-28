@@ -9,8 +9,8 @@ $date = date('Y-m-d H:i:s');
 $req = $pdo->prepare('INSERT INTO private_message (author, content, date_published, channel) VALUES (?, ?, ?, ?)');
 $success = $req->execute([$_SESSION['userid'], $message, $date, $chan]);
 
-$query = $pdo->prepare('UPDATE recipient SET notif += 1 WHERE channel = ?') ;
-$success2 = $query->execute([$chan]) ;
+$query = $pdo->prepare('UPDATE recipient SET notif = notif + 1 WHERE channel = ? AND author != ?') ;
+$success2 = $query->execute([$chan, $_SESSION['userid']]) ;
 
 echo $success && $success2;
 return;

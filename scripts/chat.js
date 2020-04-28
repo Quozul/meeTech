@@ -44,7 +44,8 @@ function removeNotifs (channel) {
       const response = parseInt(request.responseText) ;
       if (response === 1) {
         const notifDiv = document.getElementById('notifs-' + channel) ;
-        notifDiv.innerHTML = '' ;
+        notifDiv.innerHTML = '0' ;
+        notif.className = 'badge badge-success';
       }
     }
   };
@@ -92,6 +93,8 @@ function submitMessage(channel) {
                 const input = document.getElementById('message-' + channel);
                 input.value = '';
                 size_mp.innerHTML = "";
+                let elmnt = document.getElementById('display_pm-' + channel);
+                elmnt.scrollTo(0, elmnt.scrollHeight);
             }
         }
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
