@@ -12,6 +12,7 @@
                 <li><a href="https://discord.gg/CfxuZ3J">Discord</a></li>
                 <li><a href="/about/">A propos</a></li>
                 <li><a href="/brand/">L'image</a></li>
+                <li><a href="/statistics/">Statistiques</a></li>
             </ul>
         </div>
 

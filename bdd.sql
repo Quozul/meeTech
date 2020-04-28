@@ -242,8 +242,11 @@ CREATE TABLE IF NOT EXISTS component_comment(
 -- Statistics
 
 CREATE TABLE IF NOT EXISTS page_visit(
-    id_pv INTEGER PRIMARY KEY AUTO_INCREMENT,
-    page VARCHAR(127),
-    date DATETIME,
+    page VARCHAR(127) PRIMARY KEY,
     visits INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS time_visit(
+    date DATETIME PRIMARY KEY,
+    visits INTEGER
+)
