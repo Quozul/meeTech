@@ -10,6 +10,9 @@ $category = $category['category'] ;
 $delete = $pdo->prepare('DELETE FROM comment WHERE parent_message = ?') ;
 $delete->execute([$article]) ;
 
+$delete = $pdo->prepare('DELETE FROM file WHERE message = ?') ;
+$delete->execute([$article]) ;
+
 $delete = $pdo->prepare('DELETE FROM message WHERE id_m = ?') ;
 $delete->execute([$article]) ;
 

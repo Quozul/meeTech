@@ -44,7 +44,7 @@
           ?>
           <hr>
           <div class="alert alert-danger" role="alert">
-            <?php echo $message ; ?>
+            <?= $message ; ?>
           </div>
           <?php
             }
@@ -59,7 +59,7 @@
           ?>
           <hr>
           <div class="alert alert-success" role="alert">
-            <?php echo $message ; ?>
+            <?= $message ; ?>
           </div>
           <?php
             }
@@ -89,17 +89,17 @@
                       <tr>
                         <form action="../actions/categories/edit_category.php" method="post">
                           <td>
-                            <label for="description">Description</label>
+                            <input type="text" name="name" id="name-<?= $cat['description']?>" value="<?= $cat['name'] ; ?>" class="form-control" readonly>
                           </td>
                           <td>
-                            <input type="text" name="description" id="description-<?php echo $cat['description']?>" value="<?php echo $cat['description']?>" class="form-control col-md-12">
+                            <input type="text" name="description" id="description-<?= $cat['description']?>" value="<?= $cat['description']?>" class="form-control col-md-12">
                           </td>
                           <td>
                             <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm float-right">
                           </td>
                         </form>
                         <td>
-                          <a href="../actions/categories/drop_category.php?category=<?php echo $cat['name'] ; ?>">
+                          <a href="../actions/categories/drop_category.php?category=<?= $cat['name'] ; ?>">
                             <button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
                           </a>
                         </td>
