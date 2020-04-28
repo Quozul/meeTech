@@ -47,7 +47,7 @@
           include('includes/blog/edit_modal.php') ;
         ?>
         <small class="text-muted">
-           <a href="/<?= $message['category'] ; ?>/">« Retour au <?= $message['category'] ; ?></a>
+           <a href="/community/?cat=<?= $message['category'] ; ?>/">« Retour au <?= $message['category'] ; ?></a>
         </small>
         <h1><?= $message['title'] ; ?></h1>
 

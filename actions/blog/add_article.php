@@ -57,11 +57,8 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   	'image/gif',
   	'image/png'
   ] ;
-  $in_array = false ;
-  foreach ($acceptable as $format)
-    if ($format == $_FILES) $in_array = true ;
-    
-  if ($in_array == false) $error = 'file1' ;
+  if(!in_array($_FILES['image']['type'], $acceptable))
+    $error = 'file1' ;
   else {
 
     //Check file size
