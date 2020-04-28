@@ -134,7 +134,8 @@ CREATE TABLE IF NOT EXISTS private_message(
 
 CREATE TABLE IF NOT EXISTS recipient(
     channel INTEGER NOT NULL REFERENCES channel(id_m),
-    author INTEGER NOT NULL REFERENCES user(id_user)
+    author INTEGER NOT NULL REFERENCES user(id_user),
+    notif INTEGER DEFAULT 0;
 );
 
 -- Event

@@ -26,6 +26,7 @@ function getChat(channel, iter) {
                 let elmnt = document.getElementById('display_pm-' + channel);
                 elmnt.scrollTo(0, elmnt.scrollHeight);
                 recipients(channel);
+                removeNotifs(channel) ;
             }
             setTimeout(function () {
                 getChat(channel, iter + 1);
@@ -33,6 +34,21 @@ function getChat(channel, iter) {
         }
     }
     request.send();
+}
+
+function removeNotifs (channel) {
+  let request = new XMLHttpRequest();
+  request.open('DELETE', '../actions/chat/drop_notifs/?chan=' + channel);
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      const response = parseInt(request.responseText) ;
+      if (response === 1) {
+        const notifDiv = document.getElementById('notifs-' + channel) ;
+        notifDiv.innerHTML = '' ;
+      }
+    }
+  };
+  request.send();
 }
 
 function add_recipient(channel) {
