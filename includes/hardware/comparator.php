@@ -1,5 +1,13 @@
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 
+$req = $pdo->prepare('SELECT name, brand, score FROM component WHERE id_c = ?');
+$req->execute([$_GET['compa']]);
+$comp_a = $req->fetch();
+
+$req = $pdo->prepare('SELECT name, brand, score FROM component WHERE id_c = ?');
+$req->execute([$_GET['compb']]);
+$comp_b = $req->fetch();
+
 $req = $pdo->prepare('SELECT id_s, name, unit FROM specification_list WHERE type = ?');
 $req->execute([$_GET['type']]);
 
@@ -25,28 +33,55 @@ while ($row = $req->fetch())
 
 ?>
 
-<div>
-    <table class="table table-responsive w-100">
+<div class="w-100">
+    <table class="table">
         <thead>
             <tr>
                 <th>Caractéristique</th>
-                <th>Valeur composant A</th>
+                <th><?= $comp_a['brand'] . ' ' . $comp_a['name']; ?></th>
                 <th>Différence</th>
-                <th>Valeur composant B</th>
+                <th><?= $comp_b['brand'] . ' ' . $comp_b['name']; ?></th>
             </tr>
         </thead>
 
         <tbody>
-            <?php foreach ($specs as $id => $value) { ?>
+            <tr>
+                <?php $superior = 'equal';
+                if ($comp_a['score'] > $comp_b['score'])
+                    $superior = 'a';
+                else if ($comp_a['score'] < $comp_b['score'])
+                    $superior = 'b'; ?>
+                <th>Score</th>
+                <td style="background-color: <?php if ($superior == 'a') echo 'green';
+                                                else if ($superior == 'b') echo 'red';
+                                                else echo 'white'; ?>"><?= $comp_a['score']; ?></td>
+                <td><?= $comp_b['score'] - $comp_a['score']; ?></td>
+                <td style="background-color: <?php if ($superior == 'b') echo 'green';
+                                                else if ($superior == 'a') echo 'red';
+                                                else echo 'white'; ?>"><?= $comp_b['score']; ?></td>
+            </tr>
+
+            <?php foreach ($specs as $id => $value) {
+                $superior = 'equal';
+                if (isset($specs_a[$id]) && is_numeric($specs_a[$id]) && isset($specs_b[$id]) && is_numeric($specs_b[$id])) {
+                    if ($specs_a[$id] > $specs_b[$id])
+                        $superior = 'a';
+                    else if ($specs_a[$id] < $specs_b[$id])
+                        $superior = 'b';
+                } ?>
                 <tr>
                     <th><?php echo $value['name']; ?></th>
-                    <th><?php echo isset($specs_a[$id]) ? $specs_a[$id] : 'Inconnu'; ?></th>
+                    <td style="background-color: <?php if ($superior == 'a') echo 'green';
+                                                    else if ($superior == 'b') echo 'red';
+                                                    else echo 'white'; ?>"><?php echo isset($specs_a[$id]) ? $specs_a[$id] : 'Inconnu'; ?></td>
                     <?php if (isset($specs_a[$id]) && is_numeric($specs_a[$id]) && isset($specs_b[$id]) && is_numeric($specs_b[$id])) { ?>
-                        <th><?php echo $specs_b[$id] - $specs_a[$id]; ?></th>
+                        <td><?php echo $specs_b[$id] - $specs_a[$id]; ?></td>
                     <?php } else { ?>
-                        <th></th>
+                        <td></td>
                     <?php } ?>
-                    <th><?php echo isset($specs_b[$id]) ? $specs_b[$id] : 'Inconnu'; ?></th>
+                    <td style="background-color: <?php if ($superior == 'b') echo 'green';
+                                                    else if ($superior == 'a') echo 'red';
+                                                    else echo 'white'; ?>"><?php echo isset($specs_b[$id]) ? $specs_b[$id] : 'Inconnu'; ?></td>
                 </tr>
             <?php } ?>
         </tbody>
