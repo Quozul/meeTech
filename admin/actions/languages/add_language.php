@@ -7,6 +7,7 @@ if(!isset($_POST['language']) || empty($_POST['language'])) {
 }
 
 $language = trim(strtolower(htmlspecialchars($_POST['language']))) ;
+$language = preg_replace('# #', '_', $language) ;
 $_POST['icon'] = trim($_POST['icon']) ;
 if(isset($_POST['icon']) && !empty($_POST['icon']))
   $icon = substr($_POST['icon'], 0, 8) . substr($_POST['icon'], 9, 8) ;

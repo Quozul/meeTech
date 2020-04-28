@@ -11,6 +11,15 @@
       <?php include('includes/header.php') ; ?>
       <main role="main" class="container">
         <?php
+        if (isset($_GET['error'])) {
+          if ($_GET['error'] == 'file1') $message = 'Le format de l\'image n\'est pas accepté' ;
+          else if ($_GET['error'] == 'file2') $message = 'L\'image est trop volumineuse' ;
+          else $message = '' ;
+          ?>
+          <div class="alert alert-danger"><?= $message ; ?></div>
+          <?php
+        }
+
         if (!isset($_GET['post']) || is_null($_GET['post'])) {
           include('includes/nothing.php')  ;
         } else {
@@ -135,6 +144,7 @@
 <!-- Comments display -->
       <section class="jumbotron">
           <?php if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) { ?>
+            <small class="alert alert-info">Les commentaires sont personnalisables en <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">markdown</a></small>
             <div class="form-group">
                 <label for="comment" id="comment-label">Commentaire</label>
                 <textarea class="form-control" id="collapseContent0" name="comment" placeholder="Écrivez un commentaire…"></textarea>
