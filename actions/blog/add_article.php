@@ -30,7 +30,7 @@ $category = htmlspecialchars(trim($_POST['category'])) ;
 $signaled = 0 ;
 
 $q = $pdo->prepare('INSERT INTO message (author, title, content, date_published, default_language, category, signaled) VALUES (:author, :title, :content, :date_published, :language, :category, :signaled)') ;
-$q->execute([
+$res = $q->execute([
 	'author' => $author,
 	'title' => $title,
 	'content' => $content,
@@ -40,10 +40,16 @@ $q->execute([
 	'signaled' => $signaled
 ]) ;
 
-if (isset($_FILES['image']) && !empty($_FILES['image'])) {
-  $count = $pdo->query('SELECT MAX(id_m) FROM message') ;
-  $id_m = $count->fetch()[0] ;
+if ($res == 0) {
+  header('location: /article/?cat=' . $category . '&error=0') ;
+  exit ;
+}
 
+$count = $pdo->query('SELECT MAX(id_m) FROM message') ;
+$id_m = $count->fetch()[0] ;
+
+
+if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   //Check file format
   $acceptable = [
   	'image/jpeg',
@@ -53,16 +59,13 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   ] ;
   echo $_FILES['image']['type'] ;
   if(!in_array($_FILES['image']['type'], $acceptable)) {
-  	echo 'error' ;
-  	header('location: '. $_SERVER['DOCUMENT_ROOT'] . 'blog/?error=file1') ;
-  	exit ;
+  	$error = 'file1' ;
   }
 
   //Check file size
   $maxsize = 1024 * 1024 ; //sets size to 1Mo
   if ($_FILES['image']['size'] > $maxsize) {
-  	header('location: '. $_SERVER['DOCUMENT_ROOT'] . 'blog/?error=file2') ;
-  	exit ;
+  	$error = 'file2' ;
   }
 
   //File path
@@ -89,6 +92,19 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   ]) ;
 }
 
-header('location: /community/?cat=' . $category) ;
+/*$query->execute([$_SESSION['userid']]) ;
+$nb_articles = $query->fetchAll()[0] ;
+if ($nb_articles == 1) {
+  $sth = $pdo->prepare('INSERT INTO badged (user, badge) VALUES (:user, :badge)') ;
+  $sth->execute([$_SESSION['userid'], 'Publicateur']) ;
+}
+if ($nb_articles == 25) {
+  $sth = $pdo->prepare('INSERT INTO badged (user, badge) VALUES (:user, :badge)') ;
+  $sth->execute([$_SESSION['userid'], 'Publicateur_fou']) ;
+}*/
+
+$location = '/article/?post=' . $id_m
+if (isset($error) && !empty($error)) $location .= '&error=' . $error ;
+header('location: ' . $location) ;
 exit ;
 ?>

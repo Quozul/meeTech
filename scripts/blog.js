@@ -2,7 +2,6 @@ function checkArticle() {
   const titleInput = document.getElementById('title');
   const contentInput = document.getElementById('content');
   const languageInput = document.getElementById('language');
-  const file = document.getElementById('image') ;
 
   const title = titleInput.value;
   const content = contentInput.value;
@@ -29,11 +28,7 @@ function checkArticle() {
     return checkLanguage(languageInput);
   } else validMark(languageInput);
 
-  if (!checkFile(file)) {
-    errorMark(file) ;
-  }
-
-  return checkTitle(title) && checkContent(content) && checkLanguage(language) && checkFile(file);
+  return checkTitle(title) && checkContent(content) && checkLanguage(language);
 }
 
 
@@ -47,10 +42,6 @@ function checkContent(c) {
 
 function checkLanguage(language) {
   return language != 0;
-}
-
-function checkFile(file) {
-  return file == NULL || file.size < 1024*1024;
 }
 
 function errorMark(label) {
