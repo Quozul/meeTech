@@ -89,10 +89,12 @@
                       <tr>
                         <form action="../actions/categories/edit_category.php" method="post">
                           <td>
-                            <input type="text" name="name" id="name-<?= $cat['description']?>" value="<?= $cat['name'] ; ?>" class="form-control" readonly>
+                            <input type="text" name="name" id="name-<?= $cat['name']?>" value="<?= $cat['name'] ; ?>" class="form-control" readonly>
                           </td>
                           <td>
-                            <input type="text" name="description" id="description-<?= $cat['description']?>" value="<?= $cat['description']?>" class="form-control col-md-12">
+                            <textarea type="text" name="description" id="description-<?= $cat['name']?>" class="form-control col-md-12 text">
+                              <?= $cat['description']?>
+                            </textarea>
                           </td>
                           <td>
                             <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm float-right">
