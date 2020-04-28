@@ -103,7 +103,7 @@ if ($nb_articles == 25) {
   $sth->execute([$_SESSION['userid'], 'Publicateur_fou']) ;
 }*/
 
-$location = '/article/?post=' . $id_m
+$location = '/article/?post=' . $id_m ;
 if (isset($error) && !empty($error)) $location .= '&error=' . $error ;
 header('location: ' . $location) ;
 exit ;

@@ -11,5 +11,5 @@ $id = htmlspecialchars(trim($_GET['article'])) ;
 $query = $pdo->prepare('UPDATE message SET signaled = TRUE WHERE id_m = ?') ;
 $success = $query->execute([$id]) ;
 
-echo (int)$success ;
+echo $success ;
 ?>

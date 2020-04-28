@@ -201,12 +201,4 @@ $specs = $req->fetchAll();
             if (sibling.classList.contains('spec-values')) sibling.remove();
         input.remove();
     }
-
-    /*function save() {
-        request('/admin/hardware/actions/update_type.php', formToQuery('edit-type-form') + '&id=<?php echo $type_id; ?>').then((res) => {
-            console.log(res.response);
-            if (res.response.includes('type_already_exists')) alert('Un type possedant ce nom existe déjà.')
-            else alert('Type de composant mis à jour avec succès !\nVous pouvez retourner en arrière.')
-        });
-    }*/
 </script>

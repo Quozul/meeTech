@@ -6,7 +6,7 @@
     <?php include('includes/header.php'); ?>
 
     <main role="main" class="container">
-        <h1>Zone secrête</h1>
+        <h1>Zone secrète</h1>
         <div class="jumbotron">
             <form>
                 <div class="form-group">

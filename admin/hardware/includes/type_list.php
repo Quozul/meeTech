@@ -24,7 +24,6 @@ if ($types) { ?>
                     <td><?php echo $type['category']; ?></td>
                     <td>
                         <a href="/admin/hardware/edit_type.php?id=<?php echo $type['id_t']; ?>" class="btn btn-sm btn-outline-primary">Voir le type</a>
-                        <!-- <a href="#" class="btn btn-sm btn-outline-danger" onclick="remove_type(<?php echo $type['id_t']; ?>);">Supprimer</a> -->
                         <form action="/admin/hardware/actions/remove_type.php" method="post" class="d-inline">
                             <button type="submit" class="btn btn-sm btn-outline-danger" name="id" value="<?php echo $type['id_t']; ?>">Supprimer</button>
                         </form>

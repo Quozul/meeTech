@@ -36,28 +36,6 @@
         <script>
             function update_list() {
                 document.location.reload();
-                /*getHtmlContent('/admin/hardware/includes/type_list.php', '').then((res) => {
-                    document.getElementById('list').innerHTML = res;
-                }).catch(e => console.log);
-            }
-
-            function add_type() {
-                request('/admin/hardware/actions/add_type.php', formToQuery('add-type-form')).then((res) => {
-                    console.log(res.response);
-                    if (res.response.includes('type_already_exists')) alert('Le composant que vous essayez d\'ajouter existe déjà.\nModifiez son nom ou abandonnez.');
-                    else {
-                        // document.getElementById('close-add-type-modal').click();
-                        update_list();
-                    }
-                });
-            }
-
-            function remove_type(id) {
-                request('/admin/hardware/actions/remove_type.php', `id=${id}`).then((res) => {
-                    document.getElementById('component-type-row-' + id).remove();
-                    alert('Type de composant supprimé avec succès !');
-                    update_list();
-                });*/
             }
         </script>
     </main>

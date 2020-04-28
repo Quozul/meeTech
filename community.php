@@ -18,16 +18,17 @@
           else {
             if (isset($_SESSION['userid'])) { ; ?>
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#blogPostModal">Publier un nouvel article</button>
-            <?php include('includes/blog/new_post.php'); ?>
-          <?php } else { ?>
+          <?php
+            include('includes/blog/new_post.php');
+          } else { ?>
             <div class="alert alert-info float-right">Vous devez être connecté pour publier un article.</div>
           <?php } ?>
 
             <h2><?= ucfirst($page_name) ; ?></h2>
             <hr>
-            <?php include('includes/blog/page_nav.php') ; ?>
-
             <?php
+            include('includes/blog/page_nav.php') ;
+
             $query = $pdo->prepare('SELECT COUNT(id_m) FROM message WHERE category = ?') ;
             $query->execute([$page_name]) ;
             $elements = $query->fetch()[0] ;

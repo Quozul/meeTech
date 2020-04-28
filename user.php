@@ -44,11 +44,14 @@
                         <?php } ?>
                         <p><b>Description :</b> <?php echo $result['bio']; ?></p>
                     </div>
-                <?php } ?>
+                <?php }
+                if (isset($_SESSION['userid'])) { ?>
                 <div class="float-right">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createChanModal">Envoyer un message</button>
                 </div>
-                <?php include('includes/profile/mp.php'); ?>
+                <?php
+                }
+                include('includes/profile/mp.php'); ?>
 
                 <div class="row mt-3">
                     <div class="col-6">

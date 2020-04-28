@@ -1,5 +1,4 @@
-<?php include('../../config.php') ?>
-<?php
+<?php include('../../config.php') ;
 session_destroy();
 exit;
 

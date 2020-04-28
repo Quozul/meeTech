@@ -32,7 +32,7 @@ if (isset($_SESSION['userid'])) {
       'user' => $_SESSION['userid'],
       'message' => $message
     ]) ;
-    echo (int)$success ;
+    echo $success ;
 } else {
   echo '-1' ;
   return;

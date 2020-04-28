@@ -119,14 +119,3 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php');
 </body>
 
 </html>
-
-<?php
-//AJAX => affichage modal contenant les img
-
-//dans le modal => SELECT img_badge FROM badge WHERE file_name = Badge% 
-?>
-<!-- <div>
-    <?php foreach ($result as $image) { ?>
-        <img src="/images/<?= $image['file_name']; ?>" alt="<?= $image['file_name']; ?>">
-    <?php } ?>
-</div> -->

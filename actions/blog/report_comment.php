@@ -11,5 +11,5 @@ $id = htmlspecialchars(trim($_GET['comm'])) ;
 $query = $pdo->prepare('UPDATE comment SET signaled = TRUE WHERE id_c = ?') ;
 $success = $query->execute([$id]) ;
 
-echo (int)$success ;
+echo $success ;
 ?>
