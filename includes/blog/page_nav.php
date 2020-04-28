@@ -9,7 +9,7 @@
         $page_count = $content_count / $page_limit;
         ?>
         <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
-            <a class="page-link" href="<?= '?page=' . (intval($page) - 1); ?>" tabindex="-1">Précédent</a>
+            <a class="page-link" href="<?= '?cat=' . $page_name . '&page=' . (intval($page) - 1); ?>" tabindex="-1">Précédent</a>
         </li>
         <?php
         for ($i = 1; $i < $page_count + 1 ; $i++) {
@@ -25,7 +25,7 @@
         <?php }
         } ?>
         <li class="page-item <?php if ($page >= $page_count) echo 'disabled'; ?>">
-            <a class="page-link" href="<?= '?page=' . (intval($page) + 1); ?>">Suivant</a>
+            <a class="page-link" href="<?= '?cat=' . $page_name . '&page=' . (intval($page) + 1); ?>">Suivant</a>
         </li>
     </ul>
 </nav>

@@ -63,7 +63,7 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   }
 
   //Check file size
-  $maxsize = 1024 * 1024 ; //sets size to 1Mo
+  $maxsize = 5 * 1024 * 1024 ; //sets size to 5Mo
   if ($_FILES['image']['size'] > $maxsize) {
   	$error = 'file2' ;
   }

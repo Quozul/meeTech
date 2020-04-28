@@ -18,7 +18,7 @@
 
                 <label for="image">Image</label>
                 <input type="file" class="form-control-file" id="image" name="image">
-                <small class="text-muted">Taille maximale : 1Mo</small>
+                <small class="text-muted">Taille maximale : 5Mo</small>
             </div>
 
             <div class="input-group mb-3">
