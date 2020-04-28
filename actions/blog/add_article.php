@@ -57,39 +57,43 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   	'image/gif',
   	'image/png'
   ] ;
-  echo $_FILES['image']['type'] ;
-  if(!in_array($_FILES['image']['type'], $acceptable)) {
-  	$error = 'file1' ;
-  }
+  $in_array = false ;
+  foreach ($acceptable as $format)
+    if ($format == $_FILES) $in_array = true ;
+    
+  if ($in_array == false) $error = 'file1' ;
+  else {
 
-  //Check file size
-  $maxsize = 5 * 1024 * 1024 ; //sets size to 5Mo
-  if ($_FILES['image']['size'] > $maxsize) {
-  	$error = 'file2' ;
-  }
+    //Check file size
+    $maxsize = 5 * 1024 * 1024 ; //sets size to 5Mo
+    if ($_FILES['image']['size'] > $maxsize) {
+    	$error = 'file2' ;
+    } else {
 
-  //File path
-  $path = '../../uploads/' ;
-  if(!file_exists($path)) {
-  	mkdir($path, 0777, true) ;
-  }
-  $name = preg_replace('# #', '_', $_FILES['image']['name']) ;
-  $newname = $id_m . '_' . time() . '_' . $name ;
-  if (strlen($newname) > 64) {
-    $tempo = substr($newname, 0, 60);
-    $explode = explode('.', $newname);
-    $newname = $tempo . '.' . end($explode) ;
-  }
-  $path .= $newname ;
+      //File path
+      $path = '../../uploads/' ;
+      if(!file_exists($path)) {
+      	mkdir($path, 0777, true) ;
+      }
+      $name = preg_replace('# #', '_', $_FILES['image']['name']) ;
+      $newname = $id_m . '_' . time() . '_' . $name ;
+      if (strlen($newname) > 64) {
+        $tempo = substr($newname, 0, 60);
+        $explode = explode('.', $newname);
+        $newname = $tempo . '.' . end($explode) ;
+      }
+      $path .= $newname ;
 
-  move_uploaded_file($_FILES['image']['tmp_name'], $path) ;
+      move_uploaded_file($_FILES['image']['tmp_name'], $path) ;
 
-  $stmt = $pdo->prepare('INSERT INTO file (added_by, message, file_name) VALUES (:user, :message, :name)') ;
-  $res = $stmt->execute([
-    'user' => $_SESSION['userid'],
-    'message' => $id_m,
-    'name' => $newname
-  ]) ;
+      $stmt = $pdo->prepare('INSERT INTO file (added_by, message, file_name) VALUES (:user, :message, :name)') ;
+      $res = $stmt->execute([
+        'user' => $_SESSION['userid'],
+        'message' => $id_m,
+        'name' => $newname
+      ]) ;
+    }
+  }
 }
 
 /*$query->execute([$_SESSION['userid']]) ;
