@@ -1,3 +1,21 @@
+class PuzzlePart {
+    constructor(ctx, canvas, img, x, y, rw, rh, cx, cy) {
+        this.x = cx;
+        this.y = cy;
+        this.w = rw;
+        this.h = rh;
+        this.img = img;
+        this.canvas = canvas;
+
+        ctx.drawImage(img,
+            x, y,
+            rw, rh,
+            cx, cy,
+            rw, rh
+        );
+    }
+}
+
 function drawCaptcha(puzzle_canvas, image_path, action) {
     const part_count = 4;
     const font_size = 60;
@@ -6,24 +24,6 @@ function drawCaptcha(puzzle_canvas, image_path, action) {
     const ctx = puzzle_canvas.getContext('2d');
 
     const text = 'Cliquez sur la pièce manquante parmi celles ci-dessous :'
-
-    class PuzzlePart {
-        constructor(ctx, canvas, img, x, y, rw, rh, cx, cy) {
-            this.x = cx;
-            this.y = cy;
-            this.w = rw;
-            this.h = rh;
-            this.img = img;
-            this.canvas = canvas;
-
-            ctx.drawImage(img,
-                x, y,
-                rw, rh,
-                cx, cy,
-                rw, rh
-            );
-        }
-    }
 
     function in_square(x, y, x1, y1, w, h) {
         return x < x1 + w && x1 < x && y < y1 + h && y1 < y;

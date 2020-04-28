@@ -15,7 +15,7 @@ function score($pdo, $type, $comp_id)
     $formula = $req->fetch()[0];
 
     // Get all variable names
-    $specs = getContents($formula, '[', ']');
+    $specs = getContents($formula);
 
     // Calculate score
     foreach ($specs as $key => $spec) {
