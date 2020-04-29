@@ -92,9 +92,7 @@
                             <input type="text" name="name" id="name-<?= $cat['name']?>" value="<?= $cat['name'] ; ?>" class="form-control" readonly>
                           </td>
                           <td>
-                            <textarea type="text" name="description" id="description-<?= $cat['name']?>" class="form-control col-md-12 text">
-                              <?= $cat['description']?>
-                            </textarea>
+                            <textarea type="text" name="description" id="description-<?= $cat['name']?>" class="form-control col-md-12 text"><?= $cat['description']?></textarea>
                           </td>
                           <td>
                             <input type="submit" value="Valider les modifications" class="btn btn-outline-success btn-sm float-right">

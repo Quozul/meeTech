@@ -2,8 +2,8 @@
 
 $error = '';
 
-$pseudo = htmlspecialchars($_POST['username']);
-$password = hash('sha256', $_POST['password']);
+$pseudo = htmlspecialchars(trim($_POST['username']));
+$password = hash('sha256', trim($_POST['password']));
 
 // verify if user exists
 $sth = $pdo->prepare('SELECT id_u, verified FROM users WHERE username=? AND password=?');

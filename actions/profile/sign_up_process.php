@@ -4,7 +4,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 // verification stuff and error feedback
 $error = '';
 
-$pseudo = htmlspecialchars($_POST['username']);
+$pseudo = htmlspecialchars(trim($_POST['username']));
 
 if (!isset($_POST['puzzle-completed']))
 	$error = $error . 'no_captcha;';
@@ -33,7 +33,7 @@ if (!isset($_POST['confirm-password']) || empty($_POST['confirm-password']))
 else if ($_POST['password'] != $_POST['confirm-password'])
 	$error = $error . 'incorrect_password;';
 
-if (strlen($_POST['password']) < 8)
+if (strlen(trim($_POST['password'])) < 8)
 	$error = $error . 'password_too_short;';
 
 // Email au format valide et si deja existant
@@ -57,7 +57,7 @@ if (!empty($error)) {
 	exit();
 }
 
-$password = hash('sha256', $_POST['password']);
+$password = hash('sha256', trim($_POST['password']));
 
 $headers = "MIME-Version: 1.0\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8\r\n";

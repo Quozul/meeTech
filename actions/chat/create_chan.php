@@ -19,8 +19,11 @@ $count = $stmt->fetch()[0];
 
 //ajout des utilisateurs dans recipients
 $sth = $pdo->prepare('INSERT INTO recipient (channel, author) VALUES (?, ?)');
+
 $s1 = $sth->execute([$count, $_SESSION['userid']]);
-$s2 = $sth->execute([$count, $user]);
+if ($user != $_SESSION['userid']) {
+  $s2 = $sth->execute([$count, $user]);
+}
 
 echo $count;
 return;
