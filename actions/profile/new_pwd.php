@@ -20,7 +20,7 @@ if (empty($_POST['confirm_pwd']) || empty($_POST['new_pwd'])) {
 }
 
 //Not equivalent
-if ($_POST['new_pwd'] != $_POST['confirm-pwd']) {
+if ($_POST['new_pwd'] != $_POST['confirm_pwd']) {
     $error = $error . 'incorrect_password;';
     header('location: /lost_credentials_form/?error=' . $error);
     exit() ;
