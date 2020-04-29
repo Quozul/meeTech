@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <?php
 $page_name = 'Branding';
 include('includes/head.php');
@@ -9,7 +9,7 @@ include('includes/head.php');
 
     <?php include('includes/header.php'); ?>
 
-    <main role="main" class="container">
+    <main class="container">
         <h1>L'image du site</h1>
         <div class="jumbotron">
             <h2>Les couleurs</h2>

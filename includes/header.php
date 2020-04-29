@@ -20,11 +20,11 @@ $categories = $query->fetchAll(); ?>
     <nav class="navbar navbar-expand-lg <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) echo 'mt-backoffice-color'; ?>">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="/images/logov4.svg" style="height: 24px;">
+                <img alt="meetech's logo" src="/images/logov4.svg" style="height: 24px;">
                 meeTech
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"><img src="/images/logov4.svg" style="height: 24px;"></span>
+                <span class="navbar-toggler-icon"><img alt="meetech's logo" src="/images/logov4.svg" style="height: 24px;"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">

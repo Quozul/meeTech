@@ -13,7 +13,7 @@
       $stmt->execute([$_SESSION['userid']]);
       $result = $stmt->fetchAll();
       ?>
-      <main role="main" class="container" style="height: 100vh;">
+      <main class="container" style="height: 100vh;">
           <div class="jumbotron">
               <div class="row">
                   <div class="col-3">
@@ -67,10 +67,10 @@
       </main>
     <?php } ?>
 
-</body>
-<?php include('includes/footer.php') ?>
-<script src="/scripts/markdown.js" charset="utf-8"></script>
-<script src="/scripts/chat.js" charset="utf-8"></script>
-<script src="/scripts/main.js" charset="utf-8"></script>
+    <?php include('includes/footer.php') ?>
+    <script src="/scripts/markdown.js" charset="utf-8"></script>
+    <script src="/scripts/chat.js" charset="utf-8"></script>
+    <script src="/scripts/main.js" charset="utf-8"></script>
 
+</body>
 </html>

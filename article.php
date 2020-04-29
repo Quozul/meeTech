@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <?php
   include('includes/head.php') ;
   $page_limit = 10 ;
@@ -9,7 +9,7 @@
 
   <body class="d-flex vh-100 flex-column justify-content-between" onload="markdown()">
       <?php include('includes/header.php') ; ?>
-      <main role="main" class="container">
+      <main class="container">
         <?php
         if (isset($_GET['error'])) {
           if ($_GET['error'] == 'file1') $error = 'Le format de l\'image n\'est pas accepté' ;
@@ -117,7 +117,7 @@
             <input type="submit" value="Envoyer" class="btn btn-primary">
           </form>
         <?php } ?>
-        <script type="text/javascript">
+        <script>
           let article = <?= $message_id ; ?> ;
           let user = <?php  if (isset($_SESSION['userid'])) echo $_SESSION['userid'] ;
                             else echo '0' ;
@@ -182,7 +182,7 @@
           <div id="comments"></div>
       <?php } ?>
 
-        <script type="text/javascript" charset="utf-8">
+        <script>
           getComments() ;
 
           function getComments() {

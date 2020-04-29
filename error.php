@@ -1,11 +1,11 @@
-<html>
+<html lang="fr">
 <?php include('includes/head.php'); ?>
 
 <body class="d-flex vh-100 flex-column justify-content-between">
 
     <?php include('includes/header.php'); ?>
 
-    <main role="main" class="container">
+    <main class="container">
         <div class="jumbotron">
             <h1>Error <?php echo $_GET['code']; ?></h1>
             <p class="lead">

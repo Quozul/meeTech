@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <?php include('includes/head.php'); ?>
 
 <body class="d-flex vh-100 flex-column justify-content-between">
     <?php include('includes/header.php'); ?>
 
-    <main role="main" class="container">
+    <main class="container">
         <?php
         // Verify is there is at least 1 event
         $sth = $pdo->prepare('SELECT COUNT(*) FROM event');

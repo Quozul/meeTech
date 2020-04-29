@@ -1,9 +1,9 @@
-<div class="modal fade" id="sign_up_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="sign_up_modal" tabindex="-1" role="dialog" aria-labelledby="sign_up_form_modal" aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Création de mon compte</h5>
+                <h5 class="modal-title" id="sign_up_form_modal">Création de mon compte</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -32,7 +32,7 @@
                             <input type="password" class="form-control" id="confirm_password_input" name="confirm-password" placeholder="Votre mot de passe" required>
                             <div class="invalid-feedback d-block" id="confirm-password-invalid-feedback"></div>
                         </div>
-                        <label for="puzzle-canvas">Complétez le captcha</label>
+                        <label>Complétez le captcha</label>
                         <input class="d-none" name="puzzle-completed" id="puzzle-completed" type="checkbox" required>
                         <div class="input-group">
                             <canvas id="puzzle-canvas" style="width: 100%;"></canvas>

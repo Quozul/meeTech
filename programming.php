@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <?php include('includes/head.php'); ?>
 
 <body class="d-flex vh-100 flex-column justify-content-between">
     <?php include('includes/header.php'); ?>
 
-    <main role="main" class="container">
+    <main class="container">
         <h1>Zone secrète</h1>
         <div class="jumbotron">
             <form>

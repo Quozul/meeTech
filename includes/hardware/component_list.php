@@ -80,7 +80,7 @@ $components = $req->fetchAll();
                 }
 
                 if (!empty($avatar)) { ?>
-                    <img src="/uploads/<?php echo $avatar; ?>" style="width: 16px; height: 16px; margin-top: -4px" class="mt-avatar">
+                    <img alt="Author's avatar" src="/uploads/<?php echo $avatar; ?>" style="width: 16px; height: 16px; margin-top: -4px" class="mt-avatar">
                 <?php } ?>
                 <small>
                     Ajouté par <?php echo $username; ?> le <?php echo $d->format('d M yy'); ?>

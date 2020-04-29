@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php'); ?>
 
 <body class="d-flex vh-100 flex-column justify-content-between">
@@ -72,7 +72,7 @@
 
                     if (!empty($avatar)) {
                     ?>
-                        <img src="/uploads/<?php echo $avatar; ?>" style="width: 16px; height: 16px; margin-top: -4px" class="mt-avatar">
+                        <img alt="Author's avatar" src="/uploads/<?php echo $avatar; ?>" style="width: 16px; height: 16px; margin-top: -4px" class="mt-avatar">
                     <?php } ?>
                     Ajouté par <a href="/user/?id=<?php echo $component['added_by']; ?>"><?php echo $username; ?></a> le <?php echo $d->format('d M yy'); ?>
                     <?php

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <?php
 $page_name = 'Profil';
 include('includes/head.php');
@@ -7,7 +7,7 @@ include('includes/head.php');
 
 <body class="d-flex vh-100 flex-column justify-content-between">
     <?php include('includes/header.php'); ?>
-    <main role="main" class="container">
+    <main class="container">
         <h1>Votre profil</h1>
         <div class="jumbotron">
             <?php if (!empty($_SESSION['userid'])) {
@@ -16,7 +16,7 @@ include('includes/head.php');
                 $result = $sth->fetch(); ?>
 
                 <!-- TODO: Action file -->
-                <div id='badge' name='badge' class="form-group float-right col-10">
+                <div id='badge' class="form-group float-right col-10">
                     <?php
                     $sth = $pdo->prepare('SELECT img_badge, name, description FROM badge INNER JOIN badged ON badge = name WHERE user = ?');
                     $sth->execute([$_SESSION['userid']]);

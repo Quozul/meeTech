@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <?php include('includes/head.php'); ?>
 
@@ -7,7 +7,7 @@
 
     <?php include('includes/header.php'); ?>
 
-    <main role="main" class="container">
+    <main class="container">
         <form id="lost_credentials_form" method="post" action="/actions/profile/rec_pwd.php" autocomplete="off" novalidate>
             <div class="form-group">
                 <label for="eamil_rec">Adresse email</label>

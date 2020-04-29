@@ -3,7 +3,7 @@
   <input type="text" class="form-control mb-3" name="title" id="title">
 
   <label for="content">Article traduit*</label>
-  <textarea rows="5" type="text" class="form-control mb-3" id="content" name="content"></textarea>
+  <textarea rows="5" class="form-control mb-3" id="content" name="content"></textarea>
 
   <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -15,7 +15,6 @@
           $q = $pdo->prepare('SELECT lang FROM language') ;
           $q->execute() ;
           $languages = $q->fetchAll() ;
-          var_dump($languages) ;
           foreach($languages as $option) {
           ?>
           <option value="<?= $option['lang'] ; ?>" <?php if ($message['default_language'] == $option['lang']) echo 'selected' ; ?>>

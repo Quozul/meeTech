@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <?php
   include('includes/head.php') ;
   $page_limit = 10 ;
@@ -8,7 +8,7 @@
 
   <body class="d-flex vh-100 flex-column justify-content-between" onload="markdown()">
       <?php include('includes/header.php') ; ?>
-      <main role="main" class="container">
+      <main class="container">
         <?php
         if (!isset($_GET['post']) || is_null($_GET['post'])) {
           include('includes/nothing.php')  ;

@@ -13,7 +13,7 @@
           <input type="text" class="form-control mb-3" name="title" id="title" value="<?= $message['title'] ; ?>">
 
           <label for="content">Article*</label>
-          <textarea rows="5" type="text" class="form-control mb-3" id="content" name="content"><?= $message['content'] ; ?></textarea>
+          <textarea rows="5" class="form-control mb-3" id="content" name="content"><?= $message['content'] ; ?></textarea>
           <div class="alert alert-info">Les messages sont personnalisables en <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">markdown</a></div>
 
           <div class="input-group mb-3">
@@ -25,7 +25,6 @@
                   <?php
                   $q = $pdo->query('SELECT lang FROM language') ;
                   $languages = $q->fetchAll() ;
-                  var_dump($languages) ;
                   foreach($languages as $option) {
                   ?>
                   <option value="<?= $option['lang'] ; ?>" <?php if ($message['default_language'] == $option['lang']) echo 'selected' ; ?>>

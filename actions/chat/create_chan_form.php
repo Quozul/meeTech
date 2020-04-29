@@ -11,10 +11,8 @@
                 <form id="create_chan" method="post" autocomplete="off" novalidate>
                     <label for="username_input">Pseudonyme</label>
                     <input class="form-control" id="username" type="text" name="username" placeholder="Pseudo de l'utilisateur">
-                    <div class="invalid-feedback d-block" id="username-invalid-infeedback"></div>
                     <label for="username_input">Nom du channel</label>
                     <input class="form-control" id="chanName" type="text" name="name" placeholder="Nom de la salle de discussion">
-                    <div class="invalid-feedback d-block" id="password-invalid-infeedback"></div>
                 </form>
             </div>
             <div class="modal-footer">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php'); ?>
 
 <body class="d-flex vh-100 flex-column justify-content-between">
@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-3">
                 <div class="nav flex-column nav-pills bg-light rounded" role="tablist" aria-orientation="vertical">
-                    <span class="nav-link tab-selector">
+                    <div class="nav-link tab-selector">
                         <h5>Tri</h5>
                         <hr>
 
@@ -71,7 +71,7 @@
                             </form>
                         <?php } ?> -->
 
-                    </span>
+                    </div>
                 </div>
             </div>
 

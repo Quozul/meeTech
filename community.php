@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <?php
     $page_name = isset($_GET['cat']) ? htmlspecialchars(trim($_GET['cat'])) : '';
     include('includes/head.php');
@@ -10,7 +10,7 @@
     <body class="d-flex vh-100 flex-column justify-content-between">
         <?php include('includes/header.php'); ?>
 
-        <main role="main" class="container">
+        <main class="container">
           <?php
           $stmt = $pdo->query('SELECT name FROM category') ;
           $categories = $stmt->fetchAll() ;
@@ -98,6 +98,6 @@
       </main>
 
       <?php include('includes/footer.php'); ?>
+      <script src="/scripts/blog.js"></script>
     </body>
-    <script src="/scripts/blog.js" type="text/javascript" charset="utf-8"></script>
 </html>

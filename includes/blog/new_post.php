@@ -37,7 +37,6 @@
                     $q = $pdo->prepare('SELECT lang FROM language') ;
                     $q->execute() ;
                     $languages = $q->fetchAll() ;
-                    var_dump($languages) ;
                     foreach($languages as $option) {
                     ?>
                     <option value="<?= $option['lang'] ; ?>"><?= $option['lang'] ; ?></option>

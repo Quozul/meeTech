@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <?php
     $page_name = 'Back-office : catégories' ;
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php') ;
@@ -8,7 +8,7 @@
     ?>
     <body class="d-flex vh-100 flex-column justify-content-between">
         <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php') ; ?>
-        <main role="main" class="container">
+        <main class="container">
 
           <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#submitModal">Ajouter une catégorie</button>
           <div class="modal fade bd-example-modal-xl" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalTitle" aria-hidden="true">

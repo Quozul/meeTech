@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/head.php'); //config.php dans le head.php
 ?>
 
@@ -7,7 +7,7 @@
 
     <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'); ?>
 
-    <main role="main" class="container">
+    <main class="container">
 
         <?php
         if (!isset($_GET['id'])) include('includes/nothing.php');
@@ -27,7 +27,7 @@
                     echo "<h2>Cet utilisateur n'existe pas.</h2>";
                 } else { ?>
 
-                    <div id='badge' name='badge' class="float-right">
+                    <div id='badge' class="float-right">
                         <div class="row">
                             <?php $sth = $pdo->prepare('SELECT img_badge, name, description FROM badge INNER JOIN badged ON badge = name WHERE user = ?');
                             $sth->execute([$id]);
