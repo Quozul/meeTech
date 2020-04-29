@@ -12,11 +12,11 @@
       <main role="main" class="container">
         <?php
         if (isset($_GET['error'])) {
-          if ($_GET['error'] == 'file1') $message = 'Le format de l\'image n\'est pas accepté' ;
-          else if ($_GET['error'] == 'file2') $message = 'L\'image est trop volumineuse' ;
-          else $message = '' ;
+          if ($_GET['error'] == 'file1') $error = 'Le format de l\'image n\'est pas accepté' ;
+          else if ($_GET['error'] == 'file2') $error = 'L\'image est trop volumineuse' ;
+          else $error = '' ;
           ?>
-          <div class="alert alert-danger"><?= $message ; ?></div>
+          <div class="alert alert-danger"><?= $error ; ?></div>
           <?php
         }
 
@@ -56,19 +56,35 @@
           include('includes/blog/edit_modal.php') ;
         ?>
         <small class="text-muted">
-           <a href="/community/?cat=<?= $message['category'] ; ?>/">« Retour au <?= $message['category'] ; ?></a>
+           <a href="/community/?cat=<?= $message['category'] ; ?>">« Retour au <?= $message['category'] ; ?></a>
         </small>
-        <h1><?= $message['title'] ; ?></h1>
+        <h1 id="article-title"><?= $message['title'] ; ?></h1>
 
         <div class="float-right">
-          <span><?= $message['icon'] ; ?></span>
-          <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] == $message['author']) { ?>
+          <span onclick="getTranslation(<?= $message_id ; ?>, '<?= $message['default_language']; ?>')"><?= $message['icon'] ; ?></span>
+          <?php
+          $stmt = $pdo->prepare('SELECT language, icon, label FROM translation
+            LEFT JOIN language ON lang = language
+            WHERE original_message = ?') ;
+          $stmt->execute([$message_id]) ;
+          $translations = $stmt->fetchAll() ;
+          foreach ($translations as $t) {
+          ?>
+          <span onclick="getTranslation(<?= $message_id ; ?>, '<?= $t['language']; ?>')"><?= $t['icon'] ; ?></span>
+          <?php
+          }
+          if (isset($_SESSION['userid'])) {
+            if ($_SESSION['userid'] == $message['author']) {
+          ?>
           <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#editModal">Éditer</button>
-          <?php } ?>
-          <?php if ($message['signaled'] == false) { ?>
-          <button class="btn btn-outline-danger btn-sm" onclick="reportArticle(<?= $message_id ; ?>)">Signaler</button>
-          <?php } else { ?>
-          <div class="btn btn-warning btn-sm">Article signalé</div>
+          <?php
+            }
+            if ($message['signaled'] == false) { ?>
+              <button class="btn btn-outline-danger btn-sm" onclick="reportArticle(<?= $message_id ; ?>)">Signaler</button>
+            <?php } else { ?>
+              <div class="btn btn-warning btn-sm">Article signalé</div>
+            <?php } ?>
+            <a class="btn btn-outline-primary btn-sm" href="/translate/?post=<?= $message_id ; ?>">Traduire</a>
           <?php } ?>
         </div>
 
@@ -89,7 +105,7 @@
         <a href="/uploads/<?= $message['file_name'] ; ?>" target="_blank"><img src="/uploads/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;"></a>
         <?php } ?>
         <div style="min-height: 250px;">
-          <div class="markdown"><?= $message['content'] ; ?></div>
+          <div class="markdown" id="article-content"><?= $message['content'] ; ?></div>
           <button id="articleMark" type="button" class="btn btn-success" onclick="markArticle()"></button>
         </div>
         <script type="text/javascript">
@@ -144,7 +160,7 @@
 <!-- Comments display -->
       <section class="jumbotron">
           <?php if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) { ?>
-            <small class="alert alert-info">Les commentaires sont personnalisables en <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">markdown</a></small>
+            <div class="alert alert-info">Les commentaires sont personnalisables en <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">markdown</a></div>
             <div class="form-group">
                 <label for="comment" id="comment-label">Commentaire</label>
                 <textarea class="form-control" id="collapseContent0" name="comment" placeholder="Écrivez un commentaire…"></textarea>

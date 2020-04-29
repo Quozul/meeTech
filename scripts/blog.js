@@ -158,3 +158,27 @@ function reportComment(id) {
   };
   request.send();
 }
+
+
+function getTranslation(message, language) {
+  const titleInput = document.getElementById('article-title') ;
+  const contentInput = document.getElementById('article-content') ;
+
+  let request = new XMLHttpRequest();
+  request.open('GET', `/actions/blog/get_translation_t/?post=${message}&lang=${language}`);
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      titleInput.innerHTML = request.responseText ;
+    }
+  };
+  request.send();
+
+  let request2 = new XMLHttpRequest();
+  request2.open('GET', `/actions/blog/get_translation_c/?post=${message}&lang=${language}`);
+  request2.onreadystatechange = function () {
+    if (request2.readyState === 4) {
+      contentInput.innerHTML = request2.responseText ;
+    }
+  };
+  request2.send();
+}

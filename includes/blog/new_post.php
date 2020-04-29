@@ -15,11 +15,7 @@
 
                 <label for="content">Article*</label>
                 <textarea type="text" class="form-control" id="content" name="content"></textarea>
-                <small class="alert alert-info">Les commentaires sont personnalisables en <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">markdown</a></small>
-
-                <label for="image">Image</label>
-                <input type="file" class="form-control-file" id="image" name="image">
-                <small class="text-muted">Taille maximale : 5Mo</small>
+                <div class="alert alert-info">Les messages sont personnalisables en <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">markdown</a></div>
             </div>
 
             <div class="input-group mb-3">
