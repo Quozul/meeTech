@@ -104,6 +104,11 @@
         <?php if (!empty($message['file_name'])) { ?>
         <a href="/uploads/<?= $message['file_name'] ; ?>" target="_blank"><img src="/uploads/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;"></a>
         <?php } ?>
+        <div style="min-height: 250px;">
+          <div class="markdown" id="article-content"><?= $message['content'] ; ?></div>
+          <button id="articleMark" type="button" class="btn btn-success" onclick="markArticle()"></button>
+        </div>
+
         <?php if ($_SESSION['userid'] == $message['author']) { ?>
           <form enctype="multipart/form-data" method="post" action="/actions/blog/edit_image/?post=<?= $message_id ; ?>">
             <label for="image">Image</label>
@@ -112,10 +117,6 @@
             <input type="submit" value="Envoyer" class="btn btn-primary">
           </form>
         <?php } ?>
-        <div style="min-height: 250px;">
-          <div class="markdown" id="article-content"><?= $message['content'] ; ?></div>
-          <button id="articleMark" type="button" class="btn btn-success" onclick="markArticle()"></button>
-        </div>
         <script type="text/javascript">
           let article = <?= $message_id ; ?> ;
           let user = <?php  if (isset($_SESSION['userid'])) echo $_SESSION['userid'] ;

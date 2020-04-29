@@ -3,6 +3,9 @@ require('../../config.php') ;
 $id_m = htmlspecialchars($_GET['post']) ;
 
 if (isset($_FILES['image']) && !empty($_FILES['image'])) {
+  $query = $pdo->prepare('DELETE FROM file WHERE added_by = ? AND message = ?') ;
+  $query->execute([$_SESSION['userid'], $id_m]) ;
+
   $accept = [
       'image/jpeg',
       'image/jpg',
