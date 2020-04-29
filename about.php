@@ -44,9 +44,9 @@ include('includes/head.php');
             <p class="lead">Voici les membres de l'équipe, actuellement composée de 3 développeurs :</p>
             <ul class="list">
                 <!-- TODO: Add links to team members' profile -->
-                <li><a href="" title="Lien non fonctionnel pour le moment">Sarah S. (Ellana)</a></li>
-                <li><a href="" title="Lien non fonctionnel pour le moment">Antoine D. (Revan)</a></li>
-                <li><a href="" title="Lien non fonctionnel pour le moment">Erwan L. (Quozul)</a></li>
+                <li><a href="/user/?id=8" title="Visiter le profil">Sarah S. (Ellana)</a></li>
+                <li><a href="/user/?id=7" title="Visiter le profil">Antoine D. (Revan)</a></li>
+                <li><a href="/user/?id=1" title="Visiter le profil">Erwan L. (Quozul)</a></li>
             </ul>
         </div>
     </main>
