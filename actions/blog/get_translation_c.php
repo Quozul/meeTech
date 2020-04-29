@@ -6,16 +6,16 @@ $lang = htmlspecialchars($_GET['lang']) ;
 
 $query = $pdo->prepare('SELECT content FROM translation WHERE original_message = ? AND language = ?') ;
 $res = $query->execute([$id, $lang]) ;
-$title = $query->fetch() ;
-if ($title) {
-  $title = $title['title'] ;
-  echo $title ;
+$content = $query->fetch() ;
+if ($content) {
+  $content = $content['content'] ;
+  echo $content ;
   return ;
 }
 
 $query = $pdo->prepare('SELECT content FROM message WHERE id_m = ?') ;
 $res = $query->execute([$id]) ;
-$title = $query->fetch()['title'] ;
-echo $title ;
+$content = $query->fetch()['content'] ;
+echo $content ;
 return ;
 ?>
