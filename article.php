@@ -61,7 +61,7 @@
         <h1 id="article-title"><?= $message['title'] ; ?></h1>
 
         <div class="float-right">
-          <span onclick="getTranslation(<?= $message_id . ', '  . $message['default_language']; ?>)"><?= $message['icon'] ; ?></span>
+          <span onclick="getTranslation(<?= $message_id ; ?>, '<?= $message['default_language']; ?>')"><?= $message['icon'] ; ?></span>
           <?php
           $stmt = $pdo->prepare('SELECT language, icon, label FROM translation
             LEFT JOIN language ON lang = language
@@ -70,7 +70,7 @@
           $translations = $stmt->fetchAll() ;
           foreach ($translations as $t) {
           ?>
-          <span onclick="getTranslation(<?= $message_id . ', '  . $t['language']; ?>)"><?= $t['icon'] ; ?></span>
+          <span onclick="getTranslation(<?= $message_id ; ?>, '<?= $t['language']; ?>')"><?= $t['icon'] ; ?></span>
           <?php
           }
           if (isset($_SESSION['userid'])) {
