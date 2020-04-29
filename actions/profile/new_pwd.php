@@ -35,7 +35,7 @@ if (strlen($_POST['password']) < 8) {
 $password = hash('sha256', $_POST['new_pwd']);
 
 $sth = $pdo->prepare('UPDATE users SET password=? WHERE code = ?');
-$sth->execute([$_POST['new_pwd'], $code]);
+$sth->execute([$password, $code]);
 header('location: ../../lost_credentials_form/?success=password');
 exit() ;
 ?>
