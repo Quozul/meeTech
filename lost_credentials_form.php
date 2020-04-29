@@ -16,6 +16,7 @@
             <input type="submit" class="btn btn-primary" value="Envoi du mail">
         </form>
         <hr>
+        <?php if (!(isset($_GET['code']) && isset($_GET['mail']))) { ?>
         <form id="token_verification" method="get" action="" autocomplete="off" novalidate>
             <div class="form-group">
                 <label for="verif_code">Adresse email</label>
@@ -29,10 +30,10 @@
         </form>
         <hr>
         <?php
-
-        if (isset($_GET['code'])) {
+        }
+        if (isset($_GET['code']) && isset($_GET['mail'])) {
             $code = htmlspecialchars($_GET['code']);
-            $mail = htmlspecialchars($_POST['mail']) ;
+            $mail = htmlspecialchars($_GET['mail']) ;
             $sth = $pdo->prepare('SELECT code FROM users WHERE email = ? AND code = ?');
             $sth->execute([$mail, $code]);
             $rec = $sth->fetch()[0];
