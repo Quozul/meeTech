@@ -29,7 +29,7 @@
             </div>
         <?php } ?>
 
-        <h1>Nouveaux articles ajoutés</h1>
+        <h1>Derniers articles postés</h1>
         <div class="d-flex flex-row justify-content-around">
             <?php $req = $pdo->prepare('SELECT id_m, author, title, content, date_published, username, file_name FROM message
               LEFT JOIN users ON id_u = author
@@ -41,11 +41,9 @@
             foreach ($articles as $key => $article) {
             ?>
                 <div class="card" style="width: 18rem;">
-                    <?php if (isset($article['image'])) { ?>
-                        <img src="
-                        <?php if(!empty($article['file_name'])) echo '/uploads/' . $article['file_name'] ;
-                        else echo 'https://www.meetech.ovh/images/logov4.svg' ; ?>" alt="Image article" class="card-img-top">
-                    <?php } ?>
+                    <img src="
+                    <?php if(!empty($article['file_name'])) echo '/uploads/' . $article['file_name'] ;
+                    else echo 'https://www.meetech.ovh/images/logov4.svg' ; ?>" alt="Image article" class="card-img-top">
 
                     <div class="card-header">
                         <h5 class="card-title"><?php echo $article['title']; ?></h5>
