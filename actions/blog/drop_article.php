@@ -2,8 +2,8 @@
 require($_SERVER['DOCUMENT_ROOT'] . '/config.php') ;
 $article = htmlspecialchars($_GET['post']) ;
 
-$q = $pdo->prepare('SELECT category FROM message WHERE id_m = ?') ;
-$q->execute([$article]) ;
+$q = $pdo->prepare('SELECT category FROM message WHERE id_m = ? AND author = ?') ;
+$q->execute([$article, $_SESSION['userid']]) ;
 $category = $q->fetch() ;
 $category = $category['category'] ;
 

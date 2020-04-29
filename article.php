@@ -53,7 +53,6 @@
 <!-- Valid article display -->
         <?php
         } else {
-          include('includes/blog/edit_modal.php') ;
         ?>
         <small class="text-muted">
            <a href="/community/?cat=<?= $message['category'] ; ?>">« Retour au <?= $message['category'] ; ?></a>
@@ -75,6 +74,7 @@
           }
           if (isset($_SESSION['userid'])) {
             if ($_SESSION['userid'] == $message['author']) {
+              include('includes/blog/edit_modal.php') ;
           ?>
           <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#editModal">Éditer</button>
           <?php

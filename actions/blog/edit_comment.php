@@ -16,11 +16,12 @@ $comment = htmlspecialchars(trim($_POST['comm'])) ;
 $content = htmlspecialchars(trim($_POST['commentContent'])) ;
 $date = date('Y-m-d H:i:s') ;
 
-$query = $pdo->prepare('UPDATE comment SET content = :content, date_edited = :de WHERE id_c = :id') ;
+$query = $pdo->prepare('UPDATE comment SET content = :content, date_edited = :de WHERE id_c = :id AND author = :user') ;
 $result = $query->execute([
   'content' => $content,
   'de' => $date,
-  'id' => $comment
+  'id' => $comment,
+  'user' => $_SESSION['userid']
 ]) ;
 echo $result ;
 ?>

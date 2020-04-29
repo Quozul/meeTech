@@ -13,11 +13,11 @@ $stmt->execute([$comment]) ;
 $childs = $stmt->fetchAll() ;
 
 if (count($childs) == 0) {
-  $query = $pdo->prepare('DELETE FROM comment WHERE id_c = ?') ;
-  $result = $query->execute([$comment]) ;
+  $query = $pdo->prepare('DELETE FROM comment WHERE id_c = ? AND author = ?') ;
+  $result = $query->execute([$comment, $_SESSION['userid']]) ;
 } else {
-  $query = $pdo->prepare('UPDATE comment SET content = ? WHERE id_c = ?') ;
-  $result = $query->execute(['*Commentaire supprimé*', $comment]) ;
+  $query = $pdo->prepare('UPDATE comment SET content = ? WHERE id_c = ? AND author = ?') ;
+  $result = $query->execute(['*Commentaire supprimé*', $comment, $_SESSION['userid']]) ;
 }
 
 echo $result ;

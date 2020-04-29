@@ -74,18 +74,19 @@
                               <?php $dp = new DateTime($article['date_published']) ; ?>
                               <small class="text-muted">Publié le <?= $dp->format('d/m/Y à H:i') ; ?> by <a href="/user/?id=<?= $article['author'] ; ?>"><?= $article['username'] ; ?></a></small>
                             </p>
-                            <p class="card-text">Autres langues :
-                              <?php
-                              $stmt = $pdo->prepare('SELECT language, icon, label FROM translation
-                                LEFT JOIN language ON lang = language
-                                WHERE original_message = ?') ;
-                              $stmt->execute([$article['id_m']]) ;
-                              $translations = $stmt->fetchAll() ;
-                              foreach ($translations as $t) {
-                              ?>
-                              <span onclick="getTranslation(<?= $message_id ; ?>, '<?= $t['language']; ?>')"><?= $t['icon'] ; ?></span>
+
+                            <?php
+                            $stmt = $pdo->prepare('SELECT language, icon, label FROM translation
+                              LEFT JOIN language ON lang = language
+                              WHERE original_message = ?') ;
+                            $stmt->execute([$article['id_m']]) ;
+                            $translations = $stmt->fetchAll() ;
+                            if (count($translations) > 0) { ?>
+                            <p class="card-text text-muted">Autres langues :
+                              <?php foreach ($translations as $t) { ?>
+                                <span onclick="getTranslation(<?= $message_id ; ?>, '<?= $t['language']; ?>')"><?= $t['icon'] ; ?></span>
+                              <?php } ?>
                             <?php } ?>
-                            </p>
                         </div>
                     </article>
                 </div>

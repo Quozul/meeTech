@@ -14,6 +14,7 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
       // get children comments
       $req = $pdo->prepare('SELECT id_c, author, avatar, username, content, date_published, date_edited, signaled FROM comment
         LEFT JOIN users ON id_u = author
+        LE
         WHERE parent_comment = ? ORDER BY date_published DESC') ;
       $req->execute([$comment['id_c']]) ;
       $child_comments = $req->fetchAll() ;
@@ -24,7 +25,10 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
             <div class="float-right">
               <?php if (isset($_SESSION['userid'])) { ?>
                 <button class="badge badge-success mr-2" onclick="markComment(<?= $comment['id_c'] ; ?>)">+</button>
-                <?php if ($comment['author'] == $_SESSION['userid'] && $comment['content'] != '*Commentaire supprimé*') { ?>
+                <?php
+                if ($comment['author'] == $_SESSION['userid'] && $comment['content'] != '*Commentaire supprimé*') {
+                  include('includes/blog/edit_collapse.php') ;
+                ?>
                   <button class="badge badge-danger btn-sm mr-2" onclick="dropComment(<?= $comment['id_c'] ; ?>)">Supprimer</button>
                   <button class="badge badge-secondary btn-sm mr-2" onclick="editComment(<?= $comment['id_c'] ; ?>)">Modifier</button>
                 <?php } ?>
@@ -49,14 +53,6 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
             </small>
 
             <div class="mb-0 markdown" id="comment<?= $comment['id_c'] ; ?>"><p><?= $comment['content'] ; ?></p></div>
-
-            <div class="collapse" id="collapseEdit<?php echo $comment['id_c'] ; ?>">
-              <textarea type="text" class="form-control form-control" id="editContent<?php echo $comment['id_c'] ; ?>" name="editComment"><?= $comment['content'] ; ?></textarea>
-              <div class="collapse-footer">
-                <button class="btn btn-secondary btn-sm" onclick="getComments()">Annuler</button>
-                <button class="btn btn-primary btn-sm" onclick="submitModif(<?php echo $comment['id_c'] ; ?>)">Modifier</button>
-              </div>
-            </div>
 
             <?php if (isset($_SESSION['userid'])) { ?>
             <small class="badge badge-primary ml-5" data-toggle="collapse" href="#collapseResp<?php echo $comment['id_c'] ; ?>" aria-expanded="false" aria-controls="collapseResp<?php echo $comment['id_c'] ; ?>">Répondre</small>

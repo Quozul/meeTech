@@ -30,8 +30,8 @@ $content = htmlspecialchars(trim($_POST['content'])) ;
 $language = htmlspecialchars(trim($_POST['language'])) ;
 $date = date('Y-m-d H:i:s') ;
 
-$q = $pdo->prepare('UPDATE message SET title = ?, content = ?, default_language = ?, date_edited = ? WHERE id_m = ?') ;
-$q->execute([$title, $content, $language, $date, $id]) ;
+$q = $pdo->prepare('UPDATE message SET title = ?, content = ?, default_language = ?, date_edited = ? WHERE id_m = ? AND author = ?') ;
+$q->execute([$title, $content, $language, $date, $id, $_SESSION['userid']]) ;
 
 header('location: /article/?post=' . $id . '&success=edit') ;
 exit() ;
