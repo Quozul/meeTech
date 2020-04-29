@@ -31,7 +31,7 @@
 
         <h1>Nouveaux articles ajoutés</h1>
         <div class="d-flex flex-row justify-content-around">
-            <?php $req = $pdo->prepare('SELECT id_m, author, title, content, date_published, username FROM message LEFT JOIN users ON id_u = author ORDER BY date_published DESC');
+            <?php $req = $pdo->prepare('SELECT id_m, author, title, content, date_published, username, file_name FROM message LEFT JOIN users ON id_u = author ORDER BY date_published DESC LIMIT 3');
             $req->execute();
             $articles = $req->fetchAll();
 
@@ -39,7 +39,9 @@
             ?>
                 <div class="card" style="width: 18rem;">
                     <?php if (isset($article['image'])) { ?>
-                        <img class="card-img-top" src="" alt="Card image cap">
+                        <img src="
+                        <?php if(!empty($article['file_name'])) echo '/uploads/' . $article['file_name'] ;
+                        else echo 'https://www.meetech.ovh/images/logov4.svg' ; ?>" alt="Image article" class="card-img-top">
                     <?php } ?>
 
                     <div class="card-header">
