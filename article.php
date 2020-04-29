@@ -109,7 +109,7 @@
             <label for="image">Image</label>
             <input type="file" class="form-control-file" id="image" name="image">
             <small class="text-muted">Taille maximale : 5Mo</small>
-            <input type="submit" value="Envoyer" class="form-control">
+            <input type="submit" value="Envoyer" class="btn btn-primary">
           </form>
         <?php } ?>
         <div style="min-height: 250px;">

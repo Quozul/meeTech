@@ -1,9 +1,6 @@
-<!-- Image inputs
-<label for="image">Image</label>
-<input type="file" class="form-control-file" id="image" name="image">
-<small class="text-muted">Taille maximale : 5Mo</small> -->
-
 <?php
+$id_m = htmlspecialchars($_GET['post'])
+
 if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   $accept = [
       'image/jpeg',
@@ -48,10 +45,7 @@ if (isset($_FILES['image']) && !empty($_FILES['image'])) {
     'message' => $id_m,
     'name' => $newname
   ]) ;
-
-  echo $res ;
-  return ;
 }
-echo '-1' ;
-return ;
+header('location: /article/?post=' . $id_m) ;
+exit() ;
 ?>
