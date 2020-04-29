@@ -1,6 +1,6 @@
 <?php
 
-include('/config.php');
+include('../../config.php');
 
 $code = htmlspecialchars($_POST['code']) ;
 $error = '';
