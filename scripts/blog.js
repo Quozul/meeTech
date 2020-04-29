@@ -162,30 +162,23 @@ function reportComment(id) {
 
 function getTranslation(message, language) {
   const titleInput = document.getElementById('article-title') ;
-  const contentInput = document.getElementById('content-input') ;
+  const contentInput = document.getElementById('article-content') ;
 
-  titleInput.innerHTML = getTitle(message, language) ;
-  contentInput.innerHTML = getContent(message, language) ;
-}
-
-function getTitle (message, language) {
   let request = new XMLHttpRequest();
   request.open('GET', `/actions/blog/get_translation_t/?post=${message}&lang=${language}`);
   request.onreadystatechange = function () {
     if (request.readyState === 4) {
-      return request.responseText ;
+      titleInput.innerHTML = request.responseText ;
     }
   };
   request.send();
-}
 
-function getContent(message, language) {
-  let request = new XMLHttpRequest();
-  request.open('GET', `/actions/blog/get_translation_c/?post=${message}&lang=${language}`);
-  request.onreadystatechange = function () {
-    if (request.readyState === 4) {
-      return request.responseText ;
+  let request2 = new XMLHttpRequest();
+  request2.open('GET', `/actions/blog/get_translation_c/?post=${message}&lang=${language}`);
+  request2.onreadystatechange = function () {
+    if (request2.readyState === 4) {
+      contentInput.innerHTML = request2.responseText ;
     }
   };
-  request.send();
+  request2.send();
 }
