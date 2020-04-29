@@ -20,7 +20,7 @@ if (!isset($_POST['title'])
     || empty(trim($_POST['content']))
     || !isset($_POST['language'])
     || empty(trim($_POST['language']))) {
-  header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/translate/?post=' . $article . '&error=notset') ;
+  header('location: /translate/?post=' . $article . '&error=notset') ;
   exit() ;
 }
 
@@ -30,7 +30,7 @@ $query->execute([$article]) ;
 $default = $query->fetch()[0] ;
 
 if ($default == $language) {
-  header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/translate/?post=' . $article . '&error=original') ;
+  header('location: /translate/?post=' . $article . '&error=original') ;
   exit() ;
 }
 
@@ -40,7 +40,7 @@ $langs = $query->fetchAll() ;
 
 foreach($langs as $lang) {
   if ($lang['language'] == $language) {
-    header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/translate/?post=' . $article . '&error=exists') ;
+    header('location: /translate/?post=' . $article . '&error=exists') ;
     exit() ;
   }
 }
@@ -59,6 +59,6 @@ $result = $stmt->execute([
   'date_trans' => $date
 ]);
 
-header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/article/?post=' . $article) ;
+header('location: /article/?post=' . $article) ;
 exit() ;
 ?>
