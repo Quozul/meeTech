@@ -104,6 +104,14 @@
         <?php if (!empty($message['file_name'])) { ?>
         <a href="/uploads/<?= $message['file_name'] ; ?>" target="_blank"><img src="/uploads/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;"></a>
         <?php } ?>
+        <?php if ($_SESSION['userid'] == $message['author']) { ?>
+          <form enctype="multipart/form-data" action="/actions/blog/edit_image/?post=<?= $message_id ; ?>">
+            <label for="image">Image</label>
+            <input type="file" class="form-control-file" id="image" name="image">
+            <small class="text-muted">Taille maximale : 5Mo</small>
+            <input type="submit" value="Envoyer" class="form-control">
+          </form>
+        <?php } ?>
         <div style="min-height: 250px;">
           <div class="markdown" id="article-content"><?= $message['content'] ; ?></div>
           <button id="articleMark" type="button" class="btn btn-success" onclick="markArticle()"></button>

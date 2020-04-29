@@ -5,7 +5,7 @@
 
 <body>
     <?php include('includes/header.php');
-    if (isset($_SESSION['userid'])) {
+    if (!isset($_SESSION['userid'])) {
       include('includes/nothing.php') ;
     } else {
 

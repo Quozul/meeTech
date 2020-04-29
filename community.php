@@ -74,6 +74,18 @@
                               <?php $dp = new DateTime($article['date_published']) ; ?>
                               <small class="text-muted">Publié le <?= $dp->format('d/m/Y à H:i') ; ?> by <a href="/user/?id=<?= $article['author'] ; ?>"><?= $article['username'] ; ?></a></small>
                             </p>
+                            <p class="card-text">Autres langues :
+                              <?php
+                              $stmt = $pdo->prepare('SELECT language, icon, label FROM translation
+                                LEFT JOIN language ON lang = language
+                                WHERE original_message = ?') ;
+                              $stmt->execute([$message_id]) ;
+                              $translations = $stmt->fetchAll() ;
+                              foreach ($translations as $t) {
+                              ?>
+                              <span onclick="getTranslation(<?= $message_id ; ?>, '<?= $t['language']; ?>')"><?= $t['icon'] ; ?></span>
+                            <?php } ?>
+                            </p>
                         </div>
                     </article>
                 </div>

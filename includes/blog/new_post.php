@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="submit-article" onsubmit="checkArticle()" method="post" action="/actions/blog/add_article/" autocomplete="off" enctype="multipart/form-data">
+        <form id="submit-article" onsubmit="checkArticle()" method="post" action="/actions/blog/add_article/" autocomplete="off">
             <div class="form-group">
                 <label for="title">Titre de l'article*</label>
                 <input type="text" class="form-control" id="title" placeholder="Titre de l'article" name="title">
