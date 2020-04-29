@@ -29,10 +29,37 @@
             </div>
         <?php } ?>
 
+        <h1>Nouveaux articles ajoutés</h1>
+        <div class="d-flex flex-row justify-content-around">
+            <?php $req = $pdo->prepare('SELECT id_m, author, title, content, date_published, username FROM message LEFT JOIN users ON id_u = author ORDER BY date_published DESC');
+            $req->execute();
+            $articles = $req->fetchAll();
+
+            foreach ($articles as $key => $article) {
+            ?>
+                <div class="card" style="width: 18rem;">
+                    <?php if (isset($article['image'])) { ?>
+                        <img class="card-img-top" src="" alt="Card image cap">
+                    <?php } ?>
+
+                    <div class="card-header">
+                        <h5 class="card-title"><?php echo $article['title']; ?></h5>
+                    </div>
+
+                    <div class="card-body">
+                        <?= $article['content'] ?><br>
+                    </div>
+
+                    <div class="card-footer">
+                        <a href="<?php echo '/article.php?post=' . $article['id_m']; ?>" class="card-link">Lire</a>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+
         <h1>Nouveaux composants ajoutés</h1>
         <div class="d-flex flex-row justify-content-around">
-            <?php
-            $req = $pdo->prepare('SELECT id_c, brand, name, added_by, added_date, type FROM component ORDER BY added_date DESC LIMIT 3');
+            <?php $req = $pdo->prepare('SELECT id_c, brand, name, added_by, added_date, type FROM component ORDER BY added_date DESC LIMIT 3');
             $req->execute();
             $components = $req->fetchAll();
 
@@ -43,8 +70,8 @@
 
                 $req = $pdo->prepare('SELECT name FROM component_type where id_t = ?');
                 $req->execute([$component['type']]);
-                $type = $req->fetch()[0];
-            ?>
+                $type = $req->fetch()[0]; ?>
+
                 <div class="card" style="width: 18rem;">
                     <?php if (isset($component['image'])) { ?>
                         <img class="card-img-top" src="" alt="Card image cap">
@@ -74,9 +101,10 @@
                             }
                         } ?>
                     </ul>
+
                     <div class="card-body">
                         <a href="<?php echo '/view_component.php?id=' . $component['id_c']; ?>" class="card-link">Découvrir</a>
-                        <a href="#" class="card-link disabled">Comparer</a>
+                        <!-- <a href="#" class="card-link disabled">Comparer</a> -->
                     </div>
                 </div>
             <?php } ?>
