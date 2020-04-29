@@ -38,8 +38,8 @@ $query = $pdo->prepare('SELECT language FROM translation WHERE original_message 
 $query->execute([$article]) ;
 $langs = $query->fetchAll() ;
 
-foreach($langs as $lang => $name) {
-  if ($name == $language) {
+foreach($langs as $lang) {
+  if ($lang['language'] == $language) {
     header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/translate/?post=' . $article . '&error=exists') ;
     exit() ;
   }
@@ -58,6 +58,7 @@ $result = $stmt->execute([
   'user' => $_SESSION['userid'],
   'date_trans' => $date
 ]);
-echo $result;
-return ;
+
+header('location: ' . $_SERVER['DOCUMENT_ROOT'] . '/article/?post=' . $article) ;
+exit() ;
 ?>
