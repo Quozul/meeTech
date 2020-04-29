@@ -1,6 +1,6 @@
 <?php if (isset($_SESSION['userid'])) {
-    // $sth = $pdo->prepare('SELECT username, SUM(notif) AS notifs FROM users LEFT JOIN recipient ON id_u = author WHERE id_u = ?');
-    $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ? ');
+    $sth = $pdo->prepare('SELECT username, SUM(notif) AS notifs FROM users LEFT JOIN recipient ON id_u = author WHERE id_u = ?');
+    // $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ? ');
     $sth->execute([$_SESSION['userid']]);
     $rec = $sth->fetchAll();
     $query = $pdo->prepare('SELECT badge FROM badged WHERE user = ?');
