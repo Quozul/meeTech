@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <a href="<?php echo '/article.php?post=' . $article['id_m']; ?>" class="card-link">Lire</a>
+                        <a href="<?php echo '/article.php?post=' . $article['id_m']; ?>" class="card-link stretched-link">Lire</a>
                     </div>
                 </div>
             <?php } ?>
@@ -106,7 +106,7 @@
                     </ul>
 
                     <div class="card-body">
-                        <a href="<?php echo '/view_component.php?id=' . $component['id_c']; ?>" class="card-link">Découvrir</a>
+                        <a href="<?php echo '/view_component.php?id=' . $component['id_c']; ?>" class="card-link stretched-link">Découvrir</a>
                         <!-- <a href="#" class="card-link disabled">Comparer</a> -->
                     </div>
                 </div>
