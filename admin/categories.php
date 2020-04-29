@@ -124,6 +124,6 @@
             </div>
         </main>
         <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php') ; ; ?>
-        <script src="../categories.js" charset="utf-8"></script>
+        <script src="../categories.js"></script>
     </body>
 </html>

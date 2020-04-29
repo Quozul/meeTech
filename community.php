@@ -49,7 +49,7 @@
                 $query->execute([$article['id_m']]) ;
                 $mark = $query->fetch()[0] ;
             ?>
-            <section class="card mb-3" style="max-width: width;">
+            <section class="card mb-3">
                 <div class="row no-gutters">
                     <aside class="col-md-4">
                         <img src="

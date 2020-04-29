@@ -41,7 +41,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <a href="/actions/blog/drop_article/?post=<?= $message_id ; ?>" type="button" class="btn btn-danger">Supprimer l'article</a>
+        <a href="/actions/blog/drop_article/?post=<?= $message_id ; ?>" class="btn btn-danger">Supprimer l'article</a>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
         <input type="submit" class="btn btn-primary" form="edit_article" value="Enregistrer">
       </div>

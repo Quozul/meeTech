@@ -40,7 +40,7 @@
         $categories = $query->fetchAll() ;
         foreach ($categories as $cat) {
         ?>
-        <a href="/community/?cat=<?= $cat['name'] ; ?>" type="button" class="btn btn-primary">Go to <?= ucfirst($cat['name']) ; ?></a>
+        <a href="/community/?cat=<?= $cat['name'] ; ?>" class="btn btn-primary">Go to <?= ucfirst($cat['name']) ; ?></a>
         <?php } ?>
 
 <!-- Valid article display -->
@@ -63,7 +63,7 @@
     <?php include('includes/footer.php') ; ?>
 
 
-    <script src="/scripts/markdown.js" charset="utf-8"></script>
-    <script src="/scripts/blog.js" charset="utf-8"></script>
+    <script src="/scripts/markdown.js"></script>
+    <script src="/scripts/blog.js"></script>
   </body>
 </html>

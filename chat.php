@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <?php include('includes/head.php'); ?>
 
@@ -68,9 +68,9 @@
     <?php } ?>
 
     <?php include('includes/footer.php') ?>
-    <script src="/scripts/markdown.js" charset="utf-8"></script>
-    <script src="/scripts/chat.js" charset="utf-8"></script>
-    <script src="/scripts/main.js" charset="utf-8"></script>
+    <script src="/scripts/markdown.js"></script>
+    <script src="/scripts/chat.js"></script>
+    <script src="/scripts/main.js"></script>
 
 </body>
 </html>
