@@ -105,7 +105,7 @@
         <a href="/uploads/<?= $message['file_name'] ; ?>" target="_blank"><img src="/uploads/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;"></a>
         <?php } ?>
         <?php if ($_SESSION['userid'] == $message['author']) { ?>
-          <form enctype="multipart/form-data" action="/actions/blog/edit_image/?post=<?= $message_id ; ?>">
+          <form enctype="multipart/form-data" method="post" action="/actions/blog/edit_image/?post=<?= $message_id ; ?>">
             <label for="image">Image</label>
             <input type="file" class="form-control-file" id="image" name="image">
             <small class="text-muted">Taille maximale : 5Mo</small>

@@ -1,5 +1,6 @@
 <?php
-$id_m = htmlspecialchars($_GET['post'])
+require('../../config.php') ;
+$id_m = htmlspecialchars($_GET['post']) ;
 
 if (isset($_FILES['image']) && !empty($_FILES['image'])) {
   $accept = [

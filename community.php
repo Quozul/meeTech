@@ -79,7 +79,7 @@
                               $stmt = $pdo->prepare('SELECT language, icon, label FROM translation
                                 LEFT JOIN language ON lang = language
                                 WHERE original_message = ?') ;
-                              $stmt->execute([$message_id]) ;
+                              $stmt->execute([$article['id_m']]) ;
                               $translations = $stmt->fetchAll() ;
                               foreach ($translations as $t) {
                               ?>
