@@ -2,6 +2,8 @@
 
 include('../../config.php');
 
+$code = htmlspecialchars($_POST['code']) ;
+
 $error = '';
 $password = hash('sha256', $_POST['new_pwd']);
 // Password min 8 char
@@ -23,8 +25,8 @@ if (strlen($_POST['password']) < 8) {
     header('location: ../../lost_credentials_form/?=' . $error);
 }
 if ($_POST['new_pwd'] == $_POST['confirm_pwd']) {
-    $sth = $pdo->prepare('UPDATE users SET password=?');
-    $sth->execute($_POST['new_pwd']);
+    $sth = $pdo->prepare('UPDATE users SET password=? WHERE code = ?');
+    $sth->execute([$_POST['new_pwd'], $code]);
 } else {
     $error = $error . 'Le_mot_de_passe_ne_corresponds_pas';
     header('location: ../../lost_credentials_form/?=' . $error);

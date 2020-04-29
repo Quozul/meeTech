@@ -44,6 +44,10 @@
             else { ?>
                 <form id="lost_credentials_form" method="post" action="/actions/profile/new_pwd.php" autocomplete="off" novalidate>
                     <div class="form-group">
+                        <label for="code">Code</label>
+                        <input type="code" class="form-control" id="code" name="code" value="<?= $code ; ?>" readonly>
+                    </div>
+                    <div class="form-group">
                         <label for="password1">Password</label>
                         <input type="password" class="form-control" id="new_pwd" name="new_pwd" placeholder="Votre nouveau mot de passe">
                     </div>
