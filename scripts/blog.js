@@ -170,7 +170,7 @@ function getTranslation(message, language) {
 
 function getTitle (message, language) {
   let request = new XMLHttpRequest();
-  request.open('GET', `/actions/blog/get_translation_t/?post=${message}&lang=${language}c);
+  request.open('GET', `/actions/blog/get_translation_t/?post=${message}&lang=${language}`);
   request.onreadystatechange = function () {
     if (request.readyState === 4) {
       return request.responseText ;
@@ -181,7 +181,7 @@ function getTitle (message, language) {
 
 function getContent(message, language) {
   let request = new XMLHttpRequest();
-  request.open('GET', '/actions/blog/get_translation_c/?post=' + message + '&lang=' + language);
+  request.open('GET', `/actions/blog/get_translation_c/?post=${message}&lang=${language}`);
   request.onreadystatechange = function () {
     if (request.readyState === 4) {
       return request.responseText ;
