@@ -16,7 +16,7 @@ switch ($_GET['lang']) {
         break;
     case 'C++':
         echo 'Pour ceux qui préfère avoir accès à des simplifications du C.';
-        echo '<br>Le langage C€ semble supérieur !';
+        echo '<br>Le langage C# semble supérieur !';
         break;
     case 'C#':
         echo 'Aussi appelé "Microsoft Java".';
@@ -30,7 +30,7 @@ switch ($_GET['lang']) {
         echo 'Pour ceux qui ne veulent pas se cacher derrière un langage, utiliser celui-ci. Il doit être traduit dans un autre langage avant d\'être compilé.';
         echo '<br>Le langage ActionScript semble supérieur !';
         break;
-    case 'Ruby':
+    case 'Rust':
         echo 'Le C du futur.';
         echo '<br>Le langage Perl semble supérieur !';
         break;
