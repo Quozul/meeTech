@@ -14,7 +14,6 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
       // get children comments
       $req = $pdo->prepare('SELECT id_c, author, avatar, username, content, date_published, date_edited, signaled FROM comment
         LEFT JOIN users ON id_u = author
-        LE
         WHERE parent_comment = ? ORDER BY date_published DESC') ;
       $req->execute([$comment['id_c']]) ;
       $child_comments = $req->fetchAll() ;
