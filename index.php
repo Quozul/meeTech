@@ -31,7 +31,10 @@
 
         <h1>Nouveaux articles ajoutés</h1>
         <div class="d-flex flex-row justify-content-around">
-            <?php $req = $pdo->prepare('SELECT id_m, author, title, content, date_published, username, file_name FROM message LEFT JOIN users ON id_u = author ORDER BY date_published DESC LIMIT 3');
+            <?php $req = $pdo->prepare('SELECT id_m, author, title, content, date_published, username, file_name FROM message
+              LEFT JOIN users ON id_u = author
+              LEFT JOIN file ON message = id_m
+              ORDER BY date_published DESC LIMIT 3');
             $req->execute();
             $articles = $req->fetchAll();
 
