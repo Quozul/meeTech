@@ -26,8 +26,14 @@ if (isset($_POST['post']) && !empty($_POST['post'])) {
                 <button class="badge badge-success mr-2" onclick="markComment(<?= $comment['id_c'] ; ?>)">+</button>
                 <?php
                 if ($comment['author'] == $_SESSION['userid'] && $comment['content'] != '*Commentaire supprimé*') {
-                  include('/includes/blog/edit_collapse.php') ;
                 ?>
+                  <div class="collapse" id="collapseEdit<?php echo $comment['id_c'] ; ?>">
+                    <textarea type="text" class="form-control form-control" id="editContent<?php echo $comment['id_c'] ; ?>" name="editComment"><?= $comment['content'] ; ?></textarea>
+                    <div class="collapse-footer">
+                      <button class="btn btn-secondary btn-sm" onclick="getComments()">Annuler</button>
+                      <button class="btn btn-primary btn-sm" onclick="submitModif(<?php echo $comment['id_c'] ; ?>)">Modifier</button>
+                    </div>
+                  </div>
                   <button class="badge badge-danger btn-sm mr-2" onclick="dropComment(<?= $comment['id_c'] ; ?>)">Supprimer</button>
                   <button class="badge badge-secondary btn-sm mr-2" onclick="editComment(<?= $comment['id_c'] ; ?>)">Modifier</button>
                 <?php } ?>
