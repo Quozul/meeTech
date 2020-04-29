@@ -40,7 +40,7 @@
                             </td>
                             <td scope="row" id="user<?= $user['id_u']; ?>"><?= $user['id_u']; ?></td>
                             <td><img src="/uploads/<?= $user['avatar']; ?>" alt="<?= $user['avatar']; ?>" style="max-width: 64px; max-height: 64px;"></td>
-                            <td><a href="https://www.meetech.ovh/user/?id=<?= $user['id_u']; ?>"><?= $user['username']; ?></a></td>
+                            <td><a href="/user/?id=<?= $user['id_u']; ?>"><?= $user['username']; ?></a></td>
                             <td><?= $user['email']; ?></td>
                             <td><?= $user['location']; ?></td>
                             <td><?= $user['prefered_language']; ?></td>

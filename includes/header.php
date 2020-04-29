@@ -1,10 +1,20 @@
 <?php if (isset($_SESSION['userid'])) {
-    $sth = $pdo->prepare('SELECT username, SUM(notif) AS notifs FROM users LEFT JOIN recipient ON id_u = author WHERE id_u = ?');
+    // $sth = $pdo->prepare('SELECT username, SUM(notif) AS notifs FROM users LEFT JOIN recipient ON id_u = author WHERE id_u = ?');
+    $sth = $pdo->prepare('SELECT username FROM users WHERE id_u = ? ');
     $sth->execute([$_SESSION['userid']]);
     $rec = $sth->fetchAll();
+    $query = $pdo->prepare('SELECT badge FROM badged WHERE user = ?');
+    $query->execute([$_SESSION['userid']]);
+    $badges = $query->fetchAll();
+    $admin = false;
+    $modo = false;
+    foreach ($badges as $b) {
+        if ($b['badge'] == 'Administrateur') $admin = true;
+        if ($b['badge'] == 'Modérateur') $modo = true;
+    }
 }
-$query = $pdo->query('SELECT name FROM category') ;
-$categories = $query->fetchAll() ; ?>
+$query = $pdo->query('SELECT name FROM category');
+$categories = $query->fetchAll(); ?>
 
 <header class="mb-4">
     <nav class="navbar navbar-expand-lg <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) echo 'mt-backoffice-color'; ?>">
@@ -34,9 +44,9 @@ $categories = $query->fetchAll() ; ?>
                             Communauté
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                          <?php foreach($categories as $cat) { ?>
-                          <a class="dropdown-item" href="/community/?cat=<?= $cat['name'] ; ?>"><?= $cat['name'] ; ?></a>
-                          <?php } ?>
+                            <?php foreach ($categories as $cat) { ?>
+                                <a class="dropdown-item" href="/community/?cat=<?= $cat['name']; ?>"><?= $cat['name']; ?></a>
+                            <?php } ?>
                         </div>
                     </li>
                     <?php if (isset($rec)) { ?>
@@ -44,7 +54,7 @@ $categories = $query->fetchAll() ; ?>
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Profil
                                 <?php if ($rec[0]['notifs'] != 0) { ?>
-                                <span class="badge badge-alert"><?= $rec[0]['notifs'] ; ?></span>
+                                    <span class="badge badge-alert"><?= $rec[0]['notifs']; ?></span>
                                 <?php } ?>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -52,9 +62,9 @@ $categories = $query->fetchAll() ; ?>
                                     <?php echo $rec[0]['username']; ?>
                                 </a>
                                 <a class="dropdown-item" href="/chat/">Messagerie privée
-                                  <?php if ($rec[0]['notifs'] != 0) { ?>
-                                  <span class="badge badge-alert"><?= $rec[0]['notifs'] ; ?></span>
-                                  <?php } ?>
+                                    <?php if ($rec[0]['notifs'] != 0) { ?>
+                                        <span class="badge badge-alert"><?= $rec[0]['notifs']; ?></span>
+                                    <?php } ?>
                                 </a>
                             </div>
                         </li>
