@@ -7,28 +7,28 @@ $error = '';
 
 //Is set password and confirmation
 if (!isset($_POST['new_pwd']) || !isset($_POST['confirm_pwd'])) {
-    $error = $error . 'password_not_set;';
+    $error = $error . 'password_not_set';
     header('location: /lost_credentials_form/?error=' . $error);
     exit() ;
 }
 
 //Both not empty
 if (empty($_POST['confirm_pwd']) || empty($_POST['new_pwd'])) {
-    $error = $error . 'confirm_password;';
+    $error = $error . 'confirm_password';
     header('location: /lost_credentials_form/?error=' . $error);
     exit() ;
 }
 
 //Not equivalent
 if ($_POST['new_pwd'] != $_POST['confirm_pwd']) {
-    $error = $error . 'incorrect_password;';
+    $error = $error . 'incorrect_password';
     header('location: /lost_credentials_form/?error=' . $error);
     exit() ;
 }
 
 // Password min 8 char
-if (strlen($_POST['password']) < 8) {
-    $error = $error . 'password_too_short;';
+if (strlen($_POST['new_pwd']) < 8) {
+    $error = $error . 'password_too_short';
     header('location: /lost_credentials_form/?error=' . $error);
 }
 
