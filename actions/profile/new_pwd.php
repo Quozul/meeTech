@@ -13,7 +13,7 @@ if (!isset($_POST['new_pwd']) || !isset($_POST['confirm_pwd'])) {
 }
 
 //Both not empty
-if (!empty($_POST['confirm-pwd']) || !empty($_POST['new_pwd'])) {
+if (!empty($_POST['confirm_pwd']) || !empty($_POST['new_pwd'])) {
     $error = $error . 'confirm_password;';
     header('location: ../../lost_credentials_form/?error=' . $error);
     exit() ;
@@ -36,6 +36,8 @@ $password = hash('sha256', $_POST['new_pwd']);
 
 $sth = $pdo->prepare('UPDATE users SET password=? WHERE code = ?');
 $sth->execute([$password, $code]);
+$q = $pdo->prepare('UPDATE users SET code = NULL WHERE code = ?') ;
+$q->execute([$code]) ;
 header('location: ../../lost_credentials_form/?success=password');
 exit() ;
 ?>
