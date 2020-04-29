@@ -35,7 +35,7 @@
                                 <img src="/images/<?php echo $res['img_badge']; ?>" alt="<?= $res['name']; ?>'s badge' " class="mt-badge col-2" style="max-width: 64px; max-height: 64px;" title="<?= $res['description']; ?>">
                             <?php } ?>
                         </div>
-                        <?php if ($admin) { ?>
+                        <?php if (isset($admin) && $admin == true) { ?>
                             <select class="custom-select col-md-3" id="badge_name" name="badge">
                                 <option>Sélectionnez un badge</option>
                                 <?php
