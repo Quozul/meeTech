@@ -109,7 +109,7 @@
           <button id="articleMark" type="button" class="btn btn-success" onclick="markArticle()"></button>
         </div>
 
-        <?php if ($_SESSION['userid'] == $message['author']) { ?>
+        <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] == $message['author']) { ?>
           <form enctype="multipart/form-data" method="post" action="/actions/blog/edit_image/?post=<?= $message_id ; ?>">
             <label for="image">Image</label>
             <input type="file" class="form-control-file" id="image" name="image">

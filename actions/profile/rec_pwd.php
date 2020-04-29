@@ -37,7 +37,8 @@ $headers .= "Content-type:text/html;charset=UTF-8\r\n";
 $headers .= "From: no-reply@meetech.ovh\r\n";
 $email = $_POST['email'];
 $subject = "Récupération du mot de passe ";
-$message = "Cliquez sur le lien pour valider votre compte :" . '<a href="https://www.meetech.ovh/lost_credentials_form/"></a><br>'
+$message = "Cliquez sur le lien pour valider votre compte :" .
+'https://www.meetech.ovh/lost_credentials_form/?mail=' . $email . '&code=' . $code . '<br>'
 . "Votre code de vérification : " . $code;
 
 mail($email, $subject, $message, $headers);

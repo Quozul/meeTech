@@ -18,8 +18,12 @@
         <hr>
         <form id="token_verification" method="post" action="/actions/profile/verif_code.php" autocomplete="off" novalidate>
             <div class="form-group">
+                <label for="verif_code">Adresse email</label>
+                <input type="text" class="form-control" id="verif_mail" name="mail" placeholder="code de verification" value="<?= isset($_GET['email'] ? htmlspecialchars($_GET['email']) : '' ; ?>">
+            </div>
+            <div class="form-group">
                 <label for="verif_code">Code de verification</label>
-                <input type="text" class="form-control" id="verif_code" name="code" placeholder="code de verification">
+                <input type="text" class="form-control" id="verif_code" name="code" placeholder="code de verification" value="<?= isset($_GET['code'] ? htmlspecialchars($_GET['code']) : '' ; ?>">
             </div>
             <input type="submit" class="btn btn-primary" value="Valider votre code">
         </form>
