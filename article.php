@@ -58,11 +58,21 @@
         <small class="text-muted">
            <a href="/community/?cat=<?= $message['category'] ; ?>">« Retour au <?= $message['category'] ; ?></a>
         </small>
-        <h1><?= $message['title'] ; ?></h1>
+        <h1 id="article-title"><?= $message['title'] ; ?></h1>
 
         <div class="float-right">
-          <span><?= $message['icon'] ; ?></span>
+          <span onclick="getTranslation(<?= $message_id . ', '  . $message['default_language']; ?>)"><?= $message['icon'] ; ?></span>
           <?php
+          $stmt = $pdo->prepare('SELECT language, icon, label FROM translation
+            LEFT JOIN language ON lang = language
+            WHERE original_message = ?') ;
+          $stmt->execute([$message_id]) ;
+          $translations = $stmt->fetchAll() ;
+          foreach ($translations as $t) {
+          ?>
+          <span onclick="getTranslation(<?= $message_id . ', '  . $t['language']; ?>)"><?= $t['icon'] ; ?></span>
+          <?php
+          }
           if (isset($_SESSION['userid'])) {
             if ($_SESSION['userid'] == $message['author']) {
           ?>
@@ -95,7 +105,7 @@
         <a href="/uploads/<?= $message['file_name'] ; ?>" target="_blank"><img src="/uploads/<?= $message['file_name'] ; ?>" class="rounded float-left mb-3 mr-3" alt="Image of article <?= $message_id ; ?>" style="max-width:250px;max-height:250px;"></a>
         <?php } ?>
         <div style="min-height: 250px;">
-          <div class="markdown"><?= $message['content'] ; ?></div>
+          <div class="markdown" id="article-content"><?= $message['content'] ; ?></div>
           <button id="articleMark" type="button" class="btn btn-success" onclick="markArticle()"></button>
         </div>
         <script type="text/javascript">

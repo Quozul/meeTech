@@ -23,8 +23,7 @@
               <select class="custom-select" id="language" name="language">
                   <option <?php if ($message['default_language'] == NULL) echo 'selected' ; ?>>Sélectionnez la langue de l'article</option>
                   <?php
-                  $q = $pdo->prepare('SELECT lang FROM language') ;
-                  $q->execute() ;
+                  $q = $pdo->query('SELECT lang FROM language') ;
                   $languages = $q->fetchAll() ;
                   var_dump($languages) ;
                   foreach($languages as $option) {

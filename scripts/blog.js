@@ -158,3 +158,34 @@ function reportComment(id) {
   };
   request.send();
 }
+
+
+function getTranslation(message, language) {
+  const titleInput = document.getElementById('article-title') ;
+  const contentInput = document.getElementById('content-input') ;
+
+  titleInput.innerHTML = getTitle(message, language) ;
+  contentInput.innerHTML = getContent(message, language) ;
+}
+
+function getTitle (message, language) {
+  let request = new XMLHttpRequest();
+  request.open('GET', `/actions/blog/get_translation_t/?post=${message}&lang=${language}`);
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      return request.responseText ;
+    }
+  };
+  request.send();
+}
+
+function getContent(message, language) {
+  let request = new XMLHttpRequest();
+  request.open('GET', '/actions/blog/get_translation_c/?post=' + message + '&lang=' + language);
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      return request.responseText ;
+    }
+  };
+  request.send();
+}
