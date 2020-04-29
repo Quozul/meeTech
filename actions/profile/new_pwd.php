@@ -23,7 +23,7 @@ if (strlen($_POST['password']) < 8) {
     header('location: ../../lost_credentials_form/?=' . $error);
 }
 if ($_POST['new_pwd'] == $_POST['confirm_pwd']) {
-    $sth = $pdo->prepare('INSERT INTO users VALUES password=?');
+    $sth = $pdo->prepare('UPDATE users SET password=?');
     $sth->execute($_POST['new_pwd']);
 } else {
     $error = $error . 'Le_mot_de_passe_ne_corresponds_pas';
