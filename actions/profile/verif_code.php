@@ -14,6 +14,6 @@ if ($code != $rec || !isset($code)) {
     $error = $error . "code_invalide";
     header('location: ../../lost_credentials_form/?error=' . $error);
     exit();
-} else {
-    header('location: ../../lost_credentials_form/');
 }
+header('location: ../../lost_credentials_form/?code=' . $code);
+exit() ;

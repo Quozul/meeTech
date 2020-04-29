@@ -16,26 +16,26 @@
             <input type="submit" class="btn btn-primary" value="Envoi du mail">
         </form>
         <hr>
-        <form id="token_verification" method="post" action="/actions/profile/verif_code.php" autocomplete="off" novalidate>
+        <form id="token_verification" method="get" action="" autocomplete="off" novalidate>
             <div class="form-group">
                 <label for="verif_code">Adresse email</label>
-                <input type="text" class="form-control" id="verif_mail" name="mail" placeholder="code de verification" value="<?= isset($_GET['email'] ? htmlspecialchars($_GET['email']) : '' ; ?>">
+                <input type="text" class="form-control" id="verif_mail" name="mail" placeholder="code de verification" value="<?= isset($_GET['email']) ? htmlspecialchars($_GET['email']) : '' ; ?>">
             </div>
             <div class="form-group">
                 <label for="verif_code">Code de verification</label>
-                <input type="text" class="form-control" id="verif_code" name="code" placeholder="code de verification" value="<?= isset($_GET['code'] ? htmlspecialchars($_GET['code']) : '' ; ?>">
+                <input type="text" class="form-control" id="verif_code" name="code" placeholder="code de verification" value="<?= isset($_GET['code']) ? htmlspecialchars($_GET['code']) : '' ; ?>">
             </div>
             <input type="submit" class="btn btn-primary" value="Valider votre code">
         </form>
         <hr>
         <?php
 
-        if (isset($_POST['code'])) {
-            $code = ($_POST['code']);
-            $sth = $pdo->prepare('SELECT code FROM users WHERE email = ?');
-            $sth->execute([$code]);
-            $rec = $sth->fetch();
-
+        if (isset($_GET['code'])) {
+            $code = htmlspecialchars($_GET['code']);
+            $mail = htmlspecialchars($_POST['mail']) ;
+            $sth = $pdo->prepare('SELECT code FROM users WHERE email = ? AND code = ?');
+            $sth->execute([$mail, $code]);
+            $rec = $sth->fetch()[0];
 
 
             if ($code != $rec)
